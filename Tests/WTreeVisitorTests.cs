@@ -1,6 +1,6 @@
 using NUnit.Framework;
 using PiBa.UI;
-using PiBa.UI.Interfaces;
+using PiBa.UI.Widgets;
 
 namespace PiBa.Tests
 {
@@ -32,19 +32,6 @@ namespace PiBa.Tests
         public void ShouldThrowArgumentExceptionWithNull()
         {
             Assert.That(() => WTreeVisitor.ApplyToTree(null, w => {}), Throws.ArgumentNullException);
-        }
-    }
-
-    public class Container : Widget
-    {
-        public override void Update()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public override void Draw()
-        {
-            throw new System.NotImplementedException();
         }
     }
 }

@@ -6,7 +6,7 @@ namespace PiBa.UI
 {
     public static class WTreeVisitor
     {
-        public static void ApplyToTree(WidgetTree widgetTree, Action<Widget> action)
+        public static void ApplyToTree(WidgetTree widgetTree, Action<IWidget> action)
         {
             if(widgetTree == null) throw new ArgumentNullException(nameof(widgetTree));
             action(widgetTree.Root);

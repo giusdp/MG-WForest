@@ -5,10 +5,10 @@ namespace PiBa.UI
 {
     public class WidgetTree
     {
-        public Widget Root { get; set; }
+        public IWidget Root { get; private set; }
         public WidgetTree[] Children { get; set; }
 
-        public WidgetTree(Widget root)
+        public WidgetTree(IWidget root)
         {
             Root = root;
             Children = Array.Empty<WidgetTree>();
