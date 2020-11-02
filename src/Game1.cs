@@ -19,6 +19,14 @@ namespace PiBa
             _userInterface = new UI.UserInterface();
         }
 
+        protected override void Initialize()
+        {
+            base.Initialize();
+            _graphics.PreferredBackBufferWidth = 1280;
+            _graphics.PreferredBackBufferHeight = 720;
+            _graphics.ApplyChanges();
+        }
+
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
@@ -41,12 +49,14 @@ namespace PiBa
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            var blankTexture = new Texture2D(_spriteBatch.GraphicsDevice, 1, 1);
+            // var blankTexture = new Texture2D(_spriteBatch.GraphicsDevice, 1, 1);
+            //
+            // blankTexture.SetData(new[] {Color.White});
+            // _spriteBatch.Begin();
+            // _spriteBatch.Draw(blankTexture, Rectangle.Empty, Color.Aqua);
+            // _spriteBatch.End();
             
-            blankTexture.SetData(new[] {Color.White});
-            _spriteBatch.Begin();
-            _spriteBatch.Draw(blankTexture, Rectangle.Empty, Color.Aqua);
-            _spriteBatch.End();
+            _userInterface.Draw();
             
             // TODO: Add your drawing code here
             base.Draw(gameTime);
