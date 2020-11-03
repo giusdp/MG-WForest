@@ -5,7 +5,7 @@ namespace PiBa.UI.Factories
 {
     public static class ConstraintFactory
     {
-        public static IConstraint CreateCenterCostraint(Point widgetSize) => new Center(widgetSize);
+        public static IConstraint CreateCenterConstraint() => new Center();
        
     }
 }

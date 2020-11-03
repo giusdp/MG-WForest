@@ -1,27 +1,25 @@
 using Microsoft.Xna.Framework;
+using PiBa.UI.Widgets;
+using PiBa.Utilities.Collections;
 
 namespace PiBa.UI.Constraints
 {
     public class Center : IConstraint
     {
-        private Point Size { get; }
-
-        public Center(Point size)
+        public void EnforceOn(Tree<Widget> widgetNode)
         {
-            Size = size;
+            var parentSpace = widgetNode.Parent.Data.Props.Space;
+            var size = widgetNode.Data.Props.Space.Size;
+            widgetNode.Data.Props.Space = new Rectangle(GetCenterLocation(parentSpace, size), size);
         }
 
-        public Rectangle Enforce(Rectangle parentSpace)
-        {
-            return new Rectangle(location: GetCenterLocation(parentSpace), Size);
-        }
-
-        private Point GetCenterLocation(Rectangle parent)
+        private static Point GetCenterLocation(Rectangle parent, Point size)
         {
             var (x, y, width, height) = parent;
+            var (w, h) = size;
             return new Point(
-                (int) ((width - x) / 2f - Size.X / 2f),
-                (int) ((height - y) / 2f - Size.Y / 2f)
+                (int) ((width - x) / 2f - w / 2f),
+                (int) ((height - y) / 2f - h / 2f)
             );
         }
     }

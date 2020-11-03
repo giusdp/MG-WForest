@@ -6,10 +6,10 @@ namespace PiBa.Utilities.Collections
     public class Tree<T> : IEnumerable<Tree<T>>
     {
         public T Data { get; set; }
-        private Tree<T> Parent { get; set; }
+        public Tree<T> Parent { get; set; }
         public ICollection<Tree<T>> Children { get; set; }
 
-        private bool IsRoot => Parent == null;
+        public bool IsRoot => Parent == null;
 
         public bool IsLeaf => Children.Count == 0;
 
