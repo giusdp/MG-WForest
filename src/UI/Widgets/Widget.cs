@@ -1,21 +1,14 @@
-using System.Collections.Generic;
-using PiBa.UI.Constraints;
-using PiBa.Utilities.Collections;
+using Microsoft.Xna.Framework;
 
 namespace PiBa.UI.Widgets
 {
     public class Widget
     {
-        public Props Props { get; }
-        public List<IConstraint> Constraints { get; }
+        public Rectangle Space { get; set; }
 
-        protected Widget(Props props) 
+        public Widget(Rectangle space)
         {
-            Props = props;
-            Constraints = new List<IConstraint>();
+            Space = space;
         }
- 
-        public void AddConstraint(IConstraint constraint) => Constraints.Add(constraint);
-        
     }
 }

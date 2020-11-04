@@ -8,9 +8,9 @@ namespace PiBa.UI.Constraints
     {
         public void EnforceOn(Tree<Widget> widgetNode)
         {
-            var parentSpace = widgetNode.Parent.Data.Props.Space;
-            var size = widgetNode.Data.Props.Space.Size;
-            widgetNode.Data.Props.Space = new Rectangle(GetCenterLocation(parentSpace, size), size);
+            var parentSpace = widgetNode.Parent.Data.Space;
+            var size = widgetNode.Data.Space.Size;
+            widgetNode.Data.Space = new Rectangle(GetCenterLocation(parentSpace, size), size);
         }
 
         private static Point GetCenterLocation(Rectangle parent, Point size)

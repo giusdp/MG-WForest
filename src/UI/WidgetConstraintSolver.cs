@@ -6,12 +6,13 @@ namespace PiBa.UI
 {
     public static class WidgetConstraintSolver
     {
-        public static bool EnforceConstraints(Tree<Widget> widgetTree)
+        public static bool EnforceConstraints(Tree<Widget> widgetTree, ConstraintsMap constraints)
         {
             ApplyToWidgetTree(widgetTree, nodeWidget =>
             {
-                nodeWidget.Data.Constraints.ForEach(c => c.EnforceOn(nodeWidget));
-                Console.WriteLine($"Is Root? {nodeWidget.IsRoot} Space: {nodeWidget.Data.Props.Space}");
+                var widgetConstraints = constraints.GetConstraintsOf(nodeWidget);
+                widgetConstraints.ForEach(c => c.EnforceOn(nodeWidget));
+                Console.WriteLine($"Is Root? {nodeWidget.IsRoot} Space: {nodeWidget.Data.Space}");
             } );
             return false;
         }
