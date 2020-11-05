@@ -3,7 +3,7 @@ using PiBa.Exceptions;
 
 namespace PiBa
 {
-    public static class Window
+    public static class GraphicsInfo
     {
         private static GraphicsDevice _graphicsDevice;
 
@@ -15,7 +15,7 @@ namespace PiBa
         public static GraphicsDevice GetGraphicsDevice()
         {
             if (_graphicsDevice == null)
-                throw new WindowNotInitializedException("Tried to get device but window is not initialized.");
+                throw new GraphicsInfoNotInitializedException("Tried to get device but window is not initialized.");
             return _graphicsDevice;
         }
     }

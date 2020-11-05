@@ -7,7 +7,7 @@ namespace PiBa
 {
     public class Game1 : Game
     {
-        private GraphicsDeviceManager _graphics;
+        private readonly GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private UserInterface _userInterface;
 
@@ -24,6 +24,8 @@ namespace PiBa
             _graphics.PreferredBackBufferWidth = 1280;
             _graphics.PreferredBackBufferHeight = 720;
             _graphics.ApplyChanges();
+            
+            GraphicsInfo.Initialize(_graphics.GraphicsDevice);
         }
 
         protected override void LoadContent()
