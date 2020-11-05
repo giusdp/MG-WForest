@@ -16,7 +16,6 @@ namespace PiBa
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
-            _userInterface = new UserInterface();
         }
 
         protected override void Initialize()
@@ -30,7 +29,7 @@ namespace PiBa
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-
+            _userInterface = new UserInterface(_spriteBatch);
         }
 
         protected override void Update(GameTime gameTime)
@@ -47,7 +46,9 @@ namespace PiBa
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
+            _spriteBatch.Begin();
             _userInterface.Draw();
+            _spriteBatch.End();
             
             base.Draw(gameTime);
         }

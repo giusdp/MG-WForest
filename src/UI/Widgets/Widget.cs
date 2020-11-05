@@ -1,4 +1,6 @@
+using System;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace PiBa.UI.Widgets
 {
@@ -9,6 +11,11 @@ namespace PiBa.UI.Widgets
         public Widget(Rectangle space)
         {
             Space = space;
+        }
+
+        public virtual void Draw(SpriteBatch spriteBatch)
+        {
+            Console.WriteLine("Drawing container");
         }
     }
 }
