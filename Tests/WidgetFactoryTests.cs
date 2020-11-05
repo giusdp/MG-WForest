@@ -10,19 +10,11 @@ namespace PiBa.Tests
     [TestFixture]
     public class WidgetFactoryTests
     {
-        public void BeforeEach()
-        {
-        }
-        
-        [Test]
-        public void CreateButton_NotInitialized_ThrowsError()
-        {
-            Assert.That(WidgetFactory.CreateButton, Throws.TypeOf<WindowNotInitializedException>());
-        }
-
         [Test]
         public void CreateButton_FactoryInitialized_ReturnsButton()
         {
+            var button = WidgetFactory.CreateButton();
+            Assert.That(button, Is.Not.Null);
         }
     }
 }
