@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.Xna.Framework;
 using PiBa.UI.Widgets;
 using PiBa.Utilities.Collections;
@@ -8,12 +9,13 @@ namespace PiBa.UI.Constraints
     {
         public void EnforceOn(Tree<Widget> widgetNode)
         {
+            if (widgetNode.Parent == null) return;
             var parentSpace = widgetNode.Parent.Data.Space;
             var size = widgetNode.Data.Space.Size;
-            widgetNode.Data.Space = new Rectangle(GetCenterLocation(parentSpace, size), size);
+            widgetNode.Data.Space = new Rectangle(GetLocationToCenterElementInRect(parentSpace, size), size);
         }
 
-        private static Point GetCenterLocation(Rectangle parent, Point size)
+        public static Point GetLocationToCenterElementInRect(Rectangle parent, Point size)
         {
             var (x, y, width, height) = parent;
             var (w, h) = size;
