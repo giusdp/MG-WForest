@@ -7,18 +7,18 @@ using PiBa.Utilities.Collections;
 
 namespace PiBa.UI
 {
-    public class UserInterface : IGameObject
+    public class HUD : IGameObject
     {
         private readonly Tree<Widget> _root;
-        private readonly ConstraintsMap _constraints;
+        private readonly ConstraintsDict _constraints;
 
         private readonly SpriteBatch _spriteBatch;
 
-        public UserInterface(SpriteBatch spriteBatch)
+        public HUD(SpriteBatch spriteBatch)
         {
-            // _spriteBatch = spriteBatch;
-            // _constraints = new ConstraintsMap();
-            // _root = new Tree<Widget>(new Container(Window.WindowView));
+            _spriteBatch = spriteBatch;
+            _constraints = new ConstraintsDict();
+            _root = new Tree<Widget>(new Container(new Rectangle(0,0,1280,720)));
             //
             // _constraints.Register(_root);
 

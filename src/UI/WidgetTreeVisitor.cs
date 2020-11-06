@@ -12,7 +12,7 @@ namespace PiBa.UI
             TreeVisitor<Widget>.ApplyToTree(widgetTree, w => w.Data.Draw(spriteBatch));
         }
         
-        public static void EnforceConstraints(Tree<Widget> widgetTree, ConstraintsMap constraints)
+        public static void EnforceConstraints(Tree<Widget> widgetTree, ConstraintsDict constraints)
         {
             TreeVisitor<Widget>.ApplyToTree(widgetTree, nodeWidget =>
                constraints.GetConstraintsOf(nodeWidget).ForEach(c => c.EnforceOn(nodeWidget))

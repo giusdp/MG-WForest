@@ -9,7 +9,7 @@ namespace PiBa
     {
         private readonly GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-        private UserInterface _userInterface;
+        private HUD _hud;
 
         public Game1()
         {
@@ -31,7 +31,7 @@ namespace PiBa
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            _userInterface = new UserInterface(_spriteBatch);
+            _hud = new HUD(_spriteBatch);
         }
 
         protected override void Update(GameTime gameTime)
@@ -40,7 +40,7 @@ namespace PiBa
                 Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            _userInterface.Update();
+            _hud.Update();
             base.Update(gameTime);
         }
 
@@ -49,7 +49,7 @@ namespace PiBa
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             _spriteBatch.Begin();
-            _userInterface.Draw();
+            _hud.Draw();
             _spriteBatch.End();
             
             base.Draw(gameTime);

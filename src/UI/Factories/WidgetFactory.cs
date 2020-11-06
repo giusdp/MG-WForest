@@ -8,10 +8,14 @@ namespace PiBa.UI.Factories
 {
     public static class WidgetFactory
     {
-
         public static Button CreateButton()
         {
             return new Button(Rectangle.Empty, new Sprite(""), new Sprite(""), new Sprite("") );
+        }
+
+        public static Container CreateContainer(Rectangle space)
+        {
+            return new Container(space);
         }
 
     }
