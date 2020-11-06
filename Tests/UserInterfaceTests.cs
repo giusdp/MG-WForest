@@ -3,7 +3,7 @@ using NUnit.Framework;
 namespace PiBa.Tests
 {
     [TestFixture]
-    public class UserIntefaceTests
+    public class UserInterfaceTests
     {
         
     }
