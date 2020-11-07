@@ -29,7 +29,7 @@ namespace PiBa
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            GraphicsInfo.Initialize(GraphicsDevice);
+            AssetLoader.Initialize(Content);
             _hud = new HUD(_spriteBatch);
         }
 
