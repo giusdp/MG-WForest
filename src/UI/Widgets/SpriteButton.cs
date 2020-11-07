@@ -11,10 +11,10 @@ namespace PiBa.UI.Widgets
         private Sprite HoverButton;
         private Sprite PressedButton;
 
-        public SpriteButton(Sprite normalButton) 
-            : base(new Rectangle(0, 0, normalButton.Texture2D.Width, normalButton.Texture2D.Height))
+        public SpriteButton(Sprite normalButton) : base(Rectangle.Empty)
         {
-            NormalButton = normalButton;
+            NormalButton = normalButton ?? throw new ArgumentNullException();
+            Space = new Rectangle(0,0,normalButton.Texture2D.Width, normalButton.Texture2D.Height);
         }
 
         public override void Draw(SpriteBatch spriteBatch)

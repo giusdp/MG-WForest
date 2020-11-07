@@ -18,7 +18,7 @@ namespace PiBa.UI
         {
             _spriteBatch = spriteBatch;
             _constraints = new ConstraintsDict();
-            _root = new Tree<Widget>(WidgetFactory.CreateButton());
+            _root = new Tree<Widget>(WidgetFactory.CreateSpriteButton(null));
             _constraints.Register(_root);
             
             // _constraints.Register(_root);

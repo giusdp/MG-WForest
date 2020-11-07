@@ -9,7 +9,7 @@ namespace PiBa.Rendering
 
         public Sprite(string image)
         {
-            
+            Texture2D = Texture2D.FromFile(GraphicsInfo.GetGraphicsDevice(), image);
         }
     }
 }
