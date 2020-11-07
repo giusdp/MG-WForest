@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using PiBa.Interfaces;
+using PiBa.Rendering;
 using PiBa.UI.Factories;
 using PiBa.UI.Widgets;
 using PiBa.Utilities.Collections;
@@ -18,7 +19,7 @@ namespace PiBa.UI
         {
             _spriteBatch = spriteBatch;
             _constraints = new ConstraintsDict();
-            _root = new Tree<Widget>(WidgetFactory.CreateSpriteButton(null));
+            _root = new Tree<Widget>(WidgetFactory.CreateSpriteButton(new Sprite("Sprite-0001")));
             _constraints.Register(_root);
             
             // _constraints.Register(_root);

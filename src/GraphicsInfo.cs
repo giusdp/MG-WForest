@@ -15,7 +15,7 @@ namespace PiBa
         public static GraphicsDevice GetGraphicsDevice()
         {
             if (_graphicsDevice == null)
-                throw new GraphicsInfoNotInitializedException("Tried to get device but window is not initialized.");
+                throw new GraphicsInfoNotInitializedException("Tried to get graphics device but GraphicsInfo is not initialized.");
             return _graphicsDevice;
         }
     }

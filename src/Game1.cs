@@ -24,13 +24,12 @@ namespace PiBa
             _graphics.PreferredBackBufferWidth = 1280;
             _graphics.PreferredBackBufferHeight = 720;
             _graphics.ApplyChanges();
-            
-            GraphicsInfo.Initialize(_graphics.GraphicsDevice);
         }
 
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+            GraphicsInfo.Initialize(GraphicsDevice);
             _hud = new HUD(_spriteBatch);
         }
 
