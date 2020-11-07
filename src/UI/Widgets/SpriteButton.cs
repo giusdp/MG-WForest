@@ -5,21 +5,20 @@ using PiBa.Rendering;
 
 namespace PiBa.UI.Widgets
 {
-    public class Button : Widget
+    public class SpriteButton : Widget
     {
         private Sprite NormalButton;
         private Sprite HoverButton;
         private Sprite PressedButton;
-        public Button(Rectangle space, Sprite normalButton, Sprite hoverButton, Sprite pressedButton) : base(space)
+
+        public SpriteButton(Sprite normalButton) 
+            : base(new Rectangle(0, 0, normalButton.Texture2D.Width, normalButton.Texture2D.Height))
         {
             NormalButton = normalButton;
-            HoverButton = hoverButton;
-            PressedButton = pressedButton;
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            
             Console.WriteLine("Drawing button");
         }
     }

@@ -5,9 +5,9 @@ namespace PiBa.Rendering
 {
     public class Sprite
     {
-        private Texture2D _texture2D;
+        public Texture2D Texture2D { get; }
 
-        public Sprite( string image_path)
+        public Sprite(string image)
         {
             
         }
