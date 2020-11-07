@@ -13,7 +13,7 @@ namespace PiBa.UI.Widgets
 
         public SpriteButton(Sprite normalButton) : base(Rectangle.Empty)
         {
-            NormalButton = normalButton ?? throw new ArgumentNullException();
+            NormalButton = normalButton ?? throw new ArgumentNullException($"{GetType()} Button sprite cannot be null!");
             Space = new Rectangle(0,0,normalButton.Texture2D.Width, normalButton.Texture2D.Height);
         }
 
