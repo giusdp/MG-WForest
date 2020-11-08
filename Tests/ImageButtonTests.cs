@@ -9,7 +9,7 @@ namespace PiBa.Tests
         [Test]
         public void SpriteButton_NullSprite_ThrowsError()
         {
-            Assert.That(() => new SpriteButton(null), Throws.ArgumentNullException);
+            Assert.That(() => new ImageButton(null), Throws.ArgumentNullException);
         }
     }
 }

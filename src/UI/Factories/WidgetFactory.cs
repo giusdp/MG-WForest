@@ -1,16 +1,14 @@
-using System;
 using Microsoft.Xna.Framework;
-using PiBa.Exceptions;
-using PiBa.Rendering;
+using Microsoft.Xna.Framework.Graphics;
 using PiBa.UI.Widgets;
 
 namespace PiBa.UI.Factories
 {
     public static class WidgetFactory
     {
-        public static SpriteButton CreateSpriteButton(Sprite sprite)
+        public static ImageButton CreateImageButton(string image)
         {
-            return new SpriteButton(sprite);
+            return new ImageButton(AssetLoader.Load<Texture2D>(image));
         }
 
         public static Container CreateContainer(Rectangle space)

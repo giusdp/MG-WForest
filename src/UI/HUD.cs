@@ -1,6 +1,5 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using PiBa.Rendering;
 using PiBa.UI.Factories;
 
 namespace PiBa.UI
@@ -16,7 +15,7 @@ namespace PiBa.UI
             _spriteBatch = spriteBatch;
             _root = new WidgetTree(WidgetFactory.CreateContainer(new Rectangle(0, 0, 1280, 720)));
 
-            var btn = _root.AddChild(WidgetFactory.CreateSpriteButton(new Sprite("Sprite-0001")));
+            var btn = _root.AddChild(WidgetFactory.CreateImageButton("Sprite-0001"));
 
             btn.AddConstraint(ConstraintFactory.CreateCenterConstraint());
         }
