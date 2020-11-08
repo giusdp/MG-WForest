@@ -7,14 +7,14 @@ using PiBa.Utilities.Collections;
 
 namespace PiBa.UI
 {
-    public static class WidgetTreeVisitor
+    public class WidgetTreeVisitor
     {
-        public static void DrawTree(WidgetTree widgetTree, SpriteBatch spriteBatch)
+        public void DrawTree(WidgetTree widgetTree, SpriteBatch spriteBatch)
         {
             TreeVisitor<Widget>.ApplyToTree(widgetTree, w => ((WidgetTree) w).DrawWidget(spriteBatch));
         }
 
-        public static void EnforceConstraints(WidgetTree widgetTree)
+        public void EnforceConstraints(WidgetTree widgetTree)
         {
             TreeVisitor<Widget>.ApplyToTree(widgetTree, w => ((WidgetTree) w).EnforceConstraints());
         }
