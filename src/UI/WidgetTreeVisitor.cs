@@ -1,9 +1,8 @@
 using System;
-using System.Linq;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using PiBa.UI.Widgets;
 using PiBa.Utilities;
-using PiBa.Utilities.Collections;
 
 namespace PiBa.UI
 {
@@ -18,5 +17,14 @@ namespace PiBa.UI
         {
             TreeVisitor<Widget>.ApplyToTree(widgetTree, w => ((WidgetTree) w).EnforceConstraints());
         }
+
+        public Maybe<WidgetTree> CheckHovering(WidgetTree widgetTree, Point mouseLoc)
+        {
+          var m = TreeVisitor<Widget>.GetLowestNodeThatHolds(widgetTree, w => ((WidgetTree) w).isHovered(mouseLoc));
+          Maybe<WidgetTree> r = Maybe.None; 
+          m.Match(t => r = Maybe.Some((WidgetTree) t), () => {});
+          return r;
+        }
+
     }
 }

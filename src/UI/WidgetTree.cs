@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using PiBa.UI.Constraints;
 using PiBa.UI.Widgets;
@@ -34,5 +35,6 @@ namespace PiBa.UI
             => Constraints.ForEach(c => c.EnforceOn(this));
 
         public void DrawWidget(SpriteBatch spriteBatch) => Data.Draw(spriteBatch);
+        public bool isHovered(Point mouseLoc) => Data.IsHovered(mouseLoc);
     }
 }

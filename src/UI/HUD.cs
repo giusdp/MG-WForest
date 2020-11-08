@@ -1,5 +1,7 @@
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using PiBa.UI.Factories;
 using PiBa.UI.Widgets;
 
@@ -31,6 +33,8 @@ namespace PiBa.UI
         public void Update()
         { 
             // Check for hover?
+            var mw = _widgetTreeVisitor.CheckHovering(_root, Mouse.GetState().Position);
+            mw.Match(some => Console.WriteLine(some.Data.ToString()), () => Console.WriteLine("No hovering"));
         }
 
         public void Draw() => _widgetTreeVisitor.DrawTree(_root, _spriteBatch);

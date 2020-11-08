@@ -42,5 +42,7 @@ namespace PiBa.Tests
         {
             Assert.That(() => t.AddChild(null), Throws.ArgumentNullException);
         }
+        
+        
     }
 }

@@ -21,5 +21,8 @@ namespace PiBa.UI.Widgets
         {
             spriteBatch.Draw(NormalButton, new Vector2(Space.X, Space.Y), Color.White);
         }
+        
+        
+        public override string ToString() => $"ImageButton Widget with a Space of {Space}";
     }
 }
