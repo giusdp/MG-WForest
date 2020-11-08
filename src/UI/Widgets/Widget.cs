@@ -15,7 +15,6 @@ namespace PiBa.UI.Widgets
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            Console.WriteLine("Drawing container");
         }
     }
 }

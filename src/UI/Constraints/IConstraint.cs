@@ -6,6 +6,7 @@ namespace PiBa.UI.Constraints
 {
     public interface IConstraint
     {
-        void EnforceOn(Tree<Widget> widgetNode);
+        bool isSatisfied { get; }
+        void EnforceOn(WidgetTree widgetNode);
     }
 }

@@ -1,7 +1,5 @@
+using System.Linq;
 using NUnit.Framework;
-using PiBa.UI;
-using PiBa.UI.Factories;
-using PiBa.UI.Widgets;
 using PiBa.Utilities;
 using PiBa.Utilities.Collections;
 
@@ -21,9 +19,9 @@ namespace PiBa.Tests
         public void ApplyToTree_TakesAnAction_AppliesItToAllNodes()
         {
             var tree = new Tree<int>(1);
-            var child = tree.AddChild(2);
-            tree.AddChild(10);
-            child.AddChild(20);
+            tree.Children.Add(new Tree<int>(2));
+            tree.Children.Add(new Tree<int>(10));
+            tree.Children.First().Children.Add(new Tree<int>(20));
             var count = 0;
             TreeVisitor<int>.ApplyToTree(tree, node => count += node.Data );
             Assert.That(count, Is.EqualTo(33));

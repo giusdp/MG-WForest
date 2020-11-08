@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using PiBa.UI;
 
 namespace PiBa.Utilities.Collections
 {
@@ -18,15 +19,6 @@ namespace PiBa.Utilities.Collections
             this.Data = data;
             this.Children = new LinkedList<Tree<T>>();
         }
-
-        public Tree<T> AddChild(T child)
-        {
-            var childNode = new Tree<T>(child) { Parent = this };
-            this.Children.Add(childNode);
-
-            return childNode;
-        }
-
         public override string ToString() => Data != null ? Data.ToString() : "[data null]";
 
         #region iterating

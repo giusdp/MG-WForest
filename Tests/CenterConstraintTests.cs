@@ -1,8 +1,8 @@
 using Microsoft.Xna.Framework;
 using NUnit.Framework;
+using PiBa.UI;
 using PiBa.UI.Constraints;
 using PiBa.UI.Widgets;
-using PiBa.Utilities.Collections;
 
 namespace PiBa.Tests
 {
@@ -32,7 +32,7 @@ namespace PiBa.Tests
         public void EnforceOn_WidgetWithoutParent_WidgetNotModified()
         {
             var center = new Center();
-            var widgetNode = new Tree<Widget>(new Widget(new Rectangle(0, 0, 1280, 720)));
+            var widgetNode = new WidgetTree(new Widget(new Rectangle(0, 0, 1280, 720)));
             var expected = widgetNode.Data.Space;
             center.EnforceOn(widgetNode);
             Assert.That(widgetNode.Data.Space, Is.EqualTo(expected));
@@ -42,11 +42,11 @@ namespace PiBa.Tests
         public void EnforceOn_ReturnsCenteredWidgetRelativeToParent()
         {
             var center = new Center();
-            var root = new Tree<Widget>(new Widget(new Rectangle(0, 0, 1280, 720)));
+            var root = new WidgetTree(new Widget(new Rectangle(0, 0, 1280, 720)));
             var widget = new Container(new Rectangle(Point.Zero, new Point(120, 120)));
-            var widgetNode = root.AddChild(widget);
+            var widgetNode =  root.AddChild(widget);
             var expected = new Rectangle(580, 300, 120, 120);
-            center.EnforceOn(widgetNode);
+            center.EnforceOn((WidgetTree) widgetNode);
             Assert.That(widgetNode.Data.Space, Is.EqualTo(expected));
         }
     }

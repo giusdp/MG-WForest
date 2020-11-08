@@ -1,3 +1,5 @@
+using System;
+using System.Linq;
 using Microsoft.Xna.Framework.Graphics;
 using PiBa.UI.Widgets;
 using PiBa.Utilities;
@@ -7,16 +9,14 @@ namespace PiBa.UI
 {
     public static class WidgetTreeVisitor
     {
-        public static void DrawTree(Tree<Widget> widgetTree, SpriteBatch spriteBatch)
+        public static void DrawTree(WidgetTree widgetTree, SpriteBatch spriteBatch)
         {
-            TreeVisitor<Widget>.ApplyToTree(widgetTree, w => w.Data.Draw(spriteBatch));
+            TreeVisitor<Widget>.ApplyToTree(widgetTree, w => ((WidgetTree) w).DrawWidget(spriteBatch));
         }
-        
-        public static void EnforceConstraints(Tree<Widget> widgetTree, ConstraintsDict constraints)
+
+        public static void EnforceConstraints(WidgetTree widgetTree)
         {
-            TreeVisitor<Widget>.ApplyToTree(widgetTree, nodeWidget =>
-               constraints.GetConstraintsOf(nodeWidget).ForEach(c => c.EnforceOn(nodeWidget))
-            );
+            TreeVisitor<Widget>.ApplyToTree(widgetTree, w => ((WidgetTree) w).EnforceConstraints());
         }
     }
 }
