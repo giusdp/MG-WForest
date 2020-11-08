@@ -16,5 +16,11 @@ namespace PiBa.UI.Widgets
         public virtual void Draw(SpriteBatch spriteBatch)
         {
         }
+
+        public virtual bool IsHovered()
+        {
+            
+            return false;
+        }
     }
 }

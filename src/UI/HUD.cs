@@ -29,8 +29,8 @@ namespace PiBa.UI
         }
 
         public void Update()
-        {
-            
+        { 
+            // Check for hover?
         }
 
         public void Draw() => _widgetTreeVisitor.DrawTree(_root, _spriteBatch);
