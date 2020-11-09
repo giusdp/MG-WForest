@@ -19,14 +19,6 @@ namespace PiBa.Utilities
         {
         }
 
-        public TResult Match<TResult>(Func<T, TResult> some, Func<TResult> none)
-        {
-            if (this is Some s)
-                return some(s.Value);
-
-            return none();
-        }
-
         public static implicit operator Maybe<T>(T value)
         {
             if (value == null)
