@@ -3,6 +3,7 @@ using NUnit.Framework;
 using PiBa.UI;
 using PiBa.UI.Constraints;
 using PiBa.UI.Widgets;
+using PiBa.UI.WidgetTreeHandlers;
 
 namespace PiBa.Tests
 {

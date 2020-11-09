@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using NUnit.Framework;
 using PiBa.UI;
 using PiBa.UI.Widgets;
+using PiBa.UI.WidgetTreeHandlers;
 using PiBa.Utilities;
 using PiBa.Utilities.Collections;
 

@@ -1,3 +1,4 @@
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -5,6 +6,7 @@ namespace PiBa.UI.Widgets
 {
     public class Widget
     {
+        
         public Rectangle Space { get; set; }
 
         public Widget(Rectangle space)
@@ -17,5 +19,10 @@ namespace PiBa.UI.Widgets
         }
 
         public override string ToString() => $"Basic Widget with a Space of {Space}";
+
+        public virtual void OnStartedHoveringEvent()
+        {
+            
+        }
     }
 }

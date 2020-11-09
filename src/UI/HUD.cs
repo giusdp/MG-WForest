@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using PiBa.UI.Factories;
 using PiBa.UI.Widgets;
+using PiBa.UI.WidgetTreeHandlers;
 
 namespace PiBa.UI
 {
