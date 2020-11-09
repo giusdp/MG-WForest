@@ -1,6 +1,6 @@
 using NUnit.Framework;
-using PiBa.UI.Constraints;
 using PiBa.UI.Factories;
+using PiBa.UI.Properties;
 
 namespace PiBa.Tests
 {
@@ -8,9 +8,9 @@ namespace PiBa.Tests
     public class ConstraintFactoryTests
     {
         [Test]
-        public void CreateCenterConstraint_ReturnsCenterConstraint()
+        public void CreateCenterProperty_ReturnsCenterProperty()
         {
-            var c = ConstraintFactory.CreateCenterConstraint();
+            var c = PropertyFactory.CreateCenterProperty();
             Assert.That(c, Is.TypeOf<Center>());
         }
     }

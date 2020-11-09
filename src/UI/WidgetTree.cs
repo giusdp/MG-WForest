@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework.Graphics;
-using PiBa.UI.Constraints;
+using PiBa.UI.Properties;
 using PiBa.UI.Widgets;
 using PiBa.Utilities.Collections;
 
@@ -9,17 +9,17 @@ namespace PiBa.UI
 {
     public class WidgetTree : Tree<Widget>
     {
-        public List<IConstraint> Constraints { get; }
+        public List<IProperty> Properties { get; }
 
         public WidgetTree(Widget data) : base(data)
         {
-            Constraints = new List<IConstraint>();
+            Properties = new List<IProperty>();
         }
 
-        public void AddConstraint(IConstraint constraint)
+        public void AddProperty(IProperty property)
         {
-            if (constraint == null) throw new ArgumentNullException(nameof(constraint));
-            Constraints.Add(constraint);
+            if (property == null) throw new ArgumentNullException(nameof(property));
+            Properties.Add(property);
         }
 
         public WidgetTree AddChild(Widget child)
@@ -31,7 +31,7 @@ namespace PiBa.UI
         }
 
         public void EnforceConstraints()
-            => Constraints.ForEach(c => c.EnforceOn(this));
+            => Properties.ForEach(c => c.ApplyOn(this));
 
         public void DrawWidget(SpriteBatch spriteBatch) => Data.Draw(spriteBatch);
 

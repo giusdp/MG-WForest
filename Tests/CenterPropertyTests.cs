@@ -1,14 +1,13 @@
 using Microsoft.Xna.Framework;
 using NUnit.Framework;
 using PiBa.UI;
-using PiBa.UI.Constraints;
+using PiBa.UI.Properties;
 using PiBa.UI.Widgets;
-using PiBa.UI.WidgetTreeHandlers;
 
 namespace PiBa.Tests
 {
     [TestFixture]
-    public class CenterConstraintTests
+    public class CenterPropertyTests
     {
         [Test]
         public void GetLocationToCenterElementInRect_ReturnsPoint()
@@ -35,7 +34,7 @@ namespace PiBa.Tests
             var center = new Center();
             var widgetNode = new WidgetTree(new Widget(new Rectangle(0, 0, 1280, 720)));
             var expected = widgetNode.Data.Space;
-            center.EnforceOn(widgetNode);
+            center.ApplyOn(widgetNode);
             Assert.That(widgetNode.Data.Space, Is.EqualTo(expected));
         }
 
@@ -47,7 +46,7 @@ namespace PiBa.Tests
             var widget = new Container(new Rectangle(Point.Zero, new Point(120, 120)));
             var widgetNode =  root.AddChild(widget);
             var expected = new Rectangle(580, 300, 120, 120);
-            center.EnforceOn((WidgetTree) widgetNode);
+            center.ApplyOn((WidgetTree) widgetNode);
             Assert.That(widgetNode.Data.Space, Is.EqualTo(expected));
         }
     }

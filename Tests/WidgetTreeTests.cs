@@ -20,15 +20,15 @@ namespace PiBa.Tests
         [Test]
         public void AddConstraint_AddConstraintToList()
         {
-            var c = ConstraintFactory.CreateCenterConstraint();
-            _t.AddConstraint(c);
-            Assert.That(_t.Constraints.Contains(c), Is.True);
+            var c = PropertyFactory.CreateCenterProperty();
+            _t.AddProperty(c);
+            Assert.That(_t.Properties.Contains(c), Is.True);
         }
 
         [Test]
         public void AddConstraint_NullInput()
         {
-            Assert.That(() => _t.AddConstraint(null), Throws.ArgumentNullException);
+            Assert.That(() => _t.AddProperty(null), Throws.ArgumentNullException);
         }
 
         [Test]

@@ -1,4 +1,3 @@
-using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -26,7 +25,7 @@ namespace PiBa.UI
             ((ImageButton) btn.Data).HoverButton = AssetLoader.Load<Texture2D>("Sprite-0002");
             ((ImageButton) btn.Data).PressedButton = AssetLoader.Load<Texture2D>("Sprite-0003");
 
-            btn.AddConstraint(ConstraintFactory.CreateCenterConstraint());
+            btn.AddProperty(PropertyFactory.CreateCenterProperty());
 
             _widgetTreeVisitor.EnforceConstraints(_root);
         }

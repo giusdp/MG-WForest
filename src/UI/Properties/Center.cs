@@ -1,10 +1,9 @@
 using Microsoft.Xna.Framework;
-
-namespace PiBa.UI.Constraints
+namespace PiBa.UI.Properties
 {
-    public class Center : IConstraint
+    public class Center : IProperty
     {
-        public void EnforceOn(WidgetTree widgetNode)
+        public void ApplyOn(WidgetTree widgetNode)
         {
             if (widgetNode.Parent == null) return;
             var parentSpace = widgetNode.Parent.Data.Space;
