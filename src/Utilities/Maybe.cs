@@ -27,18 +27,6 @@ namespace PiBa.Utilities
             return none();
         }
 
-        public void Match(Action<T> some, Action none)
-        {
-            if (this is Some s)
-            {
-                some(s.Value);
-            }
-            else
-            {
-                none();
-            }
-        }
-
         public static implicit operator Maybe<T>(T value)
         {
             if (value == null)
