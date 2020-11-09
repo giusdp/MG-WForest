@@ -20,12 +20,12 @@ namespace PiBa.UI.Widgets
 
         public override string ToString() => $"Basic Widget with a Space of {Space}";
 
-        public void StartedHovering()
+        public virtual void StartedHovering()
         {
             Console.WriteLine("Started Hovering on: " + ToString());
         }
 
-        public void StoppedHovering()
+        public virtual void StoppedHovering()
         {
             Console.WriteLine("Stopped Hovering on: " + ToString());
         }
