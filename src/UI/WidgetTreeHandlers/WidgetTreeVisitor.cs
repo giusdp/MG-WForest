@@ -1,7 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using PiBa.UI.Widgets;
-using PiBa.UI;
 using PiBa.Utilities;
 
 namespace PiBa.UI.WidgetTreeHandlers

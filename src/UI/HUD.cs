@@ -33,7 +33,6 @@ namespace PiBa.UI
 
         public void Update()
         { 
-            // Check for hover?
             _widgetTreeVisitor.CheckHovering(_root, Mouse.GetState().Position);
         }
 
