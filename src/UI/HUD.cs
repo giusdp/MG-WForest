@@ -34,8 +34,7 @@ namespace PiBa.UI
         public void Update()
         { 
             // Check for hover?
-            var mw = _widgetTreeVisitor.CheckHovering(_root, Mouse.GetState().Position);
-            mw.Match(some => Console.WriteLine(some.Data.ToString()), () => Console.WriteLine("No hovering"));
+            _widgetTreeVisitor.CheckHovering(_root, Mouse.GetState().Position);
         }
 
         public void Draw() => _widgetTreeVisitor.DrawTree(_root, _spriteBatch);

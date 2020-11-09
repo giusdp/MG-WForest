@@ -1,22 +1,36 @@
 using Microsoft.Xna.Framework;
 using PiBa.UI.Widgets;
 using PiBa.Utilities;
+using PiBa.Utilities.Collections;
 
 namespace PiBa.UI.WidgetTreeHandlers
 {
     public class HoverChecker
     {
+        private Widget _lastHoveredOn;
+
         public Maybe<WidgetTree> CheckHovering(WidgetTree widgetTree, Point mouseLoc)
         {
             var m = TreeVisitor<Widget>.GetLowestNodeThatHolds(widgetTree,
                 w => IsMouseInsideWidgetSpace(w.Data.Space, mouseLoc));
-            Maybe<WidgetTree> r = Maybe.None;
-            m.Match(t =>
+            switch (m)
             {
-                t.Data.OnStartedHoveringEvent();
-                r = Maybe.Some((WidgetTree) t);
-            }, () => { });
-            return r;
+                case Maybe<Tree<Widget>>.Some s:
+                    HandleHoveringOnWidget(s.Value.Data);
+                    return Maybe.Some((WidgetTree) s.Value);
+                default:
+                    _lastHoveredOn?.StoppedHovering();
+                    _lastHoveredOn = null; 
+                    return Maybe.None;
+            }
+        }
+
+        private void HandleHoveringOnWidget(Widget widget)
+        {
+            if (_lastHoveredOn == widget) return;
+            _lastHoveredOn?.StoppedHovering();
+            _lastHoveredOn = widget;
+            _lastHoveredOn.StartedHovering();
         }
 
         private bool IsMouseInsideWidgetSpace(Rectangle space, Point mouseLoc)

@@ -9,7 +9,7 @@ namespace PiBa.UI.WidgetTreeHandlers
     public class WidgetTreeVisitor
     {
 
-        private HoverChecker _hoverChecker;
+        private readonly HoverChecker _hoverChecker;
 
         public WidgetTreeVisitor()
         {
