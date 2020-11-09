@@ -1,6 +1,8 @@
 using System;
+using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Serilog;
 
 namespace PiBa.UI.Widgets
 {
@@ -26,7 +28,9 @@ namespace PiBa.UI.Widgets
 
         public override void StartedHovering()
         {
-            _imageToDraw = HoverButton ?? NormalButton;
+            if (HoverButton == null) 
+                Log.Warning("HoverButton texture missing, fallback to NormalButton.");
+            else _imageToDraw = HoverButton;
         }
 
         public override void StoppedHovering()

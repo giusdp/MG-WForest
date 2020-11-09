@@ -1,4 +1,5 @@
 ﻿using System;
+using Serilog;
 
 namespace PiBa
 {
@@ -7,8 +8,14 @@ namespace PiBa
         [STAThread]
         static void Main()
         {
-            using (var game = new Game1())
-                game.Run();
+            Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Debug()
+                .WriteTo.Console()
+                .CreateLogger();
+            
+            using var game = new Game1();
+            Log.Information("Game instance created.");
+            game.Run();
         }
     }
 }
