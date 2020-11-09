@@ -1,6 +1,9 @@
 using System;
 using System.Linq;
+using Microsoft.Xna.Framework;
 using NUnit.Framework;
+using PiBa.UI;
+using PiBa.UI.Widgets;
 using PiBa.Utilities;
 using PiBa.Utilities.Collections;
 
@@ -66,6 +69,24 @@ namespace PiBa.Tests
         {
             Assert.That(() => TreeVisitor<int>.GetLowestNodeThatHolds(null, tree => true), Throws.ArgumentNullException);
             Assert.That(() => TreeVisitor<int>.GetLowestNodeThatHolds(_tree, null), Throws.ArgumentNullException);
+        }
+        
+        [Test]
+        public void IsHovered_LocationInside_ReturnsTrue()
+        {
+            var v = new WidgetTreeVisitor();
+            var w = new WidgetTree(new Widget(new Rectangle(0,0,540,540)));
+            var b = v.CheckHovering(w, new Point(332, 43)) is Maybe<WidgetTree>.Some;
+            Assert.That(b, Is.True);
+        }
+
+        [Test]
+        public void IsHovered_NotInside_ReturnsFalse()
+        {
+            var v = new WidgetTreeVisitor();
+            var w= new WidgetTree(new Widget(new Rectangle(0,0,540,540)));
+            var b = v.CheckHovering(w, new Point(332, 678)) is Maybe<WidgetTree>.Some;
+            Assert.That(b, Is.False);
         }
     }
 }
