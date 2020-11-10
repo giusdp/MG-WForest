@@ -2,8 +2,10 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using PiBa.UI.Factories;
+using PiBa.UI.Properties;
 using PiBa.UI.Widgets;
 using PiBa.UI.WidgetTreeHandlers;
+using Serilog;
 
 namespace PiBa.UI
 {
@@ -24,8 +26,8 @@ namespace PiBa.UI
             var btn = _root.AddChild(WidgetFactory.CreateImageButton("Sprite-0001"));
             ((ImageButton) btn.Data).HoverButton = AssetLoader.Load<Texture2D>("Sprite-0002");
             ((ImageButton) btn.Data).PressedButton = AssetLoader.Load<Texture2D>("Sprite-0003");
-
-            btn.AddProperty(PropertyFactory.CreateCenterProperty());
+            
+            btn.AddProperty(PropertyFactory.Center());
 
             _widgetTreeVisitor.EnforceConstraints(_root);
         }

@@ -27,25 +27,37 @@ namespace PiBa.UI.Widgets
 
         public override void StartedHovering()
         {
-            if (HoverButton == null) 
+            if (HoverButton == null)
+            {
                 Log.Warning($"{GetType()} HoverButton texture missing, fallback to NormalButton.");
+                _imageToDraw = NormalButton;
+            }
             else _imageToDraw = HoverButton;
+
+            base.StartedHovering();
         }
 
-        public override void StoppedHovering() => _imageToDraw = NormalButton;
-        
+        public override void StoppedHovering()
+        {
+            _imageToDraw = NormalButton;
+            base.StoppedHovering();
+        }
 
         public override void PressedDown()
         {
-            if (PressedButton == null) 
+            if (PressedButton == null)
+            {
                 Log.Warning($"{GetType()} PressedButton texture missing, fallback to NormalButton.");
+                _imageToDraw = NormalButton;
+            }
             else _imageToDraw = PressedButton;
+
+            base.PressedDown();
         }
 
         public override void ReleasedPress()
         {
-            // Put here the onclick property?
-            
+            _imageToDraw = NormalButton;
             base.ReleasedPress();
         }
 
