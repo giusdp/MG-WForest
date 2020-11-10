@@ -16,8 +16,8 @@ namespace PiBa.UI.Properties
             var (x, y, width, height) = parent;
             var (w, h) = size;
             return new Point(
-                (int) ((width - x) / 2f - w / 2f),
-                (int) ((height - y) / 2f - h / 2f)
+                (int) ((width + x) / 2f - w / 2f),
+                (int) ((height + y) / 2f - h / 2f)
             );
         }
     }

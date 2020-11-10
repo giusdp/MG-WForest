@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using PiBa.UI.Properties;
 using PiBa.UI.Widgets;
@@ -25,6 +26,7 @@ namespace PiBa.UI
         public WidgetTree AddChild(Widget child)
         {
             if (child == null) throw new ArgumentNullException(nameof(child));
+            child.Space = new Rectangle(Data.Space.Location, child.Space.Size);
             var childNode = new WidgetTree(child) {Parent = this};
             Children.Add(childNode);
             return childNode;

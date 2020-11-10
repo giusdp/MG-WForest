@@ -43,5 +43,13 @@ namespace PiBa.Tests
         {
             Assert.That(() => _t.AddChild(null), Throws.ArgumentNullException);
         }
+
+        [Test]
+        public void AddChild_ChildPositionRelativeToParent()
+        {
+            _t.Data.Space = new Rectangle(new Point(100, 150), _t.Data.Space.Size);
+           var c = _t.AddChild(WidgetFactory.CreateContainer(Rectangle.Empty));
+            Assert.That(c.Data.Space.Location, Is.EqualTo(_t.Data.Space.Location)); 
+        }
     }
 }

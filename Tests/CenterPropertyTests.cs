@@ -23,7 +23,7 @@ namespace PiBa.Tests
             var result = Center.GetLocationToCenterElementInRect(new Rectangle(0, 0, 1280, 720), new Point(120, 120));
             Assert.That(result, Is.EqualTo(expected));
             
-            expected = new Point(70, 455);
+            expected = new Point(270, 505);
             result = Center.GetLocationToCenterElementInRect(new Rectangle(200, 50, 640, 1080), new Point(300, 120));
             Assert.That(result, Is.EqualTo(expected));
         }
