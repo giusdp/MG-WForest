@@ -1,18 +1,18 @@
 using System;
 
-namespace PiBa.UI.Properties
+namespace PiBa.UI.Properties.Actions
 {
-    public class OnExit : IProperty
+    public class OnRelease : IProperty
     {
        private readonly Action _function; 
         
-        public OnExit(Action onPress)
+        public OnRelease(Action onPress)
         {
             _function = onPress;
         }
         public void ApplyOn(WidgetTree widgetNode)
         {
-            widgetNode.Data.OnExit = _function;
+            widgetNode.Data.OnRelease = _function;
         } 
     }
 }

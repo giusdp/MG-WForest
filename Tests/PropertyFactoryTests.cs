@@ -1,6 +1,8 @@
 using NUnit.Framework;
 using PiBa.UI.Factories;
 using PiBa.UI.Properties;
+using PiBa.UI.Properties.Actions;
+using PiBa.UI.Properties.Margins;
 
 namespace PiBa.Tests
 {
@@ -64,6 +66,13 @@ namespace PiBa.Tests
         {
             var p = PropertyFactory.OnExit(() => { });
             Assert.That(p, Is.TypeOf<OnExit>());
+        }
+
+        [Test]
+        public void CreateMarginProperty_ReturnsMarginProp()
+        {
+            var m = PropertyFactory.Margin(2);
+            Assert.That(m, Is.TypeOf<Margin>());
         }
     }
 }

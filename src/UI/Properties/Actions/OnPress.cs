@@ -1,6 +1,6 @@
 using System;
 
-namespace PiBa.UI.Properties
+namespace PiBa.UI.Properties.Actions
 {
     public class OnPress : IProperty
     {
