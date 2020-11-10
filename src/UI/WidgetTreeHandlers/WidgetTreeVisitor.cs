@@ -20,7 +20,7 @@ namespace PiBa.UI.WidgetTreeHandlers
             TreeVisitor<Widget>.ApplyToTree(widgetTree, w => ((WidgetTree) w).DrawWidget(spriteBatch));
         }
 
-        public void EnforceConstraints(WidgetTree widgetTree)
+        public void ApplyProperties(WidgetTree widgetTree)
         {
             TreeVisitor<Widget>.ApplyToTree(widgetTree, w => ((WidgetTree) w).ApplyProperties());
         }

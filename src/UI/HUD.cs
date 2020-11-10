@@ -21,17 +21,17 @@ namespace PiBa.UI
             _spriteBatch = spriteBatch;
             _widgetTreeVisitor = new WidgetTreeVisitor();
             
-            _root = new WidgetTree(WidgetFactory.CreateContainer(new Rectangle(100, 100, 1280, 720)));
+            _root = new WidgetTree(WidgetFactory.CreateContainer(new Rectangle(0, 0, 1280, 720)));
 
             var btn = _root.AddChild(WidgetFactory.CreateImageButton("Sprite-0001"));
             ((ImageButton) btn.Data).HoverButton = AssetLoader.Load<Texture2D>("Sprite-0002");
             ((ImageButton) btn.Data).PressedButton = AssetLoader.Load<Texture2D>("Sprite-0003");
 
-            _root.AddChild(WidgetFactory.CreateImageButton("Sprite-0001"));
+            _root.AddChild(WidgetFactory.CreateImageButton("Sprite-0001")).AddProperty(PropertyFactory.Center());
             
             btn.AddProperty(PropertyFactory.Center());
 
-            _widgetTreeVisitor.EnforceConstraints(_root);
+            _widgetTreeVisitor.ApplyProperties(_root);
         }
 
         public void Update()
