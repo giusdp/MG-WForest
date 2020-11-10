@@ -8,11 +8,11 @@ namespace PiBa.UI.WidgetTreeHandlers
     public class WidgetTreeVisitor
     {
 
-        private readonly HoverChecker _hoverChecker;
+        private readonly InteractionHandler _interactionHandler;
 
         public WidgetTreeVisitor()
         {
-            _hoverChecker = new HoverChecker();
+            _interactionHandler = new InteractionHandler();
         }
         
         public void DrawTree(WidgetTree widgetTree, SpriteBatch spriteBatch)
@@ -26,7 +26,7 @@ namespace PiBa.UI.WidgetTreeHandlers
         }
 
         public Maybe<WidgetTree> CheckHovering(WidgetTree widgetTree, Point mouseLoc)
-            => _hoverChecker.CheckHovering(widgetTree, mouseLoc);
+            => _interactionHandler.CheckHovering(widgetTree, mouseLoc);
 
     }
 }

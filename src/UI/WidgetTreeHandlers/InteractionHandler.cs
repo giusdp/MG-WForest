@@ -1,15 +1,19 @@
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
 using PiBa.UI.Widgets;
+using PiBa.UI.WidgetTreeHandlers.Interactions;
 using PiBa.Utilities;
 using PiBa.Utilities.Collections;
 
 namespace PiBa.UI.WidgetTreeHandlers
 {
-    public class HoverChecker
+    public class InteractionHandler
     {
-        private Widget _lastHoveredOn;
-        private bool _isClicked;
+        private readonly InteractionStateMachine _interactionStateMachine;
+
+        public InteractionHandler()
+        {
+            _interactionStateMachine = new InteractionStateMachine();
+        }
 
         public Maybe<WidgetTree> CheckHovering(WidgetTree widgetTree, Point mouseLoc)
         {
@@ -18,37 +22,10 @@ namespace PiBa.UI.WidgetTreeHandlers
             switch (m)
             {
                 case Maybe<Tree<Widget>>.Some s:
-                    HandleHoveringOnWidget(s.Value.Data);
-                    HandlePressOnHoveredWidget();
+                    _interactionStateMachine.UpdateInteractionState(s.Value.Data); 
                     return Maybe.Some((WidgetTree) s.Value);
                 default:
-                    _lastHoveredOn?.StoppedHovering();
-                    _lastHoveredOn = null; 
                     return Maybe.None;
-            }
-        }
-
-        private void HandleHoveringOnWidget(Widget widget)
-        {
-            if (_lastHoveredOn == widget) return;
-            _isClicked = false;
-            _lastHoveredOn?.StoppedHovering();
-            _lastHoveredOn = widget;
-            _lastHoveredOn.StartedHovering();
-        }
-
-        private void HandlePressOnHoveredWidget()
-        {
-            if (Mouse.GetState().LeftButton == ButtonState.Pressed && !_isClicked)
-            {
-                _lastHoveredOn?.PressedDown();
-                _isClicked = true;
-            }
-            else if (Mouse.GetState().LeftButton == ButtonState.Released && _isClicked)
-            {
-                _isClicked = false;
-                _lastHoveredOn?.ReleasedPress();
-                _lastHoveredOn?.StartedHovering();
             }
         }
 
@@ -60,4 +37,5 @@ namespace PiBa.UI.WidgetTreeHandlers
             return isInsideHorizontally && isInsideVertically;
         }
     }
+
 }
