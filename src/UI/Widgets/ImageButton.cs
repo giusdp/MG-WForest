@@ -15,7 +15,7 @@ namespace PiBa.UI.Widgets
         public ImageButton(Texture2D normalButton) : base(Rectangle.Empty)
         {
             NormalButton = normalButton ??
-                           throw new ArgumentNullException($"{GetType()} Button sprite cannot be null!");
+                           throw new ArgumentNullException(nameof(normalButton));
             _imageToDraw = NormalButton;
             Space = new Rectangle(0, 0, normalButton.Width, normalButton.Height);
         }
@@ -55,12 +55,5 @@ namespace PiBa.UI.Widgets
             base.PressedDown();
         }
 
-        public override void ReleasedPress()
-        {
-            _imageToDraw = NormalButton;
-            base.ReleasedPress();
-        }
-
-        public override string ToString() => $"ImageButton Widget";
     }
 }

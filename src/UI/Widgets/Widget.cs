@@ -20,8 +20,6 @@ namespace PiBa.UI.Widgets
 
         public virtual void Draw(SpriteBatch spriteBatch){}
 
-        public override string ToString() => $"Basic Widget";
-
         public virtual void StartedHovering() => OnEnter?.Invoke();
         public virtual void StoppedHovering() => OnExit?.Invoke();
         public virtual void PressedDown() => OnPress?.Invoke();
