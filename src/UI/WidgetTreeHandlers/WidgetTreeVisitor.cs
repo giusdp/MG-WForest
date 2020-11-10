@@ -22,7 +22,7 @@ namespace PiBa.UI.WidgetTreeHandlers
 
         public void EnforceConstraints(WidgetTree widgetTree)
         {
-            TreeVisitor<Widget>.ApplyToTree(widgetTree, w => ((WidgetTree) w).EnforceConstraints());
+            TreeVisitor<Widget>.ApplyToTree(widgetTree, w => ((WidgetTree) w).ApplyProperties());
         }
 
         public Maybe<WidgetTree> CheckHovering(WidgetTree widgetTree, Point mouseLoc)

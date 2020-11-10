@@ -30,7 +30,7 @@ namespace PiBa.UI
             return childNode;
         }
 
-        public void EnforceConstraints()
+        public void ApplyProperties()
             => Properties.ForEach(c => c.ApplyOn(this));
 
         public void DrawWidget(SpriteBatch spriteBatch) => Data.Draw(spriteBatch);

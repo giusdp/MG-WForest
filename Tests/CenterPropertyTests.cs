@@ -29,7 +29,7 @@ namespace PiBa.Tests
         }
 
         [Test]
-        public void EnforceOn_WidgetWithoutParent_WidgetNotModified()
+        public void ApplyOn_WidgetWithoutParent_WidgetNotModified()
         {
             var center = new Center();
             var widgetNode = new WidgetTree(new Widget(new Rectangle(0, 0, 1280, 720)));
@@ -39,14 +39,14 @@ namespace PiBa.Tests
         }
 
         [Test]
-        public void EnforceOn_ReturnsCenteredWidgetRelativeToParent()
+        public void ApplyOn_ReturnsCenteredWidgetRelativeToParent()
         {
             var center = new Center();
             var root = new WidgetTree(new Widget(new Rectangle(0, 0, 1280, 720)));
             var widget = new Container(new Rectangle(Point.Zero, new Point(120, 120)));
             var widgetNode =  root.AddChild(widget);
             var expected = new Rectangle(580, 300, 120, 120);
-            center.ApplyOn((WidgetTree) widgetNode);
+            center.ApplyOn(widgetNode);
             Assert.That(widgetNode.Data.Space, Is.EqualTo(expected));
         }
     }
