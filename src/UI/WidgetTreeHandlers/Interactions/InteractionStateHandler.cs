@@ -4,11 +4,11 @@ using PiBa.Utilities;
 
 namespace PiBa.UI.WidgetTreeHandlers.Interactions
 {
-    public class InteractionStateMachine
+    public class InteractionStateHandler
     {
         private readonly InteractionState _state;
 
-        public InteractionStateMachine()
+        public InteractionStateHandler()
         {
             _state = new InteractionState();
         }

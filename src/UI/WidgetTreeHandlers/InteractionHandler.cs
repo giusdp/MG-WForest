@@ -8,11 +8,11 @@ namespace PiBa.UI.WidgetTreeHandlers
 {
     public class InteractionHandler
     {
-        private readonly InteractionStateMachine _interactionStateMachine;
+        private readonly InteractionStateHandler _interactionStateHandler;
 
         public InteractionHandler()
         {
-            _interactionStateMachine = new InteractionStateMachine();
+            _interactionStateHandler = new InteractionStateHandler();
         }
 
         public Maybe<WidgetTree> CheckHovering(WidgetTree widgetTree, Point mouseLoc)
@@ -22,7 +22,7 @@ namespace PiBa.UI.WidgetTreeHandlers
             switch (m)
             {
                 case Maybe<Tree<Widget>>.Some s:
-                    _interactionStateMachine.UpdateInteractionState(s.Value.Data); 
+                    _interactionStateHandler.UpdateInteractionState(s.Value.Data); 
                     return Maybe.Some((WidgetTree) s.Value);
                 default:
                     return Maybe.None;
