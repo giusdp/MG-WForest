@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace PiBa.UI.Widgets
 {
-    public class Widget
+    public abstract class Widget
     {
         public Rectangle Space { get; set; }
         
@@ -13,7 +13,7 @@ namespace PiBa.UI.Widgets
         public Action OnPress { private get; set; }
         public Action OnRelease { private get; set; }
 
-        public Widget(Rectangle space)
+        protected Widget(Rectangle space)
         {
             Space = space;
         }
