@@ -1,14 +1,32 @@
+using System.Linq;
 using Microsoft.Xna.Framework;
+using Serilog;
+
 namespace PiBa.UI.Properties
 {
     public class Center : IProperty
     {
         public void ApplyOn(WidgetTree widgetNode)
         {
-            if (widgetNode.Parent == null) return;
-            var parentSpace = widgetNode.Parent.Data.Space;
-            var size = widgetNode.Data.Space.Size;
-            widgetNode.Data.Space = new Rectangle(GetLocationToCenterElementInRect(parentSpace, size), size);
+            if (widgetNode.Children.Count == 0) return;
+
+            var widget = widgetNode.Data;
+
+            var maxH = widgetNode.Children.Aggregate(0, (i, w) => i + w.Data.Space.Size.X);
+            var maxV = widgetNode.Children.Max(w => w.Data.Space.Size.Y);
+
+            var (x, y) = GetLocationToCenterElementInRect(widget.Space, new Point(maxH, maxV));
+
+            foreach (var child in widgetNode.Children)
+            {
+                var childWidget = child.Data;
+                var newY = y;
+                
+                if (childWidget.Space.Size.Y != maxV) newY += maxV/2 - childWidget.Space.Height / 2;
+                
+                childWidget.Space = new Rectangle(new Point(x, newY), childWidget.Space.Size);
+                x += childWidget.Space.Size.X;
+            }
         }
 
         public static Point GetLocationToCenterElementInRect(Rectangle parent, Point size)
