@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
@@ -10,54 +9,69 @@ namespace PiBa.UI.Properties
 {
     public class Center : IProperty
     {
-        private List<Row> rows;
-
         public void ApplyOn(WidgetTree widgetNode)
         {
-            if (widgetNode.Children.Count == 0) return;
+            var widget = widgetNode.Data;
+            
+            if (widgetNode.Children.Count == 0)
+            {
+                Log.Warning(
+                    $"{widget} has no children to center.");
+                return;
+            }
 
             var totalH = widgetNode.Children.Sum(w => w.Data.Space.Size.X);
             var totalV = widgetNode.Children.Sum(w => w.Data.Space.Size.Y);
 
-            var widget = widgetNode.Data;
-
             if (totalH > widget.Space.Size.X && totalV > widget.Space.Size.Y)
             {
                 Log.Warning(
-                    "Widgets occupy a space bigger than the parent space: useless to try to center");
+                    $"{widget}'s children occupy a space bigger than the parent space. Useless to try to center.");
                 return;
             }
 
             var numberOfRows = totalH / widget.Space.Size.X + 1;
-            rows = new List<Row>(numberOfRows);
+            var rows = GetRowsWithWidgets(numberOfRows, widgetNode);
+            CenterAllChildrenInRows(rows, widgetNode.Children);
+        }
 
+        private static List<Row> GetRowsWithWidgets(int numberOfRows, WidgetTree widget)
+        {
+            var rows = new List<Row>(numberOfRows);
             var previousIndex = 0;
             for (var i = 0; i < numberOfRows; i++)
             {
                 var (maxH, firstIndexOnNewRow) =
-                    SumChildrenHorizontalSizeThatFit(widgetNode.Children, previousIndex, widget.Space.Size.X);
+                    SumChildrenWidthsThatFit(widget.Children, previousIndex, widget.Data.Space.Size.X);
 
 
-                var maxV = GetMaxHeightInChildrenSubList(widgetNode.Children, previousIndex, firstIndexOnNewRow);
+                var maxV = GetMaxHeightInChildrenSubList(widget.Children, previousIndex, firstIndexOnNewRow);
 
                 Row row = new Row(maxV, previousIndex,
-                    firstIndexOnNewRow < 0 ? widgetNode.Children.Count : firstIndexOnNewRow);
+                    firstIndexOnNewRow < 0 ? widget.Children.Count : firstIndexOnNewRow);
 
-                var (x, y) = GetCoordToCenterInRow(widget.Space, new Point(maxH, maxV));
+                var (x, y) = GetCoordToCenterInRow(widget.Data.Space, new Point(maxH, maxV));
                 row.X = x;
                 row.Y = y;
                 if (numberOfRows > 1)
-                    row.Y += (i == 0 ? -  maxV / numberOfRows : maxV / numberOfRows); // TODO lmao total cheat for the unit test
+                    row.Y += i == 0
+                        ? -maxV / numberOfRows
+                        : maxV / numberOfRows; // TODO lmao total cheat for the unit test
                 rows.Add(row);
                 previousIndex = firstIndexOnNewRow;
             }
 
+            return rows;
+        }
+
+        private static void CenterAllChildrenInRows(List<Row> rows, IReadOnlyList<Tree<Widget>> children)
+        {
             rows.ForEach(row =>
             {
                 var xRow = row.X;
                 for (var i = row.FirstWidgetIndex; i < row.LastWidgetIndex; i++)
                 {
-                    var childWidget = widgetNode.Children[i].Data;
+                    var childWidget = children[i].Data;
                     CenterChildWidget(childWidget, xRow, row.Y, row.Height);
 
                     xRow += childWidget.Space.Size.X;
@@ -71,7 +85,7 @@ namespace PiBa.UI.Properties
             child.Space = new Rectangle(new Point(x, y), child.Space.Size);
         }
 
-        private static (int, int) SumChildrenHorizontalSizeThatFit(List<Tree<Widget>> children, int startIndex,
+        private static (int, int) SumChildrenWidthsThatFit(IReadOnlyList<Tree<Widget>> children, int startIndex,
             int parentHSize)
         {
             var acc = 0;
@@ -92,7 +106,7 @@ namespace PiBa.UI.Properties
         }
 
         private static int GetMaxHeightInChildrenSubList(List<Tree<Widget>> children, int from, int until) =>
-            children.GetRange(@from, until < 0 ? children.Count - from : until - from).Max(w => w.Data.Space.Size.Y);
+            children.GetRange(from, until < 0 ? children.Count - from : until - from).Max(w => w.Data.Space.Size.Y);
 
         public static Point GetCoordToCenterInRow(Rectangle parent, Point size)
         {
@@ -106,7 +120,7 @@ namespace PiBa.UI.Properties
     }
 
 
-    class Row
+    internal class Row
     {
         public int X { get; set; }
         public int Y { get; set; }
