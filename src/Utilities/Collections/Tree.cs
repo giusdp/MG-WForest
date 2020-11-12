@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using PiBa.UI;
 
 namespace PiBa.Utilities.Collections
 {
@@ -8,7 +7,7 @@ namespace PiBa.Utilities.Collections
     {
         public T Data { get; set; }
         public Tree<T> Parent { get; set; }
-        public ICollection<Tree<T>> Children { get; set; }
+        public List<Tree<T>> Children { get; set; }
 
         public bool IsRoot => Parent == null;
 
@@ -17,7 +16,7 @@ namespace PiBa.Utilities.Collections
         public Tree(T data)
         {
             this.Data = data;
-            this.Children = new LinkedList<Tree<T>>();
+            this.Children = new List<Tree<T>>();
         }
         public override string ToString() => Data != null ? Data.ToString() : "[data null]";
 
