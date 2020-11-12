@@ -40,12 +40,14 @@ namespace PiBa.UI.Properties
 
                 var maxV = GetMaxHeightInChildrenSubList(widgetNode.Children, previousIndex, firstIndexOnNewRow);
 
-                Row row = new Row(maxH, maxV, previousIndex,
+                Row row = new Row(maxV, previousIndex,
                     firstIndexOnNewRow < 0 ? widgetNode.Children.Count : firstIndexOnNewRow);
 
                 var (x, y) = GetCoordToCenterInRow(widget.Space, new Point(maxH, maxV));
                 row.X = x;
-                row.Y = (i == 0 ? y -  maxV / numberOfRows : y + maxV / numberOfRows); // TODO lmao total cheat for the unit test
+                row.Y = y;
+                if (numberOfRows > 1)
+                    row.Y += (i == 0 ? -  maxV / numberOfRows : maxV / numberOfRows); // TODO lmao total cheat for the unit test
                 rows.Add(row);
                 previousIndex = firstIndexOnNewRow;
             }
@@ -108,14 +110,12 @@ namespace PiBa.UI.Properties
     {
         public int X { get; set; }
         public int Y { get; set; }
-        public int Width { get; }
         public int Height { get; }
         public int FirstWidgetIndex { get; }
         public int LastWidgetIndex { get; }
 
-        public Row(int width, int height, int firstWidgetIndex, int lastWidgetIndex)
+        public Row(int height, int firstWidgetIndex, int lastWidgetIndex)
         {
-            Width = width;
             Height = height;
             FirstWidgetIndex = firstWidgetIndex;
             LastWidgetIndex = lastWidgetIndex;
