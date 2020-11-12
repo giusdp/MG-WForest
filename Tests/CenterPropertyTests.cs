@@ -4,6 +4,7 @@ using PiBa.UI;
 using PiBa.UI.Factories;
 using PiBa.UI.Properties;
 using PiBa.UI.Widgets;
+using PiBa.Utilities.Collections;
 
 namespace PiBa.Tests
 {
@@ -89,28 +90,85 @@ namespace PiBa.Tests
             var center = new Center();
             var root = new WidgetTree(WidgetFactory.CreateContainer(new Rectangle(0, 0, 1280, 720)));
 
-            var child = root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120)));
-            var secondChild = root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120)));
-            var thirdChild = root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120)));
-            var fourthChild = root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120)));
-            var fifthChild = root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120)));
-            var sixthChild = root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120)));
+            var acts = new[]
+            {
+                root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120))),
+                root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120))),
+                root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120))),
+                root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120))),
+                root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120))),
+                root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120)))
+            };
 
-            var firstChildExpectedLoc = new Rectangle( 90, 240, 220, 120);
-            var secondChildExpectedLoc = new Rectangle(310, 240, 220, 120);
-            var thirdChildExpectedLoc = new Rectangle(530, 240, 220, 120);
-            var fourthChildExpectedLoc = new Rectangle(750, 240, 220, 120);
-            var fifthChildExpectedLoc = new Rectangle(970, 240, 220, 120);
-            
-            var sixthChildExpectedLoc = new Rectangle(530, 360, 220, 120);
+            var expects = new[]
+            {
+                new Rectangle(90, 240, 220, 120),
+                new Rectangle(310, 240, 220, 120),
+                new Rectangle(530, 240, 220, 120),
+                new Rectangle(750, 240, 220, 120),
+                new Rectangle(970, 240, 220, 120),
+                new Rectangle(530, 360, 220, 120)
+            };
 
             center.ApplyOn(root);
-            Assert.That(child.Data.Space, Is.EqualTo(firstChildExpectedLoc));
-            Assert.That(secondChild.Data.Space, Is.EqualTo(secondChildExpectedLoc));
-            Assert.That(thirdChild.Data.Space, Is.EqualTo(thirdChildExpectedLoc));
-            Assert.That(fourthChild.Data.Space, Is.EqualTo(fourthChildExpectedLoc));
-            Assert.That(fifthChild.Data.Space, Is.EqualTo(fifthChildExpectedLoc));
-            Assert.That(sixthChild.Data.Space, Is.EqualTo(sixthChildExpectedLoc));
+            for (var i = 0; i < acts.Length; i++)
+            {
+                Assert.That(acts[i].Data.Space, Is.EqualTo(expects[i]));
+            }
+        }
+
+        [Test]
+        public void ApplyOn_ThreeRowsOfWidgets_CorrectlyCentered()
+        {
+            var center = new Center();
+            var root = new WidgetTree(WidgetFactory.CreateContainer(new Rectangle(0, 0, 1280, 720)));
+
+            // First Row
+            var w1r1 = root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120)));
+            var w2r1 = root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120)));
+            var w3r1 = root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120)));
+            var w4r1 = root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120)));
+            var w5r1 = root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120)));
+
+            // Second Row
+            var w1r2 = root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120)));
+            var w2r2 = root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120)));
+            var w3r2 = root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120)));
+            var w4r2 = root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120)));
+            var w5r2 = root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120)));
+
+            // Third Row
+            var w1r3 = root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120)));
+            var w2r3 = root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120)));
+            var w3r3 = root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120)));
+            var w4r3 = root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120)));
+            var w5r3 = root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120)));
+
+            var w1r1Expected = new Rectangle(90, 240, 220, 120);
+            var w2r1Expected = new Rectangle(310, 240, 220, 120);
+            var w3r1Expected = new Rectangle(530, 240, 220, 120);
+            var w4r1Expected = new Rectangle(750, 240, 220, 120);
+            var w5r1Expected = new Rectangle(970, 240, 220, 120);
+
+            var w1r2Expected = new Rectangle(530, 360, 220, 120);
+            var w2r2Expected = new Rectangle(530, 360, 220, 120);
+            var w3r2Expected = new Rectangle(530, 360, 220, 120);
+            var w4r2Expected = new Rectangle(530, 360, 220, 120);
+            var w5r2Expected = new Rectangle(530, 360, 220, 120);
+
+            var w1r3Expected = new Rectangle(530, 360, 220, 120);
+            var w2r3Expected = new Rectangle(530, 360, 220, 120);
+            var w3r3Expected = new Rectangle(530, 360, 220, 120);
+            var w4r3Expected = new Rectangle(530, 360, 220, 120);
+            var w5r3Expected = new Rectangle(530, 360, 220, 120);
+
+            center.ApplyOn(root);
+            Assert.That(w1r1.Data.Space, Is.EqualTo(w1r1Expected));
+            Assert.That(w2r1.Data.Space, Is.EqualTo(w2r1Expected));
+            Assert.That(w3r1.Data.Space, Is.EqualTo(w3r1Expected));
+            Assert.That(w4r1.Data.Space, Is.EqualTo(w4r1Expected));
+            Assert.That(w5r1.Data.Space, Is.EqualTo(w5r1Expected));
+            Assert.That(w1r2.Data.Space, Is.EqualTo(w1r2Expected));
         }
     }
 }
