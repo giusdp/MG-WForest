@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
@@ -20,26 +21,24 @@ namespace PiBa.UI.Properties.Center
                 return;
             }
 
-            var totalHorizontalSpace = widgetNode.Children.Sum(w => w.Data.Space.Size.X);
-
-            var numberOfRows = totalHorizontalSpace / widget.Space.Size.X + 1;
-            var rows = BuildRowsWithWidgets(numberOfRows, widgetNode);
+            var rows = BuildRowsWithWidgets(widgetNode);
 
             WidgetsRow.OffsetHeightsPerRow(rows);
             
             CenterAllChildrenInRows(rows, widgetNode.Children);
         }
 
-        private static List<WidgetsRow> BuildRowsWithWidgets(int numberOfRows, WidgetTree widget)
+        private static List<WidgetsRow> BuildRowsWithWidgets(WidgetTree widget)
         {
-            var rows = new List<WidgetsRow>(numberOfRows);
+            var rows = new List<WidgetsRow>();
             var previousIndex = 0;
-            for (var i = 0; i < numberOfRows; i++)
+
+            var done = false;
+            while (!done)
             {
                 var (maxH, firstIndexOnNewRow) =
-                    SumChildrenWidthsThatFit(widget.Children, previousIndex, widget.Data.Space.Size.X);
-
-
+                    SumChildrenWidthsTilFit(widget.Children, previousIndex, widget.Data.Space.Size.X);
+                
                 var maxV = GetMaxHeightInChildrenSubList(widget.Children, previousIndex, firstIndexOnNewRow);
 
                 var row = new WidgetsRow(maxV, previousIndex,
@@ -50,8 +49,8 @@ namespace PiBa.UI.Properties.Center
                 row.Y = y;
                 rows.Add(row);
                 previousIndex = firstIndexOnNewRow;
+                done = firstIndexOnNewRow == -1;
             }
-
             return rows;
         }
 
@@ -76,8 +75,7 @@ namespace PiBa.UI.Properties.Center
             child.Space = new Rectangle(new Point(x, y), child.Space.Size);
         }
 
-        private static (int, int) SumChildrenWidthsThatFit(IReadOnlyList<Tree<Widget>> children, int startIndex,
-            int parentHSize)
+        private static (int, int) SumChildrenWidthsTilFit(List<Tree<Widget>> children, int startIndex, int parentHSize)
         {
             var acc = 0;
             var indexOnNewRow = -1;

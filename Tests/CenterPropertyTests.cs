@@ -197,22 +197,23 @@ namespace PiBa.Tests
 
             var expects = new[]
             {
-                new Rectangle(90, 180, 220, 120),
-                new Rectangle(310, 180, 220, 120),
-                new Rectangle(530, 180, 220, 120),
-                new Rectangle(750, 180, 220, 120),
-                new Rectangle(970, 180, 220, 120),
-                new Rectangle(90, 300, 220, 120),
-                new Rectangle(310, 300, 220, 120),
-                new Rectangle(530, 300, 220, 120),
-                new Rectangle(750, 300, 220, 120),
-                new Rectangle(970, 300, 220, 120),
-                new Rectangle(90, 420, 220, 120),
-                new Rectangle(310, 420, 220, 120),
-                new Rectangle(530, 420, 220, 120),
-                new Rectangle(750, 420, 220, 120),
-                new Rectangle(970, 420, 220, 120),
-                new Rectangle(530, 420, 220, 120)
+                new Rectangle(90, 120, 220, 120), // first row
+                new Rectangle(310, 120, 220, 120),
+                new Rectangle(530, 120, 220, 120),
+                new Rectangle(750, 120, 220, 120),
+                new Rectangle(970, 120, 220, 120),
+                new Rectangle(90, 240, 220, 120), // second row
+                new Rectangle(310, 240, 220, 120),
+                new Rectangle(530, 240, 220, 120),
+                new Rectangle(750, 240, 220, 120),
+                new Rectangle(970, 240, 220, 120),
+                new Rectangle(90, 360, 220, 120), // third row
+                new Rectangle(310, 360, 220, 120),
+                new Rectangle(530, 360, 220, 120),
+                new Rectangle(750, 360, 220, 120),
+                new Rectangle(970, 360, 220, 120),
+                
+                new Rectangle(530, 480, 220, 120) // new widget
             };
             
             center.ApplyOn(root);

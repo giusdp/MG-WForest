@@ -34,12 +34,12 @@ namespace PiBa.UI.Properties.Center
 
                 for (var i = 0; i < rows.Count; i++)
                 {
-                    var heightOffset = rows[i].Height / 2;
+                    var heightOffset = rows[i].Height;
                     var difference = Math.Abs(middleRow - i);
                     if (i < middleRow)
-                        rows[i].Y -= heightOffset * difference;
+                        rows[i].Y -= heightOffset / 2 + heightOffset * (difference - 1);
                     else
-                        rows[i].Y += heightOffset * (difference + 1);
+                        rows[i].Y += heightOffset / 2 + heightOffset * difference;
                 }
             }
         

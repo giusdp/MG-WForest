@@ -26,18 +26,9 @@ namespace PiBa.UI
             _root.AddChild(WidgetFactory.CreateImageButton("SpriteBtnL"));
             _root.AddChild(WidgetFactory.CreateImageButton("SpriteBtnL"));
             _root.AddChild(WidgetFactory.CreateImageButton("SpriteBtnL"));
-            _root.AddChild(WidgetFactory.CreateImageButton("SpriteBtnL"));
-            _root.AddChild(WidgetFactory.CreateImageButton("SpriteBtnL"));
-            _root.AddChild(WidgetFactory.CreateImageButton("SpriteBtnL"));
-            _root.AddChild(WidgetFactory.CreateImageButton("SpriteBtnL"));
-            _root.AddChild(WidgetFactory.CreateImageButton("SpriteBtnL"));
-            _root.AddChild(WidgetFactory.CreateImageButton("SpriteBtnL"));
-            _root.AddChild(WidgetFactory.CreateImageButton("SpriteBtnL"));
-            _root.AddChild(WidgetFactory.CreateImageButton("SpriteBtnL"));
-            _root.AddChild(WidgetFactory.CreateImageButton("SpriteBtnL"));
-            _root.AddChild(WidgetFactory.CreateImageButton("SpriteBtnL"));
-            _root.AddChild(WidgetFactory.CreateImageButton("SpriteBtnL"));
-            _root.AddChild(WidgetFactory.CreateImageButton("SpriteBtnL"));
+
+
+
 
             // var btn = _root.AddChild(WidgetFactory.CreateImageButton("Sprite-0001"));
             // ((ImageButton) btn.Data).HoverButton = AssetLoader.Load<Texture2D>("Sprite-0002");
