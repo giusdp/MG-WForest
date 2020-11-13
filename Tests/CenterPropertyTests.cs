@@ -9,6 +9,14 @@ namespace PiBa.Tests
     [TestFixture]
     public class CenterPropertyTests
     {
+        private Center center;
+        private WidgetTree root;
+        [SetUp]
+        public void BeforeEach()
+        {
+            center = new Center();
+            root = new WidgetTree(WidgetFactory.CreateContainer(new Rectangle(0, 0, 1280, 720)));
+        }
         [Test]
         public void GetLocationToCenterElementInRect_ReturnsPoint()
         {
@@ -31,8 +39,6 @@ namespace PiBa.Tests
         [Test]
         public void ApplyOn_OneChildren_PutsItInCenter()
         {
-            var center = new Center();
-            var root = new WidgetTree(WidgetFactory.CreateContainer(new Rectangle(0, 0, 1280, 720)));
             var child = root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 120, 120)));
 
             var expected = new Rectangle(580, 300, 120, 120);
@@ -44,16 +50,12 @@ namespace PiBa.Tests
         [Test]
         public void ApplyOn_NoChildren_NothingHappens()
         {
-            var center = new Center();
-            var root = new WidgetTree(WidgetFactory.CreateContainer(new Rectangle(0, 0, 1280, 720)));
             Assert.That(() => center.ApplyOn(root), Throws.Nothing);
         }
 
         [Test]
         public void ApplyOn_TwoIdenticalWidgets_CenteredOneAfterTheOther()
         {
-            var center = new Center();
-            var root = new WidgetTree(WidgetFactory.CreateContainer(new Rectangle(0, 0, 1280, 720)));
             var child = root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 120, 120)));
             var secondChild = root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 120, 120)));
 
@@ -68,9 +70,6 @@ namespace PiBa.Tests
         [Test]
         public void ApplyOn_TwoDifferentWidgets_CenterVerticallyWithBiggest()
         {
-            var center = new Center();
-            var root = new WidgetTree(WidgetFactory.CreateContainer(new Rectangle(0, 0, 1280, 720)));
-
             var child = root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120)));
             var secondChild = root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 120, 330)));
 
@@ -85,9 +84,6 @@ namespace PiBa.Tests
         [Test]
         public void ApplyOn_WidgetPassHorizontalSize_ViolatingWidgetOnNewRow()
         {
-            var center = new Center();
-            var root = new WidgetTree(WidgetFactory.CreateContainer(new Rectangle(0, 0, 1280, 720)));
-
             var acts = new[]
             {
                 root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120))),
@@ -118,9 +114,6 @@ namespace PiBa.Tests
         [Test]
         public void ApplyOn_ThreeRowsOfWidgets_CorrectlyCentered()
         {
-            var center = new Center();
-            var root = new WidgetTree(WidgetFactory.CreateContainer(new Rectangle(0, 0, 1280, 720)));
-
             var acts = new[]
             {
                 // First Row
@@ -170,5 +163,64 @@ namespace PiBa.Tests
                 Assert.That(acts[i].Data.Space, Is.EqualTo(expects[i]));
             }
         }
+
+        [Test]
+        public void ApplyOn_ThreeRowsPlusOneWidget_TheLastCenteredOnNewRow()
+        {
+            var acts = new[]
+            {
+                // First Row
+                root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120))),
+                root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120))),
+                root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120))),
+                root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120))),
+                root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120))),
+
+                // Second Row
+                root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120))),
+                root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120))),
+                root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120))),
+                root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120))),
+                root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120))),
+
+                // Third Row
+                root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120))),
+                root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120))),
+                root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120))),
+                root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120))),
+                root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120))),
+                
+                // The one more widget
+                root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120)))
+
+            };
+
+            var expects = new[]
+            {
+                new Rectangle(90, 180, 220, 120),
+                new Rectangle(310, 180, 220, 120),
+                new Rectangle(530, 180, 220, 120),
+                new Rectangle(750, 180, 220, 120),
+                new Rectangle(970, 180, 220, 120),
+                new Rectangle(90, 300, 220, 120),
+                new Rectangle(310, 300, 220, 120),
+                new Rectangle(530, 300, 220, 120),
+                new Rectangle(750, 300, 220, 120),
+                new Rectangle(970, 300, 220, 120),
+                new Rectangle(90, 420, 220, 120),
+                new Rectangle(310, 420, 220, 120),
+                new Rectangle(530, 420, 220, 120),
+                new Rectangle(750, 420, 220, 120),
+                new Rectangle(970, 420, 220, 120),
+                new Rectangle(530, 420, 220, 120)
+            };
+            
+            center.ApplyOn(root);
+            for (var i = 0; i < acts.Length; i++)
+            {
+                Assert.That(acts[i].Data.Space, Is.EqualTo(expects[i]));
+            }
+        }
+        
     }
 }
