@@ -1,8 +1,7 @@
 using System;
-using Microsoft.Xna.Framework;
-using NUnit.Framework.Constraints;
 using PiBa.UI.Properties;
 using PiBa.UI.Properties.Actions;
+using PiBa.UI.Properties.Center;
 using PiBa.UI.Properties.Margins;
 
 namespace PiBa.UI.Factories

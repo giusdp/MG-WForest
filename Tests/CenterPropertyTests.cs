@@ -2,9 +2,7 @@ using Microsoft.Xna.Framework;
 using NUnit.Framework;
 using PiBa.UI;
 using PiBa.UI.Factories;
-using PiBa.UI.Properties;
-using PiBa.UI.Widgets;
-using PiBa.Utilities.Collections;
+using PiBa.UI.Properties.Center;
 
 namespace PiBa.Tests
 {
@@ -14,7 +12,7 @@ namespace PiBa.Tests
         [Test]
         public void GetLocationToCenterElementInRect_ReturnsPoint()
         {
-            var point = Center.GetCoordToCenterInRow(Rectangle.Empty, Point.Zero);
+            var point = Center.GetCoordsToCenterInSpace(Rectangle.Empty, Point.Zero);
             Assert.That(point, Is.InstanceOf<Point>());
         }
 
@@ -22,11 +20,11 @@ namespace PiBa.Tests
         public void GetLocationToCenterElementInRect_ReturnsPointToCenterInRect()
         {
             var expected = new Point(580, 300);
-            var result = Center.GetCoordToCenterInRow(new Rectangle(0, 0, 1280, 720), new Point(120, 120));
+            var result = Center.GetCoordsToCenterInSpace(new Rectangle(0, 0, 1280, 720), new Point(120, 120));
             Assert.That(result, Is.EqualTo(expected));
 
             expected = new Point(270, 505);
-            result = Center.GetCoordToCenterInRow(new Rectangle(200, 50, 640, 1080), new Point(300, 120));
+            result = Center.GetCoordsToCenterInSpace(new Rectangle(200, 50, 640, 1080), new Point(300, 120));
             Assert.That(result, Is.EqualTo(expected));
         }
 
@@ -144,23 +142,23 @@ namespace PiBa.Tests
             var w4r3 = root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120)));
             var w5r3 = root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120)));
 
-            var w1r1Expected = new Rectangle(90, 240, 220, 120);
-            var w2r1Expected = new Rectangle(310, 240, 220, 120);
-            var w3r1Expected = new Rectangle(530, 240, 220, 120);
-            var w4r1Expected = new Rectangle(750, 240, 220, 120);
-            var w5r1Expected = new Rectangle(970, 240, 220, 120);
+            var w1r1Expected = new Rectangle(90, 180, 220, 120);
+            var w2r1Expected = new Rectangle(310, 180, 220, 120);
+            var w3r1Expected = new Rectangle(530, 180, 220, 120);
+            var w4r1Expected = new Rectangle(750, 180, 220, 120);
+            var w5r1Expected = new Rectangle(970, 180, 220, 120);
 
-            var w1r2Expected = new Rectangle(530, 360, 220, 120);
-            var w2r2Expected = new Rectangle(530, 360, 220, 120);
-            var w3r2Expected = new Rectangle(530, 360, 220, 120);
-            var w4r2Expected = new Rectangle(530, 360, 220, 120);
-            var w5r2Expected = new Rectangle(530, 360, 220, 120);
+            var w1r2Expected = new Rectangle(90, 300, 220, 120);
+            var w2r2Expected = new Rectangle(310, 300, 220, 120);
+            var w3r2Expected = new Rectangle(530, 300, 220, 120);
+            var w4r2Expected = new Rectangle(750, 300, 220, 120);
+            var w5r2Expected = new Rectangle(970, 300, 220, 120);
 
-            var w1r3Expected = new Rectangle(530, 360, 220, 120);
-            var w2r3Expected = new Rectangle(530, 360, 220, 120);
-            var w3r3Expected = new Rectangle(530, 360, 220, 120);
-            var w4r3Expected = new Rectangle(530, 360, 220, 120);
-            var w5r3Expected = new Rectangle(530, 360, 220, 120);
+            var w1r3Expected = new Rectangle(90, 420, 220, 120);
+            var w2r3Expected = new Rectangle(310, 420, 220, 120);
+            var w3r3Expected = new Rectangle(530, 420, 220, 120);
+            var w4r3Expected = new Rectangle(750, 420, 220, 120);
+            var w5r3Expected = new Rectangle(970, 420, 220, 120);
 
             center.ApplyOn(root);
             Assert.That(w1r1.Data.Space, Is.EqualTo(w1r1Expected));
@@ -169,6 +167,15 @@ namespace PiBa.Tests
             Assert.That(w4r1.Data.Space, Is.EqualTo(w4r1Expected));
             Assert.That(w5r1.Data.Space, Is.EqualTo(w5r1Expected));
             Assert.That(w1r2.Data.Space, Is.EqualTo(w1r2Expected));
+            Assert.That(w2r2.Data.Space, Is.EqualTo(w2r2Expected));
+            Assert.That(w3r2.Data.Space, Is.EqualTo(w3r2Expected));
+            Assert.That(w4r2.Data.Space, Is.EqualTo(w4r2Expected));
+            Assert.That(w5r2.Data.Space, Is.EqualTo(w5r2Expected));
+            Assert.That(w1r3.Data.Space, Is.EqualTo(w1r3Expected));
+            Assert.That(w2r3.Data.Space, Is.EqualTo(w2r3Expected));
+            Assert.That(w3r3.Data.Space, Is.EqualTo(w3r3Expected));
+            Assert.That(w4r3.Data.Space, Is.EqualTo(w4r3Expected));
+            Assert.That(w5r3.Data.Space, Is.EqualTo(w5r3Expected));
         }
     }
 }

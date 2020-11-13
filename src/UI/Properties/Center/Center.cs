@@ -5,14 +5,14 @@ using PiBa.UI.Widgets;
 using PiBa.Utilities.Collections;
 using Serilog;
 
-namespace PiBa.UI.Properties
+namespace PiBa.UI.Properties.Center
 {
     public class Center : IProperty
     {
         public void ApplyOn(WidgetTree widgetNode)
         {
             var widget = widgetNode.Data;
-            
+
             if (widgetNode.Children.Count == 0)
             {
                 Log.Warning(
@@ -20,24 +20,19 @@ namespace PiBa.UI.Properties
                 return;
             }
 
-            var totalH = widgetNode.Children.Sum(w => w.Data.Space.Size.X);
-            var totalV = widgetNode.Children.Sum(w => w.Data.Space.Size.Y);
+            var totalHorizontalSpace = widgetNode.Children.Sum(w => w.Data.Space.Size.X);
 
-            if (totalH > widget.Space.Size.X && totalV > widget.Space.Size.Y)
-            {
-                Log.Warning(
-                    $"{widget}'s children occupy a space bigger than the parent space. Useless to try to center.");
-                return;
-            }
+            var numberOfRows = totalHorizontalSpace / widget.Space.Size.X + 1;
+            var rows = BuildRowsWithWidgets(numberOfRows, widgetNode);
 
-            var numberOfRows = totalH / widget.Space.Size.X + 1;
-            var rows = GetRowsWithWidgets(numberOfRows, widgetNode);
+            WidgetsRow.OffsetHeightsPerRow(rows);
+            
             CenterAllChildrenInRows(rows, widgetNode.Children);
         }
 
-        private static List<Row> GetRowsWithWidgets(int numberOfRows, WidgetTree widget)
+        private static List<WidgetsRow> BuildRowsWithWidgets(int numberOfRows, WidgetTree widget)
         {
-            var rows = new List<Row>(numberOfRows);
+            var rows = new List<WidgetsRow>(numberOfRows);
             var previousIndex = 0;
             for (var i = 0; i < numberOfRows; i++)
             {
@@ -47,16 +42,12 @@ namespace PiBa.UI.Properties
 
                 var maxV = GetMaxHeightInChildrenSubList(widget.Children, previousIndex, firstIndexOnNewRow);
 
-                Row row = new Row(maxV, previousIndex,
+                var row = new WidgetsRow(maxV, previousIndex,
                     firstIndexOnNewRow < 0 ? widget.Children.Count : firstIndexOnNewRow);
 
-                var (x, y) = GetCoordToCenterInRow(widget.Data.Space, new Point(maxH, maxV));
+                var (x, y) = GetCoordsToCenterInSpace(widget.Data.Space, new Point(maxH, maxV));
                 row.X = x;
                 row.Y = y;
-                if (numberOfRows > 1)
-                    row.Y += i == 0
-                        ? -maxV / numberOfRows
-                        : maxV / numberOfRows; // TODO lmao total cheat for the unit test
                 rows.Add(row);
                 previousIndex = firstIndexOnNewRow;
             }
@@ -64,7 +55,7 @@ namespace PiBa.UI.Properties
             return rows;
         }
 
-        private static void CenterAllChildrenInRows(List<Row> rows, IReadOnlyList<Tree<Widget>> children)
+        private static void CenterAllChildrenInRows(List<WidgetsRow> rows, IReadOnlyList<Tree<Widget>> children)
         {
             rows.ForEach(row =>
             {
@@ -108,7 +99,7 @@ namespace PiBa.UI.Properties
         private static int GetMaxHeightInChildrenSubList(List<Tree<Widget>> children, int from, int until) =>
             children.GetRange(from, until < 0 ? children.Count - from : until - from).Max(w => w.Data.Space.Size.Y);
 
-        public static Point GetCoordToCenterInRow(Rectangle parent, Point size)
+        public static Point GetCoordsToCenterInSpace(Rectangle parent, Point size)
         {
             var (x, y, width, height) = parent;
             var (w, h) = size;
@@ -116,23 +107,6 @@ namespace PiBa.UI.Properties
                 (int) ((width + x) / 2f - w / 2f),
                 (int) ((height + y) / 2f - h / 2f)
             );
-        }
-    }
-
-
-    internal class Row
-    {
-        public int X { get; set; }
-        public int Y { get; set; }
-        public int Height { get; }
-        public int FirstWidgetIndex { get; }
-        public int LastWidgetIndex { get; }
-
-        public Row(int height, int firstWidgetIndex, int lastWidgetIndex)
-        {
-            Height = height;
-            FirstWidgetIndex = firstWidgetIndex;
-            LastWidgetIndex = lastWidgetIndex;
         }
     }
 }
