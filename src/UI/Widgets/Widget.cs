@@ -7,6 +7,7 @@ namespace PiBa.UI.Widgets
     public abstract class Widget
     {
         public Rectangle Space { get; set; }
+        public Rectangle Margin { get; set; }
         
         public Action OnEnter { private get; set; }
         public Action OnExit { private get; set; }
@@ -16,6 +17,7 @@ namespace PiBa.UI.Widgets
         protected Widget(Rectangle space)
         {
             Space = space;
+            Margin = Rectangle.Empty;
         }
 
         public virtual void Draw(SpriteBatch spriteBatch){}

@@ -1,9 +1,10 @@
+using Microsoft.Xna.Framework;
+
 namespace PiBa.UI.Properties.Margins
 {
     public class Margin : IProperty
     {
-
-        private int _margin;
+        private readonly int _margin;
 
         public Margin(int margin)
         {
@@ -12,7 +13,7 @@ namespace PiBa.UI.Properties.Margins
 
         public void ApplyOn(WidgetTree widgetNode)
         {
-            throw new System.NotImplementedException();
+            widgetNode.Data.Margin = new Rectangle(_margin, _margin, _margin, _margin);
         }
     }
 }
