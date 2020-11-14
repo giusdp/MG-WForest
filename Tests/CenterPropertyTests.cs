@@ -17,24 +17,6 @@ namespace PiBa.Tests
             _center = new Center();
             _root = new WidgetTree(WidgetFactory.CreateContainer(new Rectangle(0, 0, 1280, 720)));
         }
-        [Test]
-        public void GetLocationToCenterElementInRect_ReturnsPoint()
-        {
-            var point = Center.GetCoordsToCenterInSpace(Rectangle.Empty, Point.Zero);
-            Assert.That(point, Is.InstanceOf<Point>());
-        }
-
-        [Test]
-        public void GetLocationToCenterElementInRect_ReturnsPointToCenterInRect()
-        {
-            var expected = new Point(580, 300);
-            var result = Center.GetCoordsToCenterInSpace(new Rectangle(0, 0, 1280, 720), new Point(120, 120));
-            Assert.That(result, Is.EqualTo(expected));
-
-            expected = new Point(270, 505);
-            result = Center.GetCoordsToCenterInSpace(new Rectangle(200, 50, 640, 1080), new Point(300, 120));
-            Assert.That(result, Is.EqualTo(expected));
-        }
 
         [Test]
         public void ApplyOn_OneChildren_PutsItInCenter()
@@ -240,13 +222,13 @@ namespace PiBa.Tests
 
             var expects = new[]
             {
-                new Rectangle(16, 120, 220, 120),
-                new Rectangle(236, 30, 120, 330),
-                new Rectangle(356, 240, 220, 120),
-                new Rectangle(576, 240, 220, 120),
-                new Rectangle(796, 240, 220, 120),
-                new Rectangle(924, 360, 220, 120),
-                new Rectangle(1144, 360, 220, 120),
+                new Rectangle(30, 240, 220, 120),
+                new Rectangle(250, 135, 120, 330),
+                new Rectangle(370, 240, 220, 120),
+                new Rectangle(590, 240, 220, 120),
+                new Rectangle(810, 240, 220, 120),
+                new Rectangle(1030, 240, 220, 120),
+                new Rectangle(530,  465, 220, 120),
             };
 
             _center.ApplyOn(_root);

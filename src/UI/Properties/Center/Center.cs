@@ -24,7 +24,7 @@ namespace PiBa.UI.Properties.Center
             var rows = BuildRowsWithWidgets(widgetNode);
 
             WidgetsRow.OffsetHeightsPerRow(rows);
-            
+
             CenterAllChildrenInRows(rows, widgetNode.Children);
         }
 
@@ -38,19 +38,24 @@ namespace PiBa.UI.Properties.Center
             {
                 var (maxH, firstIndexOnNewRow) =
                     SumChildrenWidthsTilFit(widget.Children, previousIndex, widget.Data.Space.Size.X);
-                
+
                 var maxV = GetMaxHeightInChildrenSubList(widget.Children, previousIndex, firstIndexOnNewRow);
 
-                var row = new WidgetsRow(maxV, previousIndex,
+                var row = new WidgetsRow(maxH, maxV, previousIndex,
                     firstIndexOnNewRow < 0 ? widget.Children.Count : firstIndexOnNewRow);
 
-                var (x, y) = GetCoordsToCenterInSpace(widget.Data.Space, new Point(maxH, maxV));
-                row.X = x;
-                row.Y = y;
                 rows.Add(row);
                 previousIndex = firstIndexOnNewRow;
                 done = firstIndexOnNewRow == -1;
             }
+
+            var verticalCenterCoord = CenteredRowsVerticalCoord(widget.Data.Space, rows.Sum(r => r.Height));
+            rows.ForEach(row =>
+            {
+                var horizontalCenterCoord = RowHorizontalCenterCoord(widget.Data.Space, row.Width);
+                row.X = horizontalCenterCoord;
+                row.Y = verticalCenterCoord;
+            });
             return rows;
         }
 
@@ -97,14 +102,17 @@ namespace PiBa.UI.Properties.Center
         private static int GetMaxHeightInChildrenSubList(List<Tree<Widget>> children, int from, int until) =>
             children.GetRange(from, until < 0 ? children.Count - from : until - from).Max(w => w.Data.Space.Size.Y);
 
-        public static Point GetCoordsToCenterInSpace(Rectangle parent, Point size)
+        public static int RowHorizontalCenterCoord(Rectangle parent, int rowTotalWidth)
         {
-            var (x, y, width, height) = parent;
-            var (w, h) = size;
-            return new Point(
-                (int) ((width + x) / 2f - w / 2f),
-                (int) ((height + y) / 2f - h / 2f)
-            );
+            var (x, _, width, _) = parent;
+            return (int) ((width + x) / 2f - rowTotalWidth / 2f);
+
+        }
+
+        private static int CenteredRowsVerticalCoord(Rectangle parent, int totalRowsHeight)
+        {
+            var (_, y, _, height) = parent;
+            return (int) ((height + y) / 2f - totalRowsHeight / 2f);
         }
     }
 }

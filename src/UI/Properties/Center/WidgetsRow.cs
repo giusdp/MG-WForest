@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace PiBa.UI.Properties.Center
 {
@@ -7,12 +8,14 @@ namespace PiBa.UI.Properties.Center
     {
             public int X { get; set; }
             public int Y { get; set; }
-            public int Height { get; }
+            public int Width { get; }
+            public int Height { get; private set; }
             public int FirstWidgetIndex { get; }
             public int LastWidgetIndex { get; }
 
-            public WidgetsRow(int height, int firstWidgetIndex, int lastWidgetIndex)
+            public WidgetsRow(int width, int height, int firstWidgetIndex, int lastWidgetIndex)
             {
+                Width = width;
                 Height = height;
                 FirstWidgetIndex = firstWidgetIndex;
                 LastWidgetIndex = lastWidgetIndex;
@@ -22,40 +25,12 @@ namespace PiBa.UI.Properties.Center
             {
                 if (rows.Count <= 1) return;
 
-                if (rows.Count % 2 == 0)
-                    OffsetEvenNumberOfRows(rows);
-                else
-                    OffsetOddNumberOfRows(rows);
-            }
-            
-            private static void OffsetEvenNumberOfRows(List<WidgetsRow> rows)
-            {
-                var middleRow = rows.Count / 2;
-
-                for (var i = 0; i < rows.Count; i++)
+                var acc = rows[0].Height;
+                for (var i = 1; i < rows.Count; i++)
                 {
-                    var heightOffset = rows[i].Height;
-                    var difference = Math.Abs(middleRow - i);
-                    if (i < middleRow)
-                        rows[i].Y -= heightOffset / 2 + heightOffset * (difference - 1);
-                    else
-                        rows[i].Y += heightOffset / 2 + heightOffset * difference;
+                    rows[i].Y += acc;
+                    acc += rows[i].Height;
                 }
             }
-        
-            private static void OffsetOddNumberOfRows(List<WidgetsRow> rows)
-            {
-                var middleRow = rows.Count / 2;
-                for (var i = 0; i < rows.Count; i++)
-                {
-                    var heightOffset = rows[i].Height;
-                    var difference = Math.Abs(middleRow - i);
-                    if (i <= middleRow)
-                        rows[i].Y -= heightOffset * difference;
-                    else
-                        rows[i].Y += heightOffset * difference;
-                }
-            }
-
     }
 }
