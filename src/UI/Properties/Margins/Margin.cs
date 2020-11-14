@@ -4,6 +4,7 @@ namespace PiBa.UI.Properties.Margins
 {
     public class Margin : IProperty
     {
+        public int Priority { get; } = 2;
         private readonly int _margin;
 
         public Margin(int margin)

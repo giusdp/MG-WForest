@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using PiBa.UI.Properties;
@@ -33,9 +34,11 @@ namespace PiBa.UI
         }
 
         public void ApplyProperties()
-            => Properties.ForEach(c => c.ApplyOn(this));
+        {
+            Properties.Sort((p1, p2) => p1.Priority.CompareTo(p2.Priority));
+            Properties.ForEach(c => c.ApplyOn(this));
+        }
 
         public void DrawWidget(SpriteBatch spriteBatch) => Data.Draw(spriteBatch);
-
     }
 }

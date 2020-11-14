@@ -9,6 +9,7 @@ namespace PiBa.UI.Properties.Center
 {
     public class Center : IProperty
     {
+        public int Priority { get; } = 1;
         public void ApplyOn(WidgetTree widgetNode)
         {
             var widget = widgetNode.Data;

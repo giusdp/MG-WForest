@@ -4,6 +4,7 @@ namespace PiBa.UI.Properties.Actions
 {
     public class OnPress : IProperty
     {
+        public int Priority { get; } = 0;
         private readonly Action _function; 
         
         public OnPress(Action onPress)

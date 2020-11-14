@@ -4,15 +4,17 @@ namespace PiBa.UI.Properties.Actions
 {
     public class OnExit : IProperty
     {
-       private readonly Action _function; 
-        
+        public int Priority { get; } = 0;
+        private readonly Action _function;
+
         public OnExit(Action onPress)
         {
             _function = onPress;
         }
+
         public void ApplyOn(WidgetTree widgetNode)
         {
             widgetNode.Data.OnExit = _function;
-        } 
+        }
     }
 }
