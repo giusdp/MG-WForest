@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using PiBa.UI.Factories;
 using PiBa.UI.Properties;
+using PiBa.UI.Properties.Grid.Column;
 using PiBa.UI.Properties.Grid.Row;
 using PiBa.UI.Widgets;
 using PiBa.UI.WidgetTreeHandlers;
@@ -38,7 +39,7 @@ namespace PiBa.UI
             // ((ImageButton) btn.Data).PressedButton = AssetLoader.Load<Texture2D>("Sprite-0003");
 
 
-            _root.AddProperty(new Row());
+            _root.AddProperty(new Column());
 
             _widgetTreeVisitor.ApplyProperties(_root);
         }

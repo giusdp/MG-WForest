@@ -36,7 +36,7 @@ namespace PiBa.Tests.PropertyTests
         }
         
         [Test]
-        public void ApplyOn_TwoWidgets_GoSideBySide()
+        public void ApplyOn_TwoWidgets_OneAboveOther()
         {
             var child = _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 120, 120)));
             var secondChild = _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 120, 120)));
@@ -49,55 +49,58 @@ namespace PiBa.Tests.PropertyTests
             Assert.That(secondChild.Data.Space, Is.EqualTo(expectedLocSecond));
         }
         
-        //     [Test]
-        //     public void ApplyOn_WidgetsPassHorizontalLimit_GoOnNewRow()
-        //     {
-        //         var acts = new[]
-        //         {
-        //             _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 640, 120))),
-        //             _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 320, 120))),
-        //             _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 160, 120))),
-        //             _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 80, 120))),
-        //             _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 128, 64))),
-        //         };
-        //
-        //         var expects = new[]
-        //         {
-        //             new Rectangle(0, 0, 640, 120),
-        //             new Rectangle(640, 0, 320, 120),
-        //             new Rectangle(960, 0, 160, 120),
-        //             new Rectangle(1120, 0, 80, 120),
-        //             new Rectangle(0, 120, 128, 64),
-        //         };
-        //
-        //         _column.ApplyOn(_root);
-        //         for (var i = 0; i < acts.Length; i++)
-        //         {
-        //             Assert.That(acts[i].Data.Space, Is.EqualTo(expects[i]));
-        //         }
-        //     }
-        //     [Test]
-        //     public void ApplyOn_WidgetsWithDifferentHeights_RowGetsMaxHeight()
-        //     {
-        //         var acts = new[]
-        //         {
-        //             _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 640, 120))),
-        //             _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 600, 320))),
-        //             _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 128, 64))),
-        //         };
-        //
-        //         var expects = new[]
-        //         {
-        //             new Rectangle(0, 0, 640, 120),
-        //             new Rectangle(640, 0, 600, 320),
-        //             new Rectangle(0, 320, 128, 64),
-        //         };
-        //
-        //         _column.ApplyOn(_root);
-        //         for (var i = 0; i < acts.Length; i++)
-        //         {
-        //             Assert.That(acts[i].Data.Space, Is.EqualTo(expects[i]));
-        //         }
-        //     }
+        [Test]
+        public void ApplyOn_WidgetsPassVerticalLimit_GoOnNewColumn()
+        {
+            var acts = new[]
+            {
+                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 640, 640))),
+                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 120, 70))),
+                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 160, 120))),
+            };
+        
+            var expects = new[]
+            {
+                new Rectangle(0, 0, 640, 640),
+                new Rectangle(0, 640, 120, 70),
+                new Rectangle(640, 0, 160, 120),
+            };
+        
+            _column.ApplyOn(_root);
+            for (var i = 0; i < acts.Length; i++)
+            {
+                Assert.That(acts[i].Data.Space, Is.EqualTo(expects[i]));
+            }
+        }
+        
+        [Test]
+        public void ApplyOn_ThreeColsWithSameWidgets_CreatesThreeCols()
+        {
+            var acts = new[]
+            {
+                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 120, 330))),
+                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 120, 330))),
+                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 120, 330))),
+                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 120, 330))),
+                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 120, 330))),
+                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 120, 330))),
+            };
+        
+            var expects = new[]
+            {
+                new Rectangle(0, 0, 120, 330),
+                new Rectangle(0, 330, 120, 330),
+                new Rectangle(120, 0, 120, 330),
+                new Rectangle(120, 330, 120, 330),
+                new Rectangle(240, 0, 120, 330),
+                new Rectangle(240, 330, 120, 330),
+            };
+        
+            _column.ApplyOn(_root);
+            for (var i = 0; i < acts.Length; i++)
+            {
+                Assert.That(acts[i].Data.Space, Is.EqualTo(expects[i]));
+            }
+        }
     }
 }

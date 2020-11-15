@@ -16,5 +16,6 @@ namespace PiBa.UI.Properties.Grid
             FirstWidgetIndex = firstWidgetIndex;
             LastWidgetIndex = lastWidgetIndex;
         }
+        
     } 
 }

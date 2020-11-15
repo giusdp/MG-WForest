@@ -51,7 +51,6 @@ namespace PiBa.UI.Properties.Grid.Row
             }
         }
 
-
         private static List<WidgetsDataSubList> BuildRowsWithWidgets(WidgetTree widget)
         {
             var rows = new List<WidgetsDataSubList>();
