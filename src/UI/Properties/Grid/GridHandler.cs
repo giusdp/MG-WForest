@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using PiBa.UI.Widgets;
 using PiBa.Utilities.Collections;
 
@@ -10,7 +11,24 @@ namespace PiBa.UI.Properties.Grid
         private static int GetWidgetWidth(Tree<Widget> t) => t.Data.Space.Size.X;
         private static int GetWidgetHeight(Tree<Widget> t) => t.Data.Space.Size.Y;
 
-        private static (int, int) GetChildrenIndexTilFitSize(List<Tree<Widget>> children, int firstChildIndex,
+
+        public static (int, int) SumHeightsTilFit(List<Tree<Widget>> children, int startIdx, int maxHeight)
+            => GetSizeAndIndexTilLimitSize(children, startIdx, maxHeight, GetWidgetHeight);
+        
+        public static (int, int) SumWidthsTilFit(List<Tree<Widget>> children, int startIdx, int maxWidth)
+            => GetSizeAndIndexTilLimitSize(children, startIdx, maxWidth, GetWidgetWidth);
+
+        public static int MaxWidthInSubList(List<Tree<Widget>> children, int from, int until) =>
+            GetMaxSizeInChildrenSubList(children, from, until, GetWidgetWidth);
+
+        public static int MaxHeightInSubList(List<Tree<Widget>> children, int from, int until) =>
+            GetMaxSizeInChildrenSubList(children, from, until, GetWidgetHeight);
+
+        private static int GetMaxSizeInChildrenSubList(List<Tree<Widget>> children, int from, int until,
+            Func<Tree<Widget>, int> getSize) =>
+            children.GetRange(from, until < 0 ? children.Count - from : until - from).Max(getSize);
+
+        private static (int, int) GetSizeAndIndexTilLimitSize(List<Tree<Widget>> children, int firstChildIndex,
             int limit,
             Func<Tree<Widget>, int> getSize)
         {
@@ -31,13 +49,5 @@ namespace PiBa.UI.Properties.Grid
 
             return (acc, indexOnNewRow);
         }
-
-        public static (int, int) SumChildrenHeightsTilFit(List<Tree<Widget>> children, int startIdx,
-            int maxHeight)
-            => GetChildrenIndexTilFitSize(children, startIdx, maxHeight, GetWidgetHeight);
-
-
-        public static (int, int) SumChildrenWidthsTilFit(List<Tree<Widget>> children, int startIdx, int maxWidth)
-            => GetChildrenIndexTilFitSize(children, startIdx, maxWidth, GetWidgetWidth);
     }
 }

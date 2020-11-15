@@ -60,9 +60,9 @@ namespace PiBa.UI.Properties.Grid.Row
             while (!done)
             {
                 var (maxH, firstIndexOnNewRow) =
-                    GridHandler.SumChildrenWidthsTilFit(widget.Children, previousIndex, widget.Data.Space.Size.X);
+                    GridHandler.SumWidthsTilFit(widget.Children, previousIndex, widget.Data.Space.Size.X);
 
-                var maxV = GetMaxHeightInChildrenSubList(widget.Children, previousIndex, firstIndexOnNewRow);
+                var maxV = GridHandler.MaxHeightInSubList(widget.Children, previousIndex, firstIndexOnNewRow);
 
                 var row = new WidgetsDataSubList(maxH, maxV, previousIndex,
                     firstIndexOnNewRow < 0 ? widget.Children.Count : firstIndexOnNewRow);
@@ -74,8 +74,5 @@ namespace PiBa.UI.Properties.Grid.Row
 
             return rows;
         }
-
-        private static int GetMaxHeightInChildrenSubList(List<Tree<Widget>> children, int from, int until) =>
-            children.GetRange(from, until < 0 ? children.Count - from : until - from).Max(w => w.Data.Space.Size.Y);
     }
 }
