@@ -11,42 +11,19 @@ namespace PiBa.UI.Properties.Center
     {
         public static void CenterByRow(WidgetTree tree)
         {
-            var rows = BuildRowsWithWidgets(tree);
-
-            OffsetRowsHeights(rows);
-
-            CenterChildren(rows, tree.Children);
-        }
-
-        private static List<WidgetsDataSubList> BuildRowsWithWidgets(WidgetTree widget)
-        {
-            var rows = new List<WidgetsDataSubList>();
-            var previousIndex = 0;
-
-            var done = false;
-            while (!done)
-            {
-                var (maxH, firstIndexOnNewRow) =
-                    SumChildrenWidthsTilFit(widget.Children, previousIndex, widget.Data.Space.Size.X);
-
-                var maxV = GetMaxHeightInChildrenSubList(widget.Children, previousIndex, firstIndexOnNewRow);
-
-                var row = new WidgetsDataSubList(maxH, maxV, previousIndex,
-                    firstIndexOnNewRow < 0 ? widget.Children.Count : firstIndexOnNewRow);
-
-                rows.Add(row);
-                previousIndex = firstIndexOnNewRow;
-                done = firstIndexOnNewRow == -1;
-            }
-
-            var verticalCenterCoord = CenteredRowsVerticalCoord(widget.Data.Space, rows.Sum(r => r.Height));
+            var rows = GridHandler.OrganizeWidgetsInRows(tree);
+            
+            var verticalCenterCoord = CenteredRowsVerticalCoord(tree.Data.Space, rows.Sum(r => r.Height));
             rows.ForEach(row =>
             {
-                var horizontalCenterCoord = RowHorizontalCenterCoord(widget.Data.Space, row.Width);
+                var horizontalCenterCoord = RowHorizontalCenterCoord(tree.Data.Space, row.Width);
                 row.X = horizontalCenterCoord;
                 row.Y = verticalCenterCoord;
             });
-            return rows;
+            
+            OffsetRowsHeights(rows);
+
+            CenterChildren(rows, tree.Children);
         }
 
         private static void OffsetRowsHeights(List<WidgetsDataSubList> rows)
@@ -81,29 +58,7 @@ namespace PiBa.UI.Properties.Center
             if (child.Space.Size.Y != maxV) y += maxV / 2 - child.Space.Height / 2;
             child.Space = new Rectangle(new Point(x, y), child.Space.Size);
         }
-
-        private static (int, int) SumChildrenWidthsTilFit(List<Tree<Widget>> children, int startIndex, int parentHSize)
-        {
-            var acc = 0;
-            var indexOnNewRow = -1;
-
-            for (var i = startIndex; i < children.Count; i++)
-            {
-                if (acc + children[i].Data.Space.Size.X > parentHSize)
-                {
-                    indexOnNewRow = i;
-                    break;
-                }
-
-                acc += children[i].Data.Space.Size.X;
-            }
-
-            return (acc, indexOnNewRow);
-        }
-
-        private static int GetMaxHeightInChildrenSubList(List<Tree<Widget>> children, int from, int until) =>
-            children.GetRange(from, until < 0 ? children.Count - from : until - from).Max(w => w.Data.Space.Size.Y);
-
+        
         private static int RowHorizontalCenterCoord(Rectangle parent, int rowTotalWidth)
         {
             var (x, _, width, _) = parent;
