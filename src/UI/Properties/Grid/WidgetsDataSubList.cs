@@ -1,6 +1,6 @@
-namespace PiBa.Utilities.Grid
+namespace PiBa.UI.Properties.Grid
 {
-    public class RowWidgetsData
+    internal class WidgetsDataSubList
     {
         public int X { get; set; }
         public int Y { get; set; }
@@ -9,7 +9,7 @@ namespace PiBa.Utilities.Grid
         public int FirstWidgetIndex { get; }
         public int LastWidgetIndex { get; }
 
-        public RowWidgetsData(int width, int height, int firstWidgetIndex, int lastWidgetIndex)
+        public WidgetsDataSubList(int width, int height, int firstWidgetIndex, int lastWidgetIndex)
         {
             Width = width;
             Height = height;

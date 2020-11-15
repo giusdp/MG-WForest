@@ -2,7 +2,7 @@ using Microsoft.Xna.Framework;
 using NUnit.Framework;
 using PiBa.UI;
 using PiBa.UI.Factories;
-using Row = PiBa.UI.Properties.Row.Row;
+using Row = PiBa.UI.Properties.Grid.Row.Row;
 
 namespace PiBa.Tests.PropertyTests
 {

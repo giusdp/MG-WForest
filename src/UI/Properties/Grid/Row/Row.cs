@@ -1,4 +1,4 @@
-namespace PiBa.UI.Properties.Row
+namespace PiBa.UI.Properties.Grid.Row
 {
     public class Row : IProperty
     {

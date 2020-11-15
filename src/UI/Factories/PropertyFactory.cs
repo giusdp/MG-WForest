@@ -2,8 +2,8 @@ using System;
 using PiBa.UI.Properties;
 using PiBa.UI.Properties.Actions;
 using PiBa.UI.Properties.Center;
+using PiBa.UI.Properties.Grid.Row;
 using PiBa.UI.Properties.Margins;
-using PiBa.UI.Properties.Row;
 
 namespace PiBa.UI.Factories
 {

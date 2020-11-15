@@ -3,9 +3,8 @@ using System.Linq;
 using Microsoft.Xna.Framework;
 using PiBa.UI.Widgets;
 using PiBa.Utilities.Collections;
-using PiBa.Utilities.Grid;
 
-namespace PiBa.UI.Properties.Row
+namespace PiBa.UI.Properties.Grid.Row
 {
     public static class RowHandler
     {
@@ -16,7 +15,7 @@ namespace PiBa.UI.Properties.Row
             OffsetVerticalPositions(tree.Children, rows);
         }
 
-        private static void OffsetHorizontalPositions(List<Tree<Widget>> widgetTrees, List<RowWidgetsData> rows)
+        private static void OffsetHorizontalPositions(List<Tree<Widget>> widgetTrees, List<WidgetsDataSubList> rows)
         {
             if (rows.Count == 0) return;
 
@@ -34,7 +33,7 @@ namespace PiBa.UI.Properties.Row
             });
         }
 
-        private static void OffsetVerticalPositions(List<Tree<Widget>> widgetTrees, List<RowWidgetsData> rows)
+        private static void OffsetVerticalPositions(List<Tree<Widget>> widgetTrees, List<WidgetsDataSubList> rows)
         {
             if (rows.Count <= 1) return;
 
@@ -53,9 +52,9 @@ namespace PiBa.UI.Properties.Row
         }
 
 
-        private static List<RowWidgetsData> BuildRowsWithWidgets(WidgetTree widget)
+        private static List<WidgetsDataSubList> BuildRowsWithWidgets(WidgetTree widget)
         {
-            var rows = new List<RowWidgetsData>();
+            var rows = new List<WidgetsDataSubList>();
             var previousIndex = 0;
 
             var done = false;
@@ -66,7 +65,7 @@ namespace PiBa.UI.Properties.Row
 
                 var maxV = GetMaxHeightInChildrenSubList(widget.Children, previousIndex, firstIndexOnNewRow);
 
-                var row = new RowWidgetsData(maxH, maxV, previousIndex,
+                var row = new WidgetsDataSubList(maxH, maxV, previousIndex,
                     firstIndexOnNewRow < 0 ? widget.Children.Count : firstIndexOnNewRow);
 
                 rows.Add(row);

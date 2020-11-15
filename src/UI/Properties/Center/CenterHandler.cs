@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
+using PiBa.UI.Properties.Grid;
 using PiBa.UI.Widgets;
 using PiBa.Utilities.Collections;
-using PiBa.Utilities.Grid;
 
 namespace PiBa.UI.Properties.Center
 {
@@ -18,9 +18,9 @@ namespace PiBa.UI.Properties.Center
             CenterChildren(rows, tree.Children);
         }
 
-        private static List<RowWidgetsData> BuildRowsWithWidgets(WidgetTree widget)
+        private static List<WidgetsDataSubList> BuildRowsWithWidgets(WidgetTree widget)
         {
-            var rows = new List<RowWidgetsData>();
+            var rows = new List<WidgetsDataSubList>();
             var previousIndex = 0;
 
             var done = false;
@@ -31,7 +31,7 @@ namespace PiBa.UI.Properties.Center
 
                 var maxV = GetMaxHeightInChildrenSubList(widget.Children, previousIndex, firstIndexOnNewRow);
 
-                var row = new RowWidgetsData(maxH, maxV, previousIndex,
+                var row = new WidgetsDataSubList(maxH, maxV, previousIndex,
                     firstIndexOnNewRow < 0 ? widget.Children.Count : firstIndexOnNewRow);
 
                 rows.Add(row);
@@ -49,7 +49,7 @@ namespace PiBa.UI.Properties.Center
             return rows;
         }
 
-        private static void OffsetRowsHeights(List<RowWidgetsData> rows)
+        private static void OffsetRowsHeights(List<WidgetsDataSubList> rows)
         {
             if (rows.Count <= 1) return;
 
@@ -61,7 +61,7 @@ namespace PiBa.UI.Properties.Center
             }
         }
 
-        private static void CenterChildren(List<RowWidgetsData> rows, IReadOnlyList<Tree<Widget>> children)
+        private static void CenterChildren(List<WidgetsDataSubList> rows, IReadOnlyList<Tree<Widget>> children)
         {
             rows.ForEach(row =>
             {

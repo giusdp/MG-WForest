@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using PiBa.UI.Factories;
 using PiBa.UI.Properties;
-using PiBa.UI.Properties.Row;
+using PiBa.UI.Properties.Grid.Row;
 using PiBa.UI.Widgets;
 using PiBa.UI.WidgetTreeHandlers;
 using Serilog;
