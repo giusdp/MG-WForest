@@ -3,11 +3,13 @@ using PiBa.UI.Properties;
 using PiBa.UI.Properties.Actions;
 using PiBa.UI.Properties.Center;
 using PiBa.UI.Properties.Margins;
+using PiBa.UI.Properties.Row;
 
 namespace PiBa.UI.Factories
 {
     public static class PropertyFactory
     {
+        public static IProperty Row() => new Row();
         public static IProperty Center() => new Center();
         public static IProperty Margin(int m) => new Margin(m);
 
