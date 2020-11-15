@@ -14,10 +14,7 @@ namespace PiBa.UI.Factories
 
         public static Container CreateContainer(Point size) => new Container(new Rectangle(new Point(0, 0), size));
 
-
         public static Container CreateContainer(int width, int height) =>
             new Container(new Rectangle(0, 0, width, height));
     }
-}
-
 }
