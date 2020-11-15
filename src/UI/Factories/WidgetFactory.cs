@@ -15,6 +15,11 @@ namespace PiBa.UI.Factories
         {
             return new Container(space);
         }
+        
+        public static Container CreateContainer(Point size)
+        {
+            return new Container(new Rectangle(new Point(0,0), size));
+        }
 
     }
 }
