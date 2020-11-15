@@ -4,7 +4,7 @@ using PiBa.UI;
 using PiBa.UI.Factories;
 using Row = PiBa.UI.Properties.Row.Row;
 
-namespace PiBa.Tests
+namespace PiBa.Tests.PropertyTests
 {
     [TestFixture]
     public class RowPropertyTests

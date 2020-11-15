@@ -2,9 +2,8 @@ using Microsoft.Xna.Framework;
 using NUnit.Framework;
 using PiBa.UI;
 using PiBa.UI.Factories;
-using PiBa.UI.Properties.Margins;
 
-namespace PiBa.Tests
+namespace PiBa.Tests.PropertyTests
 {
     [TestFixture]
     public class MarginPropertyTests

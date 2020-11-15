@@ -4,7 +4,7 @@ using PiBa.UI;
 using PiBa.UI.Factories;
 using PiBa.UI.Properties.Center;
 
-namespace PiBa.Tests
+namespace PiBa.Tests.PropertyTests
 {
     [TestFixture]
     public class CenterPropertyTests
