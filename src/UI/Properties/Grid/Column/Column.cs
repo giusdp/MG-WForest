@@ -8,7 +8,7 @@ namespace PiBa.UI.Properties.Grid.Column
         {
             if (widgetNode.Children.Count <= 1)
                 return;
-            ColumnHandler.SetWidgetsInRows(widgetNode);
+            GridHandler.OrganizeWidgetsInColumns(widgetNode);
         }
     }
 }

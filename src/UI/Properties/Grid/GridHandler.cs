@@ -9,10 +9,23 @@ namespace PiBa.UI.Properties.Grid
 {
     internal static class GridHandler
     {
+        #region Public API
+
+        public static List<WidgetsDataSubList> OrganizeWidgetsInColumns(WidgetTree widget)
+            => OrganizeWidgetsInSubLists(widget, CreateColumn, OffsetWidgetsInColumns);
+
+        public static List<WidgetsDataSubList> OrganizeWidgetsInRows(WidgetTree widgetTree)
+            => OrganizeWidgetsInSubLists(widgetTree, CreateRow, OffsetWidgetsInRows);
+
+        #endregion
+
         #region DI Functions
 
         private static int GetWidgetWidth(Tree<Widget> t) => t.Data.Space.Width;
         private static int GetWidgetHeight(Tree<Widget> t) => t.Data.Space.Height;
+
+        private static int GetSubListWidth(WidgetsDataSubList w) => w.Width;
+        private static int GetSubListHeight(WidgetsDataSubList w) => w.Height;
 
         private static Rectangle AddToX(Rectangle r, int v) => new Rectangle(r.X + v, r.Y, r.Width, r.Height);
         private static Rectangle AddToY(Rectangle r, int v) => new Rectangle(r.X, r.Y + v, r.Width, r.Height);
@@ -43,31 +56,35 @@ namespace PiBa.UI.Properties.Grid
 
         #endregion
 
-        #region Public API
-
-        public static List<WidgetsDataSubList> BuildColumnsWithWidgets(WidgetTree widget) =>
-            BuildSubLists(widget, CreateColumn);
-
-        public static List<WidgetsDataSubList> BuildRowsWithWidgets(WidgetTree widget) =>
-            BuildSubLists(widget, CreateRow);
-
-        #endregion
-
         #region Backend
 
-        public static void OffsetWidgetsInRows(List<Tree<Widget>> widgetTrees, List<WidgetsDataSubList> rows)
-            => OffsetByMainSize(widgetTrees, rows, GetWidgetWidth, AddToX);
+        private static List<WidgetsDataSubList> OrganizeWidgetsInSubLists(WidgetTree widget,
+            Func<WidgetTree, int, (WidgetsDataSubList, int)> f,
+            Action<List<Tree<Widget>>, List<WidgetsDataSubList>> offset)
+        {
+            var l = BuildSubLists(widget, f);
+            offset(widget.Children, l);
+            return l;
+        }
 
+        private static void OffsetWidgetsInRows(List<Tree<Widget>> widgetTrees, List<WidgetsDataSubList> rows)
+        {
+            OffsetByMainPosition(widgetTrees, rows, GetWidgetWidth, AddToX);
+            OffsetBySecondaryPosition(widgetTrees, rows, GetSubListHeight, AddToY);
+        }
 
-        public static void OffsetWidgetsInColumns(List<Tree<Widget>> widgetTrees, List<WidgetsDataSubList> rows)
-            => OffsetByMainSize(widgetTrees, rows, GetWidgetHeight, AddToY);
+        private static void OffsetWidgetsInColumns(List<Tree<Widget>> widgetTrees, List<WidgetsDataSubList> cols)
+        {
+            OffsetByMainPosition(widgetTrees, cols, GetWidgetHeight, AddToY);
+            OffsetBySecondaryPosition(widgetTrees, cols, GetSubListWidth, AddToX);
+        }
 
-        private static void OffsetByMainSize(List<Tree<Widget>> widgetTrees, List<WidgetsDataSubList> sublists,
+        private static void OffsetByMainPosition(List<Tree<Widget>> widgetTrees, List<WidgetsDataSubList> subLists,
             Func<Tree<Widget>, int> getSize, Func<Rectangle, int, Rectangle> updateRect)
         {
-            if (sublists.Count == 0) return;
+            if (subLists.Count == 0) return;
 
-            sublists.ForEach(l =>
+            subLists.ForEach(l =>
             {
                 var acc = getSize(widgetTrees[l.FirstWidgetIndex]);
                 for (var i = l.FirstWidgetIndex + 1; i < l.LastWidgetIndex; i++)
@@ -79,44 +96,25 @@ namespace PiBa.UI.Properties.Grid
             });
         }
 
-        private static void OffsetVerticalPositions(List<Tree<Widget>> widgetTrees, List<WidgetsDataSubList> rows)
+        private static void OffsetBySecondaryPosition(List<Tree<Widget>> widgetTrees, List<WidgetsDataSubList> subLists,
+            Func<WidgetsDataSubList, int> getSlSize, Func<Rectangle, int, Rectangle> updateRect)
         {
-            if (rows.Count <= 1) return;
+            if (subLists.Count <= 1) return;
 
             var widgets = widgetTrees.Select(t => t.Data).ToList();
-            var acc = rows[0].Height;
-            for (var i = 1; i < rows.Count; i++)
+            var acc = getSlSize(subLists[0]);
+            for (var i = 1; i < subLists.Count; i++)
             {
-                for (var j = rows[i].FirstWidgetIndex; j < rows[i].LastWidgetIndex; j++)
+                for (var j = subLists[i].FirstWidgetIndex; j < subLists[i].LastWidgetIndex; j++)
                 {
                     var (x, y, width, height) = widgets[j].Space;
-                    widgets[j].Space = new Rectangle(x, y + acc, width, height);
+                    widgets[j].Space = updateRect(widgets[j].Space, acc);
                 }
 
-                acc += rows[i].Height;
+                acc += getSlSize(subLists[i]);
             }
         }
 
-
-        private static void OffsetHorPositions(List<Tree<Widget>> widgetTrees, List<WidgetsDataSubList> cols)
-        {
-            if (cols.Count <= 1) return;
-
-            var widgets = widgetTrees.Select(t => t.Data).ToList();
-            var acc = cols[0].Width;
-            for (var i = 1; i < cols.Count; i++)
-            {
-                for (var j = cols[i].FirstWidgetIndex; j < cols[i].LastWidgetIndex; j++)
-                {
-                    var (x, y, width, height) = widgets[j].Space;
-                    widgets[j].Space = new Rectangle(x + acc, y, width, height);
-                }
-
-                acc += cols[i].Width;
-            }
-        }
-
-        #endregion
 
         private static List<WidgetsDataSubList> BuildSubLists(WidgetTree widget,
             Func<WidgetTree, int, (WidgetsDataSubList, int)> f)
@@ -173,5 +171,7 @@ namespace PiBa.UI.Properties.Grid
 
             return (acc, indexOnNewRow);
         }
+
+        #endregion
     }
 }
