@@ -6,7 +6,7 @@ namespace PiBa.UI.Properties.Row
 
         public void ApplyOn(WidgetTree widgetNode)
         {
-            if (widgetNode.Children.Count == 0)
+            if (widgetNode.Children.Count <= 1)
                 return;
 
             RowHandler.SetWidgetsInRows(widgetNode);
