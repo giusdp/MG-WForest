@@ -10,27 +10,10 @@ namespace PiBa.UI.Properties.Grid.Column
     {
         public static void SetWidgetsInRows(WidgetTree tree)
         {
-            var columns = BuildColumnsWithWidgets(tree);
-            OffsetVPositions(tree.Children, columns);
+            var columns = GridHandler.BuildColumnsWithWidgets(tree);
+            GridHandler.OffsetWidgetsInColumns(tree.Children, columns);
+            // OffsetVPositions(tree.Children, columns);
             OffsetHorPositions(tree.Children, columns);
-        }
-
-        private static void OffsetVPositions(List<Tree<Widget>> widgetTrees, List<WidgetsDataSubList> cols)
-        {
-            if (cols.Count == 0) return;
-
-            var widgets = widgetTrees.Select(t => t.Data).ToList();
-
-            cols.ForEach(row =>
-            {
-                var accY = widgets[row.FirstWidgetIndex].Space.Height;
-                for (var i = row.FirstWidgetIndex + 1; i < row.LastWidgetIndex; i++)
-                {
-                    var (x, y, width, height) = widgets[i].Space;
-                    widgets[i].Space = new Rectangle(x, y + accY, width, height);
-                    accY += widgets[i].Space.Height;
-                }
-            });
         }
 
         private static void OffsetHorPositions(List<Tree<Widget>> widgetTrees, List<WidgetsDataSubList> cols)
@@ -49,31 +32,6 @@ namespace PiBa.UI.Properties.Grid.Column
 
                 acc += cols[i].Width;
             }
-        }
-
-
-        private static List<WidgetsDataSubList> BuildColumnsWithWidgets(WidgetTree widget)
-        {
-            var columns = new List<WidgetsDataSubList>();
-            var previousIndex = 0;
-
-            var done = false;
-            while (!done)
-            {
-                var (maxVert, firstIndexOnNewRow) =
-                    GridHandler.SumHeightsTilFit(widget.Children, previousIndex, widget.Data.Space.Size.Y);
-
-                var maxHor = GridHandler.MaxWidthInSubList(widget.Children, previousIndex, firstIndexOnNewRow);
-
-                var col = new WidgetsDataSubList(maxHor, maxVert, previousIndex,
-                    firstIndexOnNewRow < 0 ? widget.Children.Count : firstIndexOnNewRow);
-
-                columns.Add(col);
-                previousIndex = firstIndexOnNewRow;
-                done = firstIndexOnNewRow == -1;
-            }
-
-            return columns;
         }
     }
 }
