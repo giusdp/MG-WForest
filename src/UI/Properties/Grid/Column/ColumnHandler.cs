@@ -61,7 +61,7 @@ namespace PiBa.UI.Properties.Grid.Column
             while (!done)
             {
                 var (maxVert, firstIndexOnNewRow) =
-                    SumChildrenHeightsTilFit(widget.Children, previousIndex, widget.Data.Space.Size.Y);
+                    GridHandler.SumChildrenHeightsTilFit(widget.Children, previousIndex, widget.Data.Space.Size.Y);
 
                 var maxHor = GetMaxWidthInChildrenSubList(widget.Children, previousIndex, firstIndexOnNewRow);
 
@@ -79,24 +79,5 @@ namespace PiBa.UI.Properties.Grid.Column
         private static int GetMaxWidthInChildrenSubList(List<Tree<Widget>> children, int from, int until) =>
             children.GetRange(from, until < 0 ? children.Count - from : until - from).Max(w => w.Data.Space.Size.X);
 
-        private static (int, int) SumChildrenHeightsTilFit(List<Tree<Widget>> children, int startIndex,
-            int parentVertSize)
-        {
-            var acc = 0;
-            var indexOnNewRow = -1;
-
-            for (var i = startIndex; i < children.Count; i++)
-            {
-                if (acc + children[i].Data.Space.Size.Y > parentVertSize)
-                {
-                    indexOnNewRow = i;
-                    break;
-                }
-
-                acc += children[i].Data.Space.Size.Y;
-            }
-
-            return (acc, indexOnNewRow);
-        }
     }
 }

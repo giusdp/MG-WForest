@@ -60,7 +60,7 @@ namespace PiBa.UI.Properties.Grid.Row
             while (!done)
             {
                 var (maxH, firstIndexOnNewRow) =
-                    SumChildrenWidthsTilFit(widget.Children, previousIndex, widget.Data.Space.Size.X);
+                    GridHandler.SumChildrenWidthsTilFit(widget.Children, previousIndex, widget.Data.Space.Size.X);
 
                 var maxV = GetMaxHeightInChildrenSubList(widget.Children, previousIndex, firstIndexOnNewRow);
 
@@ -73,26 +73,6 @@ namespace PiBa.UI.Properties.Grid.Row
             }
 
             return rows;
-        }
-
-
-        private static (int, int) SumChildrenWidthsTilFit(List<Tree<Widget>> children, int startIndex, int parentHSize)
-        {
-            var acc = 0;
-            var indexOnNewRow = -1;
-
-            for (var i = startIndex; i < children.Count; i++)
-            {
-                if (acc + children[i].Data.Space.Size.X > parentHSize)
-                {
-                    indexOnNewRow = i;
-                    break;
-                }
-
-                acc += children[i].Data.Space.Size.X;
-            }
-
-            return (acc, indexOnNewRow);
         }
 
         private static int GetMaxHeightInChildrenSubList(List<Tree<Widget>> children, int from, int until) =>
