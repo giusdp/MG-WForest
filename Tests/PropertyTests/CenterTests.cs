@@ -67,7 +67,23 @@ namespace PiBa.Tests.PropertyTests
         }
 
         [Test]
-        public void ApplyOn_TwoIdenticalWidgetsInRow_Centered()
+        public void ApplyOn_TwoIdenticalWidgetsInColumn()
+        {
+            var child = _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 120, 120)));
+            var secondChild = _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 120, 120)));
+        
+            var firstChildExpectedLoc = new Rectangle(580, 240, 120, 120);
+            var secondChildExpectedLoc = new Rectangle(580, 360, 120, 120);
+        
+            ApplyCol();
+            _center.ApplyOn(_root);
+            
+            Assert.That(child.Data.Space, Is.EqualTo(firstChildExpectedLoc));
+            Assert.That(secondChild.Data.Space, Is.EqualTo(secondChildExpectedLoc));
+        }
+        
+        [Test]
+        public void ApplyOn_TwoIdenticalWidgetsInRow()
         {
             var child = _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 120, 120)));
             var secondChild = _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 120, 120)));
@@ -92,6 +108,21 @@ namespace PiBa.Tests.PropertyTests
             var secondChildExpectedLoc = new Rectangle(690, 195, 120, 330);
         
             ApplyRow();
+            _center.ApplyOn(_root);
+            Assert.That(child.Data.Space, Is.EqualTo(firstChildExpectedLoc));
+            Assert.That(secondChild.Data.Space, Is.EqualTo(secondChildExpectedLoc));
+        }
+        
+        [Test]
+        public void ApplyOn_ColumnWithTwoSizesWidgets_CentersOnlyColumnsNotInternally()
+        {
+            var child = _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120)));
+            var secondChild = _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 120, 330)));
+        
+            var firstChildExpectedLoc = new Rectangle(530, 135, 220, 120);
+            var secondChildExpectedLoc = new Rectangle(530, 255, 120, 330);
+        
+            ApplyCol();
             _center.ApplyOn(_root);
             Assert.That(child.Data.Space, Is.EqualTo(firstChildExpectedLoc));
             Assert.That(secondChild.Data.Space, Is.EqualTo(secondChildExpectedLoc));
@@ -127,6 +158,7 @@ namespace PiBa.Tests.PropertyTests
                 Assert.That(acts[i].Data.Space, Is.EqualTo(expects[i]));
             }
         }
+        
         
         [Test]
         public void ApplyOn_ThreeRowsOfWidgets_CorrectlyCentered()

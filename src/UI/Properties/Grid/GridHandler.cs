@@ -86,8 +86,8 @@ namespace PiBa.UI.Properties.Grid
 
             subLists.ForEach(l =>
             {
-                var acc = getSize(widgetTrees[l.FirstWidgetIndex]);
-                for (var i = l.FirstWidgetIndex + 1; i < l.LastWidgetIndex; i++)
+                var acc = 0;
+                for (var i = l.FirstWidgetIndex; i < l.LastWidgetIndex; i++)
                 {
                     var widgetSpace = widgetTrees[i].Data.Space;
                     widgetTrees[i].Data.Space = updateRect(widgetSpace, acc);
@@ -106,10 +106,7 @@ namespace PiBa.UI.Properties.Grid
             for (var i = 1; i < subLists.Count; i++)
             {
                 for (var j = subLists[i].FirstWidgetIndex; j < subLists[i].LastWidgetIndex; j++)
-                {
-                    var (x, y, width, height) = widgets[j].Space;
                     widgets[j].Space = updateRect(widgets[j].Space, acc);
-                }
 
                 acc += getSlSize(subLists[i]);
             }

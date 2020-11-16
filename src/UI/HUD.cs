@@ -26,6 +26,7 @@ namespace PiBa.UI
             _root = new WidgetTree(WidgetFactory.CreateContainer(new Rectangle(0, 0, 1280, 720)));
 
             _root.AddChild(WidgetFactory.CreateImageButton("SpriteBtnL"));
+            _root.AddChild(WidgetFactory.CreateImageButton("SpriteBtnA"));
 
             // var btn = _root.AddChild(WidgetFactory.CreateImageButton("Sprite-0001"));
             // ((ImageButton) btn.Data).HoverButton = AssetLoader.Load<Texture2D>("Sprite-0002");

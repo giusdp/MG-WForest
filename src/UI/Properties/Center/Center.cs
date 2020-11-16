@@ -30,7 +30,7 @@ namespace PiBa.UI.Properties.Center
                 var colProps = widgetNode.Properties.OfType<Column>().ToList();
                 if (colProps.Any())
                 {
-                    CenterHandler.CenterByRow(widgetNode, colProps.First().Columns);
+                    CenterHandler.CenterByColumn(widgetNode, colProps.First().Columns);
                 }
                 else
                 {

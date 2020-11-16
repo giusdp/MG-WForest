@@ -11,7 +11,9 @@ namespace PiBa.UI.Properties.Center
     {
         public static void CenterByRow(WidgetTree wTree, List<WidgetsDataSubList> rows)
         {
-            var (x, y) = GetCenterCoords(wTree.Data.Space, rows);
+            var maxWidth = rows.Max(r => r.Width);
+            var totalHeight = rows.Sum(r => r.Height);
+            var (x, y) = GetCenterCoords(wTree.Data.Space, maxWidth, totalHeight);
 
             rows.ForEach(r =>
             {
@@ -20,16 +22,31 @@ namespace PiBa.UI.Properties.Center
             });
 
             OffsetRowsHeights(rows);
-            CenterChildren(rows, wTree.Children);
+            CenterChildrenHorizontally(rows, wTree);
         }
 
-        private static (int, int) GetCenterCoords(Rectangle space, List<WidgetsDataSubList> rows)
+        public static void CenterByColumn(WidgetTree wTree, List<WidgetsDataSubList> columns)
         {
-            var maxWidth = rows.Max(r => r.Width);
-            var totalHeight = rows.Sum(r => r.Height);
+            var totalWidth = columns.Sum(r => r.Width);
+            var maxHeight = columns.Max(r => r.Height);
+            var (x, y) = GetCenterCoords(wTree.Data.Space, totalWidth, maxHeight);
+            columns.ForEach(r =>
+            {
+                r.X = x;
+                r.Y = y;
+            });
+
+            OffsetRowsHeights(columns);
+            
+            CenterChildrenVertically(wTree.Children, columns);
+        }
+
+        private static (int, int) GetCenterCoords(Rectangle space, int maxWidth,
+            int maxHeight)
+        {
             var (x, y, width, height) = space;
             var centerX = (int) ((width + x) / 2f - maxWidth / 2f);
-            var centerY = (int) ((height + y) / 2f - totalHeight / 2f);
+            var centerY = (int) ((height + y) / 2f - maxHeight / 2f);
             return (centerX, centerY);
         }
 
@@ -45,8 +62,9 @@ namespace PiBa.UI.Properties.Center
             }
         }
 
-        private static void CenterChildren(List<WidgetsDataSubList> rows, IReadOnlyList<Tree<Widget>> children)
+        private static void CenterChildrenHorizontally(List<WidgetsDataSubList> rows, WidgetTree tree)
         {
+            var children = tree.Children;
             rows.ForEach(row =>
             {
                 var xRow = row.X;
@@ -54,7 +72,21 @@ namespace PiBa.UI.Properties.Center
                 {
                     var child = children[i].Data;
                     child.Space = new Rectangle(new Point(xRow, row.Y), child.Space.Size);
-                    xRow += child.Space.Size.X;
+                    xRow += child.Space.Width;
+                }
+            });
+            
+        }
+
+        private static void CenterChildrenVertically(List<Tree<Widget>> children, List<WidgetsDataSubList> columns)
+        {
+            columns.ForEach(row =>
+            {
+                var yAcc = row.Y;
+                for (var i = row.FirstWidgetIndex; i < row.LastWidgetIndex; i++)
+                {
+                    children[i].Data.Space = new Rectangle(new Point(row.X, yAcc), children[i].Data.Space.Size);
+                    yAcc += children[i].Data.Space.Height;
                 }
             });
         }
