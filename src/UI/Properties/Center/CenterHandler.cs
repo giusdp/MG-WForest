@@ -9,7 +9,31 @@ namespace PiBa.UI.Properties.Center
 {
     internal static class CenterHandler
     {
-        public static void OffsetRowsHeights(List<WidgetsDataSubList> rows)
+        public static void CenterByRow(WidgetTree wTree, List<WidgetsDataSubList> rows)
+        {
+            var (x, y) = GetCenterCoords(wTree.Data.Space, rows);
+
+            rows.ForEach(r =>
+            {
+                r.X = x;
+                r.Y = y;
+            });
+
+            OffsetRowsHeights(rows);
+            CenterChildren(rows, wTree.Children);
+        }
+
+        private static (int, int) GetCenterCoords(Rectangle space, List<WidgetsDataSubList> rows)
+        {
+            var maxWidth = rows.Max(r => r.Width);
+            var totalHeight = rows.Sum(r => r.Height);
+            var (x, y, width, height) = space;
+            var centerX = (int) ((width + x) / 2f - maxWidth / 2f);
+            var centerY = (int) ((height + y) / 2f - totalHeight / 2f);
+            return (centerX, centerY);
+        }
+
+        private static void OffsetRowsHeights(List<WidgetsDataSubList> rows)
         {
             if (rows.Count <= 1) return;
 
@@ -21,7 +45,7 @@ namespace PiBa.UI.Properties.Center
             }
         }
 
-        public static void CenterChildren(List<WidgetsDataSubList> rows, IReadOnlyList<Tree<Widget>> children)
+        private static void CenterChildren(List<WidgetsDataSubList> rows, IReadOnlyList<Tree<Widget>> children)
         {
             rows.ForEach(row =>
             {
@@ -33,18 +57,6 @@ namespace PiBa.UI.Properties.Center
                     xRow += child.Space.Size.X;
                 }
             });
-        }
-
-        public static int RowHorizontalCenterCoord(Rectangle parent, int rowTotalWidth)
-        {
-            var (x, _, width, _) = parent;
-            return (int) ((width + x) / 2f - rowTotalWidth / 2f);
-        }
-
-        public static int CenteredRowsVerticalCoord(Rectangle parent, int totalRowsHeight)
-        {
-            var (_, y, _, height) = parent;
-            return (int) ((height + y) / 2f - totalRowsHeight / 2f);
         }
     }
 }

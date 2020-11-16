@@ -20,28 +20,20 @@ namespace PiBa.UI.Properties.Center
             }
 
             var rowProps = widgetNode.Properties.OfType<Row>().ToList();
+
             if (rowProps.Any())
             {
-                var rows = rowProps.First().Rows;
-
-                var x = CenterHandler.RowHorizontalCenterCoord(widgetNode.Data.Space, rows.Max(r => r.Width));
-                var y = CenterHandler.CenteredRowsVerticalCoord(widgetNode.Data.Space, rows.Sum(r => r.Height));
-                rows.ForEach(r =>
-                {
-                    r.X = x;
-                    r.Y = y;
-                });
-
-                CenterHandler.OffsetRowsHeights(rows);
-                CenterHandler.CenterChildren(rows, widgetNode.Children);
-            }
-            else if (widgetNode.Properties.OfType<Column>().Any())
-            {
-                //center vertically
+                CenterHandler.CenterByRow(widgetNode, rowProps.First().Rows);
             }
             else
             {
-                // center both
+                if (widgetNode.Properties.OfType<Column>().Any())
+                {
+                }
+                else
+                {
+                    // center both..
+                }
             }
 
             // CenterHandler.CenterByRow(widgetNode);
