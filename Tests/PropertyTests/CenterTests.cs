@@ -159,7 +159,30 @@ namespace PiBa.Tests.PropertyTests
             }
         }
         
+        [Test]
+        public void ApplyOn_ColumnWidgetPassMaxHeight_OneWidgetOnBeginningOfSecondColumn()
+        {
+            var acts = new[]
+            {
+                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 120, 330))),
+                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 120, 330))),
+                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 120, 330)))
+            };
         
+            var expects = new[]
+            {
+                new Rectangle(520, 30, 120, 330),
+                new Rectangle(520, 360, 120, 330),
+                new Rectangle(640, 30, 120, 330),
+            };
+        
+            ApplyCol();
+            _center.ApplyOn(_root);
+            for (var i = 0; i < acts.Length; i++)
+            {
+                Assert.That(acts[i].Data.Space, Is.EqualTo(expects[i]));
+            }
+        }
         [Test]
         public void ApplyOn_ThreeRowsOfWidgets_CorrectlyCentered()
         {

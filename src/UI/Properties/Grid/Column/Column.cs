@@ -12,7 +12,7 @@ namespace PiBa.UI.Properties.Grid.Column
         {
             if (widgetNode.Children.Count == 0)
                 return;
-            Columns = GridHandler.OrganizeWidgetsInColumns(widgetNode);
+            Columns = GridHelper.OrganizeWidgetsInColumns(widgetNode);
         }
     }
 }

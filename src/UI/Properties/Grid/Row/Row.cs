@@ -13,7 +13,7 @@ namespace PiBa.UI.Properties.Grid.Row
                 return;
 
             
-            Rows = GridHandler.OrganizeWidgetsInRows(widgetNode);
+            Rows = GridHelper.OrganizeWidgetsInRows(widgetNode);
         }
     }
 }

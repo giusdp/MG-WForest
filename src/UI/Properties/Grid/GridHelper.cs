@@ -7,7 +7,7 @@ using PiBa.Utilities.Collections;
 
 namespace PiBa.UI.Properties.Grid
 {
-    internal static class GridHandler
+    internal static class GridHelper
     {
         #region Public API
 
@@ -24,8 +24,8 @@ namespace PiBa.UI.Properties.Grid
         private static int GetWidgetWidth(Tree<Widget> t) => t.Data.Space.Width;
         private static int GetWidgetHeight(Tree<Widget> t) => t.Data.Space.Height;
 
-        private static int GetSubListWidth(WidgetsDataSubList w) => w.Width;
-        private static int GetSubListHeight(WidgetsDataSubList w) => w.Height;
+        internal static int GetSubListWidth(WidgetsDataSubList w) => w.Width;
+        internal static int GetSubListHeight(WidgetsDataSubList w) => w.Height;
 
         private static Rectangle AddToX(Rectangle r, int v) => new Rectangle(r.X + v, r.Y, r.Width, r.Height);
         private static Rectangle AddToY(Rectangle r, int v) => new Rectangle(r.X, r.Y + v, r.Width, r.Height);
