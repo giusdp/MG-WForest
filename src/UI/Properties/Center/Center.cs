@@ -27,8 +27,10 @@ namespace PiBa.UI.Properties.Center
             }
             else
             {
-                if (widgetNode.Properties.OfType<Column>().Any())
+                var colProps = widgetNode.Properties.OfType<Column>().ToList();
+                if (colProps.Any())
                 {
+                    CenterHandler.CenterByRow(widgetNode, colProps.First().Columns);
                 }
                 else
                 {

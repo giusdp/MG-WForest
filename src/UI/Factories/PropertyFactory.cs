@@ -2,6 +2,7 @@ using System;
 using PiBa.UI.Properties;
 using PiBa.UI.Properties.Actions;
 using PiBa.UI.Properties.Center;
+using PiBa.UI.Properties.Grid.Column;
 using PiBa.UI.Properties.Grid.Row;
 using PiBa.UI.Properties.Margins;
 
@@ -10,6 +11,7 @@ namespace PiBa.UI.Factories
     public static class PropertyFactory
     {
         public static IProperty Row() => new Row();
+        public static IProperty Column() => new Column();
         public static IProperty Center() => new Center();
         public static IProperty Margin(int m) => new Margin(m);
 

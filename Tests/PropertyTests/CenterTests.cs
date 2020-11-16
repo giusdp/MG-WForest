@@ -3,6 +3,7 @@ using NUnit.Framework;
 using PiBa.UI;
 using PiBa.UI.Factories;
 using PiBa.UI.Properties.Center;
+using PiBa.UI.Properties.Grid.Column;
 using PiBa.UI.Properties.Grid.Row;
 
 namespace PiBa.Tests.PropertyTests
@@ -25,6 +26,11 @@ namespace PiBa.Tests.PropertyTests
             _root.AddProperty(new Row());
             _root.ApplyProperties();
         }
+        private void ApplyCol()
+        {
+            _root.AddProperty(new Column());
+            _root.ApplyProperties();
+        }
 
         [Test]
         public void ApplyOn_NoChildren_NothingHappens()
@@ -38,6 +44,20 @@ namespace PiBa.Tests.PropertyTests
             var child = _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 120, 120)));
 
             ApplyRow();
+
+            _center.ApplyOn(_root);
+
+            var expected = new Rectangle(580, 300, 120, 120);
+
+            Assert.That(child.Data.Space, Is.EqualTo(expected));
+        }
+        
+        [Test]
+        public void ApplyOn_OneChildrenInAColumn_PutsItInCenter()
+        {
+            var child = _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 120, 120)));
+
+            ApplyCol();
 
             _center.ApplyOn(_root);
 
