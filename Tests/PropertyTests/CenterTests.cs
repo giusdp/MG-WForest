@@ -39,6 +39,18 @@ namespace PiBa.Tests.PropertyTests
         }
 
         [Test]
+        public void ApplyOn_WidgetWithoutRowOrCol_NothingHappens()
+        {
+           var child = _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 120, 120)));
+
+            _center.ApplyOn(_root);
+
+            var expected = new Rectangle(0, 0, 120, 120);
+
+            Assert.That(child.Data.Space, Is.EqualTo(expected)); 
+        }
+        
+        [Test]
         public void ApplyOn_OneChildrenInARow_PutsItInCenter()
         {
             var child = _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 120, 120)));
@@ -183,6 +195,7 @@ namespace PiBa.Tests.PropertyTests
                 Assert.That(acts[i].Data.Space, Is.EqualTo(expects[i]));
             }
         }
+        
         [Test]
         public void ApplyOn_ThreeRowsOfWidgets_CorrectlyCentered()
         {
@@ -230,6 +243,42 @@ namespace PiBa.Tests.PropertyTests
             };
         
             ApplyRow();
+            _center.ApplyOn(_root);
+            for (var i = 0; i < acts.Length; i++)
+            {
+                Assert.That(acts[i].Data.Space, Is.EqualTo(expects[i]));
+            }
+        }
+        
+        [Test]
+        public void ApplyOn_ThreeColumnsOfWidgets_CorrectlyCentered()
+        {
+            var acts = new[]
+            {
+                // First Col
+                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 120, 330))),
+                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 120, 330))),
+        
+                // Second Col
+                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 120, 330))),
+                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 120, 330))),
+        
+                // Third Col
+                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 120, 330))),
+                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 120, 330))),
+            };
+        
+            var expects = new[]
+            {
+                new Rectangle(460, 30, 120, 330),
+                new Rectangle(460, 360, 120, 330),
+                new Rectangle(580, 30, 120, 330),
+                new Rectangle(580, 360, 120, 330),
+                new Rectangle(700, 30, 120, 330),
+                new Rectangle(700, 360, 120, 330),
+            };
+        
+            ApplyCol();
             _center.ApplyOn(_root);
             for (var i = 0; i < acts.Length; i++)
             {
@@ -295,6 +344,45 @@ namespace PiBa.Tests.PropertyTests
                 Assert.That(acts[i].Data.Space, Is.EqualTo(expects[i]));
             }
         }
+        [Test]
+        public void ApplyOn_ThreeColumnsPlusOneWidget_TheLastOnBeginningOfColumn()
+        {
+            var acts = new[]
+            {
+                // First Col
+                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 120, 330))),
+                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 120, 330))),
+        
+                // Second Col
+                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 120, 330))),
+                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 120, 330))),
+        
+                // Third Col
+                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 120, 330))),
+                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 120, 330))),
+                
+                // The one more widget
+                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120)))
+            };
+
+            var expects = new[]
+            {
+                new Rectangle(350, 30, 120, 330),
+                new Rectangle(350, 360, 120, 330),
+                new Rectangle(470, 30, 120, 330),
+                new Rectangle(470, 360, 120, 330),
+                new Rectangle(590, 30, 120, 330),
+                new Rectangle(590, 360, 120, 330),
+                new Rectangle(710, 30, 220, 120)
+            };
+        
+            ApplyCol();
+            _center.ApplyOn(_root);
+            for (var i = 0; i < acts.Length; i++)
+            {
+                Assert.That(acts[i].Data.Space, Is.EqualTo(expects[i]));
+            }
+        }
         
         [Test]
         public void ApplyOn_TwoRowsWithDifferentHeights()
@@ -322,6 +410,41 @@ namespace PiBa.Tests.PropertyTests
             };
             
             ApplyRow();
+            _center.ApplyOn(_root);
+            for (var i = 0; i < acts.Length; i++)
+            {
+                Assert.That(acts[i].Data.Space, Is.EqualTo(expects[i]));
+            }
+        }
+        
+        [Test]
+        public void ApplyOn_TwoColumnsWithDifferentWidths()
+        {
+            var acts = new[]
+            {
+                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 120, 330))),
+                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120))),
+                
+                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120))),
+            };
+        
+            var expects = new[]
+            {
+                new Rectangle(420, 15, 220, 120),
+                new Rectangle(420, 135, 120, 330),
+                new Rectangle(420, 465, 220, 120),
+                new Rectangle(420, 585, 220, 120),
+                
+                new Rectangle(640, 15, 220, 120),
+                new Rectangle(640, 135,  220, 120),
+                new Rectangle(640, 255, 220, 120),
+            };
+            
+            ApplyCol();
             _center.ApplyOn(_root);
             for (var i = 0; i < acts.Length; i++)
             {

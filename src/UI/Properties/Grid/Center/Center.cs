@@ -29,13 +29,7 @@ namespace PiBa.UI.Properties.Grid.Center
                 {
                     CenterHandler.CenterByColumn(widgetNode, colProps.First().Columns);
                 }
-                else
-                {
-                    // center both..
-                }
             }
-
-            // CenterHandler.CenterByRow(widgetNode);
         }
     }
 }

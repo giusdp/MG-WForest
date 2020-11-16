@@ -21,7 +21,7 @@ namespace PiBa.UI.Properties.Grid.Center
                 r.Y = y;
             });
 
-            OffsetBySize(rows, GridHelper.GetSubListHeight);
+            OffsetBySize(rows, (r, i) => r.Y += i, GridHelper.GetSubListHeight);
             CenterChildrenHorizontally(rows, wTree);
         }
 
@@ -36,8 +36,8 @@ namespace PiBa.UI.Properties.Grid.Center
                 r.Y = y;
             });
 
-            OffsetBySize(columns, GridHelper.GetSubListWidth);
-            
+            OffsetBySize(columns, (r, i) => r.X += i, GridHelper.GetSubListWidth);
+
             CenterChildrenVertically(wTree.Children, columns);
         }
 
@@ -50,18 +50,19 @@ namespace PiBa.UI.Properties.Grid.Center
             return (centerX, centerY);
         }
 
-        private static void OffsetBySize(List<WidgetsDataSubList> rows, Func<WidgetsDataSubList, int> getSize)
+        private static void OffsetBySize(List<WidgetsDataSubList> lists, Action<WidgetsDataSubList, int> updatePos,
+            Func<WidgetsDataSubList, int> getSize)
         {
-            if (rows.Count <= 1) return;
+            if (lists.Count <= 1) return;
 
-            var acc = getSize(rows[0]);
-            for (var i = 1; i < rows.Count; i++)
+            var acc = 0;
+            foreach (var l in lists)
             {
-                rows[i].Y += acc;
-                acc += getSize(rows[i]);
+                updatePos(l, acc);
+                acc += getSize(l);
             }
         }
-        
+
 
         private static void CenterChildrenHorizontally(List<WidgetsDataSubList> rows, WidgetTree tree)
         {
@@ -76,7 +77,6 @@ namespace PiBa.UI.Properties.Grid.Center
                     xRow += child.Space.Width;
                 }
             });
-            
         }
 
         private static void CenterChildrenVertically(List<Tree<Widget>> children, List<WidgetsDataSubList> columns)
