@@ -6,14 +6,14 @@ namespace PiBa.UI.Properties.Grid.Row
     {
         public int Priority { get; } = 0;
 
-        internal List<WidgetsDataSubList> rows;
+        internal List<WidgetsDataSubList> Rows = new List<WidgetsDataSubList>();
         public void ApplyOn(WidgetTree widgetNode)
         {
-            if (widgetNode.Children.Count <= 1)
+            if (widgetNode.Children.Count == 0)
                 return;
 
             
-            rows = GridHandler.OrganizeWidgetsInRows(widgetNode);
+            Rows = GridHandler.OrganizeWidgetsInRows(widgetNode);
         }
     }
 }

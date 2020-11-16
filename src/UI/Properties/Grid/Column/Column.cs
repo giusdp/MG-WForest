@@ -6,7 +6,7 @@ namespace PiBa.UI.Properties.Grid.Column
 
         public void ApplyOn(WidgetTree widgetNode)
         {
-            if (widgetNode.Children.Count <= 1)
+            if (widgetNode.Children.Count == 0)
                 return;
             GridHandler.OrganizeWidgetsInColumns(widgetNode);
         }
