@@ -1,7 +1,7 @@
 using NUnit.Framework;
 using PiBa.UI.Factories;
 using PiBa.UI.Properties.Actions;
-using PiBa.UI.Properties.Center;
+using PiBa.UI.Properties.Grid.Center;
 using PiBa.UI.Properties.Margins;
 
 namespace PiBa.Tests

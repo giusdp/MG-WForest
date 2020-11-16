@@ -1,7 +1,7 @@
 using System;
 using PiBa.UI.Properties;
 using PiBa.UI.Properties.Actions;
-using PiBa.UI.Properties.Center;
+using PiBa.UI.Properties.Grid.Center;
 using PiBa.UI.Properties.Grid.Column;
 using PiBa.UI.Properties.Grid.Row;
 using PiBa.UI.Properties.Margins;

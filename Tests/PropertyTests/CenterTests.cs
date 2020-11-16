@@ -2,7 +2,7 @@ using Microsoft.Xna.Framework;
 using NUnit.Framework;
 using PiBa.UI;
 using PiBa.UI.Factories;
-using PiBa.UI.Properties.Center;
+using PiBa.UI.Properties.Grid.Center;
 using PiBa.UI.Properties.Grid.Column;
 using PiBa.UI.Properties.Grid.Row;
 

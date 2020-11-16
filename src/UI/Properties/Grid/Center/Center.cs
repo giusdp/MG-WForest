@@ -1,11 +1,7 @@
-using System;
 using System.Linq;
-using PiBa.UI.Properties.Grid.Center;
-using PiBa.UI.Properties.Grid.Column;
-using PiBa.UI.Properties.Grid.Row;
 using Serilog;
 
-namespace PiBa.UI.Properties.Center
+namespace PiBa.UI.Properties.Grid.Center
 {
     public class Center : IProperty
     {
@@ -20,7 +16,7 @@ namespace PiBa.UI.Properties.Center
                 return;
             }
 
-            var rowProps = widgetNode.Properties.OfType<Row>().ToList();
+            var rowProps = widgetNode.Properties.OfType<Row.Row>().ToList();
 
             if (rowProps.Any())
             {
@@ -28,7 +24,7 @@ namespace PiBa.UI.Properties.Center
             }
             else
             {
-                var colProps = widgetNode.Properties.OfType<Column>().ToList();
+                var colProps = widgetNode.Properties.OfType<Column.Column>().ToList();
                 if (colProps.Any())
                 {
                     CenterHandler.CenterByColumn(widgetNode, colProps.First().Columns);
