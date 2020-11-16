@@ -25,8 +25,8 @@ namespace PiBa.UI
 
             _root = new WidgetTree(WidgetFactory.CreateContainer(new Rectangle(0, 0, 1280, 720)));
 
-            _root.AddChild(WidgetFactory.CreateImageButton("SpriteBtnA"));
-
+            _root.AddChild(WidgetFactory.CreateImageButton("SpriteBtnL"));
+            _root.AddChild(WidgetFactory.CreateImageButton("SpriteBtnL"));
             _root.AddChild(WidgetFactory.CreateImageButton("SpriteBtnL"));
             _root.AddChild(WidgetFactory.CreateImageButton("SpriteBtnL"));
             _root.AddChild(WidgetFactory.CreateImageButton("SpriteBtnA"));
@@ -39,7 +39,8 @@ namespace PiBa.UI
             // ((ImageButton) btn.Data).PressedButton = AssetLoader.Load<Texture2D>("Sprite-0003");
 
 
-            _root.AddProperty(new Column());
+            _root.AddProperty(PropertyFactory.Row());
+            _root.AddProperty(PropertyFactory.Center());
 
             _widgetTreeVisitor.ApplyProperties(_root);
         }
