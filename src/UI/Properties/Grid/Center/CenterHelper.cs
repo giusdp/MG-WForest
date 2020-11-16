@@ -2,8 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
-using PiBa.UI.Widgets;
-using PiBa.Utilities.Collections;
 
 namespace PiBa.UI.Properties.Grid.Center
 {
@@ -22,7 +20,7 @@ namespace PiBa.UI.Properties.Grid.Center
             });
 
             OffsetBySize(rows, (r, i) => r.Y += i, GridHelper.GetSubListHeight);
-            CenterChildrenHorizontally(rows, wTree);
+            CenterChildrenHorizontally(wTree, rows);
         }
 
         public static void CenterByColumn(WidgetTree wTree, List<WidgetsDataSubList> columns)
@@ -38,7 +36,7 @@ namespace PiBa.UI.Properties.Grid.Center
 
             OffsetBySize(columns, (r, i) => r.X += i, GridHelper.GetSubListWidth);
 
-            CenterChildrenVertically(wTree.Children, columns);
+            CenterChildrenVertically(wTree, columns);
         }
 
         private static (int, int) GetCenterCoords(Rectangle space, int maxWidth,
@@ -64,7 +62,7 @@ namespace PiBa.UI.Properties.Grid.Center
         }
 
 
-        private static void CenterChildrenHorizontally(List<WidgetsDataSubList> rows, WidgetTree tree)
+        private static void CenterChildrenHorizontally(WidgetTree tree, List<WidgetsDataSubList> rows)
         {
             var children = tree.Children;
             rows.ForEach(row =>
@@ -79,8 +77,9 @@ namespace PiBa.UI.Properties.Grid.Center
             });
         }
 
-        private static void CenterChildrenVertically(List<Tree<Widget>> children, List<WidgetsDataSubList> columns)
+        private static void CenterChildrenVertically(WidgetTree tree, List<WidgetsDataSubList> columns)
         {
+            var children = tree.Children;
             columns.ForEach(row =>
             {
                 var yAcc = row.Y;
