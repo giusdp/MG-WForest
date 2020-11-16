@@ -35,7 +35,7 @@ namespace PiBa.UI
 
         public void ApplyProperties()
         {
-            Properties.Sort((p1, p2) => p1.Priority.CompareTo(p2.Priority));
+            Properties.Distinct().ToList().Sort((p1, p2) => p1.Priority.CompareTo(p2.Priority));
             Properties.ForEach(c => c.ApplyOn(this));
         }
 
