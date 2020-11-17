@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace PiBa.UI.Properties.Grid.Row
@@ -9,6 +10,8 @@ namespace PiBa.UI.Properties.Grid.Row
         internal List<WidgetsDataSubList> Rows = new List<WidgetsDataSubList>();
         public void ApplyOn(WidgetTree widgetNode)
         {
+            
+            Console.WriteLine($"Row applied to {widgetNode}");
             if (widgetNode.Children.Count == 0)
                 return;
 

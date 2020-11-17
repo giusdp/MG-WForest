@@ -9,11 +9,18 @@ namespace PiBa.Utilities
 {
     public static class TreeVisitor<T>
     {
-        public static void ApplyToTree(Tree<T> tree, Action<Tree<T>> action)
+        public static void ApplyToTreeFromRoot(Tree<T> tree, Action<Tree<T>> action)
         {
             if (tree == null) throw new ArgumentNullException(nameof(tree));
             if (action == null) throw new ArgumentNullException(nameof(action));
             foreach (var node in tree) action(node);
+        }
+        
+        public static void ApplyToTreeFromLeaves(Tree<T> tree, Action<Tree<T>> action)
+        {
+            if (tree == null) throw new ArgumentNullException(nameof(tree));
+            if (action == null) throw new ArgumentNullException(nameof(action));
+            foreach (var node in tree.Reverse()) action(node);
         }
 
         public static Maybe<Tree<T>> GetLowestNodeThatHolds([NotNull] Tree<T> tree, Func<Tree<T>, bool> predicate)

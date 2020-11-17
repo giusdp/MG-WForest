@@ -17,12 +17,12 @@ namespace PiBa.UI.WidgetTreeHandlers
         
         public void DrawTree(WidgetTree widgetTree, SpriteBatch spriteBatch)
         {
-            TreeVisitor<Widget>.ApplyToTree(widgetTree, w => ((WidgetTree) w).DrawWidget(spriteBatch));
+            TreeVisitor<Widget>.ApplyToTreeFromRoot(widgetTree, w => ((WidgetTree) w).DrawWidget(spriteBatch));
         }
 
         public void ApplyProperties(WidgetTree widgetTree)
         {
-            TreeVisitor<Widget>.ApplyToTree(widgetTree, w => ((WidgetTree) w).ApplyProperties());
+            TreeVisitor<Widget>.ApplyToTreeFromLeaves(widgetTree, w => ((WidgetTree) w).ApplyProperties());
         }
 
         public Maybe<WidgetTree> CheckHovering(WidgetTree widgetTree, Point mouseLoc)

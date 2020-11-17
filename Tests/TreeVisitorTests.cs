@@ -28,15 +28,15 @@ namespace PiBa.Tests
         [Test]
         public void ApplyToTree_NullArgs_ThrowsError()
         {
-            Assert.That(() => TreeVisitor<int>.ApplyToTree(null, tree => { }), Throws.ArgumentNullException);
-            Assert.That(() => TreeVisitor<int>.ApplyToTree(new Tree<int>(0), null), Throws.ArgumentNullException);
+            Assert.That(() => TreeVisitor<int>.ApplyToTreeFromRoot(null, tree => { }), Throws.ArgumentNullException);
+            Assert.That(() => TreeVisitor<int>.ApplyToTreeFromRoot(new Tree<int>(0), null), Throws.ArgumentNullException);
         }
 
         [Test]
         public void ApplyToTree_TakesAnAction_AppliesItToAllNodes()
         {
             var count = 0;
-            TreeVisitor<int>.ApplyToTree(_tree, node => count += node.Data );
+            TreeVisitor<int>.ApplyToTreeFromRoot(_tree, node => count += node.Data );
             Assert.That(count, Is.EqualTo(33));
         }
 
