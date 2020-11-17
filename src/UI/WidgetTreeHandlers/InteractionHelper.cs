@@ -6,11 +6,11 @@ using PiBa.Utilities.Collections;
 
 namespace PiBa.UI.WidgetTreeHandlers
 {
-    public class InteractionHandler
+    public class InteractionHelper
     {
         private readonly InteractionStateHandler _interactionStateHandler;
 
-        public InteractionHandler()
+        public InteractionHelper()
         {
             _interactionStateHandler = new InteractionStateHandler();
         }
