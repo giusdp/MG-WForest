@@ -23,7 +23,7 @@ namespace PiBa.Tests.PropertyTests
             var margin = new Margin(3);
             var widget = _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(Point.Zero, new Point(120, 120))));
 
-            var expected = new Rectangle(0, 0, 123, 123);
+            var expected = new Rectangle(0, 0, 126, 126);
             margin.ApplyOn(widget);
 
             Assert.That(widget.Data.TotalSpaceOccupied, Is.EqualTo(expected));
@@ -45,17 +45,34 @@ namespace PiBa.Tests.PropertyTests
         public void ApplyOn_WidgetInRow_SeparatesFromOtherWidget()
         {
             var marginWidgetExpected = new Rectangle(10, 10, 120, 120);
-            var secondWidgetExpected = new Rectangle(130, 0, 120, 120);
+            var secondWidgetExpected = new Rectangle(140, 0, 120, 120);
+            
             var margin = new Margin(10);
             var widget = _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(Point.Zero, new Point(120, 120))));
             var secondWidget = _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(Point.Zero, new Point(120, 120))));
 
-            
             margin.ApplyOn(widget);
 
             PropertyFactory.Row().ApplyOn(_root);
             Assert.That(widget.Data.Space, Is.EqualTo(marginWidgetExpected));
             Assert.That(secondWidget.Data.Space, Is.EqualTo(secondWidgetExpected));
         }
+        
+        [Test]
+                public void ApplyOn_RowOfWidgets_OffsetsRowNotInternally()
+                {
+                    var marginWidgetExpected = new Rectangle(10, 10, 120, 120);
+                    var secondWidgetExpected = new Rectangle(130, 10, 120, 120);
+                    
+                    var margin = new Margin(10);
+                    var widget = _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(Point.Zero, new Point(120, 120))));
+                    var secondWidget = _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(Point.Zero, new Point(120, 120))));
+
+
+                    margin.ApplyOn(_root);
+                    PropertyFactory.Row().ApplyOn(_root);
+                    Assert.That(widget.Data.Space, Is.EqualTo(marginWidgetExpected));
+                    Assert.That(secondWidget.Data.Space, Is.EqualTo(secondWidgetExpected));
+                }
     }
 }

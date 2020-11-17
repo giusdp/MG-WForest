@@ -4,7 +4,7 @@ namespace PiBa.UI.Properties.Grid.Column
 {
     public class Column : IProperty
     {
-        public int Priority { get; } = 0;
+        public int Priority { get; } = 1;
 
         internal List<WidgetsDataSubList> Columns = new List<WidgetsDataSubList>();
 

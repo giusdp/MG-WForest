@@ -5,7 +5,7 @@ namespace PiBa.UI.Properties.Grid.Center
 {
     public class Center : IProperty
     {
-        public int Priority { get; } = 1;
+        public int Priority { get; } = 2;
 
         public void ApplyOn(WidgetTree widgetNode)
         {

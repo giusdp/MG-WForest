@@ -33,7 +33,7 @@ namespace PiBa.Tests
         }
 
         [Test]
-        public void ApplyToTree_TakesAnAction_AppliesItToAllNodes()
+        public void ApplyToTreeFromRoot_TakesAnAction_AppliesItToAllNodes()
         {
             var count = 0;
             TreeVisitor<int>.ApplyToTreeFromRoot(_tree, node => count += node.Data );

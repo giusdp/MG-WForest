@@ -4,17 +4,29 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace PiBa.UI.Widgets
 {
+
+    public struct Margin
+    {
+        public Margin(int left, int right, int top, int bottom)
+        {
+            Left = left;
+            Right = right;
+            Top = top;
+            Bottom = bottom;
+        }
+
+        public int Left, Right, Top, Bottom;
+    }
     public abstract class Widget
     {
         public Rectangle Space { get; set; }
-        public Rectangle Margin { get; set; }
-
+        public Margin Margin { get; set; } 
         public Rectangle TotalSpaceOccupied =>
             new Rectangle(
-                Space.X - Margin.X,
-                Space.Y - Margin.Y,
-                Space.Width + Margin.Width,
-                Space.Height + Margin.Height
+                Space.X - Margin.Left,
+                Space.Y - Margin.Top,
+                Space.Width + Margin.Left + Margin.Right,
+                Space.Height + Margin.Top + Margin.Bottom
             );
 
         public Action OnEnter { private get; set; }
@@ -25,7 +37,7 @@ namespace PiBa.UI.Widgets
         protected Widget(Rectangle space)
         {
             Space = space;
-            Margin = Rectangle.Empty;
+            Margin = new Margin();
         }
 
         public abstract void Draw(SpriteBatch spriteBatch);
