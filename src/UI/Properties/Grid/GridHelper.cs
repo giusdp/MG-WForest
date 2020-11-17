@@ -21,8 +21,8 @@ namespace PiBa.UI.Properties.Grid
 
         #region DI Functions
 
-        private static int GetWidgetWidth(Tree<Widget> t) => t.Data.TotalSpaceOccupied.Width;
-        private static int GetWidgetHeight(Tree<Widget> t) => t.Data.TotalSpaceOccupied.Height;
+        internal static int GetWidgetWidth(Tree<Widget> t) => t.Data.TotalSpaceOccupied.Width;
+        internal static int GetWidgetHeight(Tree<Widget> t) => t.Data.TotalSpaceOccupied.Height;
 
         internal static int GetSubListWidth(WidgetsDataSubList w) => w.Width;
         internal static int GetSubListHeight(WidgetsDataSubList w) => w.Height;
