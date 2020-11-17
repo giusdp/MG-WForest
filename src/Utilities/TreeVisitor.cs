@@ -1,5 +1,7 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
+using Microsoft.Xna.Framework;
 using PiBa.UI.Widgets;
 using PiBa.Utilities.Collections;
 
@@ -7,7 +9,6 @@ namespace PiBa.Utilities
 {
     public static class TreeVisitor<T>
     {
-        
         public static void ApplyToTree(Tree<T> tree, Action<Tree<T>> action)
         {
             if (tree == null) throw new ArgumentNullException(nameof(tree));
@@ -17,16 +18,13 @@ namespace PiBa.Utilities
 
         public static Maybe<Tree<T>> GetLowestNodeThatHolds([NotNull] Tree<T> tree, Func<Tree<T>, bool> predicate)
         {
-            if(tree ==null) throw new ArgumentNullException(nameof(tree));
-            if(predicate == null) throw new ArgumentNullException(nameof(predicate));
+            if (tree == null) throw new ArgumentNullException(nameof(tree));
+            if (predicate == null) throw new ArgumentNullException(nameof(predicate));
 
-           
-            foreach (var child in tree.Children)
-            {
-                var res = GetLowestNodeThatHolds(child, predicate);
-                if (res is Maybe<Tree<T>>.Some) return res;
-            }
-            
+            var nodesThatHold = tree.Children.Select(child => GetLowestNodeThatHolds(child, predicate))
+                .OfType<Maybe<Tree<T>>.Some>().ToList();
+            if (nodesThatHold.Any()) return nodesThatHold.First();
+
             return predicate(tree) ? Maybe.Some(tree) : Maybe.None;
         }
     }
