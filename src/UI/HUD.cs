@@ -16,11 +16,9 @@ namespace PiBa.UI
         private readonly WidgetTree _root;
         private readonly WidgetTreeVisitor _widgetTreeVisitor;
 
-        private readonly SpriteBatch _spriteBatch;
 
-        public HUD(SpriteBatch spriteBatch)
+        public HUD()
         {
-            _spriteBatch = spriteBatch;
             _widgetTreeVisitor = new WidgetTreeVisitor();
 
             _root = new WidgetTree(WidgetFactory.CreateContainer(new Rectangle(0, 0, 1280, 720)));
@@ -45,6 +43,6 @@ namespace PiBa.UI
             _widgetTreeVisitor.CheckHovering(_root, Mouse.GetState().Position);
         }
 
-        public void Draw() => _widgetTreeVisitor.DrawTree(_root, _spriteBatch);
+        public void Draw(SpriteBatch spriteBatch) => _widgetTreeVisitor.DrawTree(_root, spriteBatch);
     }
 }

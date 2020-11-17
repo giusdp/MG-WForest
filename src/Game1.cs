@@ -30,7 +30,7 @@ namespace PiBa
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             AssetLoader.Initialize(Content);
-            _hud = new HUD(_spriteBatch);
+            _hud = new HUD();
         }
 
         protected override void Update(GameTime gameTime)
@@ -48,7 +48,7 @@ namespace PiBa
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             _spriteBatch.Begin();
-            _hud.Draw();
+            _hud.Draw(_spriteBatch);
             _spriteBatch.End();
             
             base.Draw(gameTime);
