@@ -29,11 +29,12 @@ namespace PiBa.UI.WidgetTreeHandlers
             }
         }
 
-        private bool IsMouseInsideWidgetSpace(Rectangle space, Point mouseLoc)
+        private static bool IsMouseInsideWidgetSpace(Rectangle space, Point mouseLoc)
         {
             var (x, y) = mouseLoc;
-            var isInsideHorizontally = x >= space.X && x <= space.X + space.Width - 1;
-            var isInsideVertically = y >= space.Y && y <= space.Y + space.Height - 1;
+            var (widgetX, widgetY, widgetWidth, widgetHeight) = space;
+            var isInsideHorizontally = x >= widgetX && x <= widgetX + widgetWidth - 1;
+            var isInsideVertically = y >= widgetY && y <= widgetY + widgetHeight - 1;
             return isInsideHorizontally && isInsideVertically;
         }
     }
