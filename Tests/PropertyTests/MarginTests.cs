@@ -2,7 +2,6 @@ using Microsoft.Xna.Framework;
 using NUnit.Framework;
 using PiBa.UI;
 using PiBa.UI.Factories;
-using PiBa.UI.Properties.Margins;
 
 namespace PiBa.Tests.PropertyTests
 {
@@ -20,7 +19,7 @@ namespace PiBa.Tests.PropertyTests
         [Test]
         public void ApplyOn_OneWidget_TotalSpaceOccupiedIsUpdatedWithMargin()
         {
-            var margin = new Margin(3);
+            var margin = PropertyFactory.Margin(3);
             var widget = _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(Point.Zero, new Point(120, 120))));
 
             var expected = new Rectangle(0, 0, 126, 126);
@@ -32,7 +31,7 @@ namespace PiBa.Tests.PropertyTests
         [Test]
         public void ApplyOn_3MarginWidgetInRow_SpaceOf3FromBorders()
         {
-            var margin = new Margin(3);
+            var margin = PropertyFactory.Margin(3);
             var widget = _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(Point.Zero, new Point(120, 120))));
 
             var expected = new Rectangle(3, 3, 120, 120);
@@ -47,7 +46,7 @@ namespace PiBa.Tests.PropertyTests
             var marginWidgetExpected = new Rectangle(10, 10, 120, 120);
             var secondWidgetExpected = new Rectangle(140, 0, 120, 120);
             
-            var margin = new Margin(10);
+            var margin = PropertyFactory.Margin(10);
             var widget = _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(Point.Zero, new Point(120, 120))));
             var secondWidget = _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(Point.Zero, new Point(120, 120))));
 
@@ -64,7 +63,7 @@ namespace PiBa.Tests.PropertyTests
                     var marginWidgetExpected = new Rectangle(10, 10, 120, 120);
                     var secondWidgetExpected = new Rectangle(130, 10, 120, 120);
                     
-                    var margin = new Margin(10);
+                    var margin = PropertyFactory.Margin(10);
                     var widget = _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(Point.Zero, new Point(120, 120))));
                     var secondWidget = _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(Point.Zero, new Point(120, 120))));
 

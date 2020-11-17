@@ -1,22 +1,11 @@
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using PiBa.Utilities;
 
 namespace PiBa.UI.Widgets
 {
 
-    public struct Margin
-    {
-        public Margin(int left, int right, int top, int bottom)
-        {
-            Left = left;
-            Right = right;
-            Top = top;
-            Bottom = bottom;
-        }
-
-        public int Left, Right, Top, Bottom;
-    }
     public abstract class Widget
     {
         public Rectangle Space { get; set; }
