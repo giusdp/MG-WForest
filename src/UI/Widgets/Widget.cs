@@ -8,7 +8,16 @@ namespace PiBa.UI.Widgets
     {
         public Rectangle Space { get; set; }
         public Rectangle Margin { get; set; }
-        
+
+        public Rectangle TotalSpaceOccupied
+        {
+            get => new Rectangle(
+                Space.X - Margin.X,
+                Space.Y - Margin.Y,
+                Space.Width + Margin.Width,
+                Space.Height + Margin.Height
+            );
+        }
         public Action OnEnter { private get; set; }
         public Action OnExit { private get; set; }
         public Action OnPress { private get; set; }
@@ -20,7 +29,9 @@ namespace PiBa.UI.Widgets
             Margin = Rectangle.Empty;
         }
 
-        public virtual void Draw(SpriteBatch spriteBatch){}
+        public abstract void Draw(SpriteBatch spriteBatch);
+
+        
 
         public virtual void StartedHovering() => OnEnter?.Invoke();
         public virtual void StoppedHovering() => OnExit?.Invoke();

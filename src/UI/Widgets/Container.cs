@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace PiBa.UI.Widgets
 {
@@ -7,5 +8,7 @@ namespace PiBa.UI.Widgets
         public Container(Rectangle space) : base(space)
         {
         }
+
+        public override void Draw(SpriteBatch spriteBatch){}
     }
 }
