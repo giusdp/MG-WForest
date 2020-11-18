@@ -157,7 +157,7 @@ namespace PiBa.Tests.PropertyTests
         public void MarginLeft_OnWidgetInCenteredRow_PushesRow()
         {
             var marginWidgetExpected = new Rectangle(525, 300, 120, 120);
-            var secondWidgetExpected = new Rectangle(655, 300, 120, 120);
+            var secondWidgetExpected = new Rectangle(645, 300, 120, 120);
 
             var margin = PropertyFactory.MarginLeft(10);
             var widget = _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(Point.Zero, new Point(120, 120))));
@@ -221,5 +221,27 @@ namespace PiBa.Tests.PropertyTests
             Assert.That(widget.Data.Space, Is.EqualTo(marginWidgetExpected));
             Assert.That(secondWidget.Data.Space, Is.EqualTo(secondWidgetExpected));
         } 
+        [Test]
+        public void MarginLeft_OnWidgetInSecondCenteredRow_PushesSecondRow()
+        {
+            var w2Expected = new Rectangle(40, 360, 220, 120);
+            var w3Expected = new Rectangle(260, 360, 220, 120);
+
+            var margin = PropertyFactory.MarginLeft(10);
+            var w1 = _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(Point.Zero, new Point(1220, 120))));
+            
+            var w2 = _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(Point.Zero, new Point(220, 120))));
+            var w3 = _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(Point.Zero, new Point(220, 120))));
+
+            margin.ApplyOn(w2);
+
+            _root.AddProperty(PropertyFactory.Row());
+            _root.AddProperty(PropertyFactory.Center());
+
+            _root.ApplyProperties();
+
+            Assert.That(w2.Data.Space, Is.EqualTo(w2Expected));
+            Assert.That(w3.Data.Space, Is.EqualTo(w3Expected));
+        }
     }
 }

@@ -39,7 +39,7 @@ namespace PiBa.UI
             // _root.AddChild(WidgetFactory.CreateImageButton("Sprite-0001")).AddProperty(PropertyFactory.MarginLeft(10));
 
             _root.AddProperty(PropertyFactory.Row());
-            _root.AddProperty(PropertyFactory.Center());
+            // _root.AddProperty(PropertyFactory.Center());
 
             _widgetTreeVisitor.ApplyProperties(_root);
         }

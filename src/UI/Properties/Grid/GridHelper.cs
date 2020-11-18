@@ -21,11 +21,11 @@ namespace PiBa.UI.Properties.Grid
 
         #region DI Functions
 
-        internal static int GetWidgetWidth(Tree<Widget> t) => t.Data.TotalSpaceOccupied.Width;
-        internal static int GetWidgetHeight(Tree<Widget> t) => t.Data.TotalSpaceOccupied.Height;
+        private static int WidgetWidth(Tree<Widget> t) => t.Data.TotalSpaceOccupied.Width;
+        private static int WidgetHeight(Tree<Widget> t) => t.Data.TotalSpaceOccupied.Height;
 
-        internal static int GetSubListWidth(WidgetsDataSubList w) => w.Width;
-        internal static int GetSubListHeight(WidgetsDataSubList w) => w.Height;
+        private static int SubListWidth(WidgetsDataSubList w) => w.Width;
+        private static int SubListHeight(WidgetsDataSubList w) => w.Height;
 
         private static Rectangle AddToX(Rectangle r, int v) => new Rectangle(r.X + v, r.Y, r.Width, r.Height);
         private static Rectangle AddToY(Rectangle r, int v) => new Rectangle(r.X, r.Y + v, r.Width, r.Height);
@@ -33,7 +33,7 @@ namespace PiBa.UI.Properties.Grid
         private static (WidgetsDataSubList, int) CreateColumn(WidgetTree widget, int startIdx)
         {
             var (x, firstIndexOnSubList) =
-                SumHeightsTilFit(widget.Children, startIdx, GetWidgetHeight(widget));
+                SumHeightsTilFit(widget.Children, startIdx, WidgetHeight(widget));
 
             var y = MaxWidthInSubList(widget.Children, startIdx, firstIndexOnSubList);
 
@@ -45,7 +45,7 @@ namespace PiBa.UI.Properties.Grid
         private static (WidgetsDataSubList, int) CreateRow(WidgetTree widget, int startIdx)
         {
             var (x, firstIndexOnSubList) =
-                SumWidthsTilFit(widget.Children, startIdx, GetWidgetWidth(widget));
+                SumWidthsTilFit(widget.Children, startIdx, WidgetWidth(widget));
 
             var y = MaxHeightInSubList(widget.Children, startIdx, firstIndexOnSubList);
 
@@ -69,14 +69,14 @@ namespace PiBa.UI.Properties.Grid
 
         private static void OffsetWidgetsInRows(List<Tree<Widget>> widgetTrees, List<WidgetsDataSubList> rows)
         {
-            OffsetByMainPosition(widgetTrees, rows, GetWidgetWidth, AddToX);
-            OffsetBySecondaryPosition(widgetTrees, rows, GetSubListHeight, AddToY);
+            OffsetByMainPosition(widgetTrees, rows, WidgetWidth, AddToX);
+            OffsetBySecondaryPosition(widgetTrees, rows, SubListHeight, AddToY);
         }
 
         private static void OffsetWidgetsInColumns(List<Tree<Widget>> widgetTrees, List<WidgetsDataSubList> cols)
         {
-            OffsetByMainPosition(widgetTrees, cols, GetWidgetHeight, AddToY);
-            OffsetBySecondaryPosition(widgetTrees, cols, GetSubListWidth, AddToX);
+            OffsetByMainPosition(widgetTrees, cols, WidgetHeight, AddToY);
+            OffsetBySecondaryPosition(widgetTrees, cols, SubListWidth, AddToX);
         }
 
         private static void OffsetByMainPosition(List<Tree<Widget>> widgetTrees, List<WidgetsDataSubList> subLists,
@@ -132,16 +132,16 @@ namespace PiBa.UI.Properties.Grid
         }
 
         private static (int, int) SumHeightsTilFit(List<Tree<Widget>> children, int startIdx, int maxHeight)
-            => GetSizeAndIndexTilLimitSize(children, startIdx, maxHeight, GetWidgetHeight);
+            => GetSizeAndIndexTilLimitSize(children, startIdx, maxHeight, WidgetHeight);
 
         private static (int, int) SumWidthsTilFit(List<Tree<Widget>> children, int startIdx, int maxWidth)
-            => GetSizeAndIndexTilLimitSize(children, startIdx, maxWidth, GetWidgetWidth);
+            => GetSizeAndIndexTilLimitSize(children, startIdx, maxWidth, WidgetWidth);
 
         private static int MaxWidthInSubList(List<Tree<Widget>> children, int from, int until) =>
-            GetMaxSizeInChildrenSubList(children, from, until, GetWidgetWidth);
+            GetMaxSizeInChildrenSubList(children, from, until, WidgetWidth);
 
         private static int MaxHeightInSubList(List<Tree<Widget>> children, int from, int until) =>
-            GetMaxSizeInChildrenSubList(children, from, until, GetWidgetHeight);
+            GetMaxSizeInChildrenSubList(children, from, until, WidgetHeight);
 
         private static int GetMaxSizeInChildrenSubList(List<Tree<Widget>> children, int from, int until,
             Func<Tree<Widget>, int> getSize) =>
