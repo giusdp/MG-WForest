@@ -2,12 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
-using PiBa.UI.Widgets;
-using PiBa.Utilities.Collections;
 
 namespace PiBa.UI.Properties.Grid.Center
 {
-    internal static class CenterHandler
+    internal static class CenterHelper
     {
         public static void CenterByRow(WidgetTree wTree, List<WidgetsDataSubList> rows)
         {
@@ -73,7 +71,8 @@ namespace PiBa.UI.Properties.Grid.Center
                 for (var i = row.FirstWidgetIndex; i < row.LastWidgetIndex; i++)
                 {
                     xRow += children[i].Data.Margin.Left;
-                    children[i].Data.Space = new Rectangle(new Point(xRow, row.Y), children[i].Data.Space.Size);
+                    var wY = row.Y + children[i].Data.Margin.Top;
+                    children[i].Data.Space = new Rectangle(new Point(xRow, wY), children[i].Data.Space.Size);
                     xRow += children[i].Data.Space.Width + children[i].Data.Margin.Right;
                 }
             });
@@ -87,8 +86,8 @@ namespace PiBa.UI.Properties.Grid.Center
                 var yAcc = row.Y;
                 for (var i = row.FirstWidgetIndex; i < row.LastWidgetIndex; i++)
                 {
-                    yAcc += children[i].Data.Margin.Top; 
-                    children[i].Data.Space = new Rectangle(new Point(row.X, yAcc), children[i].Data.Space.Size);
+                    yAcc += children[i].Data.Margin.Top;
+                    children[i].Data.Space = new Rectangle(new Point(row.X + children[i].Data.Margin.Left, yAcc), children[i].Data.Space.Size);
                     yAcc += children[i].Data.Space.Height + children[i].Data.Margin.Bottom;
                 }
             });

@@ -175,7 +175,7 @@ namespace PiBa.Tests.PropertyTests
             Assert.That(widget.Data.Space, Is.EqualTo(marginWidgetExpected));
             Assert.That(secondWidget.Data.Space, Is.EqualTo(secondWidgetExpected));
         }
-        
+
         [Test]
         public void MarginLeft_OnSecondWidgetInCenteredRow_PushesFirstWidget()
         {
@@ -198,8 +198,8 @@ namespace PiBa.Tests.PropertyTests
             Assert.That(widget.Data.Space, Is.EqualTo(marginWidgetExpected));
             Assert.That(secondWidget.Data.Space, Is.EqualTo(secondWidgetExpected));
         }
-        
-       [Test]
+
+        [Test]
         public void MarginTop_OnSecondWidgetInCenteredCol_PushesTopFirstWidget()
         {
             var marginWidgetExpected = new Rectangle(580, 235, 120, 120);
@@ -220,7 +220,8 @@ namespace PiBa.Tests.PropertyTests
 
             Assert.That(widget.Data.Space, Is.EqualTo(marginWidgetExpected));
             Assert.That(secondWidget.Data.Space, Is.EqualTo(secondWidgetExpected));
-        } 
+        }
+
         [Test]
         public void MarginLeft_OnWidgetInSecondCenteredRow_PushesSecondRow()
         {
@@ -228,12 +229,60 @@ namespace PiBa.Tests.PropertyTests
             var w3Expected = new Rectangle(260, 360, 220, 120);
 
             var margin = PropertyFactory.MarginLeft(10);
-            var w1 = _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(Point.Zero, new Point(1220, 120))));
-            
+            _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(Point.Zero, new Point(1220, 120))));
+
             var w2 = _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(Point.Zero, new Point(220, 120))));
             var w3 = _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(Point.Zero, new Point(220, 120))));
 
             margin.ApplyOn(w2);
+
+            _root.AddProperty(PropertyFactory.Row());
+            _root.AddProperty(PropertyFactory.Center());
+
+            _root.ApplyProperties();
+
+            Assert.That(w2.Data.Space, Is.EqualTo(w2Expected));
+            Assert.That(w3.Data.Space, Is.EqualTo(w3Expected));
+        }
+
+        [Test]
+        public void MultipleMargins_OnFirstWidgetSecondRow()
+        {
+            var w2Expected = new Rectangle(40, 365, 220, 120);
+            var w3Expected = new Rectangle(260, 355, 220, 120);
+
+            var margin = PropertyFactory.Margin(10, 0, 10, 0);
+
+
+            _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(Point.Zero, new Point(1220, 120))));
+
+            var w2 = _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(Point.Zero, new Point(220, 120))));
+            var w3 = _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(Point.Zero, new Point(220, 120))));
+
+            margin.ApplyOn(w2);
+
+            _root.AddProperty(PropertyFactory.Row());
+            _root.AddProperty(PropertyFactory.Center());
+
+            _root.ApplyProperties();
+
+            Assert.That(w2.Data.Space, Is.EqualTo(w2Expected));
+            Assert.That(w3.Data.Space, Is.EqualTo(w3Expected));
+        }
+
+        [Test]
+        public void BottomRightMargin_OnFirstWidgetFirstRow() //todo last test
+        {
+            var w2Expected = new Rectangle(255, 235, 1000, 120);
+            var w3Expected = new Rectangle(25, 365, 220, 120);
+
+            var w1 = _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(Point.Zero, new Point(220, 120))));
+            PropertyFactory.Margin(0, 10, 0, 10).ApplyOn(w1);
+            
+            var w2 = _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(Point.Zero, new Point(1000, 120))));
+
+            var w3 = _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(Point.Zero, new Point(220, 120))));
+            _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(Point.Zero, new Point(220, 120))));
 
             _root.AddProperty(PropertyFactory.Row());
             _root.AddProperty(PropertyFactory.Center());

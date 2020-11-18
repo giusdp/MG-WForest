@@ -20,14 +20,14 @@ namespace PiBa.UI.Properties.Grid.Center
 
             if (rowProps.Any())
             {
-                CenterHandler.CenterByRow(widgetNode, rowProps.First().Rows);
+                CenterHelper.CenterByRow(widgetNode, rowProps.First().Rows);
             }
             else
             {
                 var colProps = widgetNode.Properties.OfType<Column.Column>().ToList();
                 if (colProps.Any())
                 {
-                    CenterHandler.CenterByColumn(widgetNode, colProps.First().Columns);
+                    CenterHelper.CenterByColumn(widgetNode, colProps.First().Columns);
                 }
             }
         }

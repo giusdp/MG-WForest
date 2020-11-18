@@ -23,14 +23,14 @@ namespace PiBa.UI
 
             _root = new WidgetTree(WidgetFactory.CreateContainer(new Rectangle(0, 0, 1280, 720)));
 
+            _root.AddChild(WidgetFactory.CreateImageButton("SpriteBtnL")).AddProperty(PropertyFactory.Margin(0, 20, 0, 0));;
             _root.AddChild(WidgetFactory.CreateImageButton("SpriteBtnL"));
             _root.AddChild(WidgetFactory.CreateImageButton("SpriteBtnL"));
             _root.AddChild(WidgetFactory.CreateImageButton("SpriteBtnL"));
             _root.AddChild(WidgetFactory.CreateImageButton("SpriteBtnL"));
-            _root.AddChild(WidgetFactory.CreateImageButton("SpriteBtnL"));
-            
 
-            _root.AddChild(WidgetFactory.CreateImageButton("SpriteBtnL")).AddProperty(PropertyFactory.MarginLeft(10));
+
+            var a = _root.AddChild(WidgetFactory.CreateImageButton("SpriteBtnL"));
             _root.AddChild(WidgetFactory.CreateImageButton("SpriteBtnL"));
             // var btn = _root.AddChild(WidgetFactory.CreateImageButton("Sprite-0001"));
             // ((ImageButton) btn.Data).HoverButton = AssetLoader.Load<Texture2D>("Sprite-0002");
@@ -39,7 +39,7 @@ namespace PiBa.UI
             // _root.AddChild(WidgetFactory.CreateImageButton("Sprite-0001")).AddProperty(PropertyFactory.MarginLeft(10));
 
             _root.AddProperty(PropertyFactory.Row());
-            // _root.AddProperty(PropertyFactory.Center());
+            _root.AddProperty(PropertyFactory.Center());
 
             _widgetTreeVisitor.ApplyProperties(_root);
         }
