@@ -93,7 +93,7 @@ namespace PiBa.Tests.PropertyTests
             Assert.That(widget.Data.Space, Is.EqualTo(marginWidgetExpected));
             Assert.That(secondWidget.Data.Space, Is.EqualTo(secondWidgetExpected));
         }
-        
+
         [Test]
         public void MarginLeft_SecondWidgetMovesSecondWidgetInRow()
         {
@@ -111,7 +111,8 @@ namespace PiBa.Tests.PropertyTests
             Assert.That(widget.Data.Space, Is.EqualTo(marginWidgetExpected));
             Assert.That(secondWidget.Data.Space, Is.EqualTo(secondWidgetExpected));
         }
-       [Test]
+
+        [Test]
         public void MarginRight_MovesSecondWidgetsInRow()
         {
             var marginWidgetExpected = new Rectangle(0, 0, 120, 120);
@@ -127,7 +128,8 @@ namespace PiBa.Tests.PropertyTests
             PropertyFactory.Row().ApplyOn(_root);
             Assert.That(widget.Data.Space, Is.EqualTo(marginWidgetExpected));
             Assert.That(secondWidget.Data.Space, Is.EqualTo(secondWidgetExpected));
-        } 
+        }
+
         [Test]
         public void MarginBottom_OnCenteredColFirstWidget_PushesDownSecondWidget()
         {
@@ -141,14 +143,83 @@ namespace PiBa.Tests.PropertyTests
 
 
             margin.ApplyOn(widget);
-            
+
             _root.AddProperty(PropertyFactory.Column());
             _root.AddProperty(PropertyFactory.Center());
-            
+
             _root.ApplyProperties();
-            
+
             Assert.That(widget.Data.Space, Is.EqualTo(marginWidgetExpected));
             Assert.That(secondWidget.Data.Space, Is.EqualTo(secondWidgetExpected));
         }
+
+        [Test]
+        public void MarginLeft_OnWidgetInCenteredRow_PushesRow()
+        {
+            var marginWidgetExpected = new Rectangle(525, 300, 120, 120);
+            var secondWidgetExpected = new Rectangle(655, 300, 120, 120);
+
+            var margin = PropertyFactory.MarginLeft(10);
+            var widget = _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(Point.Zero, new Point(120, 120))));
+            var secondWidget =
+                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(Point.Zero, new Point(120, 120))));
+
+
+            margin.ApplyOn(widget);
+
+            _root.AddProperty(PropertyFactory.Row());
+            _root.AddProperty(PropertyFactory.Center());
+
+            _root.ApplyProperties();
+
+            Assert.That(widget.Data.Space, Is.EqualTo(marginWidgetExpected));
+            Assert.That(secondWidget.Data.Space, Is.EqualTo(secondWidgetExpected));
+        }
+        
+        [Test]
+        public void MarginLeft_OnSecondWidgetInCenteredRow_PushesFirstWidget()
+        {
+            var marginWidgetExpected = new Rectangle(515, 300, 120, 120);
+            var secondWidgetExpected = new Rectangle(645, 300, 120, 120);
+
+            var margin = PropertyFactory.MarginLeft(10);
+            var widget = _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(Point.Zero, new Point(120, 120))));
+            var secondWidget =
+                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(Point.Zero, new Point(120, 120))));
+
+
+            margin.ApplyOn(secondWidget);
+
+            _root.AddProperty(PropertyFactory.Row());
+            _root.AddProperty(PropertyFactory.Center());
+
+            _root.ApplyProperties();
+
+            Assert.That(widget.Data.Space, Is.EqualTo(marginWidgetExpected));
+            Assert.That(secondWidget.Data.Space, Is.EqualTo(secondWidgetExpected));
+        }
+        
+       [Test]
+        public void MarginTop_OnSecondWidgetInCenteredCol_PushesTopFirstWidget()
+        {
+            var marginWidgetExpected = new Rectangle(580, 235, 120, 120);
+            var secondWidgetExpected = new Rectangle(580, 365, 120, 120);
+
+            var margin = PropertyFactory.MarginTop(10);
+            var widget = _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(Point.Zero, new Point(120, 120))));
+            var secondWidget =
+                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(Point.Zero, new Point(120, 120))));
+
+
+            margin.ApplyOn(secondWidget);
+
+            _root.AddProperty(PropertyFactory.Column());
+            _root.AddProperty(PropertyFactory.Center());
+
+            _root.ApplyProperties();
+
+            Assert.That(widget.Data.Space, Is.EqualTo(marginWidgetExpected));
+            Assert.That(secondWidget.Data.Space, Is.EqualTo(secondWidgetExpected));
+        } 
     }
 }

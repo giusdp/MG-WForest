@@ -73,8 +73,9 @@ namespace PiBa.UI.Properties.Grid.Center
                 var xRow = row.X;
                 for (var i = row.FirstWidgetIndex; i < row.LastWidgetIndex; i++)
                 {
+                    xRow += children[i].Data.Margin.Left;
                     children[i].Data.Space = new Rectangle(new Point(xRow, row.Y), children[i].Data.Space.Size);
-                    xRow += getSize(children[i]);
+                    xRow += getSize(children[i]) ;
                 }
             });
         }
@@ -88,6 +89,7 @@ namespace PiBa.UI.Properties.Grid.Center
                 var yAcc = row.Y;
                 for (var i = row.FirstWidgetIndex; i < row.LastWidgetIndex; i++)
                 {
+                    yAcc += children[i].Data.Margin.Top; 
                     children[i].Data.Space = new Rectangle(new Point(row.X, yAcc), children[i].Data.Space.Size);
                     yAcc += getSize(children[i]);
                 }
