@@ -5,11 +5,11 @@ using PiBa.Utilities;
 
 namespace PiBa.UI.Widgets
 {
-
     public abstract class Widget
     {
         public Rectangle Space { get; set; }
-        public Margin Margin { get; set; } 
+        public Margin Margin { get; set; }
+
         public Rectangle TotalSpaceOccupied =>
             new Rectangle(
                 Space.X - Margin.Left,
@@ -30,8 +30,6 @@ namespace PiBa.UI.Widgets
         }
 
         public abstract void Draw(SpriteBatch spriteBatch);
-
-        
 
         public virtual void StartedHovering() => OnEnter?.Invoke();
         public virtual void StoppedHovering() => OnExit?.Invoke();
