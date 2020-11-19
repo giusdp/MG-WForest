@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using PiBa.Utilities;
@@ -7,6 +8,7 @@ namespace PiBa.UI.Widgets
 {
     public abstract class Widget
     {
+        public List<Action<SpriteBatch>> Modifiers { get; }
         public Rectangle Space { get; set; }
         public Margin Margin { get; set; }
 
@@ -27,6 +29,7 @@ namespace PiBa.UI.Widgets
         {
             Space = space;
             Margin = new Margin();
+            Modifiers = new List<Action<SpriteBatch>>();
         }
 
         public abstract void Draw(SpriteBatch spriteBatch);
