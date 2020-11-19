@@ -1,8 +1,8 @@
 using Microsoft.Xna.Framework.Input;
-using PiBa.UI.Widgets;
-using PiBa.Utilities;
+using WForest.UI.Widgets;
+using WForest.Utilities;
 
-namespace PiBa.UI.WidgetTreeHandlers.Interactions
+namespace WForest.UI.WidgetTreeHandlers.Interactions
 {
     public class InteractionStateHandler
     {

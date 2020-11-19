@@ -1,6 +1,6 @@
 using NUnit.Framework;
 
-namespace PiBa.Tests.PropertyTests
+namespace WForest.Tests.PropertyTests
 {
     [TestFixture]
     public class ItemCenterTests

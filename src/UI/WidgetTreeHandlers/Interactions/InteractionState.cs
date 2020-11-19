@@ -1,6 +1,6 @@
-using PiBa.UI.Widgets;
+using WForest.UI.Widgets;
 
-namespace PiBa.UI.WidgetTreeHandlers.Interactions
+namespace WForest.UI.WidgetTreeHandlers.Interactions
 {
     public class InteractionState
     {

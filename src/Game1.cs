@@ -1,9 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using PiBa.UI;
+using WForest.UI;
 
-namespace PiBa
+namespace WForest
 {
     public class Game1 : Game
     {

@@ -1,7 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace PiBa.Utilities
+namespace WForest.Utilities
 {
     public static class Primitives
     {

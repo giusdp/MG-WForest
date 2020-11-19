@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace PiBa.Utilities.Collections
+namespace WForest.Utilities.Collections
 {
     public class Tree<T> : IEnumerable<Tree<T>>
     {

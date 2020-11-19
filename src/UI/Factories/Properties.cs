@@ -1,14 +1,14 @@
 using System;
 using Microsoft.Xna.Framework;
-using PiBa.UI.Properties;
-using PiBa.UI.Properties.Actions;
-using PiBa.UI.Properties.Border;
-using PiBa.UI.Properties.Grid.Center;
-using PiBa.UI.Properties.Grid.Column;
-using PiBa.UI.Properties.Grid.Row;
-using PiBa.UI.Properties.Margins;
+using WForest.UI.Properties;
+using WForest.UI.Properties.Actions;
+using WForest.UI.Properties.Border;
+using WForest.UI.Properties.Grid.Center;
+using WForest.UI.Properties.Grid.Column;
+using WForest.UI.Properties.Grid.Row;
+using WForest.UI.Properties.Margins;
 
-namespace PiBa.UI.Factories
+namespace WForest.UI.Factories
 {
     public static class Properties
     {

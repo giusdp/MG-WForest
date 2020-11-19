@@ -1,4 +1,4 @@
-namespace PiBa.Utilities
+namespace WForest.Utilities
 {
     public readonly struct Margin
     {

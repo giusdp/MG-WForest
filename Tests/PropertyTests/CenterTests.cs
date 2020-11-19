@@ -1,12 +1,12 @@
 using Microsoft.Xna.Framework;
 using NUnit.Framework;
-using PiBa.UI;
-using PiBa.UI.Factories;
-using PiBa.UI.Properties.Grid.Center;
-using PiBa.UI.Properties.Grid.Column;
-using PiBa.UI.Properties.Grid.Row;
+using WForest.UI;
+using WForest.UI.Factories;
+using WForest.UI.Properties.Grid.Center;
+using WForest.UI.Properties.Grid.Column;
+using WForest.UI.Properties.Grid.Row;
 
-namespace PiBa.Tests.PropertyTests
+namespace WForest.Tests.PropertyTests
 {
     [TestFixture]
     public class CenterPropertyTests

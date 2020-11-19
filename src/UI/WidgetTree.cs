@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using PiBa.UI.Properties;
-using PiBa.UI.Widgets;
-using PiBa.Utilities.Collections;
+using WForest.UI.Properties;
+using WForest.UI.Widgets;
+using WForest.Utilities.Collections;
 
-namespace PiBa.UI
+namespace WForest.UI
 {
     public class WidgetTree : Tree<Widget>
     {

@@ -1,10 +1,10 @@
 using NUnit.Framework;
-using PiBa.UI.Factories;
-using PiBa.UI.Properties.Actions;
-using PiBa.UI.Properties.Grid.Center;
-using PiBa.UI.Properties.Margins;
+using WForest.UI.Factories;
+using WForest.UI.Properties.Actions;
+using WForest.UI.Properties.Grid.Center;
+using WForest.UI.Properties.Margins;
 
-namespace PiBa.Tests
+namespace WForest.Tests
 {
     [TestFixture]
     public class PropertyFactoryTests

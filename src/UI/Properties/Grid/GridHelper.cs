@@ -2,10 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
-using PiBa.UI.Widgets;
-using PiBa.Utilities.Collections;
+using WForest.UI.Widgets;
+using WForest.Utilities.Collections;
 
-namespace PiBa.UI.Properties.Grid
+namespace WForest.UI.Properties.Grid
 {
     internal static class GridHelper
     {

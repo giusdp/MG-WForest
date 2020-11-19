@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace PiBa.UI.Properties.Grid.Row
+namespace WForest.UI.Properties.Grid.Row
 {
     public class Row : IProperty
     {

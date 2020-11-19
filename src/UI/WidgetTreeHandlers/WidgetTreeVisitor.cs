@@ -1,9 +1,9 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using PiBa.UI.Widgets;
-using PiBa.Utilities;
+using WForest.UI.Widgets;
+using WForest.Utilities;
 
-namespace PiBa.UI.WidgetTreeHandlers
+namespace WForest.UI.WidgetTreeHandlers
 {
     public class WidgetTreeVisitor
     {

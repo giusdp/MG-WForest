@@ -1,7 +1,7 @@
 using System.Linq;
 using Serilog;
 
-namespace PiBa.UI.Properties.Grid.Center
+namespace WForest.UI.Properties.Grid.Center
 {
     public class Center : IProperty
     {

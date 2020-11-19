@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Serilog;
 
-namespace PiBa.UI.Widgets
+namespace WForest.UI.Widgets
 {
     public class ImageButton : Widget
     {

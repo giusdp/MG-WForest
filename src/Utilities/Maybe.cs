@@ -1,6 +1,6 @@
 using System;
 
-namespace PiBa.Utilities
+namespace WForest.Utilities
 {
     
     public abstract class Maybe<T>

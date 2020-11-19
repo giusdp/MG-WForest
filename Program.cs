@@ -1,7 +1,7 @@
 ﻿using System;
 using Serilog;
 
-namespace PiBa
+namespace WForest
 {
     public static class Program
     {

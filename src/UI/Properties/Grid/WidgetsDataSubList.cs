@@ -1,4 +1,4 @@
-namespace PiBa.UI.Properties.Grid
+namespace WForest.UI.Properties.Grid
 {
     internal class WidgetsDataSubList
     {

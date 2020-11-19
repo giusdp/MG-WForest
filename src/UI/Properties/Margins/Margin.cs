@@ -1,8 +1,8 @@
 using Microsoft.Xna.Framework;
-using PiBa.UI.Widgets;
-using PiBa.Utilities;
+using WForest.UI.Widgets;
+using WForest.Utilities;
 
-namespace PiBa.UI.Properties.Margins
+namespace WForest.UI.Properties.Margins
 {
     public class Margin : IProperty
     {

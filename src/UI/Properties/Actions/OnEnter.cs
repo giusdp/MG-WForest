@@ -1,6 +1,6 @@
 using System;
 
-namespace PiBa.UI.Properties.Actions
+namespace WForest.UI.Properties.Actions
 {
     public class OnEnter : IProperty
     {

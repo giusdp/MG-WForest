@@ -1,8 +1,8 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using PiBa.Utilities;
+using WForest.Utilities;
 
-namespace PiBa.UI.Properties.Border
+namespace WForest.UI.Properties.Border
 {
     public class Border : IProperty
     {

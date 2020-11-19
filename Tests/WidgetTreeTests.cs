@@ -1,10 +1,10 @@
 using Microsoft.Xna.Framework;
 using NUnit.Framework;
-using PiBa.UI;
-using PiBa.UI.Factories;
-using PiBa.UI.WidgetTreeHandlers;
+using WForest.UI.WidgetTreeHandlers;
+using WForest.UI;
+using WForest.UI.Factories;
 
-namespace PiBa.Tests
+namespace WForest.Tests
 {
     [TestFixture]
     public class WidgetTreeTests

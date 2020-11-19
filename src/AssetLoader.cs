@@ -1,8 +1,8 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using PiBa.Exceptions;
+using WForest.Exceptions;
 
-namespace PiBa
+namespace WForest
 {
     public static class AssetLoader
     {

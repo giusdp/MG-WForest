@@ -1,7 +1,7 @@
 using NUnit.Framework;
-using PiBa.UI.Widgets;
+using WForest.UI.Widgets;
 
-namespace PiBa.Tests
+namespace WForest.Tests
 {
     [TestFixture]
     public class SpriteButtonTests

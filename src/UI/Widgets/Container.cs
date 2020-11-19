@@ -1,6 +1,6 @@
 using Microsoft.Xna.Framework;
 
-namespace PiBa.UI.Widgets
+namespace WForest.UI.Widgets
 {
     public class Container : Widget
     {

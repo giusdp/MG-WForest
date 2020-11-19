@@ -1,10 +1,10 @@
 using Microsoft.Xna.Framework;
-using PiBa.UI.Widgets;
-using PiBa.UI.WidgetTreeHandlers.Interactions;
-using PiBa.Utilities;
-using PiBa.Utilities.Collections;
+using WForest.UI.Widgets;
+using WForest.UI.WidgetTreeHandlers.Interactions;
+using WForest.Utilities;
+using WForest.Utilities.Collections;
 
-namespace PiBa.UI.WidgetTreeHandlers
+namespace WForest.UI.WidgetTreeHandlers
 {
     public class InteractionHelper
     {

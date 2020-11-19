@@ -1,6 +1,6 @@
 using System;
 
-namespace PiBa.Exceptions
+namespace WForest.Exceptions
 {
     public class AssetLoaderNotInitializedException : Exception
     {

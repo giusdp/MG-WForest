@@ -2,14 +2,14 @@ using System;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using NUnit.Framework;
-using PiBa.UI;
-using PiBa.UI.Factories;
-using PiBa.UI.Widgets;
-using PiBa.UI.WidgetTreeHandlers;
-using PiBa.Utilities;
-using PiBa.Utilities.Collections;
+using WForest.UI.Widgets;
+using WForest.UI;
+using WForest.UI.Factories;
+using WForest.UI.WidgetTreeHandlers;
+using WForest.Utilities;
+using WForest.Utilities.Collections;
 
-namespace PiBa.Tests
+namespace WForest.Tests
 {
     [TestFixture]
     public class TreeVisitorTests

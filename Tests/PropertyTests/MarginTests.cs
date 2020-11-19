@@ -1,9 +1,9 @@
 using Microsoft.Xna.Framework;
 using NUnit.Framework;
-using PiBa.UI;
-using PiBa.UI.Factories;
+using WForest.UI;
+using WForest.UI.Factories;
 
-namespace PiBa.Tests.PropertyTests
+namespace WForest.Tests.PropertyTests
 {
     [TestFixture]
     public class MarginPropertyTests

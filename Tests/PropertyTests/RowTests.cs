@@ -1,21 +1,21 @@
 using Microsoft.Xna.Framework;
 using NUnit.Framework;
-using PiBa.UI;
-using PiBa.UI.Factories;
-using Row = PiBa.UI.Properties.Grid.Row.Row;
+using WForest.UI;
+using WForest.UI.Factories;
+using Row = WForest.UI.Properties.Grid.Row.Row;
 
-namespace PiBa.Tests.PropertyTests
+namespace WForest.Tests.PropertyTests
 {
     [TestFixture]
     public class RowPropertyTests
     {
-        private Row _row;
+        private UI.Properties.Grid.Row.Row _row;
         private WidgetTree _root;
 
         [SetUp]
         public void BeforeEach()
         {
-            _row = new Row();
+            _row = new UI.Properties.Grid.Row.Row();
             _root = new WidgetTree(Widgets.CreateContainer(new Rectangle(0, 0, 1280, 720)));
         }
 

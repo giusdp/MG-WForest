@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace PiBa.UI.Properties.Grid.Column
+namespace WForest.UI.Properties.Grid.Column
 {
     public class Column : IProperty
     {

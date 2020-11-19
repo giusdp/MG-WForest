@@ -1,4 +1,4 @@
-namespace PiBa.UI.Properties.ItemCenter
+namespace WForest.UI.Properties.ItemCenter
 {
     public class ItemCenter : IProperty
     {

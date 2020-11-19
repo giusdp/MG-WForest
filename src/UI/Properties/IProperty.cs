@@ -1,4 +1,4 @@
-namespace PiBa.UI.Properties
+namespace WForest.UI.Properties
 {
     public interface IProperty
     {

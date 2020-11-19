@@ -2,12 +2,12 @@ using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using PiBa.UI.Factories;
-using PiBa.UI.Properties.Border;
-using PiBa.UI.Widgets;
-using PiBa.UI.WidgetTreeHandlers;
+using WForest.UI.Factories;
+using WForest.UI.Properties.Border;
+using WForest.UI.Widgets;
+using WForest.UI.WidgetTreeHandlers;
 
-namespace PiBa.UI
+namespace WForest.UI
 {
     public class HUD
     {

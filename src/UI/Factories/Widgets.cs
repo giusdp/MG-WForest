@@ -1,8 +1,8 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using PiBa.UI.Widgets;
+using WForest.UI.Widgets;
 
-namespace PiBa.UI.Factories
+namespace WForest.UI.Factories
 {
     public static class Widgets
     {
