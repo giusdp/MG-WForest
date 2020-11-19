@@ -4,7 +4,7 @@ using PiBa.UI.Widgets;
 
 namespace PiBa.UI.Factories
 {
-    public static class WidgetFactory
+    public static class Widgets
     {
         public static ImageButton CreateImageButton(string image) =>
             new ImageButton(AssetLoader.Load<Texture2D>(image));

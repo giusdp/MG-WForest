@@ -16,7 +16,7 @@ namespace PiBa.Tests.PropertyTests
         public void BeforeEach()
         {
             _column = new Column();
-            _root = new WidgetTree(WidgetFactory.CreateContainer(new Rectangle(0, 0, 1280, 720)));
+            _root = new WidgetTree(Widgets.CreateContainer(new Rectangle(0, 0, 1280, 720)));
         }
 
         [Test]
@@ -28,7 +28,7 @@ namespace PiBa.Tests.PropertyTests
         [Test]
         public void ApplyOn_OneWidget_PositionIsUnchanged()
         {
-            var child = _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 120, 120)));
+            var child = _root.AddChild(Widgets.CreateContainer(new Rectangle(0, 0, 120, 120)));
         
             var expected = new Rectangle(0, 0, 120, 120);
             _column.ApplyOn(_root);
@@ -38,8 +38,8 @@ namespace PiBa.Tests.PropertyTests
         [Test]
         public void ApplyOn_TwoWidgets_OneAboveOther()
         {
-            var child = _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 120, 120)));
-            var secondChild = _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 120, 120)));
+            var child = _root.AddChild(Widgets.CreateContainer(new Rectangle(0, 0, 120, 120)));
+            var secondChild = _root.AddChild(Widgets.CreateContainer(new Rectangle(0, 0, 120, 120)));
         
             var expectedLocFirst = new Rectangle(0, 0, 120, 120);
             var expectedLocSecond = new Rectangle(0, 120, 120, 120);
@@ -54,9 +54,9 @@ namespace PiBa.Tests.PropertyTests
         {
             var acts = new[]
             {
-                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 640, 640))),
-                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 120, 70))),
-                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 160, 120))),
+                _root.AddChild(Widgets.CreateContainer(new Rectangle(0, 0, 640, 640))),
+                _root.AddChild(Widgets.CreateContainer(new Rectangle(0, 0, 120, 70))),
+                _root.AddChild(Widgets.CreateContainer(new Rectangle(0, 0, 160, 120))),
             };
         
             var expects = new[]
@@ -78,12 +78,12 @@ namespace PiBa.Tests.PropertyTests
         {
             var acts = new[]
             {
-                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 120, 330))),
-                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 120, 330))),
-                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 120, 330))),
-                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 120, 330))),
-                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 120, 330))),
-                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 120, 330))),
+                _root.AddChild(Widgets.CreateContainer(new Rectangle(0, 0, 120, 330))),
+                _root.AddChild(Widgets.CreateContainer(new Rectangle(0, 0, 120, 330))),
+                _root.AddChild(Widgets.CreateContainer(new Rectangle(0, 0, 120, 330))),
+                _root.AddChild(Widgets.CreateContainer(new Rectangle(0, 0, 120, 330))),
+                _root.AddChild(Widgets.CreateContainer(new Rectangle(0, 0, 120, 330))),
+                _root.AddChild(Widgets.CreateContainer(new Rectangle(0, 0, 120, 330))),
             };
         
             var expects = new[]

@@ -10,7 +10,7 @@ using PiBa.UI.Properties.Margins;
 
 namespace PiBa.UI.Factories
 {
-    public static class PropertyFactory
+    public static class Properties
     {
         #region Grid
 

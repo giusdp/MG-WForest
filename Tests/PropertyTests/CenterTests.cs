@@ -18,7 +18,7 @@ namespace PiBa.Tests.PropertyTests
         public void BeforeEach()
         {
             _center = new Center();
-            _root = new WidgetTree(WidgetFactory.CreateContainer(new Rectangle(0, 0, 1280, 720)));
+            _root = new WidgetTree(Widgets.CreateContainer(new Rectangle(0, 0, 1280, 720)));
         }
 
         private void ApplyRow()
@@ -41,7 +41,7 @@ namespace PiBa.Tests.PropertyTests
         [Test]
         public void ApplyOn_WidgetWithoutRowOrCol_NothingHappens()
         {
-           var child = _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 120, 120)));
+           var child = _root.AddChild(Widgets.CreateContainer(new Rectangle(0, 0, 120, 120)));
 
             _center.ApplyOn(_root);
 
@@ -53,7 +53,7 @@ namespace PiBa.Tests.PropertyTests
         [Test]
         public void ApplyOn_OneChildrenInARow_PutsItInCenter()
         {
-            var child = _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 120, 120)));
+            var child = _root.AddChild(Widgets.CreateContainer(new Rectangle(0, 0, 120, 120)));
 
             ApplyRow();
 
@@ -67,7 +67,7 @@ namespace PiBa.Tests.PropertyTests
         [Test]
         public void ApplyOn_OneChildrenInAColumn_PutsItInCenter()
         {
-            var child = _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 120, 120)));
+            var child = _root.AddChild(Widgets.CreateContainer(new Rectangle(0, 0, 120, 120)));
 
             ApplyCol();
 
@@ -81,8 +81,8 @@ namespace PiBa.Tests.PropertyTests
         [Test]
         public void ApplyOn_TwoIdenticalWidgetsInColumn()
         {
-            var child = _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 120, 120)));
-            var secondChild = _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 120, 120)));
+            var child = _root.AddChild(Widgets.CreateContainer(new Rectangle(0, 0, 120, 120)));
+            var secondChild = _root.AddChild(Widgets.CreateContainer(new Rectangle(0, 0, 120, 120)));
         
             var firstChildExpectedLoc = new Rectangle(580, 240, 120, 120);
             var secondChildExpectedLoc = new Rectangle(580, 360, 120, 120);
@@ -97,8 +97,8 @@ namespace PiBa.Tests.PropertyTests
         [Test]
         public void ApplyOn_TwoIdenticalWidgetsInRow()
         {
-            var child = _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 120, 120)));
-            var secondChild = _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 120, 120)));
+            var child = _root.AddChild(Widgets.CreateContainer(new Rectangle(0, 0, 120, 120)));
+            var secondChild = _root.AddChild(Widgets.CreateContainer(new Rectangle(0, 0, 120, 120)));
 
             var firstChildExpectedLoc = new Rectangle(520, 300, 120, 120);
             var secondChildExpectedLoc = new Rectangle(640, 300, 120, 120);
@@ -113,8 +113,8 @@ namespace PiBa.Tests.PropertyTests
         [Test]
         public void ApplyOn_RowWithTwoSizesWidgets_CentersOnlyRowsNotInternally()
         {
-            var child = _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120)));
-            var secondChild = _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 120, 330)));
+            var child = _root.AddChild(Widgets.CreateContainer(new Rectangle(0, 0, 220, 120)));
+            var secondChild = _root.AddChild(Widgets.CreateContainer(new Rectangle(0, 0, 120, 330)));
         
             var firstChildExpectedLoc = new Rectangle(470, 195, 220, 120);
             var secondChildExpectedLoc = new Rectangle(690, 195, 120, 330);
@@ -128,8 +128,8 @@ namespace PiBa.Tests.PropertyTests
         [Test]
         public void ApplyOn_ColumnWithTwoSizesWidgets_CentersOnlyColumnsNotInternally()
         {
-            var child = _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120)));
-            var secondChild = _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 120, 330)));
+            var child = _root.AddChild(Widgets.CreateContainer(new Rectangle(0, 0, 220, 120)));
+            var secondChild = _root.AddChild(Widgets.CreateContainer(new Rectangle(0, 0, 120, 330)));
         
             var firstChildExpectedLoc = new Rectangle(530, 135, 220, 120);
             var secondChildExpectedLoc = new Rectangle(530, 255, 120, 330);
@@ -145,12 +145,12 @@ namespace PiBa.Tests.PropertyTests
         {
             var acts = new[]
             {
-                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120))),
-                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120))),
-                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120))),
-                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120))),
-                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120))),
-                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120)))
+                _root.AddChild(Widgets.CreateContainer(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(Widgets.CreateContainer(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(Widgets.CreateContainer(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(Widgets.CreateContainer(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(Widgets.CreateContainer(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(Widgets.CreateContainer(new Rectangle(0, 0, 220, 120)))
             };
         
             var expects = new[]
@@ -176,9 +176,9 @@ namespace PiBa.Tests.PropertyTests
         {
             var acts = new[]
             {
-                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 120, 330))),
-                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 120, 330))),
-                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 120, 330)))
+                _root.AddChild(Widgets.CreateContainer(new Rectangle(0, 0, 120, 330))),
+                _root.AddChild(Widgets.CreateContainer(new Rectangle(0, 0, 120, 330))),
+                _root.AddChild(Widgets.CreateContainer(new Rectangle(0, 0, 120, 330)))
             };
         
             var expects = new[]
@@ -202,25 +202,25 @@ namespace PiBa.Tests.PropertyTests
             var acts = new[]
             {
                 // First Row
-                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120))),
-                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120))),
-                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120))),
-                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120))),
-                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(Widgets.CreateContainer(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(Widgets.CreateContainer(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(Widgets.CreateContainer(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(Widgets.CreateContainer(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(Widgets.CreateContainer(new Rectangle(0, 0, 220, 120))),
         
                 // Second Row
-                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120))),
-                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120))),
-                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120))),
-                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120))),
-                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(Widgets.CreateContainer(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(Widgets.CreateContainer(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(Widgets.CreateContainer(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(Widgets.CreateContainer(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(Widgets.CreateContainer(new Rectangle(0, 0, 220, 120))),
         
                 // Third Row
-                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120))),
-                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120))),
-                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120))),
-                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120))),
-                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120)))
+                _root.AddChild(Widgets.CreateContainer(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(Widgets.CreateContainer(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(Widgets.CreateContainer(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(Widgets.CreateContainer(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(Widgets.CreateContainer(new Rectangle(0, 0, 220, 120)))
             };
         
             var expects = new[]
@@ -256,16 +256,16 @@ namespace PiBa.Tests.PropertyTests
             var acts = new[]
             {
                 // First Col
-                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 120, 330))),
-                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 120, 330))),
+                _root.AddChild(Widgets.CreateContainer(new Rectangle(0, 0, 120, 330))),
+                _root.AddChild(Widgets.CreateContainer(new Rectangle(0, 0, 120, 330))),
         
                 // Second Col
-                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 120, 330))),
-                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 120, 330))),
+                _root.AddChild(Widgets.CreateContainer(new Rectangle(0, 0, 120, 330))),
+                _root.AddChild(Widgets.CreateContainer(new Rectangle(0, 0, 120, 330))),
         
                 // Third Col
-                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 120, 330))),
-                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 120, 330))),
+                _root.AddChild(Widgets.CreateContainer(new Rectangle(0, 0, 120, 330))),
+                _root.AddChild(Widgets.CreateContainer(new Rectangle(0, 0, 120, 330))),
             };
         
             var expects = new[]
@@ -292,28 +292,28 @@ namespace PiBa.Tests.PropertyTests
             var acts = new[]
             {
                 // First Row
-                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120))),
-                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120))),
-                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120))),
-                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120))),
-                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(Widgets.CreateContainer(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(Widgets.CreateContainer(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(Widgets.CreateContainer(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(Widgets.CreateContainer(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(Widgets.CreateContainer(new Rectangle(0, 0, 220, 120))),
         
                 // Second Row
-                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120))),
-                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120))),
-                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120))),
-                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120))),
-                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(Widgets.CreateContainer(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(Widgets.CreateContainer(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(Widgets.CreateContainer(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(Widgets.CreateContainer(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(Widgets.CreateContainer(new Rectangle(0, 0, 220, 120))),
         
                 // Third Row
-                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120))),
-                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120))),
-                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120))),
-                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120))),
-                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(Widgets.CreateContainer(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(Widgets.CreateContainer(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(Widgets.CreateContainer(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(Widgets.CreateContainer(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(Widgets.CreateContainer(new Rectangle(0, 0, 220, 120))),
         
                 // The one more widget
-                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120)))
+                _root.AddChild(Widgets.CreateContainer(new Rectangle(0, 0, 220, 120)))
             };
         
             var expects = new[]
@@ -350,19 +350,19 @@ namespace PiBa.Tests.PropertyTests
             var acts = new[]
             {
                 // First Col
-                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 120, 330))),
-                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 120, 330))),
+                _root.AddChild(Widgets.CreateContainer(new Rectangle(0, 0, 120, 330))),
+                _root.AddChild(Widgets.CreateContainer(new Rectangle(0, 0, 120, 330))),
         
                 // Second Col
-                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 120, 330))),
-                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 120, 330))),
+                _root.AddChild(Widgets.CreateContainer(new Rectangle(0, 0, 120, 330))),
+                _root.AddChild(Widgets.CreateContainer(new Rectangle(0, 0, 120, 330))),
         
                 // Third Col
-                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 120, 330))),
-                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 120, 330))),
+                _root.AddChild(Widgets.CreateContainer(new Rectangle(0, 0, 120, 330))),
+                _root.AddChild(Widgets.CreateContainer(new Rectangle(0, 0, 120, 330))),
                 
                 // The one more widget
-                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120)))
+                _root.AddChild(Widgets.CreateContainer(new Rectangle(0, 0, 220, 120)))
             };
 
             var expects = new[]
@@ -389,13 +389,13 @@ namespace PiBa.Tests.PropertyTests
         {
             var acts = new[]
             {
-                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120))),
-                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 120, 330))),
-                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120))),
-                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120))),
-                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120))),
-                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120))),
-                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(Widgets.CreateContainer(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(Widgets.CreateContainer(new Rectangle(0, 0, 120, 330))),
+                _root.AddChild(Widgets.CreateContainer(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(Widgets.CreateContainer(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(Widgets.CreateContainer(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(Widgets.CreateContainer(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(Widgets.CreateContainer(new Rectangle(0, 0, 220, 120))),
             };
         
             var expects = new[]
@@ -422,14 +422,14 @@ namespace PiBa.Tests.PropertyTests
         {
             var acts = new[]
             {
-                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120))),
-                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 120, 330))),
-                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120))),
-                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(Widgets.CreateContainer(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(Widgets.CreateContainer(new Rectangle(0, 0, 120, 330))),
+                _root.AddChild(Widgets.CreateContainer(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(Widgets.CreateContainer(new Rectangle(0, 0, 220, 120))),
                 
-                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120))),
-                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120))),
-                _root.AddChild(WidgetFactory.CreateContainer(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(Widgets.CreateContainer(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(Widgets.CreateContainer(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(Widgets.CreateContainer(new Rectangle(0, 0, 220, 120))),
             };
         
             var expects = new[]
