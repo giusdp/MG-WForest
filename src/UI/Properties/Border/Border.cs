@@ -6,25 +6,13 @@ namespace PiBa.UI.Properties.Border
     public class Border : IProperty
     {
         private static Texture2D _pointTexture;
-        private Color _color;
-        private int _lineWidth;
+        public Color Color { get; set; }
+        public int LineWidth { get; set; }
 
         public Border()
         {
-            _lineWidth = 1;
-            _color = Color.Black;
-        }
-
-        public Border(int lineWidth)
-        {
-            _lineWidth = lineWidth;
-            _color = Color.Black;
-        }
-
-        public Border(Color color, int lineWidth)
-        {
-            _color = color;
-            _lineWidth = lineWidth;
+            LineWidth = 1;
+            Color = Color.Black;
         }
 
         public static void DrawRectangle(SpriteBatch spriteBatch, Rectangle rectangle, Color color, int lineWidth)
@@ -52,7 +40,7 @@ namespace PiBa.UI.Properties.Border
 
         public void ApplyOn(WidgetTree widgetNode)
         {
-            widgetNode.Data.Modifiers.Add(sb => { DrawRectangle(sb, widgetNode.Data.Space, _color, _lineWidth); });
+            widgetNode.Data.Modifiers.Add(sb => { DrawRectangle(sb, widgetNode.Data.Space, Color, LineWidth); });
         }
     }
 }
