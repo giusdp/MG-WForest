@@ -23,6 +23,8 @@ namespace PiBa.UI.Widgets
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(_imageToDraw, new Vector2(Space.X, Space.Y), Color.White);
+            
+            base.Draw(spriteBatch);
         }
 
         public override void StartedHovering()

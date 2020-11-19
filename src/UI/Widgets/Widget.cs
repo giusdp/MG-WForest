@@ -32,7 +32,7 @@ namespace PiBa.UI.Widgets
             Modifiers = new List<Action<SpriteBatch>>();
         }
 
-        public abstract void Draw(SpriteBatch spriteBatch);
+        public virtual void Draw(SpriteBatch spriteBatch) => Modifiers.ForEach(a => a(spriteBatch));
 
         public virtual void StartedHovering() => OnEnter?.Invoke();
         public virtual void StoppedHovering() => OnExit?.Invoke();

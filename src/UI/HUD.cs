@@ -1,3 +1,4 @@
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -24,7 +25,10 @@ namespace PiBa.UI
             ((ImageButton) btn.Data).HoverButton = AssetLoader.Load<Texture2D>("Sprite-0002");
             ((ImageButton) btn.Data).PressedButton = AssetLoader.Load<Texture2D>("Sprite-0003");
 
-            btn.AddProperty(new Border());
+            // var btn = _root.AddChild(WidgetFactory.CreateContainer(128, 64));
+            // btn.AddProperty(PropertyFactory.OnEnter(()=>Console.WriteLine("Hello from container boi")));
+
+            // btn.AddProperty(PropertyFactory.Border(Color.Red));
             _root.AddProperty(PropertyFactory.Row());
             _root.AddProperty(PropertyFactory.Center());
 
