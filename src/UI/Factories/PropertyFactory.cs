@@ -1,6 +1,8 @@
 using System;
+using Microsoft.Xna.Framework;
 using PiBa.UI.Properties;
 using PiBa.UI.Properties.Actions;
+using PiBa.UI.Properties.Border;
 using PiBa.UI.Properties.Grid.Center;
 using PiBa.UI.Properties.Grid.Column;
 using PiBa.UI.Properties.Grid.Row;
@@ -29,6 +31,17 @@ namespace PiBa.UI.Factories
         public static IProperty MarginRight(int marginRight) => new Margin(0, marginRight, 0, 0);
         public static IProperty MarginTop(int marginTop) => new Margin(0, 0, marginTop, 0);
         public static IProperty MarginBottom(int marginBottom) => new Margin(0, 0, 0, marginBottom);
+
+        #endregion
+
+        #region Border
+
+        public static IProperty Border() => new Border();
+        public static IProperty Border(Color color) => CheckArgAndCreate(color, c => new Border {Color = c});
+        public static IProperty Border(int width) => new Border {LineWidth = width};
+
+        public static IProperty Border(Color color, int width) =>
+            CheckArgAndCreate(color, c => new Border {Color = c, LineWidth = width});
 
         #endregion
 
