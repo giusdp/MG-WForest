@@ -1,4 +1,4 @@
-namespace WForest.UI.Properties.ItemCenter
+namespace WForest.UI.Properties.Grid.ItemCenter
 {
     public class ItemCenter : IProperty
     {
