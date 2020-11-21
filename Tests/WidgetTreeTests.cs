@@ -14,7 +14,7 @@ namespace WForest.Tests
         [SetUp]
         public void SetUpBeforeEach()
         {
-            _t = new WidgetTree(Widgets.CreateContainer(Rectangle.Empty));
+            _t = new WidgetTree(Widgets.Container(Rectangle.Empty));
         }
 
         [Test]
@@ -34,7 +34,7 @@ namespace WForest.Tests
         [Test]
         public void AddChild_AddsWidgetChild()
         {
-            _t.AddChild(Widgets.CreateContainer(Rectangle.Empty));
+            _t.AddChild(Widgets.Container(Rectangle.Empty));
             Assert.That(_t.Children, Is.Not.Empty);
         }
 
@@ -48,7 +48,7 @@ namespace WForest.Tests
         public void AddChild_ChildPositionRelativeToParent()
         {
             _t.Data.Space = new Rectangle(new Point(100, 150), _t.Data.Space.Size);
-           var c = _t.AddChild(Widgets.CreateContainer(Rectangle.Empty));
+           var c = _t.AddChild(Widgets.Container(Rectangle.Empty));
             Assert.That(c.Data.Space.Location, Is.EqualTo(_t.Data.Space.Location)); 
         }
     }

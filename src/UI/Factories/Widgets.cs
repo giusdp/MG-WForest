@@ -6,15 +6,15 @@ namespace WForest.UI.Factories
 {
     public static class Widgets
     {
-        public static ImageButton CreateImageButton(string image) =>
+        public static ImageButton ImageButton(string image) =>
             new ImageButton(AssetLoader.Load<Texture2D>(image));
 
 
-        public static Container CreateContainer(Rectangle space) => new Container(space);
+        public static Container Container(Rectangle space) => new Container(space);
 
-        public static Container CreateContainer(Point size) => new Container(new Rectangle(new Point(0, 0), size));
+        public static Container Container(Point size) => new Container(new Rectangle(new Point(0, 0), size));
 
-        public static Container CreateContainer(int width, int height) =>
+        public static Container Container(int width, int height) =>
             new Container(new Rectangle(0, 0, width, height));
     }
 }

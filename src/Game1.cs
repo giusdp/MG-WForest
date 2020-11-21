@@ -47,7 +47,7 @@ namespace WForest
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            _spriteBatch.Begin();
+            _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp);
             _hud.Draw(_spriteBatch);
             _spriteBatch.End();
             

@@ -77,7 +77,7 @@ namespace WForest.Tests
         public void IsHovered_LocationInside_ReturnsTrue()
         {
             var v = new WidgetTreeVisitor();
-            var w = new WidgetTree(Widgets.CreateContainer(new Rectangle(0,0,540,540)));
+            var w = new WidgetTree(Widgets.Container(new Rectangle(0,0,540,540)));
             var b = v.CheckHovering(w, new Point(332, 43)) is Maybe<WidgetTree>.Some;
             Assert.That(b, Is.True);
         }
@@ -86,7 +86,7 @@ namespace WForest.Tests
         public void IsHovered_NotInside_ReturnsFalse()
         {
             var v = new WidgetTreeVisitor();
-            var w= new WidgetTree(Widgets.CreateContainer(new Rectangle(0,0,540,540)));
+            var w= new WidgetTree(Widgets.Container(new Rectangle(0,0,540,540)));
             var b = v.CheckHovering(w, new Point(332, 678)) is Maybe<WidgetTree>.Some;
             Assert.That(b, Is.False);
         }
