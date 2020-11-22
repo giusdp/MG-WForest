@@ -7,35 +7,53 @@ namespace WForest.UI.Properties.Grid.Center
 {
     internal static class CenterHelper
     {
-        public static void CenterByRow(WidgetTree wTree, List<WidgetsDataSubList> rows)
+        #region Public API
+
+        public static void ItemCenterVertical(WidgetTree wTree, List<WidgetsDataSubList> wLists)
+            => CenterByColumn(wTree, wLists, (r, y) => r.Y = y);
+
+        public static void ItemCenterHorizontal(WidgetTree wTree, List<WidgetsDataSubList> wLists)
+            => CenterByRow(wTree, wLists, (c, x) => c.X = x);
+
+        public static void JustifyCenterByRow(WidgetTree wTree, List<WidgetsDataSubList> rows)
+            => CenterByRow(wTree, rows, (r, x) =>
+            {
+                r.X = x;
+                r.Y = wTree.Data.Space.Y;
+            });
+
+        public static void JustifyCenterByColumn(WidgetTree wTree, List<WidgetsDataSubList> columns)
+            => CenterByColumn(wTree, columns, (c, y) =>
+            {
+                c.X = wTree.Data.Space.X;
+                c.Y = y;
+            });
+
+        #endregion
+
+        #region Backend
+
+        private static void CenterByRow(WidgetTree wTree, List<WidgetsDataSubList> rows,
+            Action<WidgetsDataSubList, int> setPosition)
         {
             var maxWidth = rows.Max(r => r.Width);
             var totalHeight = rows.Sum(r => r.Height);
-            var (x, y) = GetCenterCoords(wTree.Data.Space, maxWidth, totalHeight);
-
-            rows.ForEach(r =>
-            {
-                r.X = x;
-                r.Y = y;
-            });
+            var (x, _) = GetCenterCoords(wTree.Data.Space, maxWidth, totalHeight);
+            rows.ForEach(r => setPosition(r, x));
 
             OffsetBySize(rows, (r, i) => r.Y += i, w => w.Height);
             CenterChildrenHorizontally(wTree, rows);
         }
 
-        public static void CenterByColumn(WidgetTree wTree, List<WidgetsDataSubList> columns)
+        private static void CenterByColumn(WidgetTree wTree, List<WidgetsDataSubList> columns,
+            Action<WidgetsDataSubList, int> setPosition)
         {
             var totalWidth = columns.Sum(r => r.Width);
             var maxHeight = columns.Max(r => r.Height);
-            var (x, y) = GetCenterCoords(wTree.Data.Space, totalWidth, maxHeight);
-            columns.ForEach(r =>
-            {
-                r.X = x;
-                r.Y = y;
-            });
+            var (_, y) = GetCenterCoords(wTree.Data.Space, totalWidth, maxHeight);
+            columns.ForEach(r => setPosition(r, y));
 
             OffsetBySize(columns, (r, i) => r.X += i, w => w.Width);
-
             CenterChildrenVertically(wTree, columns);
         }
 
@@ -61,7 +79,6 @@ namespace WForest.UI.Properties.Grid.Center
             }
         }
 
-
         private static void CenterChildrenHorizontally(WidgetTree tree, List<WidgetsDataSubList> rows)
         {
             var children = tree.Children;
@@ -72,7 +89,8 @@ namespace WForest.UI.Properties.Grid.Center
                 {
                     xRow += children[i].Data.Margin.Left;
                     var wY = row.Y + children[i].Data.Margin.Top;
-                    children[i].Data.Space = new Rectangle(new Point(xRow, wY), children[i].Data.Space.Size);
+                    ((WidgetTree) children[i]).UpdateSpace(new Rectangle(new Point(xRow, wY),
+                        children[i].Data.Space.Size));
                     xRow += children[i].Data.Space.Width + children[i].Data.Margin.Right;
                 }
             });
@@ -86,11 +104,15 @@ namespace WForest.UI.Properties.Grid.Center
                 var yAcc = row.Y;
                 for (var i = row.FirstWidgetIndex; i < row.LastWidgetIndex; i++)
                 {
+                    var wX = row.X + children[i].Data.Margin.Left;
                     yAcc += children[i].Data.Margin.Top;
-                    children[i].Data.Space = new Rectangle(new Point(row.X + children[i].Data.Margin.Left, yAcc), children[i].Data.Space.Size);
+                    ((WidgetTree) children[i]).UpdateSpace(new Rectangle(new Point(wX, yAcc),
+                        children[i].Data.Space.Size));
                     yAcc += children[i].Data.Space.Height + children[i].Data.Margin.Bottom;
                 }
             });
         }
+
+        #endregion
     }
 }

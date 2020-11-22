@@ -16,7 +16,8 @@ namespace WForest.UI.Factories
 
         public static IProperty Row() => new Row();
         public static IProperty Column() => new Column();
-        public static IProperty Center() => new Center();
+        public static IProperty Center() => new JustifyCenter();
+        public static IProperty ItemCenter() => new ItemCenter();
 
         #endregion
 

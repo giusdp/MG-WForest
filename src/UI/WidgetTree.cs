@@ -33,10 +33,27 @@ namespace WForest.UI
             return childNode;
         }
 
+        public void UpdateSpace(Rectangle newSpace)
+        {
+            var diff = new Point( newSpace.Location.X - Data.Space.Location.X, newSpace.Location.Y - Data.Space.Location.Y);
+            Data.Space = newSpace;
+            UpdateSubTreePosition(diff);
+        }
+
+        private void UpdateSubTreePosition(Point diff)
+        {
+            
+            Children.ForEach(c =>
+            {
+                var (dX, dY) = diff;
+                var cr = new Rectangle(new Point(c.Data.Space.X + dX, c.Data.Space.Y + dY), c.Data.Space.Size);
+                ((WidgetTree) c).UpdateSpace(cr);
+            });
+        }
+
         public void ApplyProperties()
         {
-            Properties.Distinct().ToList().Sort((p1, p2) => p1.Priority.CompareTo(p2.Priority));
-            Properties.ForEach(c => c.ApplyOn(this));
+            Properties.Distinct().ToList().OrderBy(p => p.Priority).ToList().ForEach(p => p.ApplyOn(this));
         }
 
         public void DrawWidget(SpriteBatch spriteBatch) => Data.Draw(spriteBatch);
