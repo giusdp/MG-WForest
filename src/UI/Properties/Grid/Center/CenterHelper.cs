@@ -11,12 +11,12 @@ namespace WForest.UI.Properties.Grid.Center
         {
             var maxWidth = rows.Max(r => r.Width);
             var totalHeight = rows.Sum(r => r.Height);
-            var (x, y) = GetCenterCoords(wTree.Data.Space, maxWidth, totalHeight);
+            var (x, _) = GetCenterCoords(wTree.Data.Space, maxWidth, totalHeight);
 
             rows.ForEach(r =>
             {
                 r.X = x;
-                r.Y = y;
+                r.Y = wTree.Data.Space.Y;
             });
 
             OffsetBySize(rows, (r, i) => r.Y += i, w => w.Height);
@@ -27,10 +27,10 @@ namespace WForest.UI.Properties.Grid.Center
         {
             var totalWidth = columns.Sum(r => r.Width);
             var maxHeight = columns.Max(r => r.Height);
-            var (x, y) = GetCenterCoords(wTree.Data.Space, totalWidth, maxHeight);
+            var (_, y) = GetCenterCoords(wTree.Data.Space, totalWidth, maxHeight);
             columns.ForEach(r =>
             {
-                r.X = x;
+                r.X = wTree.Data.Space.X;
                 r.Y = y;
             });
 
