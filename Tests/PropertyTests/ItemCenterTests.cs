@@ -62,7 +62,7 @@ namespace WForest.Tests.PropertyTests
         {
             var c = _root.AddChild(Widgets.Container(20, 20));
             ApplyRow();
-            Properties.Center().ApplyOn(_root);
+            Properties.JustifyCenter().ApplyOn(_root);
             _itemCenter.ApplyOn(_root);
             Assert.That(c.Data.Space, Is.EqualTo(new Rectangle(630, 350, 20, 20)));
         }

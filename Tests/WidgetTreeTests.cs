@@ -20,7 +20,7 @@ namespace WForest.Tests
         [Test]
         public void AddProperty_AddPropertyToList()
         {
-            var c = Properties.Center();
+            var c = Properties.JustifyCenter();
             _t.AddProperty(c);
             Assert.That(_t.Properties.Contains(c), Is.True);
         }
