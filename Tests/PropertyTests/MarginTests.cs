@@ -133,8 +133,8 @@ namespace WForest.Tests.PropertyTests
         [Test]
         public void MarginBottom_OnCenteredColFirstWidget_PushesDownSecondWidget()
         {
-            var marginWidgetExpected = new Rectangle(580, 235, 120, 120);
-            var secondWidgetExpected = new Rectangle(580, 365, 120, 120);
+            var marginWidgetExpected = new Rectangle(0, 235, 120, 120);
+            var secondWidgetExpected = new Rectangle(0, 365, 120, 120);
 
             var margin = Properties.MarginBottom(10);
             var widget = _root.AddChild(Widgets.Container(new Rectangle(Point.Zero, new Point(120, 120))));
@@ -156,8 +156,8 @@ namespace WForest.Tests.PropertyTests
         [Test]
         public void MarginLeft_OnWidgetInCenteredRow_PushesRow()
         {
-            var marginWidgetExpected = new Rectangle(525, 300, 120, 120);
-            var secondWidgetExpected = new Rectangle(645, 300, 120, 120);
+            var marginWidgetExpected = new Rectangle(525, 0, 120, 120);
+            var secondWidgetExpected = new Rectangle(645, 0, 120, 120);
 
             var margin = Properties.MarginLeft(10);
             var widget = _root.AddChild(Widgets.Container(new Rectangle(Point.Zero, new Point(120, 120))));
@@ -179,8 +179,8 @@ namespace WForest.Tests.PropertyTests
         [Test]
         public void MarginLeft_OnSecondWidgetInCenteredRow_PushesFirstWidget()
         {
-            var marginWidgetExpected = new Rectangle(515, 300, 120, 120);
-            var secondWidgetExpected = new Rectangle(645, 300, 120, 120);
+            var marginWidgetExpected = new Rectangle(515, 0, 120, 120);
+            var secondWidgetExpected = new Rectangle(645, 0, 120, 120);
 
             var margin = Properties.MarginLeft(10);
             var widget = _root.AddChild(Widgets.Container(new Rectangle(Point.Zero, new Point(120, 120))));
@@ -202,8 +202,8 @@ namespace WForest.Tests.PropertyTests
         [Test]
         public void MarginTop_OnSecondWidgetInCenteredCol_PushesTopFirstWidget()
         {
-            var marginWidgetExpected = new Rectangle(580, 235, 120, 120);
-            var secondWidgetExpected = new Rectangle(580, 365, 120, 120);
+            var marginWidgetExpected = new Rectangle(0, 235, 120, 120);
+            var secondWidgetExpected = new Rectangle(0, 365, 120, 120);
 
             var margin = Properties.MarginTop(10);
             var widget = _root.AddChild(Widgets.Container(new Rectangle(Point.Zero, new Point(120, 120))));
@@ -225,8 +225,8 @@ namespace WForest.Tests.PropertyTests
         [Test]
         public void MarginLeft_OnWidgetInSecondCenteredRow_PushesSecondRow()
         {
-            var w2Expected = new Rectangle(40, 360, 220, 120);
-            var w3Expected = new Rectangle(260, 360, 220, 120);
+            var w2Expected = new Rectangle(40, 120, 220, 120);
+            var w3Expected = new Rectangle(260, 120, 220, 120);
 
             var margin = Properties.MarginLeft(10);
             _root.AddChild(Widgets.Container(new Rectangle(Point.Zero, new Point(1220, 120))));
@@ -248,8 +248,8 @@ namespace WForest.Tests.PropertyTests
         [Test]
         public void MultipleMargins_OnFirstWidgetSecondRow()
         {
-            var w2Expected = new Rectangle(40, 365, 220, 120);
-            var w3Expected = new Rectangle(260, 355, 220, 120);
+            var w2Expected = new Rectangle(40, 130, 220, 120);
+            var w3Expected = new Rectangle(260, 120, 220, 120);
 
             var margin = Properties.Margin(10, 0, 10, 0);
 
@@ -273,8 +273,8 @@ namespace WForest.Tests.PropertyTests
         [Test]
         public void BottomRightMargin_OnFirstWidgetFirstRow() //todo last test
         {
-            var w2Expected = new Rectangle(255, 235, 1000, 120);
-            var w3Expected = new Rectangle(25, 365, 220, 120);
+            var w2Expected = new Rectangle(255, 0, 1000, 120);
+            var w3Expected = new Rectangle(25, 130, 220, 120);
 
             var w1 = _root.AddChild(Widgets.Container(new Rectangle(Point.Zero, new Point(220, 120))));
             Properties.Margin(0, 10, 0, 10).ApplyOn(w1);
