@@ -20,7 +20,8 @@ namespace WForest.UI
 
             _root = new WidgetTree(Factories.Widgets.Container(new Rectangle(0, 0, 1280, 720)));
             _root.AddProperty(Factories.Properties.Row());
-            var column = _root.AddChild(Factories.Widgets.Container(1200, 700));
+            
+            var column = _root.AddChild(Factories.Widgets.Container(230, 200));
             column.AddProperty(Factories.Properties.Column());
             
             column.AddChild(Factories.Widgets.ImageButton("SpriteBtnL"));
@@ -30,9 +31,10 @@ namespace WForest.UI
             // ((ImageButton) btn.Data).PressedButton = AssetLoader.Load<Texture2D>("Sprite-0003");
 
             column.AddProperty(Factories.Properties.Border(Color.Chocolate,1));
-            column.AddProperty(Factories.Properties.Center());
             column.AddProperty(Factories.Properties.ItemCenter());
-            // _root.AddProperty(Factories.Properties.Center());
+            column.AddProperty(Factories.Properties.Center());
+            _root.AddProperty(Factories.Properties.Center());
+            _root.AddProperty(Factories.Properties.ItemCenter());
 
             _widgetTreeVisitor.ApplyPropertiesOnTree(_root);
         }
