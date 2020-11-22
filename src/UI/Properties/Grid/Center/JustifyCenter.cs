@@ -15,16 +15,10 @@ namespace WForest.UI.Properties.Grid.Center
                 return;
             }
 
-            var rowProps = widgetNode.Properties.OfType<Row.Row>().ToList();
-
-            if (rowProps.Any())
-                CenterHelper.JustifyCenterByRow(widgetNode, rowProps.First().Rows);
-            else
-            {
-                var colProps = widgetNode.Properties.OfType<Column.Column>().ToList();
-                if (colProps.Any())
-                    CenterHelper.JustifyCenterByColumn(widgetNode, colProps.First().Columns);
-            }
+            if (GridHelper.TryExtractRows(widgetNode, out var rows))
+                CenterHelper.JustifyCenterByRow(widgetNode, rows);
+            else if (GridHelper.TryExtractColumns(widgetNode, out var cols))
+                CenterHelper.JustifyCenterByColumn(widgetNode, cols);
         }
     }
 }

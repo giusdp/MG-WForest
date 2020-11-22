@@ -16,32 +16,10 @@ namespace WForest.UI.Properties.Grid.Center
                     $"{widgetNode.Data} has no children to item-center.");
                 return;
             }
-
-            if (TryExtractRows(widgetNode, out var rows))
-            {
-               CenterHelper.ItemCenterVertical(widgetNode, rows); 
-            }
-            else
-            {
-                var colProps = widgetNode.Properties.OfType<Column.Column>().ToList();
-                if (colProps.Any())
-                {
-                    CenterHelper.ItemCenterHorizontal(widgetNode, colProps.First().Columns);
-                }
-            }
-        }
-
-        private static bool TryExtractRows(WidgetTree widgetNode, out List<WidgetsDataSubList> rows)
-        {
-            var rowProps = widgetNode.Properties.OfType<Row.Row>().ToList();
-            if (rowProps.Any())
-            {
-                rows = rowProps.First().Rows;
-                return true;
-            }
-
-            rows = new List<WidgetsDataSubList>();
-            return false;
+            if (GridHelper.TryExtractRows(widgetNode, out var rows))
+                CenterHelper.ItemCenterVertical(widgetNode, rows);
+            else if (GridHelper.TryExtractColumns(widgetNode, out var cols))
+                CenterHelper.ItemCenterHorizontal(widgetNode, cols);
         }
     }
 }
