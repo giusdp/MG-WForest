@@ -90,7 +90,7 @@ namespace WForest.UI.Properties.Grid
                 for (var i = l.FirstWidgetIndex; i < l.LastWidgetIndex; i++)
                 {
                     var widgetSpace = widgetTrees[i].Data.Space;
-                    widgetTrees[i].Data.Space = updateRect(widgetSpace, acc);
+                    ((WidgetTree)widgetTrees[i]).UpdateSpace(updateRect(widgetSpace, acc));
                     acc += getSize(widgetTrees[i]);
                 }
             });

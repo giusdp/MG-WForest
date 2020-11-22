@@ -72,7 +72,8 @@ namespace WForest.UI.Properties.Grid.Center
                 {
                     xRow += children[i].Data.Margin.Left;
                     var wY = row.Y + children[i].Data.Margin.Top;
-                    children[i].Data.Space = new Rectangle(new Point(xRow, wY), children[i].Data.Space.Size);
+                    ((WidgetTree) children[i]).UpdateSpace(new Rectangle(new Point(xRow, wY),
+                        children[i].Data.Space.Size));
                     xRow += children[i].Data.Space.Width + children[i].Data.Margin.Right;
                 }
             });
@@ -86,8 +87,10 @@ namespace WForest.UI.Properties.Grid.Center
                 var yAcc = row.Y;
                 for (var i = row.FirstWidgetIndex; i < row.LastWidgetIndex; i++)
                 {
+                    var wX = row.X + children[i].Data.Margin.Left;
                     yAcc += children[i].Data.Margin.Top;
-                    children[i].Data.Space = new Rectangle(new Point(row.X + children[i].Data.Margin.Left, yAcc), children[i].Data.Space.Size);
+                    ((WidgetTree) children[i]).UpdateSpace(new Rectangle(new Point(wX, yAcc),
+                        children[i].Data.Space.Size));
                     yAcc += children[i].Data.Space.Height + children[i].Data.Margin.Bottom;
                 }
             });

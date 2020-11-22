@@ -33,6 +33,18 @@ namespace WForest.UI
             return childNode;
         }
 
+        public void UpdateSpace(Rectangle newSpace)
+        {
+            Data.Space = newSpace;
+            // UpdateSubTreePosition(newSpace.Location);
+        }
+
+        private void UpdateSubTreePosition(Point pos)
+        {
+            Data.Space = new Rectangle(pos, Data.Space.Size);
+            Children.ForEach(c => ((WidgetTree)c).UpdateSubTreePosition(pos));
+        }
+
         public void ApplyProperties()
         {
             Properties.Distinct().ToList().Sort((p1, p2) => p1.Priority.CompareTo(p2.Priority));
