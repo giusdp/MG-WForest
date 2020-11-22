@@ -5,6 +5,7 @@ using WForest.UI.Properties.Actions;
 using WForest.UI.Properties.Border;
 using WForest.UI.Properties.Grid.Center;
 using WForest.UI.Properties.Grid.Column;
+using WForest.UI.Properties.Grid.ItemCenter;
 using WForest.UI.Properties.Grid.Row;
 using WForest.UI.Properties.Margins;
 
@@ -16,7 +17,8 @@ namespace WForest.UI.Factories
 
         public static IProperty Row() => new Row();
         public static IProperty Column() => new Column();
-        public static IProperty Center() => new Center();
+        public static IProperty Center() => new JustifyCenter();
+        public static IProperty ItemCenter() => new ItemCenter();
 
         #endregion
 

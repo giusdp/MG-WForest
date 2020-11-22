@@ -1,10 +1,9 @@
 using System.Linq;
-using Microsoft.Xna.Framework;
 using Serilog;
 
 namespace WForest.UI.Properties.Grid.Center
 {
-    public class Center : IProperty
+    public class JustifyCenter : IProperty
     {
         public int Priority { get; } = 2;
 
@@ -19,21 +18,12 @@ namespace WForest.UI.Properties.Grid.Center
             var rowProps = widgetNode.Properties.OfType<Row.Row>().ToList();
 
             if (rowProps.Any())
-            {
                 CenterHelper.CenterByRow(widgetNode, rowProps.First().Rows);
-                // update children position
-                // widgetNode.Children.ForEach(c =>
-                //     c.Data.Space = new Rectangle(widgetNode.Data.Space.Location, c.Data.Space.Size));
-            }
             else
             {
                 var colProps = widgetNode.Properties.OfType<Column.Column>().ToList();
                 if (colProps.Any())
-                {
                     CenterHelper.CenterByColumn(widgetNode, colProps.First().Columns);
-                    // widgetNode.Children.ForEach(c =>
-                    //     c.Data.Space = new Rectangle(widgetNode.Data.Space.Location, c.Data.Space.Size));
-                }
             }
         }
     }

@@ -35,14 +35,20 @@ namespace WForest.UI
 
         public void UpdateSpace(Rectangle newSpace)
         {
+            var diff = new Point( newSpace.Location.X - Data.Space.Location.X, newSpace.Location.Y - Data.Space.Location.Y);
             Data.Space = newSpace;
-            // UpdateSubTreePosition(newSpace.Location);
+            UpdateSubTreePosition(diff);
         }
 
-        private void UpdateSubTreePosition(Point pos)
+        private void UpdateSubTreePosition(Point diff)
         {
-            Data.Space = new Rectangle(pos, Data.Space.Size);
-            Children.ForEach(c => ((WidgetTree)c).UpdateSubTreePosition(pos));
+            
+            Children.ForEach(c =>
+            {
+                var (dX, dY) = diff;
+                var cr = new Rectangle(new Point(c.Data.Space.X + dX, c.Data.Space.Y + dY), c.Data.Space.Size);
+                ((WidgetTree) c).UpdateSpace(cr);
+            });
         }
 
         public void ApplyProperties()

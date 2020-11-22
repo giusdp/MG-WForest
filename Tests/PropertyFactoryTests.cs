@@ -13,7 +13,7 @@ namespace WForest.Tests
         public void CreateCenterProperty_ReturnsCenterProperty()
         {
             var p = Properties.Center();
-            Assert.That(p, Is.TypeOf<Center>());
+            Assert.That(p, Is.TypeOf<JustifyCenter>());
         }
         
         [Test]
