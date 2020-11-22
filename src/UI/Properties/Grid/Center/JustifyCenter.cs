@@ -18,12 +18,12 @@ namespace WForest.UI.Properties.Grid.Center
             var rowProps = widgetNode.Properties.OfType<Row.Row>().ToList();
 
             if (rowProps.Any())
-                CenterHelper.CenterByRow(widgetNode, rowProps.First().Rows);
+                CenterHelper.JustifyCenterByRow(widgetNode, rowProps.First().Rows);
             else
             {
                 var colProps = widgetNode.Properties.OfType<Column.Column>().ToList();
                 if (colProps.Any())
-                    CenterHelper.CenterByColumn(widgetNode, colProps.First().Columns);
+                    CenterHelper.JustifyCenterByColumn(widgetNode, colProps.First().Columns);
             }
         }
     }

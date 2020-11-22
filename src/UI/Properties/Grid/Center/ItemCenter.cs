@@ -1,11 +1,12 @@
+using System.Collections.Generic;
 using System.Linq;
 using Serilog;
 
-namespace WForest.UI.Properties.Grid.ItemCenter
+namespace WForest.UI.Properties.Grid.Center
 {
     public class ItemCenter : IProperty
     {
-        public int Priority { get; } = 1;
+        public int Priority { get; } = 3;
 
         public void ApplyOn(WidgetTree widgetNode)
         {
@@ -16,20 +17,31 @@ namespace WForest.UI.Properties.Grid.ItemCenter
                 return;
             }
 
-            var rowProps = widgetNode.Properties.OfType<Row.Row>().ToList();
-
-            if (rowProps.Any())
+            if (TryExtractRows(widgetNode, out var rows))
             {
-                // CenterHelper.CenterByRow(widgetNode, rowProps.First().Rows);
+               CenterHelper.ItemCenterVertical(widgetNode, rows); 
             }
             else
             {
                 var colProps = widgetNode.Properties.OfType<Column.Column>().ToList();
                 if (colProps.Any())
                 {
-                    // CenterHelper.CenterByColumn(widgetNode, colProps.First().Columns);
+                    CenterHelper.ItemCenterHorizontal(widgetNode, colProps.First().Columns);
                 }
             }
+        }
+
+        private static bool TryExtractRows(WidgetTree widgetNode, out List<WidgetsDataSubList> rows)
+        {
+            var rowProps = widgetNode.Properties.OfType<Row.Row>().ToList();
+            if (rowProps.Any())
+            {
+                rows = rowProps.First().Rows;
+                return true;
+            }
+
+            rows = new List<WidgetsDataSubList>();
+            return false;
         }
     }
 }

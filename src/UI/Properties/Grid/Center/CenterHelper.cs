@@ -7,35 +7,53 @@ namespace WForest.UI.Properties.Grid.Center
 {
     internal static class CenterHelper
     {
-        public static void CenterByRow(WidgetTree wTree, List<WidgetsDataSubList> rows)
-        {
-            var maxWidth = rows.Max(r => r.Width);
-            var totalHeight = rows.Sum(r => r.Height);
-            var (x, _) = GetCenterCoords(wTree.Data.Space, maxWidth, totalHeight);
+        #region Public API
 
-            rows.ForEach(r =>
+        public static void ItemCenterVertical(WidgetTree wTree, List<WidgetsDataSubList> wLists)
+            => CenterByColumn(wTree, wLists, (r, y) => r.Y = y);
+
+        public static void ItemCenterHorizontal(WidgetTree wTree, List<WidgetsDataSubList> wLists)
+            => CenterByRow(wTree, wLists, (c, x) => c.X = x);
+
+        public static void JustifyCenterByRow(WidgetTree wTree, List<WidgetsDataSubList> rows)
+            => CenterByRow(wTree, rows, (r, x) =>
             {
                 r.X = x;
                 r.Y = wTree.Data.Space.Y;
             });
 
+        public static void JustifyCenterByColumn(WidgetTree wTree, List<WidgetsDataSubList> columns)
+            => CenterByColumn(wTree, columns, (c, y) =>
+            {
+                c.X = wTree.Data.Space.X;
+                c.Y = y;
+            });
+
+        #endregion
+
+        #region Backend
+
+        private static void CenterByRow(WidgetTree wTree, List<WidgetsDataSubList> rows,
+            Action<WidgetsDataSubList, int> setPosition)
+        {
+            var maxWidth = rows.Max(r => r.Width);
+            var totalHeight = rows.Sum(r => r.Height);
+            var (x, _) = GetCenterCoords(wTree.Data.Space, maxWidth, totalHeight);
+            rows.ForEach(r => setPosition(r, x));
+
             OffsetBySize(rows, (r, i) => r.Y += i, w => w.Height);
             CenterChildrenHorizontally(wTree, rows);
         }
 
-        public static void CenterByColumn(WidgetTree wTree, List<WidgetsDataSubList> columns)
+        private static void CenterByColumn(WidgetTree wTree, List<WidgetsDataSubList> columns,
+            Action<WidgetsDataSubList, int> setPosition)
         {
             var totalWidth = columns.Sum(r => r.Width);
             var maxHeight = columns.Max(r => r.Height);
             var (_, y) = GetCenterCoords(wTree.Data.Space, totalWidth, maxHeight);
-            columns.ForEach(r =>
-            {
-                r.X = wTree.Data.Space.X;
-                r.Y = y;
-            });
+            columns.ForEach(r => setPosition(r, y));
 
             OffsetBySize(columns, (r, i) => r.X += i, w => w.Width);
-
             CenterChildrenVertically(wTree, columns);
         }
 
@@ -60,7 +78,6 @@ namespace WForest.UI.Properties.Grid.Center
                 acc += getSize(l);
             }
         }
-
 
         private static void CenterChildrenHorizontally(WidgetTree tree, List<WidgetsDataSubList> rows)
         {
@@ -95,5 +112,7 @@ namespace WForest.UI.Properties.Grid.Center
                 }
             });
         }
+
+        #endregion
     }
 }
