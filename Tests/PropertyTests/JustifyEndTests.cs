@@ -38,7 +38,7 @@ namespace WForest.Tests.PropertyTests
         }
 
         [Test]
-        public void ApplyOn_OneChildrenInARow_PutsItAtTheEnd()
+        public void OneChildInARow_PutsItAtTheEnd()
         {
             var child = _root.AddChild(Widgets.Container(new Rectangle(0, 0, 120, 120)));
 
@@ -48,8 +48,37 @@ namespace WForest.Tests.PropertyTests
             _justifyEnd.ApplyOn(_root);
 
             var expected = new Rectangle(1160, 0, 120, 120);
-            
+
             Assert.That(child.Data.Space, Is.EqualTo(expected));
         }
+
+        [Test]
+        public void OneChildInAColumn_PutsItOnTheBottom()
+        {
+            var child = _root.AddChild(Widgets.Container(new Rectangle(0, 0, 120, 120)));
+
+            _root.AddProperty(Properties.Column());
+            _root.ApplyProperties();
+
+            _justifyEnd.ApplyOn(_root);
+
+            var expected = new Rectangle(0, 600, 120, 120);
+
+            Assert.That(child.Data.Space, Is.EqualTo(expected));
+        }
+
+        // [Test]
+        // public void ItemCenterRow_VerticallyCenteredAndAtTheRight()
+        // {
+        //     var expected = new Rectangle(1160, 300, 120, 120);
+        //     
+        //     var child = _root.AddChild(Widgets.Container(new Rectangle(0, 0, 120, 120)));
+        //     _root.AddProperty(Properties.Row());
+        //     // _root.AddProperty(Properties.ItemCenter());
+        //     _root.AddProperty(_justifyEnd);
+        //
+        //     _root.ApplyProperties();
+        //     Assert.That(child.Data.Space, Is.EqualTo(expected));
+        // }
     }
 }

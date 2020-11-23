@@ -19,20 +19,29 @@ namespace WForest.UI.Properties.Grid
             {
                 rows.ForEach(r =>
                 {
-                    // width of parent: widgetNode.Data.Space.Width
                     var xAcc = widgetNode.Data.Space.Width;
                     for (var i = r.FirstWidgetIndex; i < r.LastWidgetIndex; i++)
                     {
-                        var childSpace = widgetNode.Children[i].Data.Space;
+                        var childSpace = widgetNode.Children[i].Data.TotalSpaceOccupied;
                         xAcc -= childSpace.Width;
                         ((WidgetTree) widgetNode.Children[i]).UpdateSpace(
-                            new Rectangle(new Point(xAcc, childSpace.Y), childSpace.Size)
-                            );
+                            new Rectangle(new Point(xAcc, childSpace.Y), childSpace.Size));
                     }
                 });
             }
             else if (GridHelper.TryExtractColumns(widgetNode, out var cols))
             {
+                cols.ForEach(r =>
+                {
+                    var yAcc = widgetNode.Data.Space.Height;
+                    for (var i = r.FirstWidgetIndex; i < r.LastWidgetIndex; i++)
+                    {
+                        var childSpace = widgetNode.Children[i].Data.TotalSpaceOccupied;
+                        yAcc -= childSpace.Width;
+                        ((WidgetTree) widgetNode.Children[i]).UpdateSpace(
+                            new Rectangle(new Point(childSpace.X, yAcc), childSpace.Size));
+                    }
+                });
             }
         }
     }

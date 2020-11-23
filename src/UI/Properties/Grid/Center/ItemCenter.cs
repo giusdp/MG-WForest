@@ -12,8 +12,7 @@ namespace WForest.UI.Properties.Grid.Center
         {
             if (widgetNode.Children.Count == 0)
             {
-                Log.Warning(
-                    $"{widgetNode.Data} has no children to item-center.");
+                Log.Warning($"{widgetNode.Data} has no children to item-center.");
                 return;
             }
             if (GridHelper.TryExtractRows(widgetNode, out var rows))
