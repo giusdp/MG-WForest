@@ -67,18 +67,18 @@ namespace WForest.Tests.PropertyTests
             Assert.That(child.Data.Space, Is.EqualTo(expected));
         }
 
-        // [Test]
-        // public void ItemCenterRow_VerticallyCenteredAndAtTheRight()
-        // {
-        //     var expected = new Rectangle(1160, 300, 120, 120);
-        //     
-        //     var child = _root.AddChild(Widgets.Container(new Rectangle(0, 0, 120, 120)));
-        //     _root.AddProperty(Properties.Row());
-        //     // _root.AddProperty(Properties.ItemCenter());
-        //     _root.AddProperty(_justifyEnd);
-        //
-        //     _root.ApplyProperties();
-        //     Assert.That(child.Data.Space, Is.EqualTo(expected));
-        // }
+        [Test]
+        public void ItemCenterRow_VerticallyCenteredAndAtTheRight()
+        {
+            var expected = new Rectangle(1160, 300, 120, 120);
+            
+            var child = _root.AddChild(Widgets.Container(new Rectangle(0, 0, 120, 120)));
+            _root.AddProperty(Properties.Row());
+            _root.AddProperty(Properties.ItemCenter());
+            _root.AddProperty(_justifyEnd);
+        
+            _root.ApplyProperties();
+            Assert.That(child.Data.Space, Is.EqualTo(expected));
+        }
     }
 }

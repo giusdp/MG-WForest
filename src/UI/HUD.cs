@@ -21,7 +21,7 @@ namespace WForest.UI
 
             _root = new WidgetTree(Factories.Widgets.Container(new Rectangle(0, 0, 1280, 720)));
             _root.AddProperty(Factories.Properties.Row());
-            _root.AddProperty(Factories.Properties.JustifyCenter());
+            _root.AddProperty(Factories.Properties.JustifyEnd());
             _root.AddProperty(Factories.Properties.ItemCenter());
             
             _root.AddChild(Factories.Widgets.ImageButton("SpriteBtnL"));
