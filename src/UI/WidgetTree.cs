@@ -53,7 +53,7 @@ namespace WForest.UI
 
         public void ApplyProperties()
         {
-            Properties.Distinct().ToList().OrderBy(p => p.Priority).ToList().ForEach(p => p.ApplyOn(this));
+            Properties.Distinct().OrderBy(p => p.Priority).ToList().ForEach(p => p.ApplyOn(this));
         }
 
         public void DrawWidget(SpriteBatch spriteBatch) => Data.Draw(spriteBatch);
