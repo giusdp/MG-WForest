@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using WForest.UI.Properties;
 using WForest.UI.Properties.Actions;
 using WForest.UI.Properties.Border;
+using WForest.UI.Properties.Grid;
 using WForest.UI.Properties.Grid.Center;
 using WForest.UI.Properties.Grid.Column;
 using WForest.UI.Properties.Grid.Row;
@@ -16,8 +17,9 @@ namespace WForest.UI.Factories
 
         public static IProperty Row() => new Row();
         public static IProperty Column() => new Column();
-        public static IProperty Center() => new JustifyCenter();
+        public static IProperty JustifyCenter() => new JustifyCenter();
         public static IProperty ItemCenter() => new ItemCenter();
+        public static IProperty JustifyEnd() => new JustifyEnd();
 
         #endregion
 

@@ -145,7 +145,7 @@ namespace WForest.Tests.PropertyTests
             margin.ApplyOn(widget);
 
             _root.AddProperty(Properties.Column());
-            _root.AddProperty(Properties.Center());
+            _root.AddProperty(Properties.JustifyCenter());
 
             _root.ApplyProperties();
 
@@ -168,7 +168,7 @@ namespace WForest.Tests.PropertyTests
             margin.ApplyOn(widget);
 
             _root.AddProperty(Properties.Row());
-            _root.AddProperty(Properties.Center());
+            _root.AddProperty(Properties.JustifyCenter());
 
             _root.ApplyProperties();
 
@@ -191,7 +191,7 @@ namespace WForest.Tests.PropertyTests
             margin.ApplyOn(secondWidget);
 
             _root.AddProperty(Properties.Row());
-            _root.AddProperty(Properties.Center());
+            _root.AddProperty(Properties.JustifyCenter());
 
             _root.ApplyProperties();
 
@@ -214,7 +214,7 @@ namespace WForest.Tests.PropertyTests
             margin.ApplyOn(secondWidget);
 
             _root.AddProperty(Properties.Column());
-            _root.AddProperty(Properties.Center());
+            _root.AddProperty(Properties.JustifyCenter());
 
             _root.ApplyProperties();
 
@@ -237,7 +237,7 @@ namespace WForest.Tests.PropertyTests
             margin.ApplyOn(w2);
 
             _root.AddProperty(Properties.Row());
-            _root.AddProperty(Properties.Center());
+            _root.AddProperty(Properties.JustifyCenter());
 
             _root.ApplyProperties();
 
@@ -262,7 +262,7 @@ namespace WForest.Tests.PropertyTests
             margin.ApplyOn(w2);
 
             _root.AddProperty(Properties.Row());
-            _root.AddProperty(Properties.Center());
+            _root.AddProperty(Properties.JustifyCenter());
 
             _root.ApplyProperties();
 
@@ -285,7 +285,7 @@ namespace WForest.Tests.PropertyTests
             _root.AddChild(Widgets.Container(new Rectangle(Point.Zero, new Point(220, 120))));
 
             _root.AddProperty(Properties.Row());
-            _root.AddProperty(Properties.Center());
+            _root.AddProperty(Properties.JustifyCenter());
 
             _root.ApplyProperties();
 

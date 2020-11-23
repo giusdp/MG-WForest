@@ -2,7 +2,9 @@ using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Serilog;
 using WForest.UI.Factories;
+using WForest.UI.Properties.Grid;
 using WForest.UI.Widgets;
 using WForest.UI.WidgetTreeHandlers;
 
@@ -19,24 +21,28 @@ namespace WForest.UI
             _widgetTreeVisitor = new WidgetTreeVisitor();
 
             _root = new WidgetTree(Factories.Widgets.Container(new Rectangle(0, 0, 1280, 720)));
-            _root.AddProperty(Factories.Properties.Row());
-            
-            var column = _root.AddChild(Factories.Widgets.Container(230, 200));
-            column.AddProperty(Factories.Properties.Column());
-            
-            column.AddChild(Factories.Widgets.ImageButton("SpriteBtnL"));
-            // column.AddChild(Factories.Widgets.ImageButton("SpriteBtnL"));
-            
-            // ((ImageButton) btn.Data).HoverButton = AssetLoader.Load<Texture2D>("Sprite-0002");
-            // ((ImageButton) btn.Data).PressedButton = AssetLoader.Load<Texture2D>("Sprite-0003");
-
-            column.AddProperty(Factories.Properties.Border(Color.Chocolate,1));
-            column.AddProperty(Factories.Properties.ItemCenter());
-            column.AddProperty(Factories.Properties.Center());
-            _root.AddProperty(Factories.Properties.Center());
+            _root.AddProperty(Factories.Properties.Column());
+            _root.AddProperty(Factories.Properties.JustifyEnd());
             _root.AddProperty(Factories.Properties.ItemCenter());
-
+            
+            var c = _root.AddChild(Factories.Widgets.ImageButton("SpriteBtnL"));
+            _root.AddChild(Factories.Widgets.ImageButton("SpriteBtnL"));
+            _root.AddChild(Factories.Widgets.ImageButton("SpriteBtnA"));
+            
+            _root.AddChild(Factories.Widgets.ImageButton("SpriteBtnL"));
+            _root.AddChild(Factories.Widgets.ImageButton("SpriteBtnL"));
+            _root.AddChild(Factories.Widgets.ImageButton("SpriteBtnL"));
+            _root.AddChild(Factories.Widgets.ImageButton("SpriteBtnL"));
+            _root.AddChild(Factories.Widgets.ImageButton("SpriteBtnL"));
             _widgetTreeVisitor.ApplyPropertiesOnTree(_root);
+            
+            Log.Debug($"root space {_root.Data.Space} child space: {c.Data.Space}");
+            /*
+             * <Container row justify-center item-center>
+             *   <ImageButton src="SpriteBtnL"/>
+             *   <ImageButton src="SpriteBtnA"/>
+             * </Container>
+             */
         }
 
         public void Update()

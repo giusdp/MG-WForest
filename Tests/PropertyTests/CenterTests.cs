@@ -52,7 +52,7 @@ namespace WForest.Tests.PropertyTests
         }
 
         [Test]
-        public void ApplyOn_OneChildrenInARow_PutsItInCenter()
+        public void ApplyOn_OneChildInARow_PutsItInCenter()
         {
             var child = _root.AddChild(Widgets.Container(new Rectangle(0, 0, 120, 120)));
 
@@ -66,7 +66,7 @@ namespace WForest.Tests.PropertyTests
         }
 
         [Test]
-        public void ApplyOn_OneChildrenInAColumn_PutsItInCenter()
+        public void ApplyOn_OneChildInAColumn_PutsItInCenter()
         {
             var child = _root.AddChild(Widgets.Container(new Rectangle(0, 0, 120, 120)));
 
