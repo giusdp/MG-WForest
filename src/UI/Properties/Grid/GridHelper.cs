@@ -27,8 +27,8 @@ namespace WForest.UI.Properties.Grid
 
         #region DI Functions
 
-        private static int WidgetWidth(Tree<Widget> t) => t.Data.TotalSpaceOccupied.Width;
-        private static int WidgetHeight(Tree<Widget> t) => t.Data.TotalSpaceOccupied.Height;
+        internal static int WidgetWidth(Tree<Widget> t) => t.Data.TotalSpaceOccupied.Width;
+        internal static int WidgetHeight(Tree<Widget> t) => t.Data.TotalSpaceOccupied.Height;
 
         private static int SubListWidth(WidgetsDataSubList w) => w.Width;
         private static int SubListHeight(WidgetsDataSubList w) => w.Height;

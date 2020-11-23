@@ -1,5 +1,9 @@
+using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Serilog;
+using WForest.UI.Widgets;
+using WForest.Utilities.Collections;
 
 namespace WForest.UI.Properties.Grid
 {
@@ -9,40 +13,39 @@ namespace WForest.UI.Properties.Grid
 
         public void ApplyOn(WidgetTree widgetNode)
         {
+            
             if (widgetNode.Children.Count == 0)
             {
                 Log.Warning($"{widgetNode.Data} has no children to justify-end.");
                 return;
             }
 
+            var rowsAtEnd =
+                PutAtEnd(widgetNode, GridHelper.WidgetWidth, (x, c) => new Point(x, c.Data.Space.Y));
+            var colsAtEnd =
+                PutAtEnd(widgetNode, GridHelper.WidgetHeight, (y, c) => new Point(c.Data.Space.X, y));
+            
             if (GridHelper.TryExtractRows(widgetNode, out var rows))
-            {
-                rows.ForEach(r =>
-                {
-                    var xAcc = widgetNode.Data.Space.Width;
-                    for (var i = r.FirstWidgetIndex; i < r.LastWidgetIndex; i++)
-                    {
-                        var childSpace = widgetNode.Children[i].Data.TotalSpaceOccupied;
-                        xAcc -= childSpace.Width;
-                        ((WidgetTree) widgetNode.Children[i]).UpdateSpace(
-                            new Rectangle(new Point(xAcc, childSpace.Y), childSpace.Size));
-                    }
-                });
-            }
+                rowsAtEnd(rows);
             else if (GridHelper.TryExtractColumns(widgetNode, out var cols))
-            {
-                cols.ForEach(r =>
+                colsAtEnd(cols);
+        }
+
+        private static Action<List<WidgetsDataSubList>> PutAtEnd(WidgetTree wTree, Func<Tree<Widget>, int> getSize,
+            Func<int, Tree<Widget>, Point> updateLoc)
+        {
+            return wLists =>
+                wLists.ForEach(r =>
                 {
-                    var yAcc = widgetNode.Data.Space.Height;
-                    for (var i = r.FirstWidgetIndex; i < r.LastWidgetIndex; i++)
+                    var acc = getSize(wTree);
+                    for (var i = r.LastWidgetIndex-1; i >= r.FirstWidgetIndex; i--)
                     {
-                        var childSpace = widgetNode.Children[i].Data.TotalSpaceOccupied;
-                        yAcc -= childSpace.Width;
-                        ((WidgetTree) widgetNode.Children[i]).UpdateSpace(
-                            new Rectangle(new Point(childSpace.X, yAcc), childSpace.Size));
+                        var child = wTree.Children[i];
+                        acc -= getSize(child);
+                        ((WidgetTree) child).UpdateSpace(new Rectangle(updateLoc(acc, child),
+                            child.Data.Space.Size));
                     }
                 });
-            }
         }
     }
 }

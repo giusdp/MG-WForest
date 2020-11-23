@@ -2,6 +2,7 @@ using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Serilog;
 using WForest.UI.Factories;
 using WForest.UI.Properties.Grid;
 using WForest.UI.Widgets;
@@ -20,11 +21,11 @@ namespace WForest.UI
             _widgetTreeVisitor = new WidgetTreeVisitor();
 
             _root = new WidgetTree(Factories.Widgets.Container(new Rectangle(0, 0, 1280, 720)));
-            _root.AddProperty(Factories.Properties.Row());
+            _root.AddProperty(Factories.Properties.Column());
             _root.AddProperty(Factories.Properties.JustifyEnd());
             _root.AddProperty(Factories.Properties.ItemCenter());
             
-            _root.AddChild(Factories.Widgets.ImageButton("SpriteBtnL"));
+            var c = _root.AddChild(Factories.Widgets.ImageButton("SpriteBtnL"));
             _root.AddChild(Factories.Widgets.ImageButton("SpriteBtnL"));
             _root.AddChild(Factories.Widgets.ImageButton("SpriteBtnA"));
             
@@ -35,6 +36,7 @@ namespace WForest.UI
             _root.AddChild(Factories.Widgets.ImageButton("SpriteBtnL"));
             _widgetTreeVisitor.ApplyPropertiesOnTree(_root);
             
+            Log.Debug($"root space {_root.Data.Space} child space: {c.Data.Space}");
             /*
              * <Container row justify-center item-center>
              *   <ImageButton src="SpriteBtnL"/>
