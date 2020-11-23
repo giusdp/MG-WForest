@@ -10,10 +10,18 @@ namespace WForest.UI.Properties.Grid.Center
         #region Public API
 
         public static void ItemCenterVertical(WidgetTree wTree, List<WidgetsDataSubList> wLists)
-            => CenterByColumn(wTree, wLists, (r, y) => r.Y = y);
+        {
+            var y = CenterY(wTree.Data.Space, wLists.Max(l => l.Height));
+            wLists.ForEach(l => l.Y = y);
+            CenterChildrenVertically(wTree, wLists);
+        }
 
         public static void ItemCenterHorizontal(WidgetTree wTree, List<WidgetsDataSubList> wLists)
-            => CenterByRow(wTree, wLists, (c, x) => c.X = x);
+        {
+            var x = CenterX(wTree.Data.Space, wLists.Max(l => l.Width));
+            wLists.ForEach(l => l.X = x);
+            CenterChildrenHorizontally(wTree, wLists);
+        }
 
         public static void JustifyCenterByRow(WidgetTree wTree, List<WidgetsDataSubList> rows)
             => CenterByRow(wTree, rows, (r, x) =>
@@ -37,8 +45,7 @@ namespace WForest.UI.Properties.Grid.Center
             Action<WidgetsDataSubList, int> setPosition)
         {
             var maxWidth = rows.Max(r => r.Width);
-            var totalHeight = rows.Sum(r => r.Height);
-            var (x, _) = GetCenterCoords(wTree.Data.Space, maxWidth, totalHeight);
+            var x = CenterX(wTree.Data.Space, maxWidth);
             rows.ForEach(r => setPosition(r, x));
 
             OffsetBySize(rows, (r, i) => r.Y += i, w => w.Height);
@@ -48,22 +55,26 @@ namespace WForest.UI.Properties.Grid.Center
         private static void CenterByColumn(WidgetTree wTree, List<WidgetsDataSubList> columns,
             Action<WidgetsDataSubList, int> setPosition)
         {
-            var totalWidth = columns.Sum(r => r.Width);
             var maxHeight = columns.Max(r => r.Height);
-            var (_, y) = GetCenterCoords(wTree.Data.Space, totalWidth, maxHeight);
+            var y = CenterY(wTree.Data.Space, maxHeight);
             columns.ForEach(r => setPosition(r, y));
 
             OffsetBySize(columns, (r, i) => r.X += i, w => w.Width);
             CenterChildrenVertically(wTree, columns);
         }
 
-        private static (int, int) GetCenterCoords(Rectangle space, int maxWidth,
-            int maxHeight)
+        private static int CenterY(Rectangle space, int maxHeight)
         {
-            var (x, y, width, height) = space;
-            var centerX = (int) ((width + x) / 2f - maxWidth / 2f);
+            var (_, y, _, height) = space;
             var centerY = (int) ((height + y) / 2f - maxHeight / 2f);
-            return (centerX, centerY);
+            return centerY;
+        }
+
+        private static int CenterX(Rectangle space, int maxWidth)
+        {
+            var (x, _, width, _) = space;
+            var centerX = (int) ((width + x) / 2f - maxWidth / 2f);
+            return centerX;
         }
 
         private static void OffsetBySize(List<WidgetsDataSubList> lists, Action<WidgetsDataSubList, int> updatePos,
