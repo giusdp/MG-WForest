@@ -29,7 +29,7 @@ namespace WForest.UI.Properties.Grid.JustifyProps
                 });
         }
 
-        private static Action<List<WidgetsDataSubList>> PutAtEnd(WidgetTree wTree, Func<Tree<Widget>, int> getSize,
+        internal static Action<List<WidgetsDataSubList>> PutAtEnd(WidgetTree wTree, Func<Tree<Widget>, int> getSize,
             Func<int, Tree<Widget>, Point> updateLoc)
         {
             return wLists =>
