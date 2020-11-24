@@ -16,13 +16,7 @@ namespace WForest.UI.Properties.Grid.Utils
 
         public static List<WidgetsDataSubList> OrganizeWidgetsInRows(WidgetTree widgetTree)
             => OrganizeWidgetsInSubLists(widgetTree, CreateRow, OffsetWidgetsInRows);
-
-        public static bool TryExtractRows(WidgetTree widgetNode, out List<WidgetsDataSubList> rows)
-            => TryExtract<Row.Row>(widgetNode, out rows, r => r.Rows);
-
-        public static bool TryExtractColumns(WidgetTree widgetNode, out List<WidgetsDataSubList> columns)
-            => TryExtract<Column.Column>(widgetNode, out columns, c => c.Columns);
-
+        
         #endregion
 
         #region DI Functions
@@ -63,20 +57,6 @@ namespace WForest.UI.Properties.Grid.Utils
         #endregion
 
         #region Backend
-
-        private static bool TryExtract<T>(WidgetTree widgetNode, out List<WidgetsDataSubList> rows,
-            Func<T, List<WidgetsDataSubList>> extractor)
-        {
-            var props = widgetNode.Properties.OfType<T>().ToList();
-            if (props.Any())
-            {
-                rows = extractor(props.First());
-                return true;
-            }
-
-            rows = new List<WidgetsDataSubList>();
-            return false;
-        }
 
         private static List<WidgetsDataSubList> OrganizeWidgetsInSubLists(WidgetTree widget,
             Func<WidgetTree, int, (WidgetsDataSubList, int)> f,
