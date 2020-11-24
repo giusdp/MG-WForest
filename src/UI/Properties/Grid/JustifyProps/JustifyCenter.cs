@@ -1,7 +1,7 @@
-using System.Linq;
 using Serilog;
+using WForest.UI.Properties.Grid.Utils;
 
-namespace WForest.UI.Properties.Grid.Center
+namespace WForest.UI.Properties.Grid.JustifyProps
 {
     public class JustifyCenter : IProperty
     {

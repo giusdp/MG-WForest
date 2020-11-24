@@ -2,10 +2,11 @@ using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Serilog;
+using WForest.UI.Properties.Grid.Utils;
 using WForest.UI.Widgets;
 using WForest.Utilities.Collections;
 
-namespace WForest.UI.Properties.Grid
+namespace WForest.UI.Properties.Grid.JustifyProps
 {
     public class JustifyEnd : IProperty
     {

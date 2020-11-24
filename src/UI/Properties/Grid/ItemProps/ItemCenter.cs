@@ -1,8 +1,7 @@
-using System.Collections.Generic;
-using System.Linq;
 using Serilog;
+using WForest.UI.Properties.Grid.Utils;
 
-namespace WForest.UI.Properties.Grid.Center
+namespace WForest.UI.Properties.Grid.ItemProps
 {
     public class ItemCenter : IProperty
     {

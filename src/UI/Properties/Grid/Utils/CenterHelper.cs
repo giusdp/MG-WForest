@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
 
-namespace WForest.UI.Properties.Grid.Center
+namespace WForest.UI.Properties.Grid.Utils
 {
     internal static class CenterHelper
     {

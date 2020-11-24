@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework;
 using WForest.UI.Widgets;
 using WForest.Utilities.Collections;
 
-namespace WForest.UI.Properties.Grid
+namespace WForest.UI.Properties.Grid.Utils
 {
     internal static class GridHelper
     {

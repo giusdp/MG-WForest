@@ -4,8 +4,9 @@ using WForest.UI.Properties;
 using WForest.UI.Properties.Actions;
 using WForest.UI.Properties.Border;
 using WForest.UI.Properties.Grid;
-using WForest.UI.Properties.Grid.Center;
 using WForest.UI.Properties.Grid.Column;
+using WForest.UI.Properties.Grid.ItemProps;
+using WForest.UI.Properties.Grid.JustifyProps;
 using WForest.UI.Properties.Grid.Row;
 using WForest.UI.Properties.Margins;
 
