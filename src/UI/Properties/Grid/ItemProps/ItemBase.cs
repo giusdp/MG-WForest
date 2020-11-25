@@ -17,10 +17,11 @@ namespace WForest.UI.Properties.Grid.ItemProps
                 () =>
                 {
                     var rowsAtBase =
-                        PutAtBase(widgetNode, GridHelper.WidgetHeight,
+                        PutAtBase(widgetNode, l => l.Height, GridHelper.WidgetHeight,
                             (y, c) => new Point(c.Data.Space.X, y));
                     var colsAtBase =
-                        PutAtBase(widgetNode, GridHelper.WidgetWidth, (x, c) => new Point(x, c.Data.Space.Y));
+                        PutAtBase(widgetNode, l => l.Width, GridHelper.WidgetWidth,
+                            (x, c) => new Point(x, c.Data.Space.Y));
 
                     if (ApplyUtils.TryExtractRows(widgetNode, out var rows))
                         rowsAtBase(rows);
@@ -29,21 +30,27 @@ namespace WForest.UI.Properties.Grid.ItemProps
                 });
         }
 
-        private static Action<List<WidgetsDataSubList>> PutAtBase(WidgetTree wTree, Func<Tree<Widget>, int> getSize,
+        private static Action<List<WidgetsDataSubList>> PutAtBase(WidgetTree wTree,
+            Func<WidgetsDataSubList, int> listSize, Func<Tree<Widget>, int> wSize,
             Func<int, Tree<Widget>, Point> updateLoc)
         {
             return wLists =>
-                wLists.ForEach(r =>
+            {
+                var acc = wSize(wTree);
+                for (var i = wLists.Count - 1; i >= 0; i--)
                 {
-                    var baseCoord = getSize(wTree);
-                    for (var i = r.FirstWidgetIndex; i < r.LastWidgetIndex; i++)
+                    var list = wLists[i];
+                    for (var j = list.FirstWidgetIndex; j < list.LastWidgetIndex; j++)
                     {
-                        var child = wTree.Children[i];
-                        var newCoord = baseCoord - getSize(child);
+                        var child = wTree.Children[j];
+                        var newCoord = acc - wSize(child);
                         ((WidgetTree) child).UpdateSpace(new Rectangle(updateLoc(newCoord, child),
                             child.Data.Space.Size));
                     }
-                });
+
+                    acc -= listSize(list);
+                }
+            };
         }
     }
 }
