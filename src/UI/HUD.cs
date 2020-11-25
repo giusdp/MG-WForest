@@ -22,8 +22,8 @@ namespace WForest.UI
 
             _root = new WidgetTree(Factories.Widgets.Container(new Rectangle(0, 0, 1280, 720)));
             _root.AddProperty(Factories.Properties.Column());
-            _root.AddProperty(Factories.Properties.JustifyEnd());
-            _root.AddProperty(Factories.Properties.ItemCenter());
+            _root.AddProperty(Factories.Properties.JustifyCenter());
+            _root.AddProperty(Factories.Properties.ItemBase());
             
             var c = _root.AddChild(Factories.Widgets.ImageButton("SpriteBtnL"));
             _root.AddChild(Factories.Widgets.ImageButton("SpriteBtnL"));
@@ -32,8 +32,8 @@ namespace WForest.UI
             _root.AddChild(Factories.Widgets.ImageButton("SpriteBtnL"));
             _root.AddChild(Factories.Widgets.ImageButton("SpriteBtnL"));
             _root.AddChild(Factories.Widgets.ImageButton("SpriteBtnL"));
-            _root.AddChild(Factories.Widgets.ImageButton("SpriteBtnL"));
-            _root.AddChild(Factories.Widgets.ImageButton("SpriteBtnL"));
+            // _root.AddChild(Factories.Widgets.ImageButton("SpriteBtnL"));
+            // _root.AddChild(Factories.Widgets.ImageButton("SpriteBtnL"));
             _widgetTreeVisitor.ApplyPropertiesOnTree(_root);
             
             Log.Debug($"root space {_root.Data.Space} child space: {c.Data.Space}");

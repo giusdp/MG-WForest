@@ -2,8 +2,8 @@ using Microsoft.Xna.Framework;
 using NUnit.Framework;
 using WForest.UI;
 using WForest.UI.Factories;
-using WForest.UI.Properties.Grid.Center;
 using WForest.UI.Properties.Grid.Column;
+using WForest.UI.Properties.Grid.ItemProps;
 using WForest.UI.Properties.Grid.Row;
 
 namespace WForest.Tests.PropertyTests
