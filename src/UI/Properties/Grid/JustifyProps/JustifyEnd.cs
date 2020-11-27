@@ -18,9 +18,11 @@ namespace WForest.UI.Properties.Grid.JustifyProps
                 () =>
                 {
                     var rowsAtEnd =
-                        PutAtEnd(widgetNode, GridHelper.WidgetWidth, (x, c) => new Point(x, c.Data.Space.Y));
+                        PutAtEnd(widgetNode, GridHelper.WidgetWidth, (x, c) => new Point(x, c.Data.Space.Y),
+                            c => c.Margin.Left);
                     var colsAtEnd =
-                        PutAtEnd(widgetNode, GridHelper.WidgetHeight, (y, c) => new Point(c.Data.Space.X, y));
+                        PutAtEnd(widgetNode, GridHelper.WidgetHeight, (y, c) => new Point(c.Data.Space.X, y),
+                            c => c.Margin.Top);
 
                     if (ApplyUtils.TryExtractRows(widgetNode, out var rows))
                         rowsAtEnd(rows);
@@ -30,7 +32,7 @@ namespace WForest.UI.Properties.Grid.JustifyProps
         }
 
         private static Action<List<WidgetsDataSubList>> PutAtEnd(WidgetTree wTree, Func<Tree<Widget>, int> getSize,
-            Func<int, Tree<Widget>, Point> updateLoc)
+            Func<int, Tree<Widget>, Point> updateLoc, Func<Widget, int> getMargin)
         {
             return wLists =>
                 wLists.ForEach(r =>
@@ -39,9 +41,10 @@ namespace WForest.UI.Properties.Grid.JustifyProps
                     for (var i = r.LastWidgetIndex - 1; i >= r.FirstWidgetIndex; i--)
                     {
                         var child = wTree.Children[i];
-                        acc -= getSize(child);
+                        acc -= getSize(child) - getMargin(child.Data);
                         ((WidgetTree) child).UpdateSpace(new Rectangle(updateLoc(acc, child),
                             child.Data.Space.Size));
+                        acc -= getMargin(child.Data);
                     }
                 });
         }
