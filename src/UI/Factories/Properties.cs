@@ -20,6 +20,7 @@ namespace WForest.UI.Factories
         public static IProperty Column() => new Column();
         public static IProperty JustifyCenter() => new JustifyCenter();
         public static IProperty JustifyEnd() => new JustifyEnd();
+        public static IProperty JustifySpaceBetween() => new JustifySpaceBetween();
         public static IProperty ItemCenter() => new ItemCenter();
         public static IProperty ItemBase() => new ItemBase();
 
