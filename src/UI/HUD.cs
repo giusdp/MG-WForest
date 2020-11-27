@@ -22,27 +22,19 @@ namespace WForest.UI
 
             _root = new WidgetTree(Factories.Widgets.Container(new Rectangle(0, 0, 1280, 720)));
             _root.AddProperty(Factories.Properties.Column());
-            _root.AddProperty(Factories.Properties.JustifyCenter());
-            _root.AddProperty(Factories.Properties.ItemBase());
+            _root.AddProperty(Factories.Properties.JustifySpaceBetween());
+            // _root.AddProperty(Factories.Properties.ItemCenter());
             
             var c = _root.AddChild(Factories.Widgets.ImageButton("SpriteBtnL"));
             _root.AddChild(Factories.Widgets.ImageButton("SpriteBtnL"));
             _root.AddChild(Factories.Widgets.ImageButton("SpriteBtnA"));
+            _root.AddChild(Factories.Widgets.ImageButton("SpriteBtnL"));
+            _root.AddChild(Factories.Widgets.ImageButton("SpriteBtnL"));
+            _root.AddChild(Factories.Widgets.ImageButton("SpriteBtnL"));
+            _root.AddChild(Factories.Widgets.ImageButton("SpriteBtnL"));
             
-            _root.AddChild(Factories.Widgets.ImageButton("SpriteBtnL"));
-            _root.AddChild(Factories.Widgets.ImageButton("SpriteBtnL"));
-            _root.AddChild(Factories.Widgets.ImageButton("SpriteBtnL"));
-            // _root.AddChild(Factories.Widgets.ImageButton("SpriteBtnL"));
-            // _root.AddChild(Factories.Widgets.ImageButton("SpriteBtnL"));
             _widgetTreeVisitor.ApplyPropertiesOnTree(_root);
             
-            Log.Debug($"root space {_root.Data.Space} child space: {c.Data.Space}");
-            /*
-             * <Container row justify-center item-center>
-             *   <ImageButton src="SpriteBtnL"/>
-             *   <ImageButton src="SpriteBtnA"/>
-             * </Container>
-             */
         }
 
         public void Update()

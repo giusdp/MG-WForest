@@ -28,7 +28,7 @@ namespace WForest.UI.Properties.Grid.Utils
                     var (x, _, w, h) = children[i].Data.Space;
                     if (children[i].Data.Space.Height != l.Height)
                         y = CenterCoord(l.Y, l.Y + l.Height, h);
-                    
+
                     ((WidgetTree) children[i]).UpdateSpace(new Rectangle(x, y, w, h));
                 }
             });
@@ -53,7 +53,7 @@ namespace WForest.UI.Properties.Grid.Utils
                     var (_, y, w, h) = children[i].Data.Space;
                     if (children[i].Data.Space.Width != l.Width)
                         x = CenterCoord(l.X, l.X + l.Width, w);
-                    
+
                     ((WidgetTree) children[i]).UpdateSpace(new Rectangle(x, y, w, h));
                 }
             });
@@ -72,6 +72,8 @@ namespace WForest.UI.Properties.Grid.Utils
                 c.X = wTree.Data.Space.X;
                 c.Y = y;
             });
+
+        public static int CenterCoord(int start, int end, int sizeToCenter) => (end + start) / 2 - sizeToCenter / 2;
 
         #endregion
 
@@ -98,8 +100,6 @@ namespace WForest.UI.Properties.Grid.Utils
             OffsetBySize(columns, (r, i) => r.X += i, w => w.Width);
             CenterChildrenVertically(wTree, columns);
         }
-
-        private static int CenterCoord(int start, int end, int sizeToCenter) => (end + start) / 2 - sizeToCenter / 2;
 
         private static void OffsetBySize(List<WidgetsDataSubList> lists, Action<WidgetsDataSubList, int> updatePos,
             Func<WidgetsDataSubList, int> getSize)
