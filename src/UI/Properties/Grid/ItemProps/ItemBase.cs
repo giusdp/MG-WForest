@@ -18,10 +18,10 @@ namespace WForest.UI.Properties.Grid.ItemProps
                 {
                     var rowsAtBase =
                         PutAtBase(widgetNode, l => l.Height, GridHelper.WidgetHeight,
-                            (y, c) => new Point(c.Data.Space.X, y));
+                            (y, c) => new Point(c.Data.Space.X, y + c.Data.Margin.Top));
                     var colsAtBase =
                         PutAtBase(widgetNode, l => l.Width, GridHelper.WidgetWidth,
-                            (x, c) => new Point(x, c.Data.Space.Y));
+                            (x, c) => new Point(x + c.Data.Margin.Left, c.Data.Space.Y));
 
                     if (ApplyUtils.TryExtractRows(widgetNode, out var rows))
                         rowsAtBase(rows);
@@ -43,7 +43,7 @@ namespace WForest.UI.Properties.Grid.ItemProps
                     for (var j = list.FirstWidgetIndex; j < list.LastWidgetIndex; j++)
                     {
                         var child = wTree.Children[j];
-                        var newCoord = acc - wSize(child);
+                        var newCoord = acc - wSize(child); 
                         ((WidgetTree) child).UpdateSpace(new Rectangle(updateLoc(newCoord, child),
                             child.Data.Space.Size));
                     }
