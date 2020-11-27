@@ -73,8 +73,6 @@ namespace WForest.UI.Properties.Grid.Utils
                 c.Y = y;
             });
 
-        public static int CenterCoord(int start, int end, int sizeToCenter) => (end + start) / 2 - sizeToCenter / 2;
-
         #endregion
 
         #region Backend
@@ -100,6 +98,8 @@ namespace WForest.UI.Properties.Grid.Utils
             OffsetBySize(columns, (r, i) => r.X += i, w => w.Width);
             CenterChildrenVertically(wTree, columns);
         }
+
+        private static int CenterCoord(int start, int end, int sizeToCenter) => (end + start) / 2 - sizeToCenter / 2;
 
         private static void OffsetBySize(List<WidgetsDataSubList> lists, Action<WidgetsDataSubList, int> updatePos,
             Func<WidgetsDataSubList, int> getSize)
