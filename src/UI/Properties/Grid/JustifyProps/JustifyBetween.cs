@@ -9,7 +9,7 @@ using static WForest.UI.Properties.Grid.Utils.GridHelper;
 
 namespace WForest.UI.Properties.Grid.JustifyProps
 {
-    public class JustifySpaceBetween : IProperty
+    public class JustifyBetween : IProperty
     {
         public int Priority { get; } = 2;
 
