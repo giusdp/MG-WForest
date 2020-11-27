@@ -29,25 +29,25 @@ namespace WForest.UI.Properties.Grid.JustifyProps
 
         private static void SpaceBetweenHorizontally(WidgetTree wTree, List<WidgetsDataSubList> lists)
         {
-            int start = wTree.Data.TotalSpaceOccupied.X;
+            int start = wTree.Data.Space.X;
             int size = WidgetWidth(wTree);
             lists.ForEach(r =>
                 DivideSpaceEvenly(start, size,
                     wTree.Children.GetRange(r.FirstWidgetIndex, r.LastWidgetIndex - r.FirstWidgetIndex ),
                     WidgetWidth,
-                    (c, p) => new Point(p, c.TotalSpaceOccupied.Y))
+                    (c, p) => new Point(p + c.Margin.Left, c.Space.Y))
             );
         }
 
         private static void SpaceBetweenVertically(WidgetTree wTree, List<WidgetsDataSubList> lists)
         {
-            int start = wTree.Data.TotalSpaceOccupied.Y;
+            int start = wTree.Data.Space.Y;
             int size = WidgetHeight(wTree);
             lists.ForEach(r =>
                 DivideSpaceEvenly(start, size,
                     wTree.Children.GetRange(r.FirstWidgetIndex, r.LastWidgetIndex - r.FirstWidgetIndex ),
                     WidgetHeight,
-                    (c, pos) => new Point(c.TotalSpaceOccupied.X, pos))
+                    (c, pos) => new Point(c.Space.X, pos + c.Margin.Top))
             );
         }
 
