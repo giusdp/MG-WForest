@@ -21,20 +21,15 @@ namespace WForest.UI
             _widgetTreeVisitor = new WidgetTreeVisitor();
 
             _root = new WidgetTree(Factories.Widgets.Container(new Rectangle(0, 0, 1280, 720)));
-            _root.AddProperty(Factories.Properties.Column());
-             // _root.AddProperty(Factories.Properties.JustifyBetween());
-            _root.AddProperty(Factories.Properties.ItemBase());
+            _root.AddProperty(Factories.Properties.Row());
+            _root.AddProperty(Factories.Properties.Margin(20));
+            _root.AddProperty(Factories.Properties.JustifyAround());
 
-            var c = _root.AddChild(Factories.Widgets.ImageButton("SpriteBtnL"));
-            c.AddProperty(Factories.Properties.MarginLeft(10));
-            _root.AddChild(Factories.Widgets.ImageButton("SpriteBtnL")).AddProperty(Factories.Properties.Margin(10, 0, 20, 20));
-            _root.AddChild(Factories.Widgets.ImageButton("SpriteBtnA"));
             _root.AddChild(Factories.Widgets.ImageButton("SpriteBtnL"));
             _root.AddChild(Factories.Widgets.ImageButton("SpriteBtnL"));
             _root.AddChild(Factories.Widgets.ImageButton("SpriteBtnL"));
-            
+
             _widgetTreeVisitor.ApplyPropertiesOnTree(_root);
-            
         }
 
         public void Update()
