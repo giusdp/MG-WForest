@@ -1,11 +1,6 @@
-using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Serilog;
-using WForest.UI.Factories;
-using WForest.UI.Properties.Grid;
-using WForest.UI.Widgets;
 using WForest.UI.WidgetTreeHandlers;
 
 namespace WForest.UI

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
+using WForest.UI.Utils;
 using WForest.UI.Widgets;
 using WForest.Utilities.Collections;
 
@@ -90,7 +91,7 @@ namespace WForest.UI.Properties.Grid.Utils
                 for (var i = l.FirstWidgetIndex; i < l.LastWidgetIndex; i++)
                 {
                     var widgetSpace = widgetTrees[i].Data.Space;
-                    ((WidgetTree) widgetTrees[i]).UpdateSpace(updateRect(widgetSpace, acc));
+                    WidgetsSpaceHelper.UpdateSpace(widgetTrees[i],updateRect(widgetSpace, acc));
                     acc += getSize(widgetTrees[i]);
                 }
             });

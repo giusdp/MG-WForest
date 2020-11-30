@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using WForest.UI.Properties.Grid.Utils;
+using WForest.UI.Utils;
 using WForest.UI.Widgets;
 using WForest.Utilities.Collections;
 
@@ -43,8 +44,8 @@ namespace WForest.UI.Properties.Grid.ItemProps
                     for (var j = list.FirstWidgetIndex; j < list.LastWidgetIndex; j++)
                     {
                         var child = wTree.Children[j];
-                        var newCoord = acc - wSize(child); 
-                        ((WidgetTree) child).UpdateSpace(new Rectangle(updateLoc(newCoord, child),
+                        var newCoord = acc - wSize(child);
+                        WidgetsSpaceHelper.UpdateSpace(child, new Rectangle(updateLoc(newCoord, child),
                             child.Data.Space.Size));
                     }
 

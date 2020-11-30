@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using WForest.UI.Properties.Grid.Utils;
+using WForest.UI.Utils;
 using WForest.UI.Widgets;
 using WForest.Utilities.Collections;
 
@@ -42,7 +43,7 @@ namespace WForest.UI.Properties.Grid.JustifyProps
                     {
                         var child = wTree.Children[i];
                         acc -= getSize(child) - getMargin(child.Data);
-                        ((WidgetTree) child).UpdateSpace(new Rectangle(updateLoc(acc, child),
+                        WidgetsSpaceHelper.UpdateSpace(child,new Rectangle(updateLoc(acc, child),
                             child.Data.Space.Size));
                         acc -= getMargin(child.Data);
                     }
