@@ -10,11 +10,11 @@ using static WForest.UI.Properties.Grid.Utils.GridHelper;
 
 namespace WForest.UI.Properties.Grid.JustifyProps
 {
-    public class JustifyBetween : IProperty
+    public class JustifyBetween : Property
     {
-        public int Priority { get; } = 2;
+        internal override int Priority { get; } = 2;
 
-        public void ApplyOn(WidgetTree widgetNode)
+        internal override void ApplyOn(WidgetTree widgetNode)
         {
             ApplyUtils.ApplyIfThereAreChildren(widgetNode,
                 $"{widgetNode.Data} has no children to justify space between.",

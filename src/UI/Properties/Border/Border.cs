@@ -4,7 +4,7 @@ using WForest.Utilities;
 
 namespace WForest.UI.Properties.Border
 {
-    public class Border : IProperty
+    public class Border : Property
     {
         public Color Color { get; set; }
         public int LineWidth { get; set; }
@@ -15,9 +15,7 @@ namespace WForest.UI.Properties.Border
             Color = Color.Black;
         }
 
-        public int Priority { get; } = 0;
-
-        public void ApplyOn(WidgetTree widgetNode)
+        internal override void ApplyOn(WidgetTree widgetNode)
         {
             widgetNode.Data.Modifiers.Add(sb => { Primitives.DrawRectangle(sb, widgetNode.Data.Space, Color, LineWidth); });
         }

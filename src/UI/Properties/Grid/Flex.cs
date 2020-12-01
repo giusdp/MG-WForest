@@ -4,11 +4,9 @@ using WForest.UI.Utils;
 
 namespace WForest.UI.Properties.Grid
 {
-    public class Flex : IProperty
+    public class Flex : Property
     {
-        public int Priority { get; } = 0;
-
-        public void ApplyOn(WidgetTree widgetNode)
+        internal override void ApplyOn(WidgetTree widgetNode)
         {
             widgetNode.Children.ForEach(c =>
             {

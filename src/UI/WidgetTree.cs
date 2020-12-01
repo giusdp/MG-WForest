@@ -12,14 +12,14 @@ namespace WForest.UI
 {
     public class WidgetTree : Tree<Widget>
     {
-        public List<IProperty> Properties { get; }
+        public List<Property> Properties { get; }
 
         public WidgetTree(Widget data) : base(data)
         {
-            Properties = new List<IProperty>();
+            Properties = new List<Property>();
         }
 
-        public void AddProperty(IProperty property)
+        public void AddProperty(Property property)
         {
             if (property == null) throw new ArgumentNullException(nameof(property));
             Properties.Add(property);
@@ -36,7 +36,7 @@ namespace WForest.UI
 
         public void ApplyProperties()
         {
-            Properties.Distinct().OrderBy(p => p.Priority).ToList().ForEach(p => p.ApplyOn(this));
+            Properties.Distinct().OrderBy(p => p.Priority).ToList().ForEach(p => p.ApplyOnAndFireApplied(this));
         }
 
         public void DrawWidget(SpriteBatch spriteBatch) => Data.Draw(spriteBatch);
