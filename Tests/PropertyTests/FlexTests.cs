@@ -104,15 +104,5 @@ namespace WForest.Tests.PropertyTests
 
             Assert.That(_root.Data.Space, Is.EqualTo(expected));
         }
-
-        [Test]
-        public void StretchContainer_AsBigAsParent()
-        {
-            _root = new WidgetTree(Widgets.Container(400, 401));
-            var c = _root.AddChild(Widgets.Container());
-            c.AddProperty(Properties.Stretch());
-            c.ApplyProperties();
-            Assert.That(c.Data.Space, Is.EqualTo(new Rectangle(0,0, 400, 401)));
-        }
     }
 }
