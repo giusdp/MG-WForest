@@ -11,9 +11,8 @@ namespace WForest.UI.Properties.Grid.Column
 
         public void ApplyOn(WidgetTree widgetNode)
         {
-            if (widgetNode.Children.Count == 0)
-                return;
-            Columns = GridHelper.OrganizeWidgetsInColumns(widgetNode);
+            if (widgetNode.Children.Count != 0)
+                Columns = GridHelper.OrganizeWidgetsInColumns(widgetNode);
         }
     }
 }
