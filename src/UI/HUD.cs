@@ -19,13 +19,12 @@ namespace WForest.UI
             _root.AddProperty(Factories.Properties.Row());
             _root.AddProperty(Factories.Properties.JustifyCenter());
             var container = _root.AddChild(Factories.Widgets.Container());
-            container.AddProperty(Factories.Properties.Row());
-            container.AddProperty(Factories.Properties.Flex());
+            container.AddProperty(Factories.Properties.Column());
+            container.AddProperty(Factories.Properties.Stretch());
+            container.AddProperty(Factories.Properties.JustifyCenter());
             container.AddProperty(Factories.Properties.Border());
 
-            container.AddChild(Factories.Widgets.ImageButton("SpriteBtnL"));
-            container.AddChild(Factories.Widgets.ImageButton("SpriteBtnL"));
-            container.AddChild(Factories.Widgets.ImageButton("SpriteBtnL"));
+            container.AddChild(Factories.Widgets.ImageButton("Sprite-0001")).AddProperty(Factories.Properties.Margin(10, 10, 0, 0));
 
             _widgetTreeVisitor.ApplyPropertiesOnTree(_root);
         }

@@ -23,7 +23,21 @@ struct VertexShaderOutput
 
 float4 MainPS(VertexShaderOutput input) : COLOR
 {
-	return tex2D(SpriteTextureSampler,input.TextureCoordinates) * input.Color;
+    float width;
+	float height;
+	SpriteTexture.GetDimensions(width, height);
+	float2 pos = input.TextureCoordinates.xy * float2(width, height);
+	
+	float halfTex = width/2;
+	bool isLeft = pos.x < halfTex;
+    float4 color = tex2D(SpriteTextureSampler, input.TextureCoordinates);
+    if (input.TextureCoordinates.x < 0.5) {
+        color.gb = color.r;
+    }
+    else {
+    color.gb = color.gb;
+    }
+    return color;
 }
 
 technique SpriteDrawing
