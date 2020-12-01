@@ -63,7 +63,7 @@ namespace WForest.Tests.PropertyTests
 
             Assert.That(_root.Data.Space, Is.EqualTo(expected));
         }
-        
+
         [Test]
         public void FlexRowContainerWithTwoChildren_AsBigAsRow()
         {
@@ -76,7 +76,7 @@ namespace WForest.Tests.PropertyTests
 
             Assert.That(_root.Data.Space, Is.EqualTo(expected));
         }
-        
+
         [Test]
         public void FlexColContainerWithTwoChildren_AsBigAsCol()
         {
@@ -86,6 +86,21 @@ namespace WForest.Tests.PropertyTests
             ApplyCol();
 
             var expected = new Rectangle(0, 0, 120, 240);
+
+            Assert.That(_root.Data.Space, Is.EqualTo(expected));
+        }
+
+        [Test]
+        public void FlexContainerWithSize_IgnoresSizeAndStartsFromZero()
+        {
+            _root = new WidgetTree(Widgets.Container(400, 300));
+            _root.AddChild(Widgets.Container(new Rectangle(0, 0, 120, 60)));
+            _root.AddChild(Widgets.Container(new Rectangle(0, 0, 120, 90)));
+
+            _root.AddProperty(Properties.Flex());
+            ApplyRow();
+
+            var expected = new Rectangle(0, 0, 240, 90);
 
             Assert.That(_root.Data.Space, Is.EqualTo(expected));
         }

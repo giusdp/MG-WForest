@@ -36,45 +36,25 @@ namespace WForest.UI.Properties.Grid
                             col.Columns.Sum(c => c.Width), 
                             col.Columns.Sum(c => c.Height)));
                 };
-
-            // if (ApplyUtils.TryExtractRows(widgetNode, out var rows))
-            // {
-            //     rows.ForEach(l =>
-            //     {
-            //         var (x, y, w, h) = widgetNode.Data.Space;
-            //         var newWidth = w + l.Width;
-            //         var newHeight = h + l.Height;
-            //         if (!widgetNode.IsRoot)
-            //         {
-            //             var (_, _, parentW, parentH) = widgetNode.Parent.Data.Space;
-            //             if (newWidth > parentW) newWidth -= l.Width;
-            //             if (newHeight > parentH) newHeight -= l.Height;
-            //         }
-            //
-            //         WidgetsSpaceHelper.UpdateSpace(widgetNode, new Rectangle(x, y, newWidth, newHeight));
-            //     });
-            // }
-            // else if (ApplyUtils.TryExtractColumns(widgetNode, out var cols))
-            // {
-            // }
         }
 
-        private void IncreaseSpaceWithChildren(WidgetTree widgetNode)
+        private static void IncreaseSpaceWithChildren(WidgetTree widgetNode)
         {
+            int w = 0, h = 0;
             widgetNode.Children.ForEach(c =>
             {
-                var (x, y, w, h) = widgetNode.Data.Space;
+                var (x, y, _, _) = widgetNode.Data.Space;
                 var (_, _, cw, ch) = c.Data.Space;
-                var newWidth = w + cw;
-                var newHeight = h + ch;
+                w += cw;
+                h += ch;
                 if (!widgetNode.IsRoot)
                 {
                     var (_, _, parentW, parentH) = widgetNode.Parent.Data.Space;
-                    if (newWidth > parentW) newWidth -= cw;
-                    if (newHeight > parentH) newHeight -= ch;
+                    if (w > parentW) w -= cw;
+                    if (h > parentH) h -= ch;
                 }
 
-                WidgetsSpaceHelper.UpdateSpace(widgetNode, new Rectangle(x, y, newWidth, newHeight));
+                WidgetsSpaceHelper.UpdateSpace(widgetNode, new Rectangle(x, y, w, h));
             });
         }
     }
