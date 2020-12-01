@@ -17,12 +17,15 @@ namespace WForest.UI
 
             _root = new WidgetTree(Factories.Widgets.Container(new Rectangle(0, 0, 1280, 720)));
             _root.AddProperty(Factories.Properties.Row());
-            _root.AddProperty(Factories.Properties.Margin(20));
-            _root.AddProperty(Factories.Properties.JustifyAround());
+            _root.AddProperty(Factories.Properties.JustifyCenter());
+            var container = _root.AddChild(Factories.Widgets.Container());
+            container.AddProperty(Factories.Properties.Row());
+            container.AddProperty(Factories.Properties.Flex());
+            container.AddProperty(Factories.Properties.Border());
 
-            _root.AddChild(Factories.Widgets.ImageButton("SpriteBtnL"));
-            _root.AddChild(Factories.Widgets.ImageButton("SpriteBtnL"));
-            _root.AddChild(Factories.Widgets.ImageButton("SpriteBtnL"));
+            container.AddChild(Factories.Widgets.ImageButton("SpriteBtnL"));
+            container.AddChild(Factories.Widgets.ImageButton("SpriteBtnL"));
+            container.AddChild(Factories.Widgets.ImageButton("SpriteBtnL"));
 
             _widgetTreeVisitor.ApplyPropertiesOnTree(_root);
         }
