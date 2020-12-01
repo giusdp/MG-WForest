@@ -14,24 +14,37 @@ namespace WForest.UI.Properties.Grid.Utils
             else
                 logic();
         }
-        
+
         internal static bool TryExtractRows(WidgetTree widgetNode, out List<WidgetsDataSubList> rows)
-            => TryExtract<Row.Row>(widgetNode, out rows, r => r.Rows);
+        {
+            var b = TryExtractProp<Row.Row>(widgetNode, out var res);
+            rows = b ? res.Rows : new List<WidgetsDataSubList>();
+            return b;
+        }
 
         internal static bool TryExtractColumns(WidgetTree widgetNode, out List<WidgetsDataSubList> columns)
-            => TryExtract<Column.Column>(widgetNode, out columns, c => c.Columns);
+        {
+            var b = TryExtractProp<Column.Column>(widgetNode, out var res);
+            columns = b ? res.Columns : new List<WidgetsDataSubList>();
+            return b;
+        }
 
-        private static bool TryExtract<T>(WidgetTree widgetNode, out List<WidgetsDataSubList> rows,
-            Func<T, List<WidgetsDataSubList>> extractor)
+        internal static bool TryExtractRow(WidgetTree widgetNode, out Row.Row rowProp)
+            => TryExtractProp(widgetNode, out rowProp);
+
+        internal static bool TryExtractColumn(WidgetTree widgetNode, out Column.Column colProp)
+            => TryExtractProp(widgetNode, out colProp);
+
+        private static bool TryExtractProp<T>(WidgetTree widgetNode, out T res)
         {
             var props = widgetNode.Properties.OfType<T>().ToList();
             if (props.Any())
             {
-                rows = extractor(props.First());
+                res = props.First();
                 return true;
             }
 
-            rows = new List<WidgetsDataSubList>();
+            res = default;
             return false;
         }
     }
