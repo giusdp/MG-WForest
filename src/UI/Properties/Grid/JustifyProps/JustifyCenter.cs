@@ -2,11 +2,11 @@ using WForest.UI.Properties.Grid.Utils;
 
 namespace WForest.UI.Properties.Grid.JustifyProps
 {
-    public class JustifyCenter : IProperty
+    public class JustifyCenter : Property
     {
-        public int Priority { get; } = 2;
+        internal override int Priority { get; } = 2;
 
-        public void ApplyOn(WidgetTree widgetNode)
+        internal override void ApplyOn(WidgetTree widgetNode)
         {
             ApplyUtils.ApplyIfThereAreChildren(widgetNode, 
                 $"{widgetNode.Data} has no children to center.",

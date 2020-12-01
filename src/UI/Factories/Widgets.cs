@@ -9,7 +9,7 @@ namespace WForest.UI.Factories
         public static ImageButton ImageButton(string image) =>
             new ImageButton(AssetLoader.Load<Texture2D>(image));
 
-
+        public static Container Container() => new Container(Rectangle.Empty);
         public static Container Container(Rectangle space) => new Container(space);
 
         public static Container Container(Point size) => new Container(new Rectangle(new Point(0, 0), size));

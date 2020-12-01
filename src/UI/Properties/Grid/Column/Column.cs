@@ -3,17 +3,16 @@ using WForest.UI.Properties.Grid.Utils;
 
 namespace WForest.UI.Properties.Grid.Column
 {
-    public class Column : IProperty
+    public class Column : Property
     {
-        public int Priority { get; } = 1;
+        internal override int Priority { get; } = 1;
 
         internal List<WidgetsDataSubList> Columns = new List<WidgetsDataSubList>();
 
-        public void ApplyOn(WidgetTree widgetNode)
+        internal override void ApplyOn(WidgetTree widgetNode)
         {
-            if (widgetNode.Children.Count == 0)
-                return;
-            Columns = GridHelper.OrganizeWidgetsInColumns(widgetNode);
+            if (widgetNode.Children.Count != 0)
+                Columns = GridHelper.OrganizeWidgetsInColumns(widgetNode);
         }
     }
 }

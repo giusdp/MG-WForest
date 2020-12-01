@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using WForest.UI.Properties;
 using WForest.UI.Properties.Actions;
 using WForest.UI.Properties.Border;
+using WForest.UI.Properties.Grid;
 using WForest.UI.Properties.Grid.Column;
 using WForest.UI.Properties.Grid.ItemProps;
 using WForest.UI.Properties.Grid.JustifyProps;
@@ -15,54 +16,56 @@ namespace WForest.UI.Factories
     {
         #region Grid
 
-        public static IProperty Row() => new Row();
-        public static IProperty Column() => new Column();
-        public static IProperty JustifyCenter() => new JustifyCenter();
-        public static IProperty JustifyEnd() => new JustifyEnd();
-        public static IProperty JustifyBetween() => new JustifyBetween();
-        public static IProperty JustifyAround() => new JustifyAround();
-        public static IProperty ItemCenter() => new ItemCenter();
-        public static IProperty ItemBase() => new ItemBase();
+        public static Property Row() => new Row();
+        public static Property Column() => new Column();
+        public static Property Flex() => new Flex();
+        public static Property Stretch() => new Stretch();
+        public static Property JustifyCenter() => new JustifyCenter();
+        public static Property JustifyEnd() => new JustifyEnd();
+        public static Property JustifyBetween() => new JustifyBetween();
+        public static Property JustifyAround() => new JustifyAround();
+        public static Property ItemCenter() => new ItemCenter();
+        public static Property ItemBase() => new ItemBase();
 
         #endregion
 
         #region Margins
 
-        public static IProperty Margin(int m) => new Margin(m, m, m, m);
+        public static Property Margin(int m) => new Margin(m, m, m, m);
 
-        public static IProperty Margin(int marginLeft, int marginRight, int marginTop, int marginBottom)
+        public static Property Margin(int marginLeft, int marginRight, int marginTop, int marginBottom)
             => new Margin(marginLeft, marginRight, marginTop, marginBottom);
 
-        public static IProperty MarginLeft(int marginLeft) => new Margin(marginLeft, 0, 0, 0);
-        public static IProperty MarginRight(int marginRight) => new Margin(0, marginRight, 0, 0);
-        public static IProperty MarginTop(int marginTop) => new Margin(0, 0, marginTop, 0);
-        public static IProperty MarginBottom(int marginBottom) => new Margin(0, 0, 0, marginBottom);
+        public static Property MarginLeft(int marginLeft) => new Margin(marginLeft, 0, 0, 0);
+        public static Property MarginRight(int marginRight) => new Margin(0, marginRight, 0, 0);
+        public static Property MarginTop(int marginTop) => new Margin(0, 0, marginTop, 0);
+        public static Property MarginBottom(int marginBottom) => new Margin(0, 0, 0, marginBottom);
 
         #endregion
 
         #region Border
 
-        public static IProperty Border() => new Border();
-        public static IProperty Border(Color color) => CheckArgAndCreate(color, c => new Border {Color = c});
-        public static IProperty Border(int width) => new Border {LineWidth = width};
+        public static Property Border() => new Border();
+        public static Property Border(Color color) => CheckArgAndCreate(color, c => new Border {Color = c});
+        public static Property Border(int width) => new Border {LineWidth = width};
 
-        public static IProperty Border(Color color, int width) =>
+        public static Property Border(Color color, int width) =>
             CheckArgAndCreate(color, c => new Border {Color = c, LineWidth = width});
 
         #endregion
 
         #region Actions
 
-        public static IProperty OnPress(Action logic) => CheckArgAndCreate(logic, action => new OnPress(action));
-        public static IProperty OnRelease(Action logic) => CheckArgAndCreate(logic, action => new OnRelease(action));
-        public static IProperty OnEnter(Action logic) => CheckArgAndCreate(logic, action => new OnEnter(action));
-        public static IProperty OnExit(Action logic) => CheckArgAndCreate(logic, action => new OnExit(action));
+        public static Property OnPress(Action logic) => CheckArgAndCreate(logic, action => new OnPress(action));
+        public static Property OnRelease(Action logic) => CheckArgAndCreate(logic, action => new OnRelease(action));
+        public static Property OnEnter(Action logic) => CheckArgAndCreate(logic, action => new OnEnter(action));
+        public static Property OnExit(Action logic) => CheckArgAndCreate(logic, action => new OnExit(action));
 
         #endregion
 
         #region Utils
 
-        private static IProperty CheckArgAndCreate<T>(T arg, Func<T, IProperty> f) =>
+        private static Property CheckArgAndCreate<T>(T arg, Func<T, Property> f) =>
             arg == null ? throw new ArgumentNullException(nameof(arg)) : f(arg);
 
         #endregion

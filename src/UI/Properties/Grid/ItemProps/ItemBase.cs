@@ -2,16 +2,17 @@ using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using WForest.UI.Properties.Grid.Utils;
+using WForest.UI.Utils;
 using WForest.UI.Widgets;
 using WForest.Utilities.Collections;
 
 namespace WForest.UI.Properties.Grid.ItemProps
 {
-    public class ItemBase : IProperty
+    public class ItemBase : Property
     {
-        public int Priority { get; } = 3;
+        internal override int Priority { get; } = 3;
 
-        public void ApplyOn(WidgetTree widgetNode)
+        internal override void ApplyOn(WidgetTree widgetNode)
         {
             ApplyUtils.ApplyIfThereAreChildren(widgetNode, $"{widgetNode.Data} has no children to item-base.",
                 () =>
@@ -43,8 +44,8 @@ namespace WForest.UI.Properties.Grid.ItemProps
                     for (var j = list.FirstWidgetIndex; j < list.LastWidgetIndex; j++)
                     {
                         var child = wTree.Children[j];
-                        var newCoord = acc - wSize(child); 
-                        ((WidgetTree) child).UpdateSpace(new Rectangle(updateLoc(newCoord, child),
+                        var newCoord = acc - wSize(child);
+                        WidgetsSpaceHelper.UpdateSpace(child, new Rectangle(updateLoc(newCoord, child),
                             child.Data.Space.Size));
                     }
 

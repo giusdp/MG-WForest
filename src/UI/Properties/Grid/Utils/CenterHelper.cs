@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
+using WForest.UI.Utils;
 
 namespace WForest.UI.Properties.Grid.Utils
 {
@@ -29,7 +30,7 @@ namespace WForest.UI.Properties.Grid.Utils
                     if (children[i].Data.Space.Height != l.Height)
                         y = CenterCoord(l.Y, l.Y + l.Height, h);
 
-                    ((WidgetTree) children[i]).UpdateSpace(new Rectangle(x, y, w, h));
+                    WidgetsSpaceHelper.UpdateSpace(children[i],new Rectangle(x, y, w, h));
                 }
             });
         }
@@ -54,7 +55,7 @@ namespace WForest.UI.Properties.Grid.Utils
                     if (children[i].Data.Space.Width != l.Width)
                         x = CenterCoord(l.X, l.X + l.Width, w);
 
-                    ((WidgetTree) children[i]).UpdateSpace(new Rectangle(x, y, w, h));
+                    WidgetsSpaceHelper.UpdateSpace(children[i],new Rectangle(x, y, w, h));
                 }
             });
         }
@@ -124,7 +125,7 @@ namespace WForest.UI.Properties.Grid.Utils
                 {
                     xRow += children[i].Data.Margin.Left;
                     var wY = w.Y + children[i].Data.Margin.Top;
-                    ((WidgetTree) children[i]).UpdateSpace(new Rectangle(new Point(xRow, wY),
+                    WidgetsSpaceHelper.UpdateSpace(children[i], new Rectangle(new Point(xRow, wY),
                         children[i].Data.Space.Size));
                     xRow += children[i].Data.Space.Width + children[i].Data.Margin.Right;
                 }
@@ -141,7 +142,7 @@ namespace WForest.UI.Properties.Grid.Utils
                 {
                     var wX = w.X + children[i].Data.Margin.Left;
                     yAcc += children[i].Data.Margin.Top;
-                    ((WidgetTree) children[i]).UpdateSpace(new Rectangle(new Point(wX, yAcc),
+                    WidgetsSpaceHelper.UpdateSpace(children[i],new Rectangle(new Point(wX, yAcc),
                         children[i].Data.Space.Size));
                     yAcc += children[i].Data.Space.Height + children[i].Data.Margin.Bottom;
                 }

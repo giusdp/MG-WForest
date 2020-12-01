@@ -3,17 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using WForest.UI.Properties.Grid.Utils;
+using WForest.UI.Utils;
 using WForest.UI.Widgets;
 using WForest.Utilities.Collections;
 using static WForest.UI.Properties.Grid.Utils.GridHelper;
 
 namespace WForest.UI.Properties.Grid.JustifyProps
 {
-    public class JustifyBetween : IProperty
+    public class JustifyBetween : Property
     {
-        public int Priority { get; } = 2;
+        internal override int Priority { get; } = 2;
 
-        public void ApplyOn(WidgetTree widgetNode)
+        internal override void ApplyOn(WidgetTree widgetNode)
         {
             ApplyUtils.ApplyIfThereAreChildren(widgetNode,
                 $"{widgetNode.Data} has no children to justify space between.",
@@ -61,7 +62,7 @@ namespace WForest.UI.Properties.Grid.JustifyProps
 
             widgets.ForEach(w =>
             {
-                ((WidgetTree) w).UpdateSpace(new Rectangle(updateLoc(w.Data, start), w.Data.Space.Size));
+                WidgetsSpaceHelper.UpdateSpace(w, new Rectangle(updateLoc(w.Data, start), w.Data.Space.Size));
                 startPoint += getSize(w) + spaceBetween;
                 start = (int) Math.Round(startPoint);
             });

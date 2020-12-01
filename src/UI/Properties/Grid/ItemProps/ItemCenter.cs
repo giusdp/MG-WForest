@@ -2,11 +2,11 @@ using WForest.UI.Properties.Grid.Utils;
 
 namespace WForest.UI.Properties.Grid.ItemProps
 {
-    public class ItemCenter : IProperty
+    public class ItemCenter : Property
     {
-        public int Priority { get; } = 3;
+        internal override int Priority { get; } = 3;
 
-        public void ApplyOn(WidgetTree widgetNode)
+        internal override void ApplyOn(WidgetTree widgetNode)
         {
             ApplyUtils.ApplyIfThereAreChildren(widgetNode,
                 $"{widgetNode.Data} has no children to item-center.",

@@ -4,6 +4,6 @@ namespace WForest.UI.Widgets
 {
     public class Container : Widget
     {
-        public Container(Rectangle space) : base(space){}
+        internal Container(Rectangle space) : base(space){}
     }
 }
