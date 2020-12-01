@@ -19,6 +19,7 @@ namespace WForest.UI.Factories
         public static Property Row() => new Row();
         public static Property Column() => new Column();
         public static Property Flex() => new Flex();
+        public static Property Stretch() => new Stretch();
         public static Property JustifyCenter() => new JustifyCenter();
         public static Property JustifyEnd() => new JustifyEnd();
         public static Property JustifyBetween() => new JustifyBetween();
