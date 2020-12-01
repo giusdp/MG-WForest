@@ -14,7 +14,6 @@ namespace WForest.UI.Properties.Grid.Row
         {
             if (widgetNode.Children.Count != 0)
                 Rows = GridHelper.OrganizeWidgetsInRows(widgetNode);
-            
         }
     }
 }

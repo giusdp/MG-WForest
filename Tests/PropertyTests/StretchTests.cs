@@ -45,5 +45,28 @@ namespace WForest.Tests.PropertyTests
             c.ApplyProperties();
             Assert.That(c.Data.Space, Is.EqualTo(new Rectangle(0,0, 400, 0))); 
         }
+
+        [Test]
+        public void StretchRowContainer_HeightAsRows()
+        {
+            _root = new WidgetTree(Widgets.Container(400, 401));
+            var c = _root.AddChild(Widgets.Container(40, 55));
+            c.AddChild(Widgets.Container(40, 95));
+            c.AddProperty(Properties.Stretch());
+            c.AddProperty(Properties.Row());
+            c.ApplyProperties();
+            Assert.That(c.Data.Space, Is.EqualTo(new Rectangle(0, 0, 400, 95)));
+        }
+        [Test]
+        public void StretchColumnContainer_StretchHeightOnly()
+        {
+            _root = new WidgetTree(Widgets.Container(400, 401));
+            var c = _root.AddChild(Widgets.Container(41, 55));
+            c.AddChild(Widgets.Container(42, 95));
+            c.AddProperty(Properties.Stretch());
+            c.AddProperty(Properties.Column());
+            c.ApplyProperties();
+            Assert.That(c.Data.Space, Is.EqualTo(new Rectangle(0, 0, 42, 401)));
+        }
     }
 }
