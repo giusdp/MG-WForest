@@ -24,8 +24,13 @@ namespace WForest.UI
             container.AddProperty(Factories.Properties.JustifyCenter());
             container.AddProperty(Factories.Properties.Border());
 
-            container.AddChild(Factories.Widgets.ImageButton("Sprite-0001")).AddProperty(Factories.Properties.Margin(10, 10, 0, 0));
-
+            var imgButton = Factories.Widgets.ImageButton("Sprite-0001");
+            imgButton.HoverButton = AssetLoader.Load<Texture2D>("Sprite-0002");
+            imgButton.PressedButton = AssetLoader.Load<Texture2D>("Sprite-0003");
+            var child = container.AddChild(imgButton);
+            child.AddProperty(Factories.Properties.Margin(10, 10, 0, 0));
+            child.AddProperty(Factories.Properties.Border());
+            
             _widgetTreeVisitor.ApplyPropertiesOnTree(_root);
         }
 

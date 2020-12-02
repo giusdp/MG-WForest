@@ -1,5 +1,6 @@
 using System;
 using Microsoft.Xna.Framework;
+using WForest.src.UI.Properties;
 using WForest.UI.Properties;
 using WForest.UI.Properties.Actions;
 using WForest.UI.Properties.Border;
@@ -51,6 +52,12 @@ namespace WForest.UI.Factories
 
         public static Property Border(Color color, int width) =>
             CheckArgAndCreate(color, c => new Border {Color = c, LineWidth = width});
+
+        #endregion
+
+        #region Modifiers
+
+        public static Property Rounded(int r) => new Rounded(r);
 
         #endregion
 
