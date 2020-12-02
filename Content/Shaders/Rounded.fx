@@ -21,22 +21,36 @@ struct VertexShaderOutput
 	float2 TextureCoordinates : TEXCOORD0;
 };
 
+int Width;
+int Height;
+int Radius;
+
 float4 MainPS(VertexShaderOutput input) : COLOR
 {
-    float width;
-	float height;
-	SpriteTexture.GetDimensions(width, height);
-	float2 pos = input.TextureCoordinates.xy * float2(width, height);
-	
-	float halfTex = width/2;
-	bool isLeft = pos.x < halfTex;
+    float2 pos = input.TextureCoordinates.xy * float2(Width, Height); 
+    
     float4 color = tex2D(SpriteTextureSampler, input.TextureCoordinates);
-    if (input.TextureCoordinates.x < 0.5) {
-        color.gb = color.r;
+    
+    float xMax = Width - Radius;
+    
+    float yMax = Height - Radius;
+    
+    float alphaValue = 1.0;
+    
+    if (pos.x < Radius && pos.y < Radius) {
+       alphaValue -= smoothstep(radius - 0.7, radius + 0.7, length(pos - float2(radius, radius) ) ); 
     }
-    else {
-    color.gb = color.gb;
+    else if (pos.x < Radius && pos.y > yMax){
+       alphaValue = 0; 
     }
+    else if (pos.x > xMax && pos.y > yMax){
+       alphaValue = 0; 
+    }
+    else if (pos.x > xMax && pos.y < Radius){
+       alphaValue = 0; 
+    }
+    
+    color.rgba *= alphaValue;
     return color;
 }
 
