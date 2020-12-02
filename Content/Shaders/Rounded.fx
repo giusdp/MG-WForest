@@ -36,18 +36,19 @@ float4 MainPS(VertexShaderOutput input) : COLOR
     float yMax = Height - Radius;
     
     float alphaValue = 1.0;
+    float smoothness = 0.7;
     
     if (pos.x < Radius && pos.y < Radius) {
-       alphaValue -= smoothstep(radius - 0.7, radius + 0.7, length(pos - float2(radius, radius) ) ); 
+       alphaValue -= smoothstep(Radius - smoothness, Radius + smoothness, length(pos - float2(Radius, Radius) ) ); 
     }
     else if (pos.x < Radius && pos.y > yMax){
-       alphaValue = 0; 
+        alphaValue -= smoothstep(Radius - smoothness, Radius + smoothness, length(pos - float2(Radius, yMax)));
     }
     else if (pos.x > xMax && pos.y > yMax){
-       alphaValue = 0; 
+        alphaValue -= smoothstep(Radius - smoothness, Radius + smoothness, length(pos - float2(xMax, yMax)));
     }
     else if (pos.x > xMax && pos.y < Radius){
-       alphaValue = 0; 
+        alphaValue -= smoothstep(Radius - smoothness, Radius + smoothness, length(pos - float2(xMax, Radius)));
     }
     
     color.rgba *= alphaValue;
