@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using WForest.Utilities;
+using WForest.Utilities.Collections;
 
 namespace WForest.UI.Widgets
 {
     public abstract class Widget
     {
+
+        public Effect Effect { get; set; }
         public List<Action<SpriteBatch>> Modifiers { get; }
         public Rectangle Space { get; set; }
         public Margin Margin { get; set; }
