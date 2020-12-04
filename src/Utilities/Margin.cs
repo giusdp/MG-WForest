@@ -1,4 +1,4 @@
-namespace WForest.Utilities.Collections
+namespace WForest.Utilities
 {
     public readonly struct Margin
     {

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using WForest.Utilities;
-using WForest.Utilities.Collections;
 
 namespace WForest.UI.Widgets
 {
