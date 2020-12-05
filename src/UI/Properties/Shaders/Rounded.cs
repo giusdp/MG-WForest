@@ -7,7 +7,7 @@ namespace WForest.UI.Properties.Shaders
     public class Rounded : Property 
     {
         public int Radius { get; }
-        public Effect Effect { get; }
+        private Effect Effect { get; }
 
         internal Rounded(int radius)
         {
