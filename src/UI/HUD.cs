@@ -37,6 +37,6 @@ namespace WForest.UI
             _widgetTreeVisitor.CheckHovering(_root, Mouse.GetState().Position);
         }
 
-        public void Draw(SpriteBatch spriteBatch) => _widgetTreeVisitor.DrawTree(_root, spriteBatch);
+        public void Draw(SpriteBatch spriteBatch) => WidgetTreeVisitor.DrawTree(_root, spriteBatch);
     }
 }

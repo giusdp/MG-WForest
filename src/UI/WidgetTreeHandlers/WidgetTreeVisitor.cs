@@ -15,9 +15,9 @@ namespace WForest.UI.WidgetTreeHandlers
             _interactionHelper = new InteractionHelper();
         }
         
-        public void DrawTree(WidgetTree widgetTree, SpriteBatch spriteBatch)
+        public static void DrawTree(WidgetTree widgetTree, SpriteBatch spriteBatch)
         {
-            TreeVisitor<Widget>.ApplyToTreeFromRoot(widgetTree, w => ((WidgetTree) w).DrawWidget(spriteBatch));
+            TreeVisitor<Widget>.ApplyToTreeLevelByLevel(widgetTree, w => ((WidgetTree) w).DrawWidget(spriteBatch));
         }
 
         public void ApplyPropertiesOnTree(WidgetTree widgetTree)

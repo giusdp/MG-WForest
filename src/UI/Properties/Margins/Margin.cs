@@ -20,7 +20,7 @@ namespace WForest.UI.Properties.Margins
             var (x, y, w, h) = widgetNode.Data.Space;
             widgetNode.Data.Space = new Rectangle(x + _margin.Left, y + _margin.Top, w, h);
             widgetNode.Data.Margin = _margin;
-            TreeVisitor<Widget>.ApplyToTreeFromRoot(
+            TreeVisitor<Widget>.ApplyToTreeLevelByLevel(
                 widgetNode,
                 node => 
                     node.Data.Space = new Rectangle(widgetNode.Data.Space.Location, node.Data.Space.Size));

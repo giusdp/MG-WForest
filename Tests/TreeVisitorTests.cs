@@ -28,15 +28,15 @@ namespace WForest.Tests
         [Test]
         public void ApplyToTree_NullArgs_ThrowsError()
         {
-            Assert.That(() => TreeVisitor<int>.ApplyToTreeFromRoot(null, tree => { }), Throws.ArgumentNullException);
-            Assert.That(() => TreeVisitor<int>.ApplyToTreeFromRoot(new Tree<int>(0), null), Throws.ArgumentNullException);
+            Assert.That(() => TreeVisitor<int>.ApplyToTreeLevelByLevel(null, tree => { }), Throws.ArgumentNullException);
+            Assert.That(() => TreeVisitor<int>.ApplyToTreeLevelByLevel(new Tree<int>(0), null), Throws.ArgumentNullException);
         }
 
         [Test]
         public void ApplyToTreeFromRoot_TakesAnAction_AppliesItToAllNodes()
         {
             var count = 0;
-            TreeVisitor<int>.ApplyToTreeFromRoot(_tree, node => count += node.Data );
+            TreeVisitor<int>.ApplyToTreeLevelByLevel(_tree, node => count += node.Data );
             Assert.That(count, Is.EqualTo(33));
         }
 
