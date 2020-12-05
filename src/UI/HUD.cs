@@ -28,7 +28,7 @@ namespace WForest.UI
             var child = container.AddChild(imgButton);
             child.AddProperty(Factories.Properties.Margin(10, 10, 0, 0));
             child.AddProperty(Factories.Properties.Rounded(30));
-            // child.AddProperty(Factories.Properties.Border());
+            child.AddProperty(Factories.Properties.Border());
             
             _widgetTreeVisitor.ApplyPropertiesOnTree(_root);
         }

@@ -4,7 +4,7 @@ using WForest.Utilities;
 
 namespace WForest.UI.Properties.Shaders
 {
-    public class Rounded : Shader 
+    public class Rounded : Property 
     {
         public int Radius { get; }
         public Effect Effect { get; }
