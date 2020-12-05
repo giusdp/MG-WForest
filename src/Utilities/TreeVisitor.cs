@@ -2,34 +2,28 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using Microsoft.Xna.Framework;
-using WForest.UI.Widgets;
 using WForest.Utilities.Collections;
 
 namespace WForest.Utilities
 {
     public static class TreeVisitor<T>
     {
-        public static void ApplyToTreeLevelByLevel(Tree<T> tree, Action<Tree<T>> action)
+        public static void ApplyToTreeLevelByLevel(Tree<T> tree, Action<List<Tree<T>>> action)
         {
             if (tree == null) throw new ArgumentNullException(nameof(tree));
             if (action == null) throw new ArgumentNullException(nameof(action));
 
             void ApplyLevelByLevel(List<Tree<T>> lvl)
             {
+                action(lvl);
                 while (lvl.Any())
                 {
                     var oneLvlDown = lvl.SelectMany(c => c.Children).ToList();
-                    foreach (var c in oneLvlDown)
-                    {
-                        action(c);
-                    }
-
+                        action(oneLvlDown);
                     lvl = oneLvlDown;
                 }
             }
 
-            action(tree);
             ApplyLevelByLevel(new List<Tree<T>> {tree});
           
         }

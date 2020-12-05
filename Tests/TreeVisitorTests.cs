@@ -33,10 +33,10 @@ namespace WForest.Tests
         }
 
         [Test]
-        public void ApplyToTreeFromRoot_TakesAnAction_AppliesItToAllNodes()
+        public void ApplyToTreLevelByLevel_TakesAnAction_AppliesItToAllNodes()
         {
             var count = 0;
-            TreeVisitor<int>.ApplyToTreeLevelByLevel(_tree, node => count += node.Data );
+            TreeVisitor<int>.ApplyToTreeLevelByLevel(_tree, node => count += node.Sum(n => n.Data) );
             Assert.That(count, Is.EqualTo(33));
         }
 
