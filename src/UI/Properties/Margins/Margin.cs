@@ -15,7 +15,7 @@ namespace WForest.UI.Properties.Margins
             _margin = new Utilities.Margin(marginLeft, marginRight, marginTop, marginBottom);
         }
 
-        internal override void ApplyOn(WidgetTree widgetNode)
+        internal override void ApplyOn(WidgetTree.WidgetTree widgetNode)
         {
             var (x, y, w, h) = widgetNode.Data.Space;
             widgetNode.Data.Space = new Rectangle(x + _margin.Left, y + _margin.Top, w, h);

@@ -1,11 +1,8 @@
-using System;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using NUnit.Framework;
-using WForest.UI.Widgets;
-using WForest.UI;
 using WForest.UI.Factories;
-using WForest.UI.WidgetTreeHandlers;
+using WForest.UI.WidgetTree;
 using WForest.Utilities;
 using WForest.Utilities.Collections;
 
@@ -62,7 +59,7 @@ namespace WForest.Tests
         public void GetLowestNodeThatHolds_FalsePredicate_ReturnsNone()
         {
             var res = TreeVisitor<int>.GetLowestNodeThatHolds(_tree, t => t.Data > 30);
-            var b = res.TryGetValue(out var r);
+            var b = res.TryGetValue(out _);
             Assert.That(b, Is.False); 
         }
 

@@ -1,8 +1,7 @@
 using Microsoft.Xna.Framework;
 using NUnit.Framework;
-using WForest.UI.WidgetTreeHandlers;
-using WForest.UI;
 using WForest.UI.Factories;
+using WForest.UI.WidgetTree;
 
 namespace WForest.Tests
 {

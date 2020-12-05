@@ -8,7 +8,7 @@ namespace WForest.UI.Properties.Grid
 {
     public class Flex : Property
     {
-        internal override void ApplyOn(WidgetTree widgetNode)
+        internal override void ApplyOn(WidgetTree.WidgetTree widgetNode)
         {
             IncreaseSpaceWithChildren(widgetNode);
 
@@ -38,7 +38,7 @@ namespace WForest.UI.Properties.Grid
                 };
         }
 
-        private static void IncreaseSpaceWithChildren(WidgetTree widgetNode)
+        private static void IncreaseSpaceWithChildren(WidgetTree.WidgetTree widgetNode)
         {
             int w = 0, h = 0;
             widgetNode.Children.ForEach(c =>

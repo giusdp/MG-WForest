@@ -1,6 +1,6 @@
 using WForest.UI.Widgets;
 
-namespace WForest.UI.WidgetTreeHandlers.Interactions
+namespace WForest.UI.WidgetTree.Interactions
 {
     public class InteractionState
     {

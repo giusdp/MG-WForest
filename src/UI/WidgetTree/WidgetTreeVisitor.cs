@@ -7,7 +7,7 @@ using WForest.UI.Widgets;
 using WForest.Utilities;
 using WForest.Utilities.Collections;
 
-namespace WForest.UI.WidgetTreeHandlers
+namespace WForest.UI.WidgetTree
 {
     public class WidgetTreeVisitor
     {

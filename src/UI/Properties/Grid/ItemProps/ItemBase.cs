@@ -12,7 +12,7 @@ namespace WForest.UI.Properties.Grid.ItemProps
     {
         internal override int Priority { get; } = 3;
 
-        internal override void ApplyOn(WidgetTree widgetNode)
+        internal override void ApplyOn(WidgetTree.WidgetTree widgetNode)
         {
             ApplyUtils.ApplyIfThereAreChildren(widgetNode, $"{widgetNode.Data} has no children to item-base.",
                 () =>
@@ -31,7 +31,7 @@ namespace WForest.UI.Properties.Grid.ItemProps
                 });
         }
 
-        private static Action<List<WidgetsDataSubList>> PutAtBase(WidgetTree wTree,
+        private static Action<List<WidgetsDataSubList>> PutAtBase(WidgetTree.WidgetTree wTree,
             Func<WidgetsDataSubList, int> listSize, Func<Tree<Widget>, int> wSize,
             Func<int, Tree<Widget>, Point> updateLoc)
         {

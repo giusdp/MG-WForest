@@ -1,10 +1,10 @@
 using Microsoft.Xna.Framework;
 using WForest.UI.Widgets;
-using WForest.UI.WidgetTreeHandlers.Interactions;
+using WForest.UI.WidgetTree.Interactions;
 using WForest.Utilities;
 using WForest.Utilities.Collections;
 
-namespace WForest.UI.WidgetTreeHandlers
+namespace WForest.UI.WidgetTree
 {
     public class InteractionHelper
     {
@@ -15,7 +15,7 @@ namespace WForest.UI.WidgetTreeHandlers
             _interactionStateHandler = new InteractionStateHandler();
         }
 
-        public Maybe<WidgetTree> CheckHovering(WidgetTree widgetTree, Point mouseLoc)
+        public Maybe<UI.WidgetTree.WidgetTree> CheckHovering(UI.WidgetTree.WidgetTree widgetTree, Point mouseLoc)
         {
             var m = TreeVisitor<Widget>.GetLowestNodeThatHolds(widgetTree,
                 w => IsMouseInsideWidgetSpace(w.Data.Space, mouseLoc));
@@ -23,7 +23,7 @@ namespace WForest.UI.WidgetTreeHandlers
             {
                 case Maybe<Tree<Widget>>.Some s:
                     _interactionStateHandler.UpdateInteractionState(s.Value.Data); 
-                    return Maybe.Some((WidgetTree) s.Value);
+                    return Maybe.Some((UI.WidgetTree.WidgetTree) s.Value);
                 default:
                     return Maybe.None;
             }

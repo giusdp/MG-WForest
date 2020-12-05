@@ -1,13 +1,13 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using WForest.UI.WidgetTreeHandlers;
+using WForest.UI.WidgetTree;
 
 namespace WForest.UI
 {
     public class HUD
     {
-        private readonly WidgetTree _root;
+        private readonly WidgetTree.WidgetTree _root;
         private readonly WidgetTreeVisitor _widgetTreeVisitor;
 
 
@@ -15,7 +15,7 @@ namespace WForest.UI
         {
             _widgetTreeVisitor = new WidgetTreeVisitor();
 
-            _root = new WidgetTree(Factories.Widgets.Container(new Rectangle(0, 0, 1280, 720)));
+            _root = new WidgetTree.WidgetTree(Factories.Widgets.Container(new Rectangle(0, 0, 1280, 720)));
             _root.AddProperty(Factories.Properties.Row());
             _root.AddProperty(Factories.Properties.JustifyCenter());
             var container = _root.AddChild(Factories.Widgets.Container());

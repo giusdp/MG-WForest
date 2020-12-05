@@ -12,7 +12,7 @@ namespace WForest.UI.Properties.Grid.JustifyProps
     {
         internal override int Priority { get; } = 2;
 
-        internal override void ApplyOn(WidgetTree widgetNode)
+        internal override void ApplyOn(WidgetTree.WidgetTree widgetNode)
         {
             ApplyUtils.ApplyIfThereAreChildren(widgetNode,
                 $"{widgetNode.Data} has no children to justify-end.",
@@ -32,7 +32,7 @@ namespace WForest.UI.Properties.Grid.JustifyProps
                 });
         }
 
-        private static Action<List<WidgetsDataSubList>> PutAtEnd(WidgetTree wTree, Func<Tree<Widget>, int> getSize,
+        private static Action<List<WidgetsDataSubList>> PutAtEnd(WidgetTree.WidgetTree wTree, Func<Tree<Widget>, int> getSize,
             Func<int, Tree<Widget>, Point> updateLoc, Func<Widget, int> getMargin)
         {
             return wLists =>
