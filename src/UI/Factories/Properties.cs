@@ -9,6 +9,7 @@ using WForest.UI.Properties.Grid.ItemProps;
 using WForest.UI.Properties.Grid.JustifyProps;
 using WForest.UI.Properties.Grid.Row;
 using WForest.UI.Properties.Margins;
+using WForest.UI.Properties.Shaders;
 
 namespace WForest.UI.Factories
 {
