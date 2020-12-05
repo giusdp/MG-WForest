@@ -1,4 +1,3 @@
-using System;
 using Microsoft.Xna.Framework;
 using WForest.UI.Widgets;
 using WForest.Utilities;
@@ -9,11 +8,11 @@ namespace WForest.UI.Properties.Margins
     {
         internal override int Priority { get; } = 0;
         
-        private readonly Utilities.Collections.Margin _margin;
+        private readonly Utilities.Margin _margin;
 
         public Margin(int marginLeft, int marginRight, int marginTop, int marginBottom)
         {
-            _margin =  new Utilities.Collections.Margin(marginLeft, marginRight, marginTop, marginBottom);
+            _margin =  new Utilities.Margin(marginLeft, marginRight, marginTop, marginBottom);
         }
 
         internal override void ApplyOn(WidgetTree widgetNode)
