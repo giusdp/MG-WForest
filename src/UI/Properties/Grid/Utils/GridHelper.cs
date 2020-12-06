@@ -12,10 +12,10 @@ namespace WForest.UI.Properties.Grid.Utils
     {
         #region Public API
 
-        public static List<WidgetsDataSubList> OrganizeWidgetsInColumns(WidgetTree widget)
+        public static List<WidgetsDataSubList> OrganizeWidgetsInColumns(WidgetTree.WidgetTree widget)
             => OrganizeWidgetsInSubLists(widget, CreateColumn, OffsetWidgetsInColumns);
 
-        public static List<WidgetsDataSubList> OrganizeWidgetsInRows(WidgetTree widgetTree)
+        public static List<WidgetsDataSubList> OrganizeWidgetsInRows(WidgetTree.WidgetTree widgetTree)
             => OrganizeWidgetsInSubLists(widgetTree, CreateRow, OffsetWidgetsInRows);
         
         #endregion
@@ -31,7 +31,7 @@ namespace WForest.UI.Properties.Grid.Utils
         private static Rectangle AddToX(Rectangle r, int v) => new Rectangle(r.X + v, r.Y, r.Width, r.Height);
         private static Rectangle AddToY(Rectangle r, int v) => new Rectangle(r.X, r.Y + v, r.Width, r.Height);
 
-        private static (WidgetsDataSubList, int) CreateColumn(WidgetTree widget, int startIdx)
+        private static (WidgetsDataSubList, int) CreateColumn(WidgetTree.WidgetTree widget, int startIdx)
         {
             var (x, firstIndexOnSubList) =
                 SumHeightsTilFit(widget.Children, startIdx, WidgetHeight(widget));
@@ -43,7 +43,7 @@ namespace WForest.UI.Properties.Grid.Utils
             return (subL, firstIndexOnSubList);
         }
 
-        private static (WidgetsDataSubList, int) CreateRow(WidgetTree widget, int startIdx)
+        private static (WidgetsDataSubList, int) CreateRow(WidgetTree.WidgetTree widget, int startIdx)
         {
             var (x, firstIndexOnSubList) =
                 SumWidthsTilFit(widget.Children, startIdx, WidgetWidth(widget));
@@ -59,8 +59,8 @@ namespace WForest.UI.Properties.Grid.Utils
 
         #region Backend
 
-        private static List<WidgetsDataSubList> OrganizeWidgetsInSubLists(WidgetTree widget,
-            Func<WidgetTree, int, (WidgetsDataSubList, int)> f,
+        private static List<WidgetsDataSubList> OrganizeWidgetsInSubLists(WidgetTree.WidgetTree widget,
+            Func<WidgetTree.WidgetTree, int, (WidgetsDataSubList, int)> f,
             Action<List<Tree<Widget>>, List<WidgetsDataSubList>> offset)
         {
             var l = BuildSubLists(widget, f);
@@ -114,8 +114,8 @@ namespace WForest.UI.Properties.Grid.Utils
         }
 
 
-        private static List<WidgetsDataSubList> BuildSubLists(WidgetTree widget,
-            Func<WidgetTree, int, (WidgetsDataSubList, int)> f)
+        private static List<WidgetsDataSubList> BuildSubLists(WidgetTree.WidgetTree widget,
+            Func<WidgetTree.WidgetTree, int, (WidgetsDataSubList, int)> f)
         {
             var subList = new List<WidgetsDataSubList>();
             var previousIndex = 0;

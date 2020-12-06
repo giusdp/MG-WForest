@@ -10,7 +10,7 @@ namespace WForest.UI.Properties.Grid.Row
 
         internal List<WidgetsDataSubList> Rows = new List<WidgetsDataSubList>();
 
-        internal override void ApplyOn(WidgetTree widgetNode)
+        internal override void ApplyOn(WidgetTree.WidgetTree widgetNode)
         {
             if (widgetNode.Children.Count != 0)
                 Rows = GridHelper.OrganizeWidgetsInRows(widgetNode);

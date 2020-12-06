@@ -20,8 +20,14 @@ namespace WForest.UI.Widgets
             Space = new Rectangle(0, 0, normalButton.Width, normalButton.Height);
         }
 
+        // private Effect _effect = AssetLoader.Load<Effect>("Shaders/Rounded");
         public override void Draw(SpriteBatch spriteBatch)
         {
+            // _effect.Parameters["Width"].SetValue(Space.Width);
+            // _effect.Parameters["Height"].SetValue(Space.Height);
+            // _effect.Parameters["Radius"].SetValue(65);
+            // spriteBatch.End();
+            // spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, effect: _effect);
             spriteBatch.Draw(_imageToDraw, new Vector2(Space.X, Space.Y), Color.White);
             
             base.Draw(spriteBatch);

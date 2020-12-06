@@ -5,6 +5,7 @@ using WForest.UI.Factories;
 using WForest.UI.Properties.Grid;
 using WForest.UI.Properties.Grid.Column;
 using WForest.UI.Properties.Grid.Row;
+using WForest.UI.WidgetTree;
 
 namespace WForest.Tests.PropertyTests
 {

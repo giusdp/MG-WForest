@@ -6,7 +6,7 @@ namespace WForest.UI.Properties.Grid.JustifyProps
     {
         internal override int Priority { get; } = 2;
 
-        internal override void ApplyOn(WidgetTree widgetNode)
+        internal override void ApplyOn(WidgetTree.WidgetTree widgetNode)
         {
             ApplyUtils.ApplyIfThereAreChildren(widgetNode, 
                 $"{widgetNode.Data} has no children to center.",

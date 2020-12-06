@@ -2,7 +2,7 @@ using Microsoft.Xna.Framework.Input;
 using WForest.UI.Widgets;
 using WForest.Utilities;
 
-namespace WForest.UI.WidgetTreeHandlers.Interactions
+namespace WForest.UI.WidgetTree.Interactions
 {
     public class InteractionStateHandler
     {

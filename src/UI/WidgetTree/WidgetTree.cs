@@ -8,7 +8,7 @@ using WForest.UI.Utils;
 using WForest.UI.Widgets;
 using WForest.Utilities.Collections;
 
-namespace WForest.UI
+namespace WForest.UI.WidgetTree
 {
     public class WidgetTree : Tree<Widget>
     {

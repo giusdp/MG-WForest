@@ -13,6 +13,12 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin Shaders/Rounded.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:Shaders/Rounded.fx
+
 #begin Sprite-0001.png
 /importer:TextureImporter
 /processor:TextureProcessor

@@ -9,6 +9,7 @@ using WForest.UI.Properties.Grid.ItemProps;
 using WForest.UI.Properties.Grid.JustifyProps;
 using WForest.UI.Properties.Grid.Row;
 using WForest.UI.Properties.Margins;
+using WForest.UI.Properties.Shaders;
 
 namespace WForest.UI.Factories
 {
@@ -51,6 +52,12 @@ namespace WForest.UI.Factories
 
         public static Property Border(Color color, int width) =>
             CheckArgAndCreate(color, c => new Border {Color = c, LineWidth = width});
+
+        #endregion
+
+        #region Modifiers
+
+        public static Property Rounded(int r) => new Rounded(r);
 
         #endregion
 

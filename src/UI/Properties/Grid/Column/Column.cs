@@ -9,7 +9,7 @@ namespace WForest.UI.Properties.Grid.Column
 
         internal List<WidgetsDataSubList> Columns = new List<WidgetsDataSubList>();
 
-        internal override void ApplyOn(WidgetTree widgetNode)
+        internal override void ApplyOn(WidgetTree.WidgetTree widgetNode)
         {
             if (widgetNode.Children.Count != 0)
                 Columns = GridHelper.OrganizeWidgetsInColumns(widgetNode);

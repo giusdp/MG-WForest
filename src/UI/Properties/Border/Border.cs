@@ -15,7 +15,7 @@ namespace WForest.UI.Properties.Border
             Color = Color.Black;
         }
 
-        internal override void ApplyOn(WidgetTree widgetNode)
+        internal override void ApplyOn(WidgetTree.WidgetTree widgetNode)
         {
             widgetNode.Data.Modifiers.Add(sb => { Primitives.DrawRectangle(sb, widgetNode.Data.Space, Color, LineWidth); });
         }

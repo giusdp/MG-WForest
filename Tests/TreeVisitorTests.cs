@@ -1,11 +1,8 @@
-using System;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using NUnit.Framework;
-using WForest.UI.Widgets;
-using WForest.UI;
 using WForest.UI.Factories;
-using WForest.UI.WidgetTreeHandlers;
+using WForest.UI.WidgetTree;
 using WForest.Utilities;
 using WForest.Utilities.Collections;
 
@@ -28,15 +25,15 @@ namespace WForest.Tests
         [Test]
         public void ApplyToTree_NullArgs_ThrowsError()
         {
-            Assert.That(() => TreeVisitor<int>.ApplyToTreeFromRoot(null, tree => { }), Throws.ArgumentNullException);
-            Assert.That(() => TreeVisitor<int>.ApplyToTreeFromRoot(new Tree<int>(0), null), Throws.ArgumentNullException);
+            Assert.That(() => TreeVisitor<int>.ApplyToTreeLevelByLevel(null, tree => { }), Throws.ArgumentNullException);
+            Assert.That(() => TreeVisitor<int>.ApplyToTreeLevelByLevel(new Tree<int>(0), null), Throws.ArgumentNullException);
         }
 
         [Test]
-        public void ApplyToTreeFromRoot_TakesAnAction_AppliesItToAllNodes()
+        public void ApplyToTreLevelByLevel_TakesAnAction_AppliesItToAllNodes()
         {
             var count = 0;
-            TreeVisitor<int>.ApplyToTreeFromRoot(_tree, node => count += node.Data );
+            TreeVisitor<int>.ApplyToTreeLevelByLevel(_tree, node => count += node.Sum(n => n.Data) );
             Assert.That(count, Is.EqualTo(33));
         }
 
@@ -62,7 +59,7 @@ namespace WForest.Tests
         public void GetLowestNodeThatHolds_FalsePredicate_ReturnsNone()
         {
             var res = TreeVisitor<int>.GetLowestNodeThatHolds(_tree, t => t.Data > 30);
-            var b = res.TryGetValue(out var r);
+            var b = res.TryGetValue(out _);
             Assert.That(b, Is.False); 
         }
 
