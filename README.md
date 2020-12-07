@@ -24,9 +24,9 @@ If you really want to try it out, clone this project and open src/UI/HUD.cs. In 
 - [x] Widget base class, Property base class, Tree of widgets
 - [x] Tree visitor to apply properties and draw trees
 - [x] Container and a button widget
-- [x] Basic layout properties (row, col, center)
+- [x] Property system with a center prop 
 - [x] Action properties for mouse (onEnter, onExit, onPress, onRelease)
-- [x] Margin and complete justify/item properties
+- [x] Margin and justify/item properties
 - [x] Border and rounded props 
 - [] Basic widget ui block (A simple generated texture2D) 
 - [] Create a slider widget built with the ui block
