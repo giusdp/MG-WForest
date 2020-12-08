@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using WForest.UI.Widgets;
 using WForest.UI.WidgetTree;
 
 namespace WForest.UI
@@ -18,18 +19,9 @@ namespace WForest.UI
             _root = new WidgetTree.WidgetTree(Factories.Widgets.Container(new Rectangle(0, 0, 1280, 720)));
             _root.AddProperty(Factories.Properties.Row());
             _root.AddProperty(Factories.Properties.JustifyCenter());
-            var container = _root.AddChild(Factories.Widgets.Container());
-            container.AddProperty(Factories.Properties.Column());
-            container.AddProperty(Factories.Properties.Stretch());
-            container.AddProperty(Factories.Properties.JustifyCenter());
-            container.AddProperty(Factories.Properties.Border());
+            _root.AddProperty(Factories.Properties.ItemCenter());
 
-            var imgButton = Factories.Widgets.ImageButton("Sprite-0001");
-            imgButton.HoverButton = AssetLoader.Load<Texture2D>("Sprite-0002");
-            var child = container.AddChild(imgButton);
-            child.AddProperty(Factories.Properties.Margin(10, 10, 0, 0));
-            child.AddProperty(Factories.Properties.Rounded(30));
-            child.AddProperty(Factories.Properties.Border());
+            _root.AddChild(new Block(new Rectangle(0, 0, 128, 64))).AddProperty(Factories.Properties.Border(Color.Aqua, 2));
             
             _widgetTreeVisitor.ApplyPropertiesOnTree(_root);
         }
