@@ -19,6 +19,12 @@ Coming soon with version 0.1...
 
 If you really want to try it out, clone this project and open src/UI/HUD.cs. In the constructor you can see I add children and props to the _root widget which is the tree that gets drawn in Game1.cs.
 
+### Contributing
+
+To contribute with your code just make a fork, work on whatever you want and when you're ready make a pull request.
+
+If you only want to propose some feature you can open an issue.
+
 ### Roadmap 0.1
 
 - [x] Widget base class, Property base class, Tree of widgets
