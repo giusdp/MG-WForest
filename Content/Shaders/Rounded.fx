@@ -50,8 +50,7 @@ float4 MainPS(VertexShaderOutput input) : COLOR
     else if (pos.x > xMax && pos.y < Radius){
         alphaValue -= smoothstep(Radius - smoothness, Radius + smoothness, length(pos - float2(xMax, Radius)));
     }
-    
-    color.rgba *= alphaValue;
+    color.a *= alphaValue;
     return color;
 }
 
