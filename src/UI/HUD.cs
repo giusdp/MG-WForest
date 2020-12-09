@@ -21,9 +21,9 @@ namespace WForest.UI
             _root.AddProperty(Factories.Properties.JustifyCenter());
             _root.AddProperty(Factories.Properties.ItemCenter());
 
-            // var c = _root.AddChild(new Block(new Rectangle(0, 0, 256, 44)));
-            var c = _root.AddChild(Factories.Widgets.ImageButton("Sprite-0001"));
-            c.AddProperty(Factories.Properties.Color(Color.Brown));
+             var c = _root.AddChild(new Block(new Rectangle(0, 0, 256, 44)));
+            //var c = _root.AddChild(Factories.Widgets.ImageButton("Sprite-0001"));
+            c.AddProperty(Factories.Properties.Color(Color.LightPink));
             c.AddProperty(Factories.Properties.Rounded(22));
             _widgetTreeVisitor.ApplyPropertiesOnTree(_root);
         }
