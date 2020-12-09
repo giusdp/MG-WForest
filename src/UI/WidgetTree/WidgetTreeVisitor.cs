@@ -24,7 +24,7 @@ namespace WForest.UI.WidgetTree
             {
                 if (widgets.Count == 0) return;
 
-                var (rounded, nonRounded) = RoundedPartition(widgets.Select(w => (WidgetTree) w).ToList());
+                var (rounded, nonRounded) = RoundedPartition(widgets);
 
                 nonRounded.ForEach(w => w.DrawWidget(spriteBatch));
 
@@ -55,14 +55,15 @@ namespace WForest.UI.WidgetTree
         public Maybe<WidgetTree> CheckHovering(WidgetTree widgetTree, Point mouseLoc)
             => _interactionHelper.CheckHovering(widgetTree, mouseLoc);
 
-        private static (List<WidgetTree>, List<WidgetTree>) RoundedPartition(List<WidgetTree> widgets)
+        private static (List<WidgetTree>, List<WidgetTree>) RoundedPartition(List<Tree<Widget>> widgets)
         {
             var roundedWidgets = new List<WidgetTree>();
             var nonRoundedWidgets = new List<WidgetTree>();
             foreach (var widget in widgets)
             {
-                if (widget.Properties.OfType<Rounded>().Any()) roundedWidgets.Add(widget);
-                else nonRoundedWidgets.Add(widget);
+                var wt = widget as WidgetTree;
+                if (wt.Properties.OfType<Rounded>().Any()) roundedWidgets.Add(wt);
+                else nonRoundedWidgets.Add(wt);
             }
 
             return (roundedWidgets, nonRoundedWidgets);
