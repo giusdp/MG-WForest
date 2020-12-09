@@ -59,9 +59,8 @@ namespace WForest.UI.WidgetTree
         {
             var roundedWidgets = new List<WidgetTree>();
             var nonRoundedWidgets = new List<WidgetTree>();
-            foreach (var widget in widgets)
+            foreach (var wt in widgets.Select(widget => (WidgetTree)widget))
             {
-                var wt = widget as WidgetTree;
                 if (wt.Properties.OfType<Rounded>().Any()) roundedWidgets.Add(wt);
                 else nonRoundedWidgets.Add(wt);
             }

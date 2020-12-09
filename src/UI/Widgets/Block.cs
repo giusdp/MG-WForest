@@ -10,12 +10,11 @@ namespace WForest.UI.Widgets
         Texture2D _texture;
         public Block(Rectangle space) : base(space)
         {
-
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            _texture ??= spriteBatch.CreateTexture(Color.Black);
+            _texture ??= spriteBatch.CreateTexture(Color);
             spriteBatch.Draw(_texture, Space, Color.White);
             base.Draw(spriteBatch);
         }

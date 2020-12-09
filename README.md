@@ -34,7 +34,7 @@ If you only want to propose some feature you can open an issue.
 - [x] Action properties for mouse (onEnter, onExit, onPress, onRelease)
 - [x] Margin and justify/item properties
 - [x] Border and rounded props 
-- [] Basic widget ui block (A simple generated texture2D) 
+- [x] Basic widget ui block (A simple generated texture2D) 
 - [] Create a slider widget built with the ui block
 - [] Text widget and relative properties for text
 - [] Add markup language to create a widget tree ?
