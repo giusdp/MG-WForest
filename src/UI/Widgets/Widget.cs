@@ -9,6 +9,7 @@ namespace WForest.UI.Widgets
     public abstract class Widget
     {
 
+        public Color Color;
         public Effect Effect { get; set; }
         public List<Action<SpriteBatch>> Modifiers { get; }
         public Rectangle Space { get; set; }
@@ -31,6 +32,7 @@ namespace WForest.UI.Widgets
         {
             Space = space;
             Margin = new Margin();
+            Color = Color.White;
             Modifiers = new List<Action<SpriteBatch>>();
         }
 

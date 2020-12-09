@@ -13,7 +13,7 @@ namespace WForest.UI.Widgets
         public override void Draw(SpriteBatch spriteBatch)
         {
 
-            spriteBatch.Draw(spriteBatch.BlankTexture(), Space, Color.Black);
+            spriteBatch.Draw(spriteBatch.BlankTexture(), Space, Color);
             base.Draw(spriteBatch);
         }
     }

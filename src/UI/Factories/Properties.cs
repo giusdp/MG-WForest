@@ -44,8 +44,8 @@ namespace WForest.UI.Factories
 
         #endregion
 
-        #region Border
 
+        #region Modifiers
         public static Property Border() => new Border();
         public static Property Border(Color color) => CheckArgAndCreate(color, c => new Border {Color = c});
         public static Property Border(int width) => new Border {LineWidth = width};
@@ -53,10 +53,8 @@ namespace WForest.UI.Factories
         public static Property Border(Color color, int width) =>
             CheckArgAndCreate(color, c => new Border {Color = c, LineWidth = width});
 
-        #endregion
-
-        #region Modifiers
-
+        
+        public static Property Color(Color color) => new ColorProp(color);
         public static Property Rounded(int r) => new Rounded(r);
 
         #endregion
