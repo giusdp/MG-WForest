@@ -10,7 +10,6 @@ namespace WForest.UI.Widgets
     {
 
         public Color Color;
-        public Effect Effect { get; set; }
         public List<Action<SpriteBatch>> Modifiers { get; }
         public Rectangle Space { get; set; }
         public Margin Margin { get; set; }
