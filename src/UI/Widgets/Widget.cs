@@ -9,6 +9,8 @@ namespace WForest.UI.Widgets
 {
     public abstract class Widget
     {
+        #region Widget Data
+
         public Color Color;
         public List<Action<SpriteBatch>> Modifiers { get; }
         public Rectangle Space { get; set; }
@@ -22,15 +24,17 @@ namespace WForest.UI.Widgets
                 Space.Height + Margin.Top + Margin.Bottom
             );
 
-        private readonly InteractStateMachine _interactStateMachine;
-      
+        #endregion
+
+        private readonly InteractionHandler _interactionHandler;
+
         protected Widget(Rectangle space)
         {
             Space = space;
             Margin = new Margin();
             Color = Color.White;
             Modifiers = new List<Action<SpriteBatch>>();
-            _interactStateMachine = new InteractStateMachine();
+            _interactionHandler = new InteractionHandler();
         }
 
         public virtual void Update()
@@ -38,18 +42,18 @@ namespace WForest.UI.Widgets
             // Interaction handler:
             //     1. Check hovering
             //     2. Update
-            _interactStateMachine.Update();
+            _interactionHandler.Update();
         }
 
         public virtual void Draw(SpriteBatch spriteBatch) => Modifiers.ForEach(a => a(spriteBatch));
 
         #region Utils
 
-        internal void ChangeInteraction(Interaction interaction) => _interactStateMachine.ChangeState(interaction);
-        internal void AddOnEnter(Action onEnter) => _interactStateMachine.OnEnter.Add(onEnter);
-        internal void AddOnExit(Action onExit) => _interactStateMachine.OnExit.Add(onExit);
-        internal void AddOnPressed(Action onPress) => _interactStateMachine.OnPress.Add(onPress);
-        internal void AddOnRelease(Action onRelease) => _interactStateMachine.OnRelease.Add(onRelease);
+        internal void ChangeInteraction(Interaction interaction) => _interactionHandler.ChangeState(interaction);
+        internal void AddOnEnter(Action onEnter) => _interactionHandler.OnEnter.Add(onEnter);
+        internal void AddOnExit(Action onExit) => _interactionHandler.OnExit.Add(onExit);
+        internal void AddOnPressed(Action onPress) => _interactionHandler.OnPress.Add(onPress);
+        internal void AddOnRelease(Action onRelease) => _interactionHandler.OnRelease.Add(onRelease);
 
         #endregion
     }

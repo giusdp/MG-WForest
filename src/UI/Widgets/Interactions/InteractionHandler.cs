@@ -3,16 +3,7 @@ using System.Collections.Generic;
 
 namespace WForest.UI.Widgets.Interactions
 {
-    public enum Interaction
-    {
-        Untouched,
-        Entered,
-        Exited,
-        Pressed,
-        Released
-    }
-
-    public class InteractStateMachine
+    public class InteractionHandler
     {
         public List<Action> OnEnter { get; }
         public List<Action> OnExit { get; }
@@ -21,7 +12,7 @@ namespace WForest.UI.Widgets.Interactions
 
         private Interaction _currentState;
 
-        public InteractStateMachine()
+        public InteractionHandler()
         {
             OnEnter = new List<Action>();
             OnExit = new List<Action>();

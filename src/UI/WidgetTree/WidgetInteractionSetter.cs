@@ -9,7 +9,7 @@ using WForest.Utilities.Collections;
 
 namespace WForest.UI.WidgetTree
 {
-    public class WidgetInteractionHandler
+    public class WidgetInteractionSetter
     {
         private Widget LastHovered { get; set; }
         private bool IsButtonPressed { get; set; }

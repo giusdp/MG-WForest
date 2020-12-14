@@ -12,11 +12,11 @@ namespace WForest.UI.WidgetTree
 {
     public class WidgetTreeVisitor
     {
-        private readonly WidgetInteractionHandler _interactionHandler;
+        private readonly WidgetInteractionSetter _interactionSetter;
 
         public WidgetTreeVisitor()
         {
-            _interactionHandler = new WidgetInteractionHandler();
+            _interactionSetter = new WidgetInteractionSetter();
         }
 
         public static void DrawTree(WidgetTree widgetTree, SpriteBatch spriteBatch)
@@ -68,8 +68,8 @@ namespace WForest.UI.WidgetTree
 
         public void UpdateTree(WidgetTree widgetTree)
         {
-            var hoveredWidget = WidgetInteractionHandler.GetHoveredWidget(widgetTree, Mouse.GetState().Position);
-            _interactionHandler.Update(hoveredWidget);
+            var hoveredWidget = WidgetInteractionSetter.GetHoveredWidget(widgetTree, Mouse.GetState().Position);
+            _interactionSetter.Update(hoveredWidget);
 
             foreach (var tree in widgetTree)
             {
