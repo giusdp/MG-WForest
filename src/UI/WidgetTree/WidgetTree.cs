@@ -6,17 +6,21 @@ using Microsoft.Xna.Framework.Graphics;
 using WForest.UI.Properties;
 using WForest.UI.Utils;
 using WForest.UI.Widgets;
+using WForest.UI.Widgets.Interactions;
 using WForest.Utilities.Collections;
 
 namespace WForest.UI.WidgetTree
 {
     public class WidgetTree : Tree<Widget>
     {
+
+        public Interaction CurrentInteraction { get; set; }
         public List<Property> Properties { get; }
 
         public WidgetTree(Widget data) : base(data)
         {
             Properties = new List<Property>();
+            CurrentInteraction = Interaction.Untouched;
         }
 
         public void AddProperty(Property property)
@@ -40,5 +44,6 @@ namespace WForest.UI.WidgetTree
         }
 
         public void DrawWidget(SpriteBatch spriteBatch) => Data.Draw(spriteBatch);
+
     }
 }

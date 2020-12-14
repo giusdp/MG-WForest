@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using Serilog;
 using WForest.UI.Properties.Shaders;
 using WForest.UI.Widgets;
 using WForest.Utilities;
@@ -11,11 +12,11 @@ namespace WForest.UI.WidgetTree
 {
     public class WidgetTreeVisitor
     {
-        private readonly InteractionHelper _interactionHelper;
+        private readonly WidgetInteractionHandler _interactionHandler;
 
         public WidgetTreeVisitor()
         {
-            _interactionHelper = new InteractionHelper();
+            _interactionHandler = new WidgetInteractionHandler();
         }
 
         public static void DrawTree(WidgetTree widgetTree, SpriteBatch spriteBatch)
@@ -47,25 +48,33 @@ namespace WForest.UI.WidgetTree
             TreeVisitor<Widget>.ApplyToTreeLevelByLevel(widgetTree, DrawWidgets);
         }
 
-        public void ApplyPropertiesOnTree(WidgetTree widgetTree)
+        public static void ApplyPropertiesOnTree(WidgetTree widgetTree)
         {
             TreeVisitor<Widget>.ApplyToTreeFromLeaves(widgetTree, w => ((WidgetTree) w).ApplyProperties());
         }
-
-        public Maybe<WidgetTree> CheckHovering(WidgetTree widgetTree, Point mouseLoc)
-            => _interactionHelper.CheckHovering(widgetTree, mouseLoc);
 
         private static (List<WidgetTree>, List<WidgetTree>) RoundedPartition(List<Tree<Widget>> widgets)
         {
             var roundedWidgets = new List<WidgetTree>();
             var nonRoundedWidgets = new List<WidgetTree>();
-            foreach (var wt in widgets.Select(widget => (WidgetTree)widget))
+            foreach (var wt in widgets.Select(widget => (WidgetTree) widget))
             {
                 if (wt.Properties.OfType<Rounded>().Any()) roundedWidgets.Add(wt);
                 else nonRoundedWidgets.Add(wt);
             }
 
             return (roundedWidgets, nonRoundedWidgets);
+        }
+
+        public void UpdateTree(WidgetTree widgetTree)
+        {
+            var hoveredWidget = WidgetInteractionHandler.GetHoveredWidget(widgetTree, Mouse.GetState().Position);
+            _interactionHandler.Update(hoveredWidget);
+
+            foreach (var tree in widgetTree)
+            {
+                tree.Data.Update();
+            }
         }
     }
 }

@@ -13,7 +13,7 @@ namespace WForest.UI.Properties.Actions
 
         internal override void ApplyOn(WidgetTree.WidgetTree widgetNode)
         {
-            widgetNode.Data.OnExit = _function;
+            widgetNode.Data.AddOnExit(_function);
         }
     }
 }
