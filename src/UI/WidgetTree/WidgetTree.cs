@@ -14,13 +14,11 @@ namespace WForest.UI.WidgetTree
     public class WidgetTree : Tree<Widget>
     {
 
-        public Interaction CurrentInteraction { get; set; }
         public List<Property> Properties { get; }
 
         public WidgetTree(Widget data) : base(data)
         {
             Properties = new List<Property>();
-            CurrentInteraction = Interaction.Untouched;
         }
 
         public void AddProperty(Property property)
