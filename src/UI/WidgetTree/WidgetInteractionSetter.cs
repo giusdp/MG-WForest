@@ -1,6 +1,7 @@
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using Serilog;
 using WForest.UI.Properties.Shaders;
 using WForest.UI.Widgets;
 using WForest.UI.Widgets.Interactions;
@@ -14,12 +15,6 @@ namespace WForest.UI.WidgetTree
         private Widget LastHovered { get; set; }
         private bool IsButtonPressed { get; set; }
 
-        private void Reset()
-        {
-            LastHovered = null;
-            IsButtonPressed = false;
-        }
-
         public void Update(Maybe<WidgetTree> hoveredWidget)
         {
             switch (hoveredWidget)
@@ -28,16 +23,15 @@ namespace WForest.UI.WidgetTree
                     HandleWidgetInteraction(m.Value.Data);
                     break;
                 default:
-                    LastHovered?.ChangeInteraction(Interaction.Exited);
-                    Reset();
+                    ChangeWidgetIfNotPressed(null);
                     break;
             }
         }
 
         private void HandleWidgetInteraction(Widget widget)
         {
-            if (LastHovered != widget) ChangeWidget(widget);
-            else HandleMouseInteraction(widget);
+            if (LastHovered != widget) ChangeWidgetIfNotPressed(widget);
+            HandleMouseInteraction(widget);
         }
 
         private void HandleMouseInteraction(Widget widget)
@@ -50,7 +44,8 @@ namespace WForest.UI.WidgetTree
             else if (MouseJustReleased())
             {
                 IsButtonPressed = false;
-                widget.ChangeInteraction(Interaction.Released);
+                if (LastHovered == widget) LastHovered.ChangeInteraction(Interaction.Released);
+                else ChangeWidget(widget); 
             }
         }
 
@@ -60,11 +55,19 @@ namespace WForest.UI.WidgetTree
         private bool MouseJustReleased() =>
             Mouse.GetState().LeftButton == ButtonState.Released && IsButtonPressed;
 
+        private void ChangeWidgetIfNotPressed(Widget widget)
+        {
+            if (LastHovered != null && LastHovered.CurrentInteraction() == Interaction.Pressed)
+                return;
+
+            ChangeWidget(widget);
+        }
+
         private void ChangeWidget(Widget widget)
         {
             LastHovered?.ChangeInteraction(Interaction.Exited);
             LastHovered = widget;
-            LastHovered.ChangeInteraction(Interaction.Entered);
+            LastHovered?.ChangeInteraction(Interaction.Entered);
             IsButtonPressed = false;
         }
 
