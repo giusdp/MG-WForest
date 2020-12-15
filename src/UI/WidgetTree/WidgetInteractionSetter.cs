@@ -13,13 +13,11 @@ namespace WForest.UI.WidgetTree
     {
         private Widget LastHovered { get; set; }
         private bool IsButtonPressed { get; set; }
-        private bool WasButtonAlreadyPressed { get; set; }
 
         private void Reset()
         {
             LastHovered = null;
             IsButtonPressed = false;
-            WasButtonAlreadyPressed = false;
         }
 
         public void Update(Maybe<WidgetTree> hoveredWidget)
@@ -52,15 +50,8 @@ namespace WForest.UI.WidgetTree
             else if (MouseJustReleased())
             {
                 IsButtonPressed = false;
-                ReleaseIfNotPressedBefore(widget);
+                widget.ChangeInteraction(Interaction.Released);
             }
-            
-        }
-
-        private void ReleaseIfNotPressedBefore(Widget widget)
-        {
-            if (WasButtonAlreadyPressed) WasButtonAlreadyPressed = false;
-            else widget.ChangeInteraction(Interaction.Released);
         }
 
         private bool MouseJustPressed() =>
@@ -74,7 +65,6 @@ namespace WForest.UI.WidgetTree
             LastHovered?.ChangeInteraction(Interaction.Exited);
             LastHovered = widget;
             LastHovered.ChangeInteraction(Interaction.Entered);
-            WasButtonAlreadyPressed = IsButtonPressed;
             IsButtonPressed = false;
         }
 
