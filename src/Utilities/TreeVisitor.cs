@@ -42,7 +42,7 @@ namespace WForest.Utilities
 
             var nodesThatHold = tree.Children.Select(child => GetLowestNodeThatHolds(child, predicate))
                 .OfType<Maybe<Tree<T>>.Some>().ToList();
-            if (nodesThatHold.Any()) return nodesThatHold.First();
+            if (nodesThatHold.Any()) return nodesThatHold.Last();
 
             return predicate(tree) ? Maybe.Some(tree) : Maybe.None;
         }
