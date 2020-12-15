@@ -10,7 +10,7 @@ namespace WForest.UI.Widgets.Interactions
         public List<Action> OnPress { get; }
         public List<Action> OnRelease { get; }
 
-        private Interaction _currentState;
+        private Interaction _currentInteraction;
 
         public InteractionHandler()
         {
@@ -18,30 +18,90 @@ namespace WForest.UI.Widgets.Interactions
             OnExit = new List<Action>();
             OnPress = new List<Action>();
             OnRelease = new List<Action>();
-            _currentState = Interaction.Untouched;
+            _currentInteraction = Interaction.Untouched;
         }
 
-        public void ChangeState(Interaction interaction) => _currentState = interaction;
+        public void ChangeState(Interaction interaction)
+        {
+            switch (_currentInteraction)
+            {
+                case Interaction.Untouched:
+                    EnterIfEntered(interaction);
+                    break;
+                case Interaction.Entered:
+                    PressOrExit(interaction);
+                    break;
+                case Interaction.Pressed:
+                    ReleasedOrExited(interaction);
+                    break;
+            }
+        }
 
         public void Update()
         {
-            switch (_currentState)
+            switch (_currentInteraction)
             {
                 case Interaction.Untouched:
                     break;
                 case Interaction.Entered:
-                    OnEnter.ForEach(a => a());
+                    Exec(OnEnter);
                     break;
                 case Interaction.Exited:
-                    OnExit.ForEach(a => a());
+                    Exec(OnExit);
                     break;
                 case Interaction.Pressed:
-                    OnPress.ForEach(a => a());
+                    Exec(OnPress);
                     break;
                 case Interaction.Released:
-                    OnRelease.ForEach(a => a());
+                    Exec(OnRelease);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        #region Utils
+
+        private static void Exec(List<Action> actions) => actions.ForEach(a => a());
+
+        private void EnterIfEntered(Interaction interaction)
+        {
+            if (!(interaction is Interaction.Entered)) return;
+            ExecAndUpdateCurrent(OnEnter, interaction);
+        }
+
+        private void PressOrExit(Interaction interaction)
+        {
+            switch (interaction)
+            {
+                case Interaction.Exited:
+                    ExecAndUpdateCurrent(OnExit, Interaction.Untouched);
+                    break;
+                case Interaction.Pressed:
+                    ExecAndUpdateCurrent(OnPress, interaction);
                     break;
             }
         }
+
+        private void ReleasedOrExited(Interaction interaction)
+        {
+            switch (interaction)
+            {
+                case Interaction.Released:
+                    ExecAndUpdateCurrent(OnRelease, Interaction.Entered);
+                    break;
+                case Interaction.Exited:
+                    ExecAndUpdateCurrent(OnExit, Interaction.Untouched);
+                    break;
+            }
+        }
+
+        private void ExecAndUpdateCurrent(List<Action> actions, Interaction i)
+        {
+            Exec(actions);
+            _currentInteraction = i;
+        }
+
+        #endregion
     }
 }

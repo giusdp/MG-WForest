@@ -53,8 +53,8 @@ namespace WForest.UI.WidgetTree
             {
                 IsButtonPressed = false;
                 ReleaseIfNotPressedBefore(widget);
-                widget.ChangeInteraction(Interaction.Entered);
             }
+            
         }
 
         private void ReleaseIfNotPressedBefore(Widget widget)
