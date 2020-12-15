@@ -1,6 +1,8 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using WForest.Devices;
+using WForest.UI.Properties;
 using WForest.UI.Widgets;
 using WForest.UI.WidgetTree;
 
@@ -19,15 +21,19 @@ namespace WForest.UI
             _root = new WidgetTree.WidgetTree(Factories.Widgets.Container(new Rectangle(0, 0, 1280, 720)));
             _root.AddProperty(Factories.Properties.Row());
             _root.AddProperty(Factories.Properties.JustifyCenter());
-            _root.AddProperty(Factories.Properties.ItemCenter());
+            _root.AddProperty(Factories.Properties.Border());
 
-            // var c = _root.AddChild(new Block(new Rectangle(0, 0, 256, 44)));
+            _root.AddProperty(new Draggable(new MouseDevice()));
+            var d = _root.AddChild(new Block(new Rectangle(0, 0, 256, 44)));
             var btn = Factories.Widgets.ImageButton("Sprite-0001");
             ((ImageButton) btn).HoverButton = AssetLoader.Load<Texture2D>("Sprite-0002");
             ((ImageButton) btn).PressedButton = AssetLoader.Load<Texture2D>("Sprite-0003");
             var c = _root.AddChild(btn);
             c.AddProperty(Factories.Properties.Color(Color.Yellow));
             c.AddProperty(Factories.Properties.Rounded(22));
+
+            c.AddProperty(new Draggable(new MouseDevice()));
+            d.AddProperty(new Draggable(new MouseDevice()));
             WidgetTreeVisitor.ApplyPropertiesOnTree(_root);
         }
 
