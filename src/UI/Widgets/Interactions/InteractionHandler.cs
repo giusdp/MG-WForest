@@ -10,7 +10,7 @@ namespace WForest.UI.Widgets.Interactions
         public List<Action> OnPress { get; }
         public List<Action> OnRelease { get; }
 
-        private Interaction _currentInteraction;
+        public Interaction CurrentInteraction;
 
         public InteractionHandler()
         {
@@ -18,12 +18,12 @@ namespace WForest.UI.Widgets.Interactions
             OnExit = new List<Action>();
             OnPress = new List<Action>();
             OnRelease = new List<Action>();
-            _currentInteraction = Interaction.Untouched;
+            CurrentInteraction = Interaction.Untouched;
         }
 
         public void ChangeState(Interaction interaction)
         {
-            switch (_currentInteraction)
+            switch (CurrentInteraction)
             {
                 case Interaction.Untouched:
                     EnterIfEntered(interaction);
@@ -39,7 +39,7 @@ namespace WForest.UI.Widgets.Interactions
 
         public void Update()
         {
-            switch (_currentInteraction)
+            switch (CurrentInteraction)
             {
                 case Interaction.Untouched:
                     break;
@@ -99,7 +99,7 @@ namespace WForest.UI.Widgets.Interactions
         private void ExecAndUpdateCurrent(List<Action> actions, Interaction i)
         {
             Exec(actions);
-            _currentInteraction = i;
+            CurrentInteraction = i;
         }
 
         #endregion
