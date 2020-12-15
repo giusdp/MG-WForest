@@ -6,12 +6,14 @@ using Microsoft.Xna.Framework.Graphics;
 using WForest.UI.Properties;
 using WForest.UI.Utils;
 using WForest.UI.Widgets;
+using WForest.UI.Widgets.Interactions;
 using WForest.Utilities.Collections;
 
 namespace WForest.UI.WidgetTree
 {
     public class WidgetTree : Tree<Widget>
     {
+
         public List<Property> Properties { get; }
 
         public WidgetTree(Widget data) : base(data)
@@ -36,9 +38,10 @@ namespace WForest.UI.WidgetTree
 
         public void ApplyProperties()
         {
-            Properties.Distinct().OrderBy(p => p.Priority).ToList().ForEach(p => p.ApplyOnAndFireApplied(this));
+            Properties.OrderBy(p => p.Priority).ToList().ForEach(p => p.ApplyOnAndFireApplied(this));
         }
 
         public void DrawWidget(SpriteBatch spriteBatch) => Data.Draw(spriteBatch);
+
     }
 }

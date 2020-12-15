@@ -40,9 +40,11 @@ namespace WForest.Utilities
             if (tree == null) throw new ArgumentNullException(nameof(tree));
             if (predicate == null) throw new ArgumentNullException(nameof(predicate));
 
-            var nodesThatHold = tree.Children.Select(child => GetLowestNodeThatHolds(child, predicate))
+            var revCh = tree.Children;
+            revCh.Reverse();
+            var nodesThatHold = revCh.Select(child => GetLowestNodeThatHolds(child, predicate))
                 .OfType<Maybe<Tree<T>>.Some>().ToList();
-            if (nodesThatHold.Any()) return nodesThatHold.First();
+            if (nodesThatHold.Any()) return nodesThatHold.Last();
 
             return predicate(tree) ? Maybe.Some(tree) : Maybe.None;
         }

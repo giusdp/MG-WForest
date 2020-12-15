@@ -8,7 +8,7 @@ namespace WForest.UI.Widgets
     public class ImageButton : Widget
     {
         private Texture2D _imageToDraw;
-        public Texture2D NormalButton { get; set; }
+        private Texture2D NormalButton { get; }
         public Texture2D HoverButton { get; set; }
         public Texture2D PressedButton { get; set; }
 
@@ -18,6 +18,10 @@ namespace WForest.UI.Widgets
                            throw new ArgumentNullException(nameof(normalButton));
             _imageToDraw = NormalButton;
             Space = new Rectangle(0, 0, normalButton.Width, normalButton.Height);
+
+            AddOnEnter(StartedHovering);
+            AddOnExit(StoppedHovering);
+            AddOnPressed(PressedDown);
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -26,7 +30,9 @@ namespace WForest.UI.Widgets
             base.Draw(spriteBatch);
         }
 
-        public override void StartedHovering()
+        #region Visualization Based On Interactions
+
+        private void StartedHovering()
         {
             if (HoverButton == null)
             {
@@ -34,17 +40,14 @@ namespace WForest.UI.Widgets
                 _imageToDraw = NormalButton;
             }
             else _imageToDraw = HoverButton;
-
-            base.StartedHovering();
         }
 
-        public override void StoppedHovering()
+        private void StoppedHovering()
         {
             _imageToDraw = NormalButton;
-            base.StoppedHovering();
         }
 
-        public override void PressedDown()
+        private void PressedDown()
         {
             if (PressedButton == null)
             {
@@ -52,9 +55,8 @@ namespace WForest.UI.Widgets
                 _imageToDraw = NormalButton;
             }
             else _imageToDraw = PressedButton;
-
-            base.PressedDown();
         }
 
+        #endregion
     }
 }
