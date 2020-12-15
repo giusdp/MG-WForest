@@ -53,6 +53,17 @@ namespace WForest.UI.WidgetTree
             TreeVisitor<Widget>.ApplyToTreeFromLeaves(widgetTree, w => ((WidgetTree) w).ApplyProperties());
         }
 
+        public void UpdateTree(WidgetTree widgetTree)
+        {
+            var hoveredWidget = WidgetInteractionSetter.GetHoveredWidget(widgetTree, Mouse.GetState().Position);
+            _interactionSetter.Update(hoveredWidget);
+
+            foreach (var tree in widgetTree)
+            {
+                tree.Data.Update();
+            }
+        }
+
         private static (List<WidgetTree>, List<WidgetTree>) RoundedPartition(List<Tree<Widget>> widgets)
         {
             var roundedWidgets = new List<WidgetTree>();
@@ -64,17 +75,6 @@ namespace WForest.UI.WidgetTree
             }
 
             return (roundedWidgets, nonRoundedWidgets);
-        }
-
-        public void UpdateTree(WidgetTree widgetTree)
-        {
-            var hoveredWidget = WidgetInteractionSetter.GetHoveredWidget(widgetTree, Mouse.GetState().Position);
-            _interactionSetter.Update(hoveredWidget);
-
-            foreach (var tree in widgetTree)
-            {
-                tree.Data.Update();
-            }
         }
     }
 }
