@@ -40,7 +40,7 @@ namespace WForest.UI.WidgetTree
 
         public void ApplyProperties()
         {
-            Properties.Distinct().OrderBy(p => p.Priority).ToList().ForEach(p => p.ApplyOnAndFireApplied(this));
+            Properties.OrderBy(p => p.Priority).ToList().ForEach(p => p.ApplyOnAndFireApplied(this));
         }
 
         public void DrawWidget(SpriteBatch spriteBatch) => Data.Draw(spriteBatch);
