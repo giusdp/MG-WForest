@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using WForest.UI.Utils;
 using WForest.UI.Widgets;
 using WForest.Utilities;
 
@@ -18,14 +19,14 @@ namespace WForest.UI.Properties.Margins
         internal override void ApplyOn(WidgetTree.WidgetTree widgetNode)
         {
             var (x, y, w, h) = widgetNode.Data.Space;
-            widgetNode.Data.Space = new Rectangle(x + _margin.Left, y + _margin.Top, w, h);
             widgetNode.Data.Margin = _margin;
+            WidgetsSpaceHelper.UpdateSpace(widgetNode, new Rectangle(x + _margin.Left, y + _margin.Top, w, h));
             TreeVisitor<Widget>.ApplyToTreeLevelByLevel(
                 widgetNode,
                 lvl =>
                     lvl.ForEach(node =>
-                        node.Data.Space = new Rectangle(widgetNode.Data.Space.Location, node.Data.Space.Size))
-            );
+                        WidgetsSpaceHelper.UpdateSpace(node,
+                            new Rectangle(widgetNode.Data.Space.Location, node.Data.Space.Size))));
         }
     }
 }
