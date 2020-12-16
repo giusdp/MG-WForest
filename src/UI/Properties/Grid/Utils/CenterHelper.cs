@@ -14,9 +14,9 @@ namespace WForest.UI.Properties.Grid.Utils
         {
             var children = wTree.Children;
             var totalHeight = wLists.Sum(l => l.Height);
-            var startY = CenterCoord(wTree.Data.TotalSpaceOccupied.Y, wTree.Data.TotalSpaceOccupied.Height,
+            var startY = CenterCoord(wTree.Data.Space.Y, wTree.Data.Space.Height,
                 totalHeight);
-            var accY = 0;
+            var accY = wTree.Data.Margin.Top/2;
             wLists.ForEach(l =>
             {
                 l.Y = startY + accY;
@@ -40,8 +40,8 @@ namespace WForest.UI.Properties.Grid.Utils
         {
             var children = wTree.Children;
             var totalWidth = wLists.Sum(l => l.Width);
-            var startX = CenterCoord(wTree.Data.TotalSpaceOccupied.X, wTree.Data.TotalSpaceOccupied.Width, totalWidth);
-            var accX = 0;
+            var startX = CenterCoord(wTree.Data.Space.X, wTree.Data.Space.Width, totalWidth);
+            var accX = wTree.Data.Margin.Left/2;
             wLists.ForEach(l =>
             {
                 l.X = startX + accX;
