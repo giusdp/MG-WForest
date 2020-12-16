@@ -26,9 +26,9 @@ namespace WForest.UI
 
             var slider = _root.AddChild(Factories.Widgets.Block(200,5));
             slider.AddProperty(Factories.Properties.Color(Color.DarkBlue));
-            // slider.AddProperty(Factories.Properties.Margin(0,0,30,30));
-            slider.AddProperty(Factories.Properties.Column());
-            // slider.AddProperty(Factories.Properties.JustifyCenter());
+            slider.AddProperty(Factories.Properties.Margin(50,25,50,15));
+            slider.AddProperty(Factories.Properties.Row());
+            slider.AddProperty(Factories.Properties.JustifyCenter());
             slider.AddProperty(Factories.Properties.ItemCenter());
             var sld = slider.AddChild(Factories.Widgets.Block(20, 20));
             sld.AddProperty(Factories.Properties.Color(Color.Aqua));
