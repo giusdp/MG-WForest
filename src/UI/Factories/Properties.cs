@@ -4,6 +4,7 @@ using WForest.Devices;
 using WForest.UI.Properties;
 using WForest.UI.Properties.Actions;
 using WForest.UI.Properties.Border;
+using WForest.UI.Properties.Dragging;
 using WForest.UI.Properties.Grid;
 using WForest.UI.Properties.Grid.Column;
 using WForest.UI.Properties.Grid.ItemProps;
@@ -54,11 +55,13 @@ namespace WForest.UI.Factories
         public static Property Border(Color color, int width) =>
             CheckArgAndCreate(color, c => new Border {Color = c, LineWidth = width});
 
-
         public static Property Color(Color color) => new ColorProp(color);
         public static Property Rounded(int r) => new Rounded(r);
 
         public static Property Draggable(IDevice device) => new Draggable(device);
+
+        public static Property FixX() => new FixX();
+        public static Property FixY() => new FixY();
 
         #endregion
 
