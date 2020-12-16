@@ -1,9 +1,8 @@
 using Microsoft.Xna.Framework;
-using Serilog;
 using WForest.Devices;
 using WForest.UI.Utils;
 
-namespace WForest.UI.Properties
+namespace WForest.UI.Properties.Dragging
 {
     internal class DragCtx
     {
@@ -30,8 +29,14 @@ namespace WForest.UI.Properties
         internal override void ApplyOn(WidgetTree.WidgetTree widgetNode)
         {
             var dragCtx = new DragCtx();
+
+            var isXFixed = widgetNode.Properties.Find(p => p is FixX) != null;
+            var isYFixed = widgetNode.Properties.Find(p => p is FixY) != null;
+
             widgetNode.Data.AddOnPressed(() =>
             {
+                if (isXFixed && isYFixed) return;
+
                 var devLoc = _device.GetPointedLocation();
                 if (!dragCtx.IsDragging)
                 {
@@ -43,22 +48,12 @@ namespace WForest.UI.Properties
                     var (devX, devY) = devLoc;
                     var (x, y, w, h) = widgetNode.Data.Space;
                     if (dragCtx.DevX == devX && dragCtx.DevY == devY) return;
-                    var nx = x + (devX - dragCtx.DevX);
-                    var ny = y + (devY - dragCtx.DevY);
 
-                    if (widgetNode.Parent != null)
-                    {
-                        var pRight = widgetNode.Parent.Data.Space.Right;
-                        var pBottom = widgetNode.Parent.Data.Space.Bottom;
-                        if (nx + w > pRight)
-                            nx = pRight - w;
-                        else if (nx < widgetNode.Parent.Data.Space.X) nx = widgetNode.Parent.Data.Space.X;
-
-                        if (ny + h > pBottom)
-                            ny = pBottom - h;
-                        else if (ny < widgetNode.Parent.Data.Space.Y)
-                            ny = widgetNode.Parent.Data.Space.Y;
-                    }
+                    var nx = x;
+                    var ny = y;
+                    nx += isXFixed ? 0 : devX - dragCtx.DevX;
+                    ny += isYFixed ? 0 : devY - dragCtx.DevY;
+                    (nx, ny) = CheckBounds(widgetNode, nx, ny, isXFixed, isYFixed);
 
                     WidgetsSpaceHelper.UpdateSpace(widgetNode, new Rectangle(nx, ny, w, h));
                     dragCtx.Set(devLoc);
@@ -67,6 +62,30 @@ namespace WForest.UI.Properties
 
             widgetNode.Data.AddOnRelease(() => dragCtx.IsDragging = false);
             widgetNode.Data.AddOnExit(() => dragCtx.IsDragging = false);
+        }
+
+        private static (int, int) CheckBounds(WidgetTree.WidgetTree wt, int x, int y, bool isXFixed, bool isYFixed)
+        {
+            var (_, _, w, h) = wt.Data.Space;
+            if (wt.Parent == null) return (x, y);
+
+            var pRight = wt.Parent.Data.Space.Right;
+            var pBottom = wt.Parent.Data.Space.Bottom;
+
+            if (!isXFixed)
+            {
+                if (x + w > pRight)
+                    x = pRight - w;
+                else if (x < wt.Parent.Data.Space.X) x = wt.Parent.Data.Space.X;
+            }
+
+            if (isYFixed) return (x, y);
+            if (y + h > pBottom)
+                y = pBottom - h;
+            else if (y < wt.Parent.Data.Space.Y)
+                y = wt.Parent.Data.Space.Y;
+
+            return (x, y);
         }
     }
 }
