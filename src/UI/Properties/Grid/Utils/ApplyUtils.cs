@@ -35,15 +35,14 @@ namespace WForest.UI.Properties.Grid.Utils
         internal static bool TryExtractColumn(WidgetTree.WidgetTree widgetNode, out Column.Column colProp)
             => TryExtractProp(widgetNode, out colProp);
 
-        private static bool TryExtractProp<T>(WidgetTree.WidgetTree widgetNode, out T res)
+        private static bool TryExtractProp<T> (WidgetTree.WidgetTree widgetNode, out T res) where T : Property
         {
-            var props = widgetNode.Properties.OfType<T>().ToList();
-            if (props.Any())
+            var prop = widgetNode.Properties.Find(p => p is T);
+            if (prop != null)
             {
-                res = props.First();
+                res = (T) prop;
                 return true;
             }
-
             res = default;
             return false;
         }
