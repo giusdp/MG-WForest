@@ -57,6 +57,11 @@ namespace WForest.UI.WidgetTree
 
         private void ChangeWidgetIfNotPressed(Widget widget)
         {
+            if (widget == null)
+            {
+                ChangeWidget(null);
+                return;
+            }
             if (LastHovered != null && LastHovered.CurrentInteraction() == Interaction.Pressed)
                 return;
 
