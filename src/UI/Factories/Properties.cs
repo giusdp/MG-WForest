@@ -1,5 +1,6 @@
 using System;
 using Microsoft.Xna.Framework;
+using WForest.Devices;
 using WForest.UI.Properties;
 using WForest.UI.Properties.Actions;
 using WForest.UI.Properties.Border;
@@ -44,8 +45,8 @@ namespace WForest.UI.Factories
 
         #endregion
 
-
         #region Modifiers
+
         public static Property Border() => new Border();
         public static Property Border(Color color) => CheckArgAndCreate(color, c => new Border {Color = c});
         public static Property Border(int width) => new Border {LineWidth = width};
@@ -53,9 +54,11 @@ namespace WForest.UI.Factories
         public static Property Border(Color color, int width) =>
             CheckArgAndCreate(color, c => new Border {Color = c, LineWidth = width});
 
-        
+
         public static Property Color(Color color) => new ColorProp(color);
         public static Property Rounded(int r) => new Rounded(r);
+
+        public static Property Draggable(IDevice device) => new Draggable(device);
 
         #endregion
 
