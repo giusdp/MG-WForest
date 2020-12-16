@@ -17,7 +17,7 @@ namespace WForest.UI.Properties.Grid.Utils
 
         public static List<WidgetsDataSubList> OrganizeWidgetsInRows(WidgetTree.WidgetTree widgetTree)
             => OrganizeWidgetsInSubLists(widgetTree, CreateRow, OffsetWidgetsInRows);
-        
+
         #endregion
 
         #region DI Functions
@@ -91,7 +91,7 @@ namespace WForest.UI.Properties.Grid.Utils
                 for (var i = l.FirstWidgetIndex; i < l.LastWidgetIndex; i++)
                 {
                     var widgetSpace = widgetTrees[i].Data.Space;
-                    WidgetsSpaceHelper.UpdateSpace(widgetTrees[i],updateRect(widgetSpace, acc));
+                    WidgetsSpaceHelper.UpdateSpace(widgetTrees[i], updateRect(widgetSpace, acc));
                     acc += getSize(widgetTrees[i]);
                 }
             });
@@ -144,9 +144,10 @@ namespace WForest.UI.Properties.Grid.Utils
         private static int MaxHeightInSubList(List<Tree<Widget>> children, int from, int until) =>
             GetMaxSizeInChildrenSubList(children, from, until, WidgetHeight);
 
-        private static int GetMaxSizeInChildrenSubList(List<Tree<Widget>> children, int from, int until,
-            Func<Tree<Widget>, int> getSize) =>
-            children.GetRange(from, until < 0 ? children.Count - from : until - from).Max(getSize);
+        private static int GetMaxSizeInChildrenSubList(List<Tree<Widget>> cs, int from, int until,
+            Func<Tree<Widget>, int> size)
+            => cs.GetRange(from, until <= 0 ? cs.Count - from : until - from).Max(size);
+
 
         private static (int, int) GetSizeAndIndexTilLimitSize(List<Tree<Widget>> children, int firstChildIndex,
             int limit,
@@ -158,7 +159,7 @@ namespace WForest.UI.Properties.Grid.Utils
             for (var i = firstChildIndex; i < children.Count; i++)
             {
                 var size = getSize(children[i]);
-                if (acc + size > limit)
+                if (acc + size > limit && size < limit)
                 {
                     indexOnNewRow = i;
                     break;
