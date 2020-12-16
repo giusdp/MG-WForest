@@ -48,12 +48,14 @@ namespace WForest.UI.Properties
 
                     if (widgetNode.Parent != null)
                     {
-                        if (nx + w > widgetNode.Parent.Data.Space.X + widgetNode.Parent.Data.Space.Width)
-                            nx = widgetNode.Parent.Data.Space.Width - w;
+                        var pRight = widgetNode.Parent.Data.Space.Right;
+                        var pBottom = widgetNode.Parent.Data.Space.Bottom;
+                        if (nx + w > pRight)
+                            nx = pRight - w;
                         else if (nx < widgetNode.Parent.Data.Space.X) nx = widgetNode.Parent.Data.Space.X;
 
-                        if (ny + h > widgetNode.Parent.Data.Space.Y + widgetNode.Parent.Data.Space.Height)
-                            ny = widgetNode.Parent.Data.Space.Height - h;
+                        if (ny + h > pBottom)
+                            ny = pBottom - h;
                         else if (ny < widgetNode.Parent.Data.Space.Y)
                             ny = widgetNode.Parent.Data.Space.Y;
                     }
