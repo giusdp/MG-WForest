@@ -3,6 +3,7 @@
 # Edit at https://www.toptal.com/developers/gitignore?templates=dotnetcore,visualstudio,rider,visualstudiocode
 .vscode
 .idea
+Folder.DotSettings.user
 
 ### DotnetCore ###
 # .NET Core build folders
