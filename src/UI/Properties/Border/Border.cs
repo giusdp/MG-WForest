@@ -17,7 +17,7 @@ namespace WForest.UI.Properties.Border
 
         internal override void ApplyOn(WidgetTree.WidgetTree widgetNode)
         {
-            widgetNode.Data.Modifiers.Add(sb => { Primitives.DrawBorder(sb, widgetNode.Data.Space, Color, LineWidth); });
+            widgetNode.Data.PostDrawing.Add(sb => { Primitives.DrawBorder(sb, widgetNode.Data.Space, Color, LineWidth); });
         }
     }
 }

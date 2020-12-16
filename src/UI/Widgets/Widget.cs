@@ -12,7 +12,7 @@ namespace WForest.UI.Widgets
         #region Widget Data
 
         public Color Color;
-        public List<Action<SpriteBatch>> Modifiers { get; }
+        public List<Action<SpriteBatch>> PostDrawing { get; }
         public Rectangle Space { get; set; }
         public Margin Margin { get; set; }
 
@@ -33,19 +33,16 @@ namespace WForest.UI.Widgets
             Space = space;
             Margin = new Margin();
             Color = Color.White;
-            Modifiers = new List<Action<SpriteBatch>>();
+            PostDrawing = new List<Action<SpriteBatch>>();
             _interactionHandler = new InteractionHandler();
         }
 
         public virtual void Update()
         {
-            // Interaction handler:
-            //     1. Check hovering
-            //     2. Update
             _interactionHandler.Update();
         }
 
-        public virtual void Draw(SpriteBatch spriteBatch) => Modifiers.ForEach(a => a(spriteBatch));
+        public virtual void Draw(SpriteBatch spriteBatch) => PostDrawing.ForEach(a => a(spriteBatch));
 
         #region Utils
 
