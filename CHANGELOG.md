@@ -2,6 +2,24 @@
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
+## [0.0.9]
+### Added
+- Draggable property to drag widgets within the parent space
+- FixX and FixY properties, to use with draggable, to limit dragging on the x and/or y axis
+
+### Changed
+- Moved the interaction with widget system into a state machine used by the widgets themselves
+- Changed the onEnter/onExit/onPress/onRelease actions to a list of action
+
+## [0.0.8]
+### Added
+- Basic Block widget to have colored rectangle textures
+- Color property to change color of any widget with texture
+
+### Changed
+- Some optimization for the Rounded shader
+- Primitives static method for creating textures
+
 
 ## [0.0.7]
 ### Added
