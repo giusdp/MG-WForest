@@ -7,14 +7,13 @@ namespace WForest.UI.Widgets.TextWidget
     public class Text : Widget
     {
         private string _text;
-        
-        public DynamicSpriteFont Font { get; set; }
-        public int Size { get; set; }
-        public Text(string text, DynamicSpriteFont font, int size = 12) : base(Rectangle.Empty)
+
+        public Font Font { get; set; }
+
+        public Text(string text) : base(Rectangle.Empty)
         {
-            Font = font;
-            Size = size;
             _text = text;
+            Font = FontManager.DefaultFont;
         }
 
         public override void Update()
@@ -24,8 +23,7 @@ namespace WForest.UI.Widgets.TextWidget
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            
-           spriteBatch.DrawString(Font, _text, new Vector2(Space.Location.X, Space.Location.Y), Color.White); 
+            spriteBatch.DrawString(Font.SpriteFont(), _text, new Vector2(Space.Location.X, Space.Location.Y), Color.White);
         }
     }
 }
