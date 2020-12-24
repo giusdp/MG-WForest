@@ -3,43 +3,43 @@ using System.Collections.Generic;
 using System.IO;
 using FontStashSharp;
 using Microsoft.Xna.Framework.Graphics;
+using Serilog;
+using WForest.Exceptions;
 
 namespace WForest.UI.Widgets.TextWidget
 {
-    public class FontManager // TODO make this static so it's accessible from text widget and widgets factory
+    public static class FontManager
     {
-        internal FontSystem DefaultFontSystem { get; private set; }
+        internal static Font DefaultFont { get; set; }
 
-        private readonly Dictionary<string, FontSystem> _fontSystems = new Dictionary<string, FontSystem>();
-        private readonly GraphicsDevice _graphicsDevice;
+        private static readonly Dictionary<string, Font> Fonts = new Dictionary<string, Font>();
 
-        public FontManager(GraphicsDevice graphicsDevice, List<string> fonts, int textureWidth = 1024,
-            int textureHeight = 1024)
+        public static void Initialize(Font defaultFont)
         {
-            _graphicsDevice = graphicsDevice;
-            DefaultFontSystem = SetupFont(fonts, textureWidth, textureHeight);
+            DefaultFont = defaultFont; 
+            Log.Information("FontManager Initialized");
         }
 
-        internal void AddFont(string name, List<string> fonts, int textureWidth = 1024, int textureHeight = 1024)
+        internal static void RegisterFont(string name, Font font)
         {
-            _fontSystems.Add(name, SetupFont(fonts, textureWidth, textureHeight));
+            CheckIfInit();
+            Fonts.Add(name, font);
         }
 
-        private FontSystem SetupFont(List<string> fonts, int textureWidth = 1024, int textureHeight = 1024)
+        internal static Font GetFont(string name)
         {
-            var fontSystem = FontSystemFactory.Create(_graphicsDevice, textureWidth, textureHeight);
-            fonts.ForEach(f => fontSystem.AddFont(File.ReadAllBytes(f)));
-            return fontSystem;
-        }
-
-        internal FontSystem GetFont(string name)
-        {
-            if (_fontSystems.TryGetValue(name, out var fontSystem))
+            CheckIfInit();
+            if (Fonts.TryGetValue(name, out var font))
             {
-                return fontSystem;
+                return font;
             }
 
-            throw new Exception();
+            throw new FontNotFoundException($"The font {name} was not previously registered.");
+        }
+
+        private static void CheckIfInit()
+        {
+            if (DefaultFont == null) throw new FontManagerNotInitializedException();
         }
     }
 }

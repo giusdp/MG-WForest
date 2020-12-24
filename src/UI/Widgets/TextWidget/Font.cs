@@ -8,30 +8,28 @@ namespace WForest.UI.Widgets.TextWidget
 {
     public class Font
     {
-        private SpriteBatch _spriteBatch;
+        public int Size { get; set; }
+
         private FontSystem _fontSystem;
-        private int size;
 
-        public Font(SpriteBatch spriteBatch, int textureWidth, int textureHeight, List<Stream> fontFiles, int fontSize = 12)
+        public Font(FontSystem fontSystem, int fontSize = 12)
         {
-            _spriteBatch = spriteBatch;
-            _fontSystem = FontSystemFactory.Create(spriteBatch.GraphicsDevice, textureWidth, textureHeight);
-            size = 12;
-            fontFiles.ForEach(f => _fontSystem.AddFont(f));
+            _fontSystem = fontSystem; 
+            Size = fontSize;
         }
 
-        public Font(SpriteBatch spriteBatch, List<Stream> fontFiles, int fontSize = 12)
+        public void DrawText(SpriteBatch spriteBatch, string text)
         {
-           _spriteBatch = spriteBatch;
-            _fontSystem = FontSystemFactory.Create(spriteBatch.GraphicsDevice, 1024, 1024);
-            size = fontSize;
-            fontFiles.ForEach(f => _fontSystem.AddFont(f)); 
+            spriteBatch.DrawString(_fontSystem.GetFont(Size), text, new Vector2(0, 0), Color.White);
         }
-        
 
-        public void DrawText(string text)
+        private static FontSystem CreateFont(GraphicsDevice graphicsDevice, List<string> fontFiles,
+            int textureWidth = 1024,
+            int textureHeight = 1024)
         {
-            _spriteBatch.DrawString(_fontSystem.GetFont(size), text, new Vector2(0,0), Color.White);
+            var fontSystem = FontSystemFactory.Create(graphicsDevice, textureWidth, textureHeight);
+            fontFiles.ForEach(f => fontSystem.AddFont(File.ReadAllBytes(f)));
+            return fontSystem;
         }
     }
 }
