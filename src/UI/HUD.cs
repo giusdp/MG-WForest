@@ -1,11 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using WForest.Devices;
-using WForest.UI.Properties;
-using WForest.UI.Properties.Dragging;
 using WForest.UI.Properties.Text;
-using WForest.UI.Widgets;
 using WForest.UI.Widgets.TextWidget;
 using WForest.UI.WidgetTree;
 
@@ -28,7 +23,9 @@ namespace WForest.UI
 
             var textWidget = new Text("Test text widget");
             var text = _root.AddChild(textWidget);
-            text.AddProperty(new FontSize(0));
+            text.AddProperty(new FontSize(32));
+            // text.AddProperty(new FontFamily(FontManager.GetFont("Comfortaa-Bold")));
+            text.AddProperty(Factories.Properties.Color(Color.DarkGoldenrod));
 
             WidgetTreeVisitor.ApplyPropertiesOnTree(_root);
         }

@@ -23,13 +23,14 @@ namespace WForest.UI.Widgets.TextWidget
         public static void Initialize(Font defaultFont)
         {
             _defaultFont = defaultFont; 
-            Log.Information("FontManager Initialized");
+            Log.Information($"FontManager Initialized.");
         }
 
         public static void RegisterFont(string name, Font font)
         {
             CheckIfInit();
             Fonts.Add(name, font);
+            Log.Information($"Font {font} registered with name {name}");
         }
 
         public static Font GetFont(string name)
@@ -40,7 +41,8 @@ namespace WForest.UI.Widgets.TextWidget
                 return font;
             }
 
-            throw new FontNotFoundException($"The font {name} was not previously registered.");
+            Log.Error($"Could not retrieve font {name}, it was not found in FontManger. Have you added it with the RegisterFont method?");
+            throw new FontNotFoundException($"The font {name} not found. Did you forget to register it?");
         }
 
         private static void CheckIfInit()

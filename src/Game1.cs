@@ -39,6 +39,9 @@ namespace WForest
             _fontSystem = FontSystemFactory.Create(GraphicsDevice, 1280, 720);
             _fontSystem.AddFont(File.ReadAllBytes("Fonts/Comfortaa-Regular.ttf"));
             FontManager.Initialize(new Font(_fontSystem, 12));
+            var bold = FontSystemFactory.Create(GraphicsDevice, 1280, 720);
+            bold.AddFont(File.ReadAllBytes("Fonts/Comfortaa-Bold.ttf"));
+            FontManager.RegisterFont("Comfortaa-Bold", new Font(bold, 12));
             _hud = new HUD();
         }
 

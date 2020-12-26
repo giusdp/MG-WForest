@@ -1,30 +1,28 @@
 using System;
 using Serilog;
 using WForest.Exceptions;
+using WForest.UI.Widgets.TextWidget;
 
 namespace WForest.UI.Properties.Text
 {
-    public class FontSize : Property
+    public class FontFamily : Property
     {
-        internal override int Priority { get; } = 1;
-        
-        private readonly int _size;
-
-        public FontSize(int size)
+        private readonly Font _font;
+        public FontFamily(Font font)
         {
-            _size = size;
+            _font = font;
         }
 
         internal override void ApplyOn(WidgetTree.WidgetTree widgetNode)
         {
             if (widgetNode.Data is Widgets.TextWidget.Text text)
             {
-                text.Font.Size = _size >= 0 ? _size : throw new ArgumentException("FontSize cannot be negative.");
+                text.Font = _font ?? throw new ArgumentException("Font cannot be null.");
             }
             else
             {
                 Log.Error(
-                    $"FontSize property is only applicable to a Text Widget. Instead it has received a {widgetNode}");
+                    $"FontFamily property is only applicable to a Text Widget. Instead it has received a {widgetNode}");
                 throw new IncompatibleWidgetException("Property only applicable to a Text Widget.");
             }
         }
