@@ -1,10 +1,12 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using FontStashSharp;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Serilog;
 using WForest.UI;
+using WForest.UI.Widgets.TextWidget;
 
 namespace WForest
 {
@@ -37,6 +39,7 @@ namespace WForest
             _fontSystem = FontSystemFactory.Create(GraphicsDevice, 1280, 720);
             Log.Debug($"{Content.RootDirectory}");
             _fontSystem.AddFont(File.ReadAllBytes("Fonts/Comfortaa-Regular.ttf"));
+            FontManager.Initialize(new Font(_fontSystem, 12));
             _hud = new HUD();
         }
 
@@ -56,10 +59,6 @@ namespace WForest
 
             _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp);
             _hud.Draw(_spriteBatch);
-            DynamicSpriteFont font18 = _fontSystem.GetFont(18);
-            _spriteBatch.DrawString(font18, "The quick brown\nfox jumps over\nthe lazy dog",
-                new Vector2(0, 0), Color.White);
-
             _spriteBatch.End();
 
             base.Draw(gameTime);

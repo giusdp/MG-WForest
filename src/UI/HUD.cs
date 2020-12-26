@@ -5,6 +5,7 @@ using WForest.Devices;
 using WForest.UI.Properties;
 using WForest.UI.Properties.Dragging;
 using WForest.UI.Widgets;
+using WForest.UI.Widgets.TextWidget;
 using WForest.UI.WidgetTree;
 
 namespace WForest.UI
@@ -24,19 +25,10 @@ namespace WForest.UI
             _root.AddProperty(Factories.Properties.JustifyCenter());
             _root.AddProperty(Factories.Properties.ItemCenter());
 
-            var slider = _root.AddChild(Factories.Widgets.Block(200,5));
-            slider.AddProperty(Factories.Properties.Color(Color.DarkBlue));
-            slider.AddProperty(Factories.Properties.Margin(50,25,50,15));
-            slider.AddProperty(Factories.Properties.Row());
-            slider.AddProperty(Factories.Properties.JustifyCenter());
-            slider.AddProperty(Factories.Properties.ItemCenter());
-            var sld = slider.AddChild(Factories.Widgets.Block(20, 20));
-            sld.AddProperty(Factories.Properties.Color(Color.Aqua));
-            sld.AddProperty(new Draggable(new MouseDevice()));
-            sld.AddProperty(new FixY());
+            var textWidget = new Text("Test text widget");
+            _root.AddChild(textWidget);
             
             WidgetTreeVisitor.ApplyPropertiesOnTree(_root);
-
         }
 
         public void Update()

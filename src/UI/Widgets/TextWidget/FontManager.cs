@@ -45,7 +45,7 @@ namespace WForest.UI.Widgets.TextWidget
 
         private static void CheckIfInit()
         {
-            if (_defaultFont == null) throw new FontManagerNotInitializedException();
+            if (_defaultFont == null) throw new FontManagerNotInitializedException("No default font found, did you forget to call FontManager.Initialize() ?");
         }
     }
 }
