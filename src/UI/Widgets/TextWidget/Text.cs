@@ -23,7 +23,7 @@ namespace WForest.UI.Widgets.TextWidget
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.DrawString(Font.SpriteFont(), _text, new Vector2(Space.Location.X, Space.Location.Y), Color.White);
+            spriteBatch.DrawString(Font.SpriteFont(), _text, new Vector2(Space.Location.X, Space.Location.Y), Color);
         }
     }
 }
