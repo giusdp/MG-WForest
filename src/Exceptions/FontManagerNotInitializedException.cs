@@ -8,11 +8,11 @@ namespace WForest.Exceptions
         {
         }
 
-        public FontManagerNotInitializedException(string? message) : base(message)
+        public FontManagerNotInitializedException(string message) : base(message)
         {
         }
 
-        public FontManagerNotInitializedException(string? message, Exception? innerException) : base(message, innerException)
+        public FontManagerNotInitializedException(string message, Exception innerException) : base(message, innerException)
         {
         }
     }

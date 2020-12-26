@@ -8,11 +8,11 @@ namespace WForest.Exceptions
         {
         }
 
-        public FontNotFoundException(string? message) : base(message)
+        public FontNotFoundException(string message) : base(message)
         {
         }
 
-        public FontNotFoundException(string? message, Exception? innerException) : base(message, innerException)
+        public FontNotFoundException(string message, Exception innerException) : base(message, innerException)
         {
         }
     }
