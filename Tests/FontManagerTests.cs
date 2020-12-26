@@ -1,20 +1,10 @@
-using System.Collections.Generic;
-using System.IO;
-using FontStashSharp;
-using FontStashSharp.Interfaces;
-using Microsoft.Xna.Framework.Graphics;
 using NUnit.Framework;
 using WForest.Exceptions;
+using WForest.Tests.Utils;
 using WForest.UI.Widgets.TextWidget;
 
 namespace WForest.Tests
 {
-    class FakeFont : Font
-    {
-        public FakeFont() : base(null)
-        {
-        }
-    }
 
     [TestFixture]
     public class FontManagerTests

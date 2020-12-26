@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using WForest.Devices;
 using WForest.UI.Properties;
 using WForest.UI.Properties.Dragging;
+using WForest.UI.Properties.Text;
 using WForest.UI.Widgets;
 using WForest.UI.Widgets.TextWidget;
 using WForest.UI.WidgetTree;
@@ -26,8 +27,9 @@ namespace WForest.UI
             _root.AddProperty(Factories.Properties.ItemCenter());
 
             var textWidget = new Text("Test text widget");
-            _root.AddChild(textWidget);
-            
+            var text = _root.AddChild(textWidget);
+            text.AddProperty(new FontSize(0));
+
             WidgetTreeVisitor.ApplyPropertiesOnTree(_root);
         }
 
