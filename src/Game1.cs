@@ -28,7 +28,6 @@ namespace WForest
             _graphics.PreferredBackBufferWidth = 1280;
             _graphics.PreferredBackBufferHeight = 720;
             _graphics.ApplyChanges();
-            Log.Information("Before run?");
         }
 
         protected override void LoadContent()
