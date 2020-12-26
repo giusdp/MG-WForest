@@ -37,7 +37,6 @@ namespace WForest
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             AssetLoader.Initialize(Content);
             _fontSystem = FontSystemFactory.Create(GraphicsDevice, 1280, 720);
-            Log.Debug($"{Content.RootDirectory}");
             _fontSystem.AddFont(File.ReadAllBytes("Fonts/Comfortaa-Regular.ttf"));
             FontManager.Initialize(new Font(_fontSystem, 12));
             _hud = new HUD();
