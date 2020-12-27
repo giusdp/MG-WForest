@@ -22,6 +22,7 @@ namespace WForest.UI.Widgets
             AddOnEnter(StartedHovering);
             AddOnExit(StoppedHovering);
             AddOnPressed(PressedDown);
+            AddOnRelease(Released);
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -32,8 +33,12 @@ namespace WForest.UI.Widgets
 
         #region Visualization Based On Interactions
 
+        private bool _isHovering, _isPressed;
         private void StartedHovering()
         {
+            if (_isHovering == false) _isHovering = true;
+            else return;
+
             if (HoverButton == null)
             {
                 Log.Warning($"{GetType()} HoverButton texture missing, fallback to NormalButton.");
@@ -44,11 +49,19 @@ namespace WForest.UI.Widgets
 
         private void StoppedHovering()
         {
+            _isHovering = false;
             _imageToDraw = NormalButton;
         }
 
         private void PressedDown()
         {
+            if (_isPressed == false)
+            {
+                _isPressed = true;
+                _isHovering = false;
+            }
+            else return;
+            
             if (PressedButton == null)
             {
                 Log.Warning($"{GetType()} PressedButton texture missing, fallback to NormalButton.");
@@ -56,6 +69,8 @@ namespace WForest.UI.Widgets
             }
             else _imageToDraw = PressedButton;
         }
+
+        private void Released() => _isPressed = false;
 
         #endregion
     }
