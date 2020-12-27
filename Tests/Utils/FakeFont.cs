@@ -6,13 +6,16 @@ namespace WForest.Tests.Utils
 {
     class FakeFont : Font
     {
+        public (int, int) MeasureTextResult = (0, 0);
         public FakeFont() : base(null)
         {
         }
 
-        public override (int, int) MeasureText(string text, int fontSize)
+        public FakeFont((int, int) measureTextResult) : base(null)
         {
-            return (0, 0);
+            MeasureTextResult = measureTextResult;
         }
+
+        public override (int, int) MeasureText(string text, int fontSize) => MeasureTextResult;
     }
 }

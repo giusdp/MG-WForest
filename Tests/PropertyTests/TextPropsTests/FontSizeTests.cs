@@ -1,4 +1,5 @@
 using System;
+using Microsoft.Xna.Framework;
 using NUnit.Framework;
 using WForest.Exceptions;
 using WForest.Tests.Utils;
@@ -39,6 +40,20 @@ namespace WForest.Tests.PropertyTests.TextPropsTests
             var t = new Text("a");
             var tree = new WidgetTree(t);
             Assert.That(() => size.ApplyOn(tree), Throws.TypeOf<ArgumentException>());
+        }
+
+        [Test]
+        public void ApplyOn_RecalculatesSizeOfWidget()
+        {
+            var ff = new FakeFont();
+            FontManager.Initialize(ff);
+            var size = new FontSize(14);
+            var testWidget = (Text) Widgets.Text("Test string");
+            var tree = new WidgetTree(testWidget);
+            Assert.That(testWidget.Space.Size, Is.EqualTo(new Point(0,0)));
+            ff.MeasureTextResult = (1, 1);
+            size.ApplyOn(tree);
+            Assert.That(testWidget.Space.Size, Is.EqualTo(new Point(1,1))); 
         }
     }
 }
