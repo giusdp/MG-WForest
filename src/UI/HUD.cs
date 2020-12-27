@@ -32,6 +32,7 @@ namespace WForest.UI
             var btn = Factories.Widgets.ImageButton("Sprite-0001");
             _root.AddChild(btn);
             _root.AddChild(Factories.Widgets.ImageButton("Sprite-0002"));
+            Resize(width, height);
         }
 
         public void Resize(int width, int height)
