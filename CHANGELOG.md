@@ -3,6 +3,16 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [0.0.11]
+### Added 
+- Resize method to HUD to handle resizing of screen
+
+### Changed
+- Constructor of HUD now receives space coordinates and size for the root widget
+- First properties application in HUD constructor is through the Resize method
+
+### Fixed
+- In TreeVisitor.GetLowestNodeThatHolds was reversing in place the order of children of a widget node
 ## [0.0.10]
 ### Added
 - Installed NuGet package FontStashSharp for text rendering
