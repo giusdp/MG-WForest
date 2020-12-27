@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using WForest.UI.Widgets;
+using WForest.UI.Widgets.TextWidget;
 
 namespace WForest.UI.Factories
 {
@@ -18,5 +19,7 @@ namespace WForest.UI.Factories
 
         public static Widget Container(int width, int height) =>
             new Container(new Rectangle(0, 0, width, height));
+
+        public static Widget Text(string text) => new Text(text);
     }
 }

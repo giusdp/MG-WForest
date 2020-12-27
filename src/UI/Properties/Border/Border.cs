@@ -6,6 +6,7 @@ namespace WForest.UI.Properties.Border
 {
     public class Border : Property
     {
+        internal override int Priority { get; } = 10;
         public Color Color { get; set; }
         public int LineWidth { get; set; }
 

@@ -1,10 +1,8 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using WForest.Devices;
-using WForest.UI.Properties;
-using WForest.UI.Properties.Dragging;
-using WForest.UI.Widgets;
+using Serilog;
+using WForest.UI.Properties.Text;
+using WForest.UI.Widgets.TextWidget;
 using WForest.UI.WidgetTree;
 
 namespace WForest.UI
@@ -24,19 +22,18 @@ namespace WForest.UI
             _root.AddProperty(Factories.Properties.JustifyCenter());
             _root.AddProperty(Factories.Properties.ItemCenter());
 
-            var slider = _root.AddChild(Factories.Widgets.Block(200,5));
-            slider.AddProperty(Factories.Properties.Color(Color.DarkBlue));
-            slider.AddProperty(Factories.Properties.Margin(50,25,50,15));
-            slider.AddProperty(Factories.Properties.Row());
-            slider.AddProperty(Factories.Properties.JustifyCenter());
-            slider.AddProperty(Factories.Properties.ItemCenter());
-            var sld = slider.AddChild(Factories.Widgets.Block(20, 20));
-            sld.AddProperty(Factories.Properties.Color(Color.Aqua));
-            sld.AddProperty(new Draggable(new MouseDevice()));
-            sld.AddProperty(new FixY());
-            
+            var textWidget = new Text("Test TextWidget");
+            var text = _root.AddChild(textWidget);
+            text.AddProperty(new FontSize(32));
+            text.AddProperty(new FontFamily(FontManager.GetFont("Comfortaa-Bold")));
+            text.AddProperty(Factories.Properties.Color(Color.DarkGoldenrod));
+            text.AddProperty(Factories.Properties.Border());
+            var textW2 = new Text("Test 2 TextWidget");
+            var text2 = _root.AddChild(textW2);
+            text2.AddProperty(new FontSize(20));
             WidgetTreeVisitor.ApplyPropertiesOnTree(_root);
-
+            Log.Debug($"Text widget @ {textWidget.Space}");
+            Log.Debug($"Text widget 2 @ {textW2.Space}");
         }
 
         public void Update()

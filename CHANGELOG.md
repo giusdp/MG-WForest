@@ -2,6 +2,22 @@
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
+
+## [0.0.10]
+### Added
+- Installed NuGet package FontStashSharp for text rendering
+- Font class to deal with DynamicSpriteFont
+- FontManager to load and use fonts
+- Text Widget: simple widget to display text. It holds the text, the font and the font size.
+  On creation it calculates the size it takes on screen.
+- FontSize property to change font size of a text widget. It also recalculates the size of the text widget.
+- FontFamily property to change font in a text widget. It also recalculates the size of the text widget.
+- Tests on the new properties
+
+### Changed
+- SpriteButtonTests now is WidgetsTests to hold tests on multiple widgets, since they are few
+- Border property priority was set to 10 to have it as last property to be applied
+
 ## [0.0.9]
 ### Added
 - Draggable property to drag widgets within the parent space

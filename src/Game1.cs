@@ -1,7 +1,10 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.IO;
+using FontStashSharp;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using WForest.UI;
+using WForest.UI.Widgets.TextWidget;
 
 namespace WForest
 {
@@ -10,6 +13,7 @@ namespace WForest
         private readonly GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private HUD _hud;
+        private FontSystem _fontSystem;
 
         public Game1()
         {
@@ -30,6 +34,12 @@ namespace WForest
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             AssetLoader.Initialize(Content);
+            _fontSystem = FontSystemFactory.Create(GraphicsDevice, 1280, 720);
+            _fontSystem.AddFont(File.ReadAllBytes("Fonts/Comfortaa-Regular.ttf"));
+            FontManager.Initialize(new Font(_fontSystem));
+            var bold = FontSystemFactory.Create(GraphicsDevice, 1280, 720);
+            bold.AddFont(File.ReadAllBytes("Fonts/Comfortaa-Bold.ttf"));
+            FontManager.RegisterFont("Comfortaa-Bold", new Font(bold));
             _hud = new HUD();
         }
 
@@ -50,7 +60,7 @@ namespace WForest
             _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp);
             _hud.Draw(_spriteBatch);
             _spriteBatch.End();
-            
+
             base.Draw(gameTime);
         }
     }
