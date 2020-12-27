@@ -8,8 +8,6 @@ namespace WForest.UI.Properties.Text
 {
     public class FontSize : Property
     {
-        internal override int Priority { get; } = 1;
-        
         private readonly int _size;
 
         public FontSize(int size)
