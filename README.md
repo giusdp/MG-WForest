@@ -42,8 +42,6 @@ If you only want to propose some feature you can open an issue.
 - [x] Basic widget ui block (A simple generated texture2D)
 - [x] Draggable property and FixX/FixY to make x/y axis fixed 
 - [x] Text widget and relative properties for text
-- [] Add markup language to create a widget tree ?
-- [] Add hot-reload from markup language ?
 - [] Add breakpoints for screens dimensions
 - [] Animations
 - [] API to use the lib from outside
