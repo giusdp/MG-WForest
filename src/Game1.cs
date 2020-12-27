@@ -1,10 +1,8 @@
-﻿using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using FontStashSharp;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Serilog;
 using WForest.UI;
 using WForest.UI.Widgets.TextWidget;
 
@@ -38,10 +36,10 @@ namespace WForest
             AssetLoader.Initialize(Content);
             _fontSystem = FontSystemFactory.Create(GraphicsDevice, 1280, 720);
             _fontSystem.AddFont(File.ReadAllBytes("Fonts/Comfortaa-Regular.ttf"));
-            FontManager.Initialize(new Font(_fontSystem, 12));
+            FontManager.Initialize(new Font(_fontSystem));
             var bold = FontSystemFactory.Create(GraphicsDevice, 1280, 720);
             bold.AddFont(File.ReadAllBytes("Fonts/Comfortaa-Bold.ttf"));
-            FontManager.RegisterFont("Comfortaa-Bold", new Font(bold, 12));
+            FontManager.RegisterFont("Comfortaa-Bold", new Font(bold));
             _hud = new HUD();
         }
 

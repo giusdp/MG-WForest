@@ -21,11 +21,12 @@ namespace WForest.UI
             _root.AddProperty(Factories.Properties.JustifyCenter());
             _root.AddProperty(Factories.Properties.ItemCenter());
 
-            var textWidget = new Text("Test text widget");
+            var textWidget = new Text(null);
             var text = _root.AddChild(textWidget);
             text.AddProperty(new FontSize(32));
-            // text.AddProperty(new FontFamily(FontManager.GetFont("Comfortaa-Bold")));
+            text.AddProperty(new FontFamily(FontManager.GetFont("Comfortaa-Bold")));
             text.AddProperty(Factories.Properties.Color(Color.DarkGoldenrod));
+            text.AddProperty(Factories.Properties.Border());
 
             WidgetTreeVisitor.ApplyPropertiesOnTree(_root);
         }
