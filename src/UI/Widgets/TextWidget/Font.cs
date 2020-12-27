@@ -1,34 +1,35 @@
 using System.Collections.Generic;
 using System.IO;
 using FontStashSharp;
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace WForest.UI.Widgets.TextWidget
 {
     public class Font
     {
-        public int Size { get; set; }
 
-        private FontSystem _fontSystem;
+        private readonly FontSystem _fontSystem;
 
-        public Font(FontSystem fontSystem, int fontSize = 12)
+        public Font(FontSystem fontSystem)
         {
             _fontSystem = fontSystem;
-            Size = fontSize;
         }
 
         public Font(GraphicsDevice graphicsDevice, List<string> fontFiles,
             int textureWidth = 1024,
-            int textureHeight = 1024, int fontSize = 12)
+            int textureHeight = 1024)
         {
             var fontSystem = FontSystemFactory.Create(graphicsDevice, textureWidth, textureHeight);
             fontFiles.ForEach(f => fontSystem.AddFont(File.ReadAllBytes(f)));
             _fontSystem = fontSystem;
-            Size = fontSize;
         }
 
-        public DynamicSpriteFont SpriteFont() => _fontSystem.GetFont(Size);
+        public virtual DynamicSpriteFont SpriteFont(int fontSize) => _fontSystem.GetFont(fontSize);
 
+        public virtual (int, int) MeasureText(string text, int fontSize)
+        {
+            var (w,h) = SpriteFont(fontSize).MeasureString(text);
+            return ((int, int)) (w, h);
+        }
     }
 }

@@ -28,14 +28,16 @@ namespace WForest.Tests.PropertyTests.TextPropsTests
             var testWidget = (Text) Widgets.Text("Test string");
             var tree = new WidgetTree(testWidget);
             size.ApplyOn(tree);
-            Assert.That(testWidget.Font.Size, Is.EqualTo(14));
+            Assert.That(testWidget.FontSize, Is.EqualTo(14));
         }
 
         [Test]
         public void ApplyOn_WithInvalidSize_Throws()
         {
+            FontManager.Initialize(new FakeFont());
             var size = new FontSize(-1);
-            var tree = new WidgetTree(new Text("a"));
+            var t = new Text("a");
+            var tree = new WidgetTree(t);
             Assert.That(() => size.ApplyOn(tree), Throws.TypeOf<ArgumentException>());
         }
     }

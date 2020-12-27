@@ -1,6 +1,8 @@
 using System;
+using Microsoft.Xna.Framework;
 using Serilog;
 using WForest.Exceptions;
+using WForest.UI.Utils;
 using WForest.UI.Widgets.TextWidget;
 
 namespace WForest.UI.Properties.Text
@@ -18,6 +20,9 @@ namespace WForest.UI.Properties.Text
             if (widgetNode.Data is Widgets.TextWidget.Text text)
             {
                 text.Font = _font ?? throw new ArgumentException("Font cannot be null.");
+                var (x,y,_,_) = text.Space;
+                var (w, h) = text.Font.MeasureText(text.TextString, text.FontSize);
+                WidgetsSpaceHelper.UpdateSpace(widgetNode, new Rectangle(x,y, (int) w,(int) h));
             }
             else
             {

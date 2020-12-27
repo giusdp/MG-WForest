@@ -1,6 +1,8 @@
 using System;
+using Microsoft.Xna.Framework;
 using Serilog;
 using WForest.Exceptions;
+using WForest.UI.Utils;
 
 namespace WForest.UI.Properties.Text
 {
@@ -19,7 +21,11 @@ namespace WForest.UI.Properties.Text
         {
             if (widgetNode.Data is Widgets.TextWidget.Text text)
             {
-                text.Font.Size = _size >= 0 ? _size : throw new ArgumentException("FontSize cannot be negative.");
+                if (text.FontSize == _size) return;
+                text.FontSize = _size >= 0 ? _size : throw new ArgumentException("FontSize cannot be negative.");
+                var (x,y,_,_) = text.Space;
+                var (w, h) = text.Font.MeasureText(text.TextString, _size);
+                WidgetsSpaceHelper.UpdateSpace(widgetNode, new Rectangle(x,y, (int) w,(int) h));
             }
             else
             {

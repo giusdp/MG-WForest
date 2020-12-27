@@ -30,7 +30,7 @@ namespace WForest.UI.Widgets.TextWidget
         {
             CheckIfInit();
             Fonts.Add(name, font);
-            Log.Information($"Font {font} registered with name {name}");
+            Log.Information($"Font {name} registered.");
         }
 
         public static Font GetFont(string name)
