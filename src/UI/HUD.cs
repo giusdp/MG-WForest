@@ -1,8 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Serilog;
 using WForest.UI.Properties.Text;
-using WForest.UI.Utils;
 using WForest.UI.Widgets.TextWidget;
 using WForest.UI.WidgetTree;
 
@@ -17,7 +15,7 @@ namespace WForest.UI
         {
             _widgetTreeVisitor = new WidgetTreeVisitor();
 
-            _root = new WidgetTree.WidgetTree(Factories.Widgets.Container(width, height));
+            _root = new WidgetTree.WidgetTree(Factories.Widgets.Container(new Rectangle(x,y,width, height)));
             _root.AddProperty(Factories.Properties.Column());
             _root.AddProperty(Factories.Properties.JustifyCenter());
             _root.AddProperty(Factories.Properties.ItemCenter());
@@ -34,7 +32,6 @@ namespace WForest.UI
             var btn = Factories.Widgets.ImageButton("Sprite-0001");
             _root.AddChild(btn);
             _root.AddChild(Factories.Widgets.ImageButton("Sprite-0002"));
-            // WidgetTreeVisitor.ApplyPropertiesOnTree(_root);
         }
 
         public void Resize(int width, int height)
@@ -45,8 +42,6 @@ namespace WForest.UI
         
         public void Update()
         {
-            // Log.Debug($"_root space {_root.Data.Space}");
-            // _root.Children.ForEach(c => Log.Debug($"Space of child {c.Data} is {c.Data.Space}"));
             _widgetTreeVisitor.UpdateTree(_root);
         }
 

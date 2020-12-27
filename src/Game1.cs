@@ -35,7 +35,6 @@ namespace WForest
             _graphics.PreferredBackBufferWidth = Window.ClientBounds.Width;
             _graphics.PreferredBackBufferHeight = Window.ClientBounds.Height;
             _graphics.ApplyChanges();
-            Log.Debug($"Resizing event fired w,h {_graphics.PreferredBackBufferWidth} {_graphics.PreferredBackBufferHeight}");
             _hud?.Resize(_graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
         }
 
