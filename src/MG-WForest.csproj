@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <PackageId>WForest</PackageId>
+        <Title>MG-WForest</Title>
+        <Version>0.0.12</Version>
+        <Description>Yet another GUI library for MonoGame. Inspired by React/Flutter frontend frameworks.</Description>
+        <Authors>Giuseppe De Palma</Authors>
+        <Copyright>Copyright 2020</Copyright>
+        <PackageTags>gamedev;monogame;gui;ui</PackageTags>
+        <RepositoryUrl>https://github.com/giusdp/MG-WForest</RepositoryUrl>
+        <PackageProjectUrl>https://github.com/giusdp/MG-WForest</PackageProjectUrl>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+        <RepositoryType>git</RepositoryType>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <PublishRepositoryUrl>true</PublishRepositoryUrl>
+        <EmbedUntrackedSources>false</EmbedUntrackedSources>
+        <IncludeSymbols>true</IncludeSymbols>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="MonoGame.Framework.DesktopGL" PrivateAssets="All" Version="3.8.0.1641" />
+        <PackageReference Include="FontStashSharp.MonoGame" Version="0.8.7" />
+        <PackageReference Include="Serilog.Sinks.Console" Version="3.1.1" />
+    </ItemGroup>
+
+</Project>

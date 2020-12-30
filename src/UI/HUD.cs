@@ -1,7 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using WForest.UI.Properties.Text;
-using WForest.UI.Widgets.TextWidget;
+using Serilog;
 using WForest.UI.WidgetTree;
 
 namespace WForest.UI
@@ -13,25 +12,15 @@ namespace WForest.UI
 
         public HUD(int x, int y, int width, int height)
         {
+            Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Debug()
+                .WriteTo.Console()
+                .CreateLogger();
+            
+            Log.Information("HUD instance created.");
             _widgetTreeVisitor = new WidgetTreeVisitor();
 
             _root = new WidgetTree.WidgetTree(Factories.Widgets.Container(new Rectangle(x,y,width, height)));
-            _root.AddProperty(Factories.Properties.Column());
-            _root.AddProperty(Factories.Properties.JustifyCenter());
-            _root.AddProperty(Factories.Properties.ItemCenter());
-
-            var textWidget = new Text("Test TextWidget");
-            var text = _root.AddChild(textWidget);
-            text.AddProperty(new FontSize(32));
-            text.AddProperty(new FontFamily(FontManager.GetFont("Comfortaa-Bold")));
-            text.AddProperty(Factories.Properties.Color(Color.DarkGoldenrod));
-            text.AddProperty(Factories.Properties.Border());
-            var textW2 = new Text("Test 2 TextWidget");
-            var text2 = _root.AddChild(textW2);
-            text2.AddProperty(new FontSize(20));
-            var btn = Factories.Widgets.ImageButton("Sprite-0001");
-            _root.AddChild(btn);
-            _root.AddChild(Factories.Widgets.ImageButton("Sprite-0002"));
             Resize(width, height);
         }
 
@@ -41,10 +30,7 @@ namespace WForest.UI
             WidgetTreeVisitor.ApplyPropertiesOnTree(_root);
         }
         
-        public void Update()
-        {
-            _widgetTreeVisitor.UpdateTree(_root);
-        }
+        public void Update() => _widgetTreeVisitor.UpdateTree(_root);
 
         public void Draw(SpriteBatch spriteBatch) => WidgetTreeVisitor.DrawTree(_root, spriteBatch);
     }
