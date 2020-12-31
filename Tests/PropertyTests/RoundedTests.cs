@@ -1,5 +1,4 @@
 using NUnit.Framework;
-using WForest.UI.Properties;
 using WForest.UI.Properties.Shaders;
 
 namespace WForest.Tests.PropertyTests

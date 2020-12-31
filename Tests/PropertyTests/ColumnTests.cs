@@ -1,6 +1,5 @@
 using Microsoft.Xna.Framework;
 using NUnit.Framework;
-using WForest.UI;
 using WForest.UI.Factories;
 using WForest.UI.Properties.Grid.Column;
 using WForest.UI.WidgetTree;

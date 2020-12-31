@@ -1,6 +1,5 @@
 using Microsoft.Xna.Framework;
 using NUnit.Framework;
-using WForest.UI;
 using WForest.UI.Factories;
 using WForest.UI.Properties.Grid.Column;
 using WForest.UI.Properties.Grid.JustifyProps;
@@ -461,7 +460,7 @@ namespace WForest.Tests.PropertyTests
             var col = _root.AddChild(Widgets.Container(200, 600));
             var innerChild = col.AddChild(Widgets.Container(100, 300));
 
-            col.AddProperty(Properties.Column());
+            col.AddProperty(PropertyFactory.Column());
             col.ApplyProperties();
             ApplyRow();
             _justifyCenter.ApplyOn(_root);

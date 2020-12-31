@@ -1,9 +1,7 @@
 using Microsoft.Xna.Framework;
 using NUnit.Framework;
-using WForest.UI;
 using WForest.UI.Factories;
 using WForest.UI.WidgetTree;
-using Row = WForest.UI.Properties.Grid.Row.Row;
 
 namespace WForest.Tests.PropertyTests
 {

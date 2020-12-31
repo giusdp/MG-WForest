@@ -15,7 +15,7 @@ using WForest.UI.Properties.Shaders;
 
 namespace WForest.UI.Factories
 {
-    public static class Properties
+    public static class PropertyFactory
     {
         #region Grid
 

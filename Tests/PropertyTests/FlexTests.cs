@@ -1,6 +1,5 @@
 using Microsoft.Xna.Framework;
 using NUnit.Framework;
-using WForest.UI;
 using WForest.UI.Factories;
 using WForest.UI.Properties.Grid;
 using WForest.UI.Properties.Grid.Column;
@@ -98,7 +97,7 @@ namespace WForest.Tests.PropertyTests
             _root.AddChild(Widgets.Container(new Rectangle(0, 0, 120, 60)));
             _root.AddChild(Widgets.Container(new Rectangle(0, 0, 120, 90)));
 
-            _root.AddProperty(Properties.Flex());
+            _root.AddProperty(PropertyFactory.Flex());
             ApplyRow();
 
             var expected = new Rectangle(0, 0, 240, 90);

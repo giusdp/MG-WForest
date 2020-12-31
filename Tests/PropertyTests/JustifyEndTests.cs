@@ -1,8 +1,6 @@
 using Microsoft.Xna.Framework;
 using NUnit.Framework;
-using WForest.UI;
 using WForest.UI.Factories;
-using WForest.UI.Properties.Grid;
 using WForest.UI.Properties.Grid.JustifyProps;
 using WForest.UI.WidgetTree;
 
@@ -44,7 +42,7 @@ namespace WForest.Tests.PropertyTests
         {
             var child = _root.AddChild(Widgets.Container(new Rectangle(0, 0, 120, 220)));
 
-            _root.AddProperty(Properties.Row());
+            _root.AddProperty(PropertyFactory.Row());
             _root.ApplyProperties();
 
             _justifyEnd.ApplyOn(_root);
@@ -59,7 +57,7 @@ namespace WForest.Tests.PropertyTests
         {
             var child = _root.AddChild(Widgets.Container(new Rectangle(0, 0, 220, 120)));
 
-            _root.AddProperty(Properties.Column());
+            _root.AddProperty(PropertyFactory.Column());
             _root.AddProperty(_justifyEnd);
             _root.ApplyProperties();
 
@@ -74,8 +72,8 @@ namespace WForest.Tests.PropertyTests
             var expected = new Rectangle(1060, 300, 220, 120);
             
             var child = _root.AddChild(Widgets.Container(new Rectangle(0, 0, 220, 120)));
-            _root.AddProperty(Properties.Row());
-            _root.AddProperty(Properties.ItemCenter());
+            _root.AddProperty(PropertyFactory.Row());
+            _root.AddProperty(PropertyFactory.ItemCenter());
             _root.AddProperty(_justifyEnd);
         
             _root.ApplyProperties();
@@ -94,7 +92,7 @@ namespace WForest.Tests.PropertyTests
             var c1 = _root.AddChild(Widgets.Container(new Rectangle(0, 0, 220, 120)));
             var c2 = _root.AddChild(Widgets.Container(new Rectangle(0, 0, 120, 320)));
             var c3 = _root.AddChild(Widgets.Container(new Rectangle(0, 0, 120, 120)));
-            _root.AddProperty(Properties.Column());
+            _root.AddProperty(PropertyFactory.Column());
             _root.AddProperty(_justifyEnd);
         
             _root.ApplyProperties();

@@ -1,5 +1,3 @@
-using FontStashSharp;
-using Microsoft.Xna.Framework.Graphics;
 using WForest.UI.Widgets.TextWidget;
 
 namespace WForest.Tests.Utils

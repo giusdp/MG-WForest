@@ -1,6 +1,5 @@
 using Microsoft.Xna.Framework;
 using NUnit.Framework;
-using WForest.UI;
 using WForest.UI.Factories;
 using WForest.UI.Properties.Grid.JustifyProps;
 using WForest.UI.WidgetTree;
@@ -44,7 +43,7 @@ namespace WForest.Tests.PropertyTests
         {
             var child = _root.AddChild(Widgets.Container(new Rectangle(0, 0, 130, 120)));
 
-            _root.AddProperty(Properties.Row());
+            _root.AddProperty(PropertyFactory.Row());
             _root.AddProperty(_justifyBetween);
 
             _root.ApplyProperties();
@@ -59,7 +58,7 @@ namespace WForest.Tests.PropertyTests
             var child = _root.AddChild(Widgets.Container(new Rectangle(0, 0, 130, 120)));
             var child1 = _root.AddChild(Widgets.Container(new Rectangle(0, 0, 120, 110)));
 
-            _root.AddProperty(Properties.Row());
+            _root.AddProperty(PropertyFactory.Row());
             _root.AddProperty(_justifyBetween);
 
             _root.ApplyProperties();
@@ -78,7 +77,7 @@ namespace WForest.Tests.PropertyTests
             var child1 = _root.AddChild(Widgets.Container(new Rectangle(0, 0, 120, 110)));
             var child2 = _root.AddChild(Widgets.Container(new Rectangle(0, 0, 140, 110)));
 
-            _root.AddProperty(Properties.Row());
+            _root.AddProperty(PropertyFactory.Row());
             _root.AddProperty(_justifyBetween);
 
             _root.ApplyProperties();
@@ -101,7 +100,7 @@ namespace WForest.Tests.PropertyTests
             var child3 = _root.AddChild(Widgets.Container(new Rectangle(0, 0, 90, 120)));
             var child4 = _root.AddChild(Widgets.Container(new Rectangle(0, 0, 100, 20)));
 
-            _root.AddProperty(Properties.Row());
+            _root.AddProperty(PropertyFactory.Row());
             _root.AddProperty(_justifyBetween);
 
             _root.ApplyProperties();
@@ -127,7 +126,7 @@ namespace WForest.Tests.PropertyTests
             var child2 = _root.AddChild(Widgets.Container(new Rectangle(0, 0, 200, 200)));
             var child3 = _root.AddChild(Widgets.Container(new Rectangle(0, 0, 90, 110)));
 
-            _root.AddProperty(Properties.Row());
+            _root.AddProperty(PropertyFactory.Row());
             _root.AddProperty(_justifyBetween);
 
             _root.ApplyProperties();
