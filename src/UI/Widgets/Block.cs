@@ -6,9 +6,8 @@ namespace WForest.UI.Widgets
 {
     public class Block : Widget
     {
-
-        Texture2D _texture;
-        public Block(Rectangle space) : base(space)
+        private Texture2D _texture;
+        internal Block(Rectangle space) : base(space)
         {
         }
 

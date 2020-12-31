@@ -12,7 +12,7 @@ namespace WForest.UI.Widgets
         public Texture2D HoverButton { get; set; }
         public Texture2D PressedButton { get; set; }
 
-        public ImageButton(Texture2D normalButton) : base(Rectangle.Empty)
+        internal ImageButton(Texture2D normalButton) : base(Rectangle.Empty)
         {
             NormalButton = normalButton ??
                            throw new ArgumentNullException(nameof(normalButton));

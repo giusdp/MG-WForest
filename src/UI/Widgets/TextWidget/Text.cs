@@ -13,19 +13,13 @@ namespace WForest.UI.Widgets.TextWidget
 
         public Font Font { get; set; }
 
-
-        public Text(string text, int fontSize = 12) : base(Rectangle.Empty)
+        internal Text(string text, int fontSize = 12) : base(Rectangle.Empty)
         {
             TextString = text ?? throw new ArgumentNullException();
             Font = FontManager.DefaultFont;
             FontSize = fontSize;
             var (w, h) = Font.MeasureText(TextString, FontSize);
             Space = new Rectangle(Space.X, Space.Y, w, h);
-        }
-
-        public override void Update()
-        {
-            base.Update();
         }
 
         public override void Draw(SpriteBatch spriteBatch)
