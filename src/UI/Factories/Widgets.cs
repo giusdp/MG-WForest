@@ -9,8 +9,7 @@ namespace WForest.UI.Factories
     {
     
         public static Widget Block(int width, int height) => new Block(new Rectangle(0,0, width, height));
-        public static Widget ImageButton(string image) =>
-            new ImageButton(AssetLoader.Load<Texture2D>(image));
+        public static Widget ImageButton(Texture2D texture2D) => new ImageButton(texture2D);
 
         public static Widget Container() => new Container(Rectangle.Empty);
         public static Widget Container(Rectangle space) => new Container(space);

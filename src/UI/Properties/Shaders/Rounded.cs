@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using WForest.Exceptions;
-using WForest.Utilities;
+using WForest.Utilities.Collections;
 
 namespace WForest.UI.Properties.Shaders
 {

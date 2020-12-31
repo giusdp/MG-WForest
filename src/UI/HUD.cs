@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Serilog;
 using WForest.UI.WidgetTree;
+using WForest.Utilities.Collections;
 
 namespace WForest.UI
 {
@@ -10,13 +11,13 @@ namespace WForest.UI
         private readonly WidgetTree.WidgetTree _root;
         private readonly WidgetTreeVisitor _widgetTreeVisitor;
 
-        public HUD(int x, int y, int width, int height)
+        public HUD(GraphicsDevice graphicsDevice, int x, int y, int width, int height)
         {
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Debug()
                 .WriteTo.Console()
                 .CreateLogger();
-            
+            ShaderDb.GraphicsDevice = graphicsDevice;
             Log.Information("HUD instance created.");
             _widgetTreeVisitor = new WidgetTreeVisitor();
 
