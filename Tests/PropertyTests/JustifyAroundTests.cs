@@ -16,7 +16,7 @@ namespace WForest.Tests.PropertyTests
         public void BeforeEach()
         {
             _justifyAround = new JustifyAround();
-            _root = new WidgetTree(Widgets.Container(new Rectangle(0, 0, 1280, 720)));
+            _root = new WidgetTree(WidgetFactory.Container(new Rectangle(0, 0, 1280, 720)));
         }
 
         [Test]
@@ -28,8 +28,8 @@ namespace WForest.Tests.PropertyTests
         [Test]
         public void WidgetWithoutRowOrCol_NothingHappens()
         {
-            var child = _root.AddChild(Widgets.Container(new Rectangle(0, 0, 130, 120)));
-            _root.AddChild(Widgets.Container(new Rectangle(0, 0, 120, 110)));
+            var child = _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 130, 120)));
+            _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 120, 110)));
 
             _justifyAround.ApplyOn(_root);
 
@@ -41,7 +41,7 @@ namespace WForest.Tests.PropertyTests
         [Test]
         public void RowWithOneChild_NothingHappens()
         {
-            var child = _root.AddChild(Widgets.Container(new Rectangle(0, 0, 130, 120)));
+            var child = _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 130, 120)));
 
             _root.AddProperty(PropertyFactory.Row());
             _root.AddProperty(_justifyAround);
@@ -55,8 +55,8 @@ namespace WForest.Tests.PropertyTests
         [Test]
         public void RowWithTwoW_SpaceAround()
         {
-            var child = _root.AddChild(Widgets.Container(new Rectangle(0, 0, 130, 120)));
-            var child1 = _root.AddChild(Widgets.Container(new Rectangle(0, 0, 120, 110)));
+            var child = _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 130, 120)));
+            var child1 = _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 120, 110)));
 
             _root.AddProperty(PropertyFactory.Row());
             _root.AddProperty(_justifyAround);

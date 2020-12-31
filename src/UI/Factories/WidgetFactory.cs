@@ -5,7 +5,7 @@ using WForest.UI.Widgets.TextWidget;
 
 namespace WForest.UI.Factories
 {
-    public static class Widgets
+    public static class WidgetFactory
     {
     
         public static Widget Block(int width, int height) => new Block(new Rectangle(0,0, width, height));

@@ -16,7 +16,7 @@ namespace WForest.Tests.PropertyTests
         public void BeforeEach()
         {
             _justifyEnd = new JustifyEnd();
-            _root = new WidgetTree(Widgets.Container(new Rectangle(0, 0, 1280, 720)));
+            _root = new WidgetTree(WidgetFactory.Container(new Rectangle(0, 0, 1280, 720)));
         }
 
         [Test]
@@ -28,7 +28,7 @@ namespace WForest.Tests.PropertyTests
         [Test]
         public void WidgetWithoutRowOrCol_NothingHappens()
         {
-            var child = _root.AddChild(Widgets.Container(new Rectangle(0, 0, 120, 120)));
+            var child = _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 120, 120)));
 
             _justifyEnd.ApplyOn(_root);
 
@@ -40,7 +40,7 @@ namespace WForest.Tests.PropertyTests
         [Test]
         public void OneChildInARow_PutsItAtTheEnd()
         {
-            var child = _root.AddChild(Widgets.Container(new Rectangle(0, 0, 120, 220)));
+            var child = _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 120, 220)));
 
             _root.AddProperty(PropertyFactory.Row());
             _root.ApplyProperties();
@@ -55,7 +55,7 @@ namespace WForest.Tests.PropertyTests
         [Test]
         public void OneChildInAColumn_PutsItOnTheBottom()
         {
-            var child = _root.AddChild(Widgets.Container(new Rectangle(0, 0, 220, 120)));
+            var child = _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 220, 120)));
 
             _root.AddProperty(PropertyFactory.Column());
             _root.AddProperty(_justifyEnd);
@@ -71,7 +71,7 @@ namespace WForest.Tests.PropertyTests
         {
             var expected = new Rectangle(1060, 300, 220, 120);
             
-            var child = _root.AddChild(Widgets.Container(new Rectangle(0, 0, 220, 120)));
+            var child = _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 220, 120)));
             _root.AddProperty(PropertyFactory.Row());
             _root.AddProperty(PropertyFactory.ItemCenter());
             _root.AddProperty(_justifyEnd);
@@ -88,10 +88,10 @@ namespace WForest.Tests.PropertyTests
             var e2 = new Rectangle(0, 280, 120, 320);
             var e3 = new Rectangle(0, 600, 120, 120);
             
-            var c = _root.AddChild(Widgets.Container(new Rectangle(0, 0, 120, 120)));
-            var c1 = _root.AddChild(Widgets.Container(new Rectangle(0, 0, 220, 120)));
-            var c2 = _root.AddChild(Widgets.Container(new Rectangle(0, 0, 120, 320)));
-            var c3 = _root.AddChild(Widgets.Container(new Rectangle(0, 0, 120, 120)));
+            var c = _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 120, 120)));
+            var c1 = _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 220, 120)));
+            var c2 = _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 120, 320)));
+            var c3 = _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 120, 120)));
             _root.AddProperty(PropertyFactory.Column());
             _root.AddProperty(_justifyEnd);
         

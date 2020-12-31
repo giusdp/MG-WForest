@@ -18,7 +18,7 @@ namespace WForest.Tests.PropertyTests
         public void BeforeEach()
         {
             _justifyCenter = new JustifyCenter();
-            _root = new WidgetTree(Widgets.Container(new Rectangle(0, 0, 1280, 720)));
+            _root = new WidgetTree(WidgetFactory.Container(new Rectangle(0, 0, 1280, 720)));
         }
 
         private void ApplyRow()
@@ -42,7 +42,7 @@ namespace WForest.Tests.PropertyTests
         [Test]
         public void ApplyOn_WidgetWithoutRowOrCol_NothingHappens()
         {
-            var child = _root.AddChild(Widgets.Container(new Rectangle(0, 0, 120, 120)));
+            var child = _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 120, 120)));
 
             _justifyCenter.ApplyOn(_root);
 
@@ -54,7 +54,7 @@ namespace WForest.Tests.PropertyTests
         [Test]
         public void ApplyOn_OneChildInARow_PutsItInCenter()
         {
-            var child = _root.AddChild(Widgets.Container(new Rectangle(0, 0, 120, 120)));
+            var child = _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 120, 120)));
 
             ApplyRow();
 
@@ -68,7 +68,7 @@ namespace WForest.Tests.PropertyTests
         [Test]
         public void ApplyOn_OneChildInAColumn_PutsItInCenter()
         {
-            var child = _root.AddChild(Widgets.Container(new Rectangle(0, 0, 120, 120)));
+            var child = _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 120, 120)));
 
             ApplyCol();
 
@@ -82,8 +82,8 @@ namespace WForest.Tests.PropertyTests
         [Test]
         public void ApplyOn_TwoIdenticalWidgetsInColumn()
         {
-            var child = _root.AddChild(Widgets.Container(new Rectangle(0, 0, 120, 120)));
-            var secondChild = _root.AddChild(Widgets.Container(new Rectangle(0, 0, 120, 120)));
+            var child = _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 120, 120)));
+            var secondChild = _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 120, 120)));
 
             var firstChildExpectedLoc = new Rectangle(0, 240, 120, 120);
             var secondChildExpectedLoc = new Rectangle(0, 360, 120, 120);
@@ -98,8 +98,8 @@ namespace WForest.Tests.PropertyTests
         [Test]
         public void ApplyOn_TwoIdenticalWidgetsInRow()
         {
-            var child = _root.AddChild(Widgets.Container(new Rectangle(0, 0, 120, 120)));
-            var secondChild = _root.AddChild(Widgets.Container(new Rectangle(0, 0, 120, 120)));
+            var child = _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 120, 120)));
+            var secondChild = _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 120, 120)));
 
             var firstChildExpectedLoc = new Rectangle(520, 0, 120, 120);
             var secondChildExpectedLoc = new Rectangle(640, 0, 120, 120);
@@ -114,8 +114,8 @@ namespace WForest.Tests.PropertyTests
         [Test]
         public void ApplyOn_RowWithTwoSizesWidgets_CentersOnlyRowsNotInternally()
         {
-            var child = _root.AddChild(Widgets.Container(new Rectangle(0, 0, 220, 120)));
-            var secondChild = _root.AddChild(Widgets.Container(new Rectangle(0, 0, 120, 330)));
+            var child = _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 220, 120)));
+            var secondChild = _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 120, 330)));
 
             var firstChildExpectedLoc = new Rectangle(470, 0, 220, 120);
             var secondChildExpectedLoc = new Rectangle(690, 0, 120, 330);
@@ -129,8 +129,8 @@ namespace WForest.Tests.PropertyTests
         [Test]
         public void ApplyOn_ColumnWithTwoSizesWidgets_CentersOnlyColumnsNotInternally()
         {
-            var child = _root.AddChild(Widgets.Container(new Rectangle(0, 0, 220, 120)));
-            var secondChild = _root.AddChild(Widgets.Container(new Rectangle(0, 0, 120, 330)));
+            var child = _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 220, 120)));
+            var secondChild = _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 120, 330)));
 
             var firstChildExpectedLoc = new Rectangle(0, 135, 220, 120);
             var secondChildExpectedLoc = new Rectangle(0, 255, 120, 330);
@@ -146,12 +146,12 @@ namespace WForest.Tests.PropertyTests
         {
             var acts = new[]
             {
-                _root.AddChild(Widgets.Container(new Rectangle(0, 0, 220, 120))),
-                _root.AddChild(Widgets.Container(new Rectangle(0, 0, 220, 120))),
-                _root.AddChild(Widgets.Container(new Rectangle(0, 0, 220, 120))),
-                _root.AddChild(Widgets.Container(new Rectangle(0, 0, 220, 120))),
-                _root.AddChild(Widgets.Container(new Rectangle(0, 0, 220, 120))),
-                _root.AddChild(Widgets.Container(new Rectangle(0, 0, 220, 120)))
+                _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 220, 120)))
             };
 
             var expects = new[]
@@ -177,9 +177,9 @@ namespace WForest.Tests.PropertyTests
         {
             var acts = new[]
             {
-                _root.AddChild(Widgets.Container(new Rectangle(0, 0, 120, 330))),
-                _root.AddChild(Widgets.Container(new Rectangle(0, 0, 120, 330))),
-                _root.AddChild(Widgets.Container(new Rectangle(0, 0, 120, 330)))
+                _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 120, 330))),
+                _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 120, 330))),
+                _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 120, 330)))
             };
 
             var expects = new[]
@@ -203,25 +203,25 @@ namespace WForest.Tests.PropertyTests
             var acts = new[]
             {
                 // First Row
-                _root.AddChild(Widgets.Container(new Rectangle(0, 0, 220, 120))),
-                _root.AddChild(Widgets.Container(new Rectangle(0, 0, 220, 120))),
-                _root.AddChild(Widgets.Container(new Rectangle(0, 0, 220, 120))),
-                _root.AddChild(Widgets.Container(new Rectangle(0, 0, 220, 120))),
-                _root.AddChild(Widgets.Container(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 220, 120))),
 
                 // Second Row
-                _root.AddChild(Widgets.Container(new Rectangle(0, 0, 220, 120))),
-                _root.AddChild(Widgets.Container(new Rectangle(0, 0, 220, 120))),
-                _root.AddChild(Widgets.Container(new Rectangle(0, 0, 220, 120))),
-                _root.AddChild(Widgets.Container(new Rectangle(0, 0, 220, 120))),
-                _root.AddChild(Widgets.Container(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 220, 120))),
 
                 // Third Row
-                _root.AddChild(Widgets.Container(new Rectangle(0, 0, 220, 120))),
-                _root.AddChild(Widgets.Container(new Rectangle(0, 0, 220, 120))),
-                _root.AddChild(Widgets.Container(new Rectangle(0, 0, 220, 120))),
-                _root.AddChild(Widgets.Container(new Rectangle(0, 0, 220, 120))),
-                _root.AddChild(Widgets.Container(new Rectangle(0, 0, 220, 120)))
+                _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 220, 120)))
             };
 
             var expects = new[]
@@ -257,16 +257,16 @@ namespace WForest.Tests.PropertyTests
             var acts = new[]
             {
                 // First Col
-                _root.AddChild(Widgets.Container(new Rectangle(0, 0, 120, 330))),
-                _root.AddChild(Widgets.Container(new Rectangle(0, 0, 120, 330))),
+                _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 120, 330))),
+                _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 120, 330))),
 
                 // Second Col
-                _root.AddChild(Widgets.Container(new Rectangle(0, 0, 120, 330))),
-                _root.AddChild(Widgets.Container(new Rectangle(0, 0, 120, 330))),
+                _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 120, 330))),
+                _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 120, 330))),
 
                 // Third Col
-                _root.AddChild(Widgets.Container(new Rectangle(0, 0, 120, 330))),
-                _root.AddChild(Widgets.Container(new Rectangle(0, 0, 120, 330))),
+                _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 120, 330))),
+                _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 120, 330))),
             };
 
             var expects = new[]
@@ -293,28 +293,28 @@ namespace WForest.Tests.PropertyTests
             var acts = new[]
             {
                 // First Row
-                _root.AddChild(Widgets.Container(new Rectangle(0, 0, 220, 120))),
-                _root.AddChild(Widgets.Container(new Rectangle(0, 0, 220, 120))),
-                _root.AddChild(Widgets.Container(new Rectangle(0, 0, 220, 120))),
-                _root.AddChild(Widgets.Container(new Rectangle(0, 0, 220, 120))),
-                _root.AddChild(Widgets.Container(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 220, 120))),
 
                 // Second Row
-                _root.AddChild(Widgets.Container(new Rectangle(0, 0, 220, 120))),
-                _root.AddChild(Widgets.Container(new Rectangle(0, 0, 220, 120))),
-                _root.AddChild(Widgets.Container(new Rectangle(0, 0, 220, 120))),
-                _root.AddChild(Widgets.Container(new Rectangle(0, 0, 220, 120))),
-                _root.AddChild(Widgets.Container(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 220, 120))),
 
                 // Third Row
-                _root.AddChild(Widgets.Container(new Rectangle(0, 0, 220, 120))),
-                _root.AddChild(Widgets.Container(new Rectangle(0, 0, 220, 120))),
-                _root.AddChild(Widgets.Container(new Rectangle(0, 0, 220, 120))),
-                _root.AddChild(Widgets.Container(new Rectangle(0, 0, 220, 120))),
-                _root.AddChild(Widgets.Container(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 220, 120))),
 
                 // The one more widget
-                _root.AddChild(Widgets.Container(new Rectangle(0, 0, 220, 120)))
+                _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 220, 120)))
             };
 
             var expects = new[]
@@ -352,19 +352,19 @@ namespace WForest.Tests.PropertyTests
             var acts = new[]
             {
                 // First Col
-                _root.AddChild(Widgets.Container(new Rectangle(0, 0, 120, 330))),
-                _root.AddChild(Widgets.Container(new Rectangle(0, 0, 120, 330))),
+                _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 120, 330))),
+                _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 120, 330))),
 
                 // Second Col
-                _root.AddChild(Widgets.Container(new Rectangle(0, 0, 120, 330))),
-                _root.AddChild(Widgets.Container(new Rectangle(0, 0, 120, 330))),
+                _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 120, 330))),
+                _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 120, 330))),
 
                 // Third Col
-                _root.AddChild(Widgets.Container(new Rectangle(0, 0, 120, 330))),
-                _root.AddChild(Widgets.Container(new Rectangle(0, 0, 120, 330))),
+                _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 120, 330))),
+                _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 120, 330))),
 
                 // The one more widget
-                _root.AddChild(Widgets.Container(new Rectangle(0, 0, 220, 120)))
+                _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 220, 120)))
             };
 
             var expects = new[]
@@ -391,13 +391,13 @@ namespace WForest.Tests.PropertyTests
         {
             var acts = new[]
             {
-                _root.AddChild(Widgets.Container(new Rectangle(0, 0, 220, 120))),
-                _root.AddChild(Widgets.Container(new Rectangle(0, 0, 120, 330))),
-                _root.AddChild(Widgets.Container(new Rectangle(0, 0, 220, 120))),
-                _root.AddChild(Widgets.Container(new Rectangle(0, 0, 220, 120))),
-                _root.AddChild(Widgets.Container(new Rectangle(0, 0, 220, 120))),
-                _root.AddChild(Widgets.Container(new Rectangle(0, 0, 220, 120))),
-                _root.AddChild(Widgets.Container(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 120, 330))),
+                _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 220, 120))),
             };
 
             var expects = new[]
@@ -424,14 +424,14 @@ namespace WForest.Tests.PropertyTests
         {
             var acts = new[]
             {
-                _root.AddChild(Widgets.Container(new Rectangle(0, 0, 220, 120))),
-                _root.AddChild(Widgets.Container(new Rectangle(0, 0, 120, 330))),
-                _root.AddChild(Widgets.Container(new Rectangle(0, 0, 220, 120))),
-                _root.AddChild(Widgets.Container(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 120, 330))),
+                _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 220, 120))),
 
-                _root.AddChild(Widgets.Container(new Rectangle(0, 0, 220, 120))),
-                _root.AddChild(Widgets.Container(new Rectangle(0, 0, 220, 120))),
-                _root.AddChild(Widgets.Container(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 220, 120))),
+                _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 220, 120))),
             };
 
             var expects = new[]
@@ -457,8 +457,8 @@ namespace WForest.Tests.PropertyTests
         [Test]
         public void ApplyOn_RowWithColWithWidgets_TotallyCentered()
         {
-            var col = _root.AddChild(Widgets.Container(200, 600));
-            var innerChild = col.AddChild(Widgets.Container(100, 300));
+            var col = _root.AddChild(WidgetFactory.Container(200, 600));
+            var innerChild = col.AddChild(WidgetFactory.Container(100, 300));
 
             col.AddProperty(PropertyFactory.Column());
             col.ApplyProperties();

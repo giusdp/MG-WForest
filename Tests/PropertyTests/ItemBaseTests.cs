@@ -16,7 +16,7 @@ namespace WForest.Tests.PropertyTests
         public void BeforeEach()
         {
             _itemBase = new ItemBase();
-            _root = new WidgetTree(Widgets.Container(new Rectangle(0, 0, 1280, 720)));
+            _root = new WidgetTree(WidgetFactory.Container(new Rectangle(0, 0, 1280, 720)));
         }
 
         [Test]
@@ -28,7 +28,7 @@ namespace WForest.Tests.PropertyTests
         [Test]
         public void OnRow_PutChildAtBottom()
         {
-            var c = _root.AddChild(Widgets.Container(20, 20)); 
+            var c = _root.AddChild(WidgetFactory.Container(20, 20)); 
             _root.AddProperty(PropertyFactory.Row()); 
             _root.AddProperty(PropertyFactory.ItemBase());
             _root.ApplyProperties();
@@ -37,7 +37,7 @@ namespace WForest.Tests.PropertyTests
         [Test]
         public void OnCol_PutChildAtRight()
         {
-            var c = _root.AddChild(Widgets.Container(20, 20)); 
+            var c = _root.AddChild(WidgetFactory.Container(20, 20)); 
             _root.AddProperty(PropertyFactory.Column()); 
             _root.AddProperty(PropertyFactory.ItemBase());
             _root.ApplyProperties();
@@ -47,7 +47,7 @@ namespace WForest.Tests.PropertyTests
         [Test]
         public void OnRowWithJustifyEnd_PutsInLowerRightCorner()
         {
-            var c = _root.AddChild(Widgets.Container(20, 20)); 
+            var c = _root.AddChild(WidgetFactory.Container(20, 20)); 
             _root.AddProperty(PropertyFactory.Row());
             _root.AddProperty(PropertyFactory.JustifyEnd());
             _root.AddProperty(PropertyFactory.ItemBase());
@@ -58,7 +58,7 @@ namespace WForest.Tests.PropertyTests
         [Test]
         public void OnColWithJustifyEnd_PutsInLowerRightCorner()
         {
-            var c = _root.AddChild(Widgets.Container(20, 20)); 
+            var c = _root.AddChild(WidgetFactory.Container(20, 20)); 
             _root.AddProperty(PropertyFactory.Column());
             _root.AddProperty(PropertyFactory.JustifyEnd());
             _root.AddProperty(PropertyFactory.ItemBase());
@@ -69,8 +69,8 @@ namespace WForest.Tests.PropertyTests
         [Test]
         public void OnRowWithJustifyEndTwoWidgets_DoesNotFuckItUp()
         {
-            var c = _root.AddChild(Widgets.Container(20, 20));
-            var c1= _root.AddChild(Widgets.Container(30, 40));
+            var c = _root.AddChild(WidgetFactory.Container(20, 20));
+            var c1= _root.AddChild(WidgetFactory.Container(30, 40));
             _root.AddProperty(PropertyFactory.Row());
             _root.AddProperty(PropertyFactory.JustifyEnd());
             _root.AddProperty(PropertyFactory.ItemBase());
@@ -82,9 +82,9 @@ namespace WForest.Tests.PropertyTests
         [Test]
         public void OnMultipleRows_OffsetsCorrectly()
         {
-           var c = _root.AddChild(Widgets.Container(800, 20));
-            var c1= _root.AddChild(Widgets.Container(300, 40));
-            var c2= _root.AddChild(Widgets.Container(300, 40));
+           var c = _root.AddChild(WidgetFactory.Container(800, 20));
+            var c1= _root.AddChild(WidgetFactory.Container(300, 40));
+            var c2= _root.AddChild(WidgetFactory.Container(300, 40));
             _root.AddProperty(PropertyFactory.Row());
             _root.AddProperty(PropertyFactory.JustifyEnd());
             _root.AddProperty(PropertyFactory.ItemBase());

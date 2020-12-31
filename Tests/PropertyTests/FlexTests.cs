@@ -18,7 +18,7 @@ namespace WForest.Tests.PropertyTests
         public void BeforeEach()
         {
             _flex = new Flex();
-            _root = new WidgetTree(Widgets.Container());
+            _root = new WidgetTree(WidgetFactory.Container());
             _root.AddProperty(_flex);
         }
 
@@ -43,7 +43,7 @@ namespace WForest.Tests.PropertyTests
         [Test]
         public void ApplyOn_WidgetWithoutRowOrCol_NothingHappens()
         {
-            var child = _root.AddChild(Widgets.Container(new Rectangle(0, 0, 120, 120)));
+            var child = _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 120, 120)));
 
             ApplyRow();
 
@@ -55,7 +55,7 @@ namespace WForest.Tests.PropertyTests
         [Test]
         public void FlexRowContainer_AsBigAsChild()
         {
-            _root.AddChild(Widgets.Container(new Rectangle(0, 0, 120, 120)));
+            _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 120, 120)));
 
             ApplyRow();
 
@@ -67,8 +67,8 @@ namespace WForest.Tests.PropertyTests
         [Test]
         public void FlexRowContainerWithTwoChildren_AsBigAsRow()
         {
-            _root.AddChild(Widgets.Container(new Rectangle(0, 0, 120, 120)));
-            _root.AddChild(Widgets.Container(new Rectangle(0, 0, 120, 120)));
+            _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 120, 120)));
+            _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 120, 120)));
 
             ApplyRow();
 
@@ -80,8 +80,8 @@ namespace WForest.Tests.PropertyTests
         [Test]
         public void FlexColContainerWithTwoChildren_AsBigAsCol()
         {
-            _root.AddChild(Widgets.Container(new Rectangle(0, 0, 120, 120)));
-            _root.AddChild(Widgets.Container(new Rectangle(0, 0, 120, 120)));
+            _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 120, 120)));
+            _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 120, 120)));
 
             ApplyCol();
 
@@ -93,9 +93,9 @@ namespace WForest.Tests.PropertyTests
         [Test]
         public void FlexContainerWithSize_IgnoresSizeAndStartsFromZero()
         {
-            _root = new WidgetTree(Widgets.Container(400, 300));
-            _root.AddChild(Widgets.Container(new Rectangle(0, 0, 120, 60)));
-            _root.AddChild(Widgets.Container(new Rectangle(0, 0, 120, 90)));
+            _root = new WidgetTree(WidgetFactory.Container(400, 300));
+            _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 120, 60)));
+            _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 120, 90)));
 
             _root.AddProperty(PropertyFactory.Flex());
             ApplyRow();

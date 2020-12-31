@@ -12,7 +12,7 @@ namespace WForest.Tests
         [Test]
         public void SimpleContainer_StartsAtSizeZero()
         {
-            var container = Widgets.Container();
+            var container = WidgetFactory.Container();
             Assert.That(container.Space, Is.EqualTo(Rectangle.Empty));
         }
 

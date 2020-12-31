@@ -21,7 +21,7 @@ namespace WForest.UI
             Log.Information("HUD instance created.");
             _widgetTreeVisitor = new WidgetTreeVisitor();
 
-            _root = new WidgetTree.WidgetTree(Factories.Widgets.Container(new Rectangle(x,y,width, height)));
+            _root = new WidgetTree.WidgetTree(Factories.WidgetFactory.Container(new Rectangle(x,y,width, height)));
             Resize(width, height);
         }
 

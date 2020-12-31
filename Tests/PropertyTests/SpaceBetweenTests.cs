@@ -16,7 +16,7 @@ namespace WForest.Tests.PropertyTests
         public void BeforeEach()
         {
             _justifyBetween = new JustifyBetween();
-            _root = new WidgetTree(Widgets.Container(new Rectangle(0, 0, 1280, 720)));
+            _root = new WidgetTree(WidgetFactory.Container(new Rectangle(0, 0, 1280, 720)));
         }
 
         [Test]
@@ -28,8 +28,8 @@ namespace WForest.Tests.PropertyTests
         [Test]
         public void WidgetWithoutRowOrCol_NothingHappens()
         {
-            var child = _root.AddChild(Widgets.Container(new Rectangle(0, 0, 130, 120)));
-            _root.AddChild(Widgets.Container(new Rectangle(0, 0, 120, 110)));
+            var child = _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 130, 120)));
+            _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 120, 110)));
 
             _justifyBetween.ApplyOn(_root);
 
@@ -41,7 +41,7 @@ namespace WForest.Tests.PropertyTests
         [Test]
         public void RowWithOneChild_NothingHappens()
         {
-            var child = _root.AddChild(Widgets.Container(new Rectangle(0, 0, 130, 120)));
+            var child = _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 130, 120)));
 
             _root.AddProperty(PropertyFactory.Row());
             _root.AddProperty(_justifyBetween);
@@ -55,8 +55,8 @@ namespace WForest.Tests.PropertyTests
         [Test]
         public void RowWithTwoW_MaximizesSpaceBetween()
         {
-            var child = _root.AddChild(Widgets.Container(new Rectangle(0, 0, 130, 120)));
-            var child1 = _root.AddChild(Widgets.Container(new Rectangle(0, 0, 120, 110)));
+            var child = _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 130, 120)));
+            var child1 = _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 120, 110)));
 
             _root.AddProperty(PropertyFactory.Row());
             _root.AddProperty(_justifyBetween);
@@ -73,9 +73,9 @@ namespace WForest.Tests.PropertyTests
         [Test]
         public void RowWithThreeW_MaximizesSpaceBetween()
         {
-            var child = _root.AddChild(Widgets.Container(new Rectangle(0, 0, 130, 120)));
-            var child1 = _root.AddChild(Widgets.Container(new Rectangle(0, 0, 120, 110)));
-            var child2 = _root.AddChild(Widgets.Container(new Rectangle(0, 0, 140, 110)));
+            var child = _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 130, 120)));
+            var child1 = _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 120, 110)));
+            var child2 = _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 140, 110)));
 
             _root.AddProperty(PropertyFactory.Row());
             _root.AddProperty(_justifyBetween);
@@ -94,11 +94,11 @@ namespace WForest.Tests.PropertyTests
         [Test]
         public void RowWithFiveW_MaximizesSpaceBetween()
         {
-            var child = _root.AddChild(Widgets.Container(new Rectangle(0, 0, 130, 120)));
-            var child1 = _root.AddChild(Widgets.Container(new Rectangle(0, 0, 120, 110)));
-            var child2 = _root.AddChild(Widgets.Container(new Rectangle(0, 0, 140, 110)));
-            var child3 = _root.AddChild(Widgets.Container(new Rectangle(0, 0, 90, 120)));
-            var child4 = _root.AddChild(Widgets.Container(new Rectangle(0, 0, 100, 20)));
+            var child = _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 130, 120)));
+            var child1 = _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 120, 110)));
+            var child2 = _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 140, 110)));
+            var child3 = _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 90, 120)));
+            var child4 = _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 100, 20)));
 
             _root.AddProperty(PropertyFactory.Row());
             _root.AddProperty(_justifyBetween);
@@ -121,10 +121,10 @@ namespace WForest.Tests.PropertyTests
         [Test]
         public void RowWithFourW_MaximizesSpaceBetween()
         {
-            var child = _root.AddChild(Widgets.Container(new Rectangle(0, 0, 130, 120)));
-            var child1 = _root.AddChild(Widgets.Container(new Rectangle(0, 0, 120, 110)));
-            var child2 = _root.AddChild(Widgets.Container(new Rectangle(0, 0, 200, 200)));
-            var child3 = _root.AddChild(Widgets.Container(new Rectangle(0, 0, 90, 110)));
+            var child = _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 130, 120)));
+            var child1 = _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 120, 110)));
+            var child2 = _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 200, 200)));
+            var child3 = _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 90, 110)));
 
             _root.AddProperty(PropertyFactory.Row());
             _root.AddProperty(_justifyBetween);

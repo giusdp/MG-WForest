@@ -13,8 +13,8 @@ namespace WForest.Tests.PropertyTests
         [Test]
         public void StretchContainer_AsBigAsParent()
         {
-            _root = new WidgetTree(Widgets.Container(400, 401));
-            var c = _root.AddChild(Widgets.Container());
+            _root = new WidgetTree(WidgetFactory.Container(400, 401));
+            var c = _root.AddChild(WidgetFactory.Container());
             c.AddProperty(PropertyFactory.Stretch());
             c.ApplyProperties();
             Assert.That(c.Data.Space, Is.EqualTo(new Rectangle(0, 0, 400, 401)));
@@ -23,8 +23,8 @@ namespace WForest.Tests.PropertyTests
         [Test]
         public void StretchRowContainer_OnlyWidthAsParent()
         {
-            _root = new WidgetTree(Widgets.Container(400, 401));
-            var c = _root.AddChild(Widgets.Container());
+            _root = new WidgetTree(WidgetFactory.Container(400, 401));
+            var c = _root.AddChild(WidgetFactory.Container());
             c.AddProperty(PropertyFactory.Stretch());
             c.AddProperty(PropertyFactory.Row());
             c.ApplyProperties();
@@ -34,9 +34,9 @@ namespace WForest.Tests.PropertyTests
         [Test]
         public void StretchRowContainer_HeightAsRows()
         {
-            _root = new WidgetTree(Widgets.Container(400, 401));
-            var c = _root.AddChild(Widgets.Container(40, 55));
-            c.AddChild(Widgets.Container(40, 95));
+            _root = new WidgetTree(WidgetFactory.Container(400, 401));
+            var c = _root.AddChild(WidgetFactory.Container(40, 55));
+            c.AddChild(WidgetFactory.Container(40, 95));
             c.AddProperty(PropertyFactory.Stretch());
             c.AddProperty(PropertyFactory.Row());
             c.ApplyProperties();
@@ -46,9 +46,9 @@ namespace WForest.Tests.PropertyTests
         [Test]
         public void StretchColumnContainer_StretchHeightOnly()
         {
-            _root = new WidgetTree(Widgets.Container(400, 401));
-            var c = _root.AddChild(Widgets.Container(41, 55));
-            c.AddChild(Widgets.Container(42, 95));
+            _root = new WidgetTree(WidgetFactory.Container(400, 401));
+            var c = _root.AddChild(WidgetFactory.Container(41, 55));
+            c.AddChild(WidgetFactory.Container(42, 95));
             c.AddProperty(PropertyFactory.Stretch());
             c.AddProperty(PropertyFactory.Column());
             c.ApplyProperties();

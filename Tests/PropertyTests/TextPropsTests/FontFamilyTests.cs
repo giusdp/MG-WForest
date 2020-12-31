@@ -18,7 +18,7 @@ namespace WForest.Tests.PropertyTests.TextPropsTests
         public void ApplyOn_NotTextWidget_ThrowsException()
         {
             var font = new FontFamily(new FakeFont());
-            var tree = new WidgetTree(Widgets.Container(0, 0));
+            var tree = new WidgetTree(WidgetFactory.Container(0, 0));
             Assert.That(() => font.ApplyOn(tree), Throws.TypeOf<IncompatibleWidgetException>());
         }
 
@@ -28,7 +28,7 @@ namespace WForest.Tests.PropertyTests.TextPropsTests
             FontManager.Initialize(new FakeFont());
             var anotherFont = new FakeFont();
             var font = new FontFamily(anotherFont);
-            var testWidget = (Text) Widgets.Text("Test string");
+            var testWidget = (Text) WidgetFactory.Text("Test string");
             var tree = new WidgetTree(testWidget);
             font.ApplyOn(tree);
             Assert.That(testWidget.Font, Is.EqualTo(anotherFont));
@@ -48,7 +48,7 @@ namespace WForest.Tests.PropertyTests.TextPropsTests
                 var ff = new FakeFont();
                 FontManager.Initialize(new FakeFont());
                 var font = new FontFamily(ff);
-                var testWidget = (Text) Widgets.Text("Test string");
+                var testWidget = (Text) WidgetFactory.Text("Test string");
                 var tree = new WidgetTree(testWidget);
                 Assert.That(testWidget.Space.Size, Is.EqualTo(new Point(0,0)));
                 ff.MeasureTextResult = (1, 1);

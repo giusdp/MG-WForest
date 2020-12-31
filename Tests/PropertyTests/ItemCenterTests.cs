@@ -18,7 +18,7 @@ namespace WForest.Tests.PropertyTests
         public void BeforeEach()
         {
             _itemCenter = new ItemCenter();
-            _root = new WidgetTree(Widgets.Container(new Rectangle(0, 0, 1280, 720)));
+            _root = new WidgetTree(WidgetFactory.Container(new Rectangle(0, 0, 1280, 720)));
         }
 
         private void ApplyRow()
@@ -42,7 +42,7 @@ namespace WForest.Tests.PropertyTests
         [Test]
         public void OnARow_PutsChildrenCenteredVertically()
         {
-            var c = _root.AddChild(Widgets.Container(20, 20));
+            var c = _root.AddChild(WidgetFactory.Container(20, 20));
             ApplyRow();
             _itemCenter.ApplyOn(_root);
             Assert.That(c.Data.Space, Is.EqualTo(new Rectangle(0, 350, 20, 20)));
@@ -51,7 +51,7 @@ namespace WForest.Tests.PropertyTests
         [Test]
         public void OnACol_PutsChildrenCenteredHorizontally()
         {
-            var c = _root.AddChild(Widgets.Container(20, 20));
+            var c = _root.AddChild(WidgetFactory.Container(20, 20));
             ApplyCol();
             _itemCenter.ApplyOn(_root);
             Assert.That(c.Data.Space, Is.EqualTo(new Rectangle(630, 0, 20, 20)));
@@ -60,7 +60,7 @@ namespace WForest.Tests.PropertyTests
         [Test]
         public void OnACenteredRow_CentersCorrectly()
         {
-            var c = _root.AddChild(Widgets.Container(20, 20));
+            var c = _root.AddChild(WidgetFactory.Container(20, 20));
             ApplyRow();
             PropertyFactory.JustifyCenter().ApplyOn(_root);
             _itemCenter.ApplyOn(_root);
@@ -70,9 +70,9 @@ namespace WForest.Tests.PropertyTests
         [Test]
         public void OnACenteredRowWithThreeWidgetsOfDiffSizes_CentersCorrectly()
         {
-            var c = _root.AddChild(Widgets.Container(20, 20));
-            var c1 = _root.AddChild(Widgets.Container(30, 40));
-            var c2 = _root.AddChild(Widgets.Container(20, 30));
+            var c = _root.AddChild(WidgetFactory.Container(20, 20));
+            var c1 = _root.AddChild(WidgetFactory.Container(30, 40));
+            var c2 = _root.AddChild(WidgetFactory.Container(20, 30));
             ApplyRow();
             PropertyFactory.JustifyCenter().ApplyOn(_root);
             _itemCenter.ApplyOn(_root);
@@ -84,9 +84,9 @@ namespace WForest.Tests.PropertyTests
         [Test]
         public void OnMultipleCenteredRows_Centers()
         {
-           var c = _root.AddChild(Widgets.Container(1120, 20));
-            var c1 = _root.AddChild(Widgets.Container(100, 40));
-            var c2 = _root.AddChild(Widgets.Container(120, 30));
+           var c = _root.AddChild(WidgetFactory.Container(1120, 20));
+            var c1 = _root.AddChild(WidgetFactory.Container(100, 40));
+            var c2 = _root.AddChild(WidgetFactory.Container(120, 30));
             ApplyRow();
             PropertyFactory.JustifyCenter().ApplyOn(_root);
             _itemCenter.ApplyOn(_root);
@@ -97,9 +97,9 @@ namespace WForest.Tests.PropertyTests
        [Test]
         public void OnACenteredColWithThreeWidgetsOfDiffSizes_CentersCorrectly()
         {
-            var c = _root.AddChild(Widgets.Container(20, 20));
-            var c1 = _root.AddChild(Widgets.Container(30, 40));
-            var c2 = _root.AddChild(Widgets.Container(20, 30));
+            var c = _root.AddChild(WidgetFactory.Container(20, 20));
+            var c1 = _root.AddChild(WidgetFactory.Container(30, 40));
+            var c2 = _root.AddChild(WidgetFactory.Container(20, 30));
             ApplyCol();
             PropertyFactory.JustifyCenter().ApplyOn(_root);
             _itemCenter.ApplyOn(_root);
@@ -111,9 +111,9 @@ namespace WForest.Tests.PropertyTests
         [Test]
         public void OnMultipleCenteredCols_Centers()
         {
-           var c = _root.AddChild(Widgets.Container(1120, 20));
-            var c1 = _root.AddChild(Widgets.Container(100, 40));
-            var c2 = _root.AddChild(Widgets.Container(120, 30));
+           var c = _root.AddChild(WidgetFactory.Container(1120, 20));
+            var c1 = _root.AddChild(WidgetFactory.Container(100, 40));
+            var c2 = _root.AddChild(WidgetFactory.Container(120, 30));
             ApplyCol();
             PropertyFactory.JustifyCenter().ApplyOn(_root);
             _itemCenter.ApplyOn(_root);
