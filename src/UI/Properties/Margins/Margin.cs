@@ -11,7 +11,7 @@ namespace WForest.UI.Properties.Margins
 
         private readonly Utilities.Margin _margin;
 
-        public Margin(int marginLeft, int marginRight, int marginTop, int marginBottom)
+        internal Margin(int marginLeft, int marginRight, int marginTop, int marginBottom)
         {
             _margin = new Utilities.Margin(marginLeft, marginRight, marginTop, marginBottom);
         }

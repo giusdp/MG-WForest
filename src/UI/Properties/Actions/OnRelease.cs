@@ -6,7 +6,7 @@ namespace WForest.UI.Properties.Actions
     {
         private readonly Action _function;
 
-        public OnRelease(Action onPress)
+        internal OnRelease(Action onPress)
         {
             _function = onPress;
         }

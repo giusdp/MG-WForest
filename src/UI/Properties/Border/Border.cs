@@ -10,7 +10,7 @@ namespace WForest.UI.Properties.Border
         public Color Color { get; set; }
         public int LineWidth { get; set; }
 
-        public Border()
+        internal Border()
         {
             LineWidth = 1;
             Color = Color.Black;

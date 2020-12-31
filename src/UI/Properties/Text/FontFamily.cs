@@ -10,7 +10,7 @@ namespace WForest.UI.Properties.Text
     public class FontFamily : Property
     {
         private readonly Font _font;
-        public FontFamily(Font font)
+        internal FontFamily(Font font)
         {
             _font = font;
         }

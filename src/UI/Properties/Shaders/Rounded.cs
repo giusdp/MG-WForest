@@ -18,7 +18,7 @@ namespace WForest.UI.Properties.Shaders
 
        internal override void ApplyOn(WidgetTree.WidgetTree widgetNode){}
 
-       public void ApplyParameters(int width, int height, int radius)
+       internal void ApplyParameters(int width, int height, int radius)
        {
            Effect.Parameters["Width"].SetValue(width);
            Effect.Parameters["Height"].SetValue(height);
