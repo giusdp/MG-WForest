@@ -29,8 +29,8 @@ namespace WForest.Tests.PropertyTests
         public void OnRow_PutChildAtBottom()
         {
             var c = _root.AddChild(WidgetFactory.Container(20, 20)); 
-            _root.AddProperty(PropertyFactory.Row()); 
-            _root.AddProperty(PropertyFactory.ItemBase());
+            _root.WithProperty(PropertyFactory.Row()); 
+            _root.WithProperty(PropertyFactory.ItemBase());
             _root.ApplyProperties();
             Assert.That(c.Data.Space, Is.EqualTo(new Rectangle(0, 700, 20, 20)));
         }
@@ -38,8 +38,8 @@ namespace WForest.Tests.PropertyTests
         public void OnCol_PutChildAtRight()
         {
             var c = _root.AddChild(WidgetFactory.Container(20, 20)); 
-            _root.AddProperty(PropertyFactory.Column()); 
-            _root.AddProperty(PropertyFactory.ItemBase());
+            _root.WithProperty(PropertyFactory.Column()); 
+            _root.WithProperty(PropertyFactory.ItemBase());
             _root.ApplyProperties();
             Assert.That(c.Data.Space, Is.EqualTo(new Rectangle(1260, 0, 20, 20)));
         }
@@ -48,9 +48,9 @@ namespace WForest.Tests.PropertyTests
         public void OnRowWithJustifyEnd_PutsInLowerRightCorner()
         {
             var c = _root.AddChild(WidgetFactory.Container(20, 20)); 
-            _root.AddProperty(PropertyFactory.Row());
-            _root.AddProperty(PropertyFactory.JustifyEnd());
-            _root.AddProperty(PropertyFactory.ItemBase());
+            _root.WithProperty(PropertyFactory.Row());
+            _root.WithProperty(PropertyFactory.JustifyEnd());
+            _root.WithProperty(PropertyFactory.ItemBase());
             _root.ApplyProperties();
             Assert.That(c.Data.Space, Is.EqualTo(new Rectangle(1260, 700, 20, 20)));
         }
@@ -59,9 +59,9 @@ namespace WForest.Tests.PropertyTests
         public void OnColWithJustifyEnd_PutsInLowerRightCorner()
         {
             var c = _root.AddChild(WidgetFactory.Container(20, 20)); 
-            _root.AddProperty(PropertyFactory.Column());
-            _root.AddProperty(PropertyFactory.JustifyEnd());
-            _root.AddProperty(PropertyFactory.ItemBase());
+            _root.WithProperty(PropertyFactory.Column());
+            _root.WithProperty(PropertyFactory.JustifyEnd());
+            _root.WithProperty(PropertyFactory.ItemBase());
             _root.ApplyProperties();
             Assert.That(c.Data.Space, Is.EqualTo(new Rectangle(1260, 700, 20, 20)));
         }
@@ -71,9 +71,9 @@ namespace WForest.Tests.PropertyTests
         {
             var c = _root.AddChild(WidgetFactory.Container(20, 20));
             var c1= _root.AddChild(WidgetFactory.Container(30, 40));
-            _root.AddProperty(PropertyFactory.Row());
-            _root.AddProperty(PropertyFactory.JustifyEnd());
-            _root.AddProperty(PropertyFactory.ItemBase());
+            _root.WithProperty(PropertyFactory.Row());
+            _root.WithProperty(PropertyFactory.JustifyEnd());
+            _root.WithProperty(PropertyFactory.ItemBase());
             _root.ApplyProperties();
             Assert.That(c.Data.Space, Is.EqualTo(new Rectangle(1230, 700, 20, 20)));
             Assert.That(c1.Data.Space, Is.EqualTo(new Rectangle(1250, 680, 30, 40)));
@@ -85,9 +85,9 @@ namespace WForest.Tests.PropertyTests
            var c = _root.AddChild(WidgetFactory.Container(800, 20));
             var c1= _root.AddChild(WidgetFactory.Container(300, 40));
             var c2= _root.AddChild(WidgetFactory.Container(300, 40));
-            _root.AddProperty(PropertyFactory.Row());
-            _root.AddProperty(PropertyFactory.JustifyEnd());
-            _root.AddProperty(PropertyFactory.ItemBase());
+            _root.WithProperty(PropertyFactory.Row());
+            _root.WithProperty(PropertyFactory.JustifyEnd());
+            _root.WithProperty(PropertyFactory.ItemBase());
             _root.ApplyProperties();
             Assert.That(c.Data.Space, Is.EqualTo(new Rectangle(180, 660, 800, 20)));
             Assert.That(c1.Data.Space, Is.EqualTo(new Rectangle(980, 640, 300, 40)));

@@ -23,13 +23,13 @@ namespace WForest.Tests.PropertyTests
 
         private void ApplyRow()
         {
-            _root.AddProperty(new Row());
+            _root.WithProperty(new Row());
             _root.ApplyProperties();
         }
 
         private void ApplyCol()
         {
-            _root.AddProperty(new Column());
+            _root.WithProperty(new Column());
             _root.ApplyProperties();
         }
 
@@ -460,7 +460,7 @@ namespace WForest.Tests.PropertyTests
             var col = _root.AddChild(WidgetFactory.Container(200, 600));
             var innerChild = col.AddChild(WidgetFactory.Container(100, 300));
 
-            col.AddProperty(PropertyFactory.Column());
+            col.WithProperty(PropertyFactory.Column());
             col.ApplyProperties();
             ApplyRow();
             _justifyCenter.ApplyOn(_root);

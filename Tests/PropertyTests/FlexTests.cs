@@ -19,18 +19,18 @@ namespace WForest.Tests.PropertyTests
         {
             _flex = new Flex();
             _root = new WidgetTree(WidgetFactory.Container());
-            _root.AddProperty(_flex);
+            _root.WithProperty(_flex);
         }
 
         private void ApplyRow()
         {
-            _root.AddProperty(new Row());
+            _root.WithProperty(new Row());
             _root.ApplyProperties();
         }
 
         private void ApplyCol()
         {
-            _root.AddProperty(new Column());
+            _root.WithProperty(new Column());
             _root.ApplyProperties();
         }
 
@@ -97,7 +97,7 @@ namespace WForest.Tests.PropertyTests
             _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 120, 60)));
             _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 120, 90)));
 
-            _root.AddProperty(PropertyFactory.Flex());
+            _root.WithProperty(PropertyFactory.Flex());
             ApplyRow();
 
             var expected = new Rectangle(0, 0, 240, 90);

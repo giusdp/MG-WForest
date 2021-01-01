@@ -43,8 +43,8 @@ namespace WForest.Tests.PropertyTests
         {
             var child = _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 130, 120)));
 
-            _root.AddProperty(PropertyFactory.Row());
-            _root.AddProperty(_justifyAround);
+            _root.WithProperty(PropertyFactory.Row());
+            _root.WithProperty(_justifyAround);
 
             _root.ApplyProperties();
             var expected = new Rectangle(0, 0, 130, 120);
@@ -58,8 +58,8 @@ namespace WForest.Tests.PropertyTests
             var child = _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 130, 120)));
             var child1 = _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 120, 110)));
 
-            _root.AddProperty(PropertyFactory.Row());
-            _root.AddProperty(_justifyAround);
+            _root.WithProperty(PropertyFactory.Row());
+            _root.WithProperty(_justifyAround);
 
             _root.ApplyProperties();
 

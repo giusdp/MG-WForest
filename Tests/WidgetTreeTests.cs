@@ -20,14 +20,14 @@ namespace WForest.Tests
         public void AddProperty_AddPropertyToList()
         {
             var c = PropertyFactory.JustifyCenter();
-            _t.AddProperty(c);
+            _t.WithProperty(c);
             Assert.That(_t.Properties.Contains(c), Is.True);
         }
 
         [Test]
         public void AddProperty_NullInput()
         {
-            Assert.That(() => _t.AddProperty(null), Throws.ArgumentNullException);
+            Assert.That(() => _t.WithProperty(null), Throws.ArgumentNullException);
         }
 
         [Test]

@@ -23,13 +23,13 @@ namespace WForest.Tests.PropertyTests
 
         private void ApplyRow()
         {
-            _root.AddProperty(new Row());
+            _root.WithProperty(new Row());
             _root.ApplyProperties();
         }
 
         private void ApplyCol()
         {
-            _root.AddProperty(new Column());
+            _root.WithProperty(new Column());
             _root.ApplyProperties();
         }
 

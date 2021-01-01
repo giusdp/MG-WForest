@@ -144,8 +144,8 @@ namespace WForest.Tests.PropertyTests
 
             margin.ApplyOn(widget);
 
-            _root.AddProperty(PropertyFactory.Column());
-            _root.AddProperty(PropertyFactory.JustifyCenter());
+            _root.WithProperty(PropertyFactory.Column());
+            _root.WithProperty(PropertyFactory.JustifyCenter());
 
             _root.ApplyProperties();
 
@@ -167,8 +167,8 @@ namespace WForest.Tests.PropertyTests
 
             margin.ApplyOn(widget);
 
-            _root.AddProperty(PropertyFactory.Row());
-            _root.AddProperty(PropertyFactory.JustifyCenter());
+            _root.WithProperty(PropertyFactory.Row());
+            _root.WithProperty(PropertyFactory.JustifyCenter());
 
             _root.ApplyProperties();
 
@@ -190,8 +190,8 @@ namespace WForest.Tests.PropertyTests
 
             margin.ApplyOn(secondWidget);
 
-            _root.AddProperty(PropertyFactory.Row());
-            _root.AddProperty(PropertyFactory.JustifyCenter());
+            _root.WithProperty(PropertyFactory.Row());
+            _root.WithProperty(PropertyFactory.JustifyCenter());
 
             _root.ApplyProperties();
 
@@ -213,8 +213,8 @@ namespace WForest.Tests.PropertyTests
 
             margin.ApplyOn(secondWidget);
 
-            _root.AddProperty(PropertyFactory.Column());
-            _root.AddProperty(PropertyFactory.JustifyCenter());
+            _root.WithProperty(PropertyFactory.Column());
+            _root.WithProperty(PropertyFactory.JustifyCenter());
 
             _root.ApplyProperties();
 
@@ -236,8 +236,8 @@ namespace WForest.Tests.PropertyTests
 
             margin.ApplyOn(w2);
 
-            _root.AddProperty(PropertyFactory.Row());
-            _root.AddProperty(PropertyFactory.JustifyCenter());
+            _root.WithProperty(PropertyFactory.Row());
+            _root.WithProperty(PropertyFactory.JustifyCenter());
 
             _root.ApplyProperties();
 
@@ -261,8 +261,8 @@ namespace WForest.Tests.PropertyTests
 
             margin.ApplyOn(w2);
 
-            _root.AddProperty(PropertyFactory.Row());
-            _root.AddProperty(PropertyFactory.JustifyCenter());
+            _root.WithProperty(PropertyFactory.Row());
+            _root.WithProperty(PropertyFactory.JustifyCenter());
 
             _root.ApplyProperties();
 
@@ -284,8 +284,8 @@ namespace WForest.Tests.PropertyTests
             var w3 = _root.AddChild(WidgetFactory.Container(new Rectangle(Point.Zero, new Point(220, 120))));
             _root.AddChild(WidgetFactory.Container(new Rectangle(Point.Zero, new Point(220, 120))));
 
-            _root.AddProperty(PropertyFactory.Row());
-            _root.AddProperty(PropertyFactory.JustifyCenter());
+            _root.WithProperty(PropertyFactory.Row());
+            _root.WithProperty(PropertyFactory.JustifyCenter());
 
             _root.ApplyProperties();
 
