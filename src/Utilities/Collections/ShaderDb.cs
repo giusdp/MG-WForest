@@ -8,23 +8,9 @@ namespace WForest.Utilities.Collections
     {
         internal static GraphicsDevice GraphicsDevice { get; set; }
 
-        private static readonly Lazy<Effect> RoundedEffect = new Lazy<Effect>(LoadRoundedShader());
+        private static readonly Lazy<Effect> RoundedEffect = new Lazy<Effect>(LoadRoundedShader);
 
-        internal static Effect Rounded
-        {
-            get
-            {
-                try
-                {
-                    return RoundedEffect.Value;
-                }
-                catch (Exception e)
-                {
-                    if (e.InnerException != null) throw e.InnerException;
-                    throw;
-                }
-            }
-        }
+        internal static Effect Rounded => RoundedEffect.Value;
 
         private static Effect LoadRoundedShader()
         {
