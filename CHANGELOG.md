@@ -3,6 +3,29 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [0.0.12]
+### Added
+- A csproj file in the src folder to build nuget package without the tests and other stuff
+- A Program class with a main method in the tests folder so that building and testing the project works (for some reason running the tests was giving missing main method error)
+- ShaderDB initialization in HUD (giving it a reference to the graphicsDevice) so it can use it to load shaders
+- WForestFactory class as an entry point for the lib. Used to create WTreeManager (previous hud class)
+
+### Changed
+- Turned project into a class lib project so it can be packaged into a nuget package and installed in monogame projects
+- Widgets Factory for the ImageButton now takes a texture2d directly and doesn't use the assetloader to load a texture.
+- ShaderDB loads the shaders from scratch, without the AssetLoader
+- Widgets factory renamed to WidgetFactory
+- Properties factory renamed to PropertyFactory
+- Widgets constructors made internal so they can only be instanced via WidgetFactory
+- Properties constructors changed to internal
+- WidgetTree AddProperty renamed to WithProperty which returns its WidgetTree instance so it can be concatenated
+- HUD changed name to WTreeManager
+- Moved factories folder outside UI
+
+### Removed
+- Program and Game1 classes 
+- AssetLoader and AssetLoaderNotInitialized exception
+
 ## [0.0.11]
 ### Added 
 - Resize method to HUD to handle resizing of screen
