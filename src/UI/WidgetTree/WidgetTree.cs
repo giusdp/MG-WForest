@@ -36,7 +36,7 @@ namespace WForest.UI.WidgetTree
             return childNode;
         }
 
-        public void ApplyProperties() =>
+        internal void ApplyProperties() =>
             Properties.OrderBy(p => p.Priority).ToList().ForEach(p => p.ApplyOnAndFireApplied(this));
 
 

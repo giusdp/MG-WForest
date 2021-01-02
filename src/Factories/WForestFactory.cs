@@ -1,6 +1,8 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Serilog;
+using Serilog.Core;
+using Serilog.Events;
 using WForest.UI;
 using WForest.UI.WidgetTree;
 using WForest.Utilities.Collections;
@@ -15,8 +17,11 @@ namespace WForest.Factories
         {
             _graphicsDevice = graphicsDevice;
             ShaderDb.GraphicsDevice = graphicsDevice;
+
+            var ls = new LoggingLevelSwitch(isLoggingActive ? LogEventLevel.Debug : LogEventLevel.Fatal);
             Log.Logger = new LoggerConfiguration()
                 .WriteTo.Console()
+                .MinimumLevel.ControlledBy(ls)
                 .CreateLogger();
             Log.Information("WForest initialized, ready to create Widgets Trees.");
         }
