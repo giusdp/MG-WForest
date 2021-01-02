@@ -11,11 +11,9 @@ namespace WForest.Factories
 {
     public class WForestFactory
     {
-        private GraphicsDevice _graphicsDevice;
 
         public WForestFactory(GraphicsDevice graphicsDevice, bool isLoggingActive)
         {
-            _graphicsDevice = graphicsDevice;
             ShaderDb.GraphicsDevice = graphicsDevice;
 
             var ls = new LoggingLevelSwitch(isLoggingActive ? LogEventLevel.Debug : LogEventLevel.Fatal);
