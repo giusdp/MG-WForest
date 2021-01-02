@@ -1,5 +1,5 @@
 using NUnit.Framework;
-using WForest.UI.Factories;
+using WForest.Factories;
 using WForest.UI.Properties.Actions;
 using WForest.UI.Properties.Grid.JustifyProps;
 using WForest.UI.Properties.Margins;

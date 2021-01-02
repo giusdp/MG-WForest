@@ -13,7 +13,7 @@ using WForest.UI.Properties.Grid.Row;
 using WForest.UI.Properties.Margins;
 using WForest.UI.Properties.Shaders;
 
-namespace WForest.UI.Factories
+namespace WForest.Factories
 {
     public static class PropertyFactory
     {

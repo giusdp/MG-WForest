@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using WForest.UI.Widgets;
 using WForest.UI.Widgets.TextWidget;
 
-namespace WForest.UI.Factories
+namespace WForest.Factories
 {
     public static class WidgetFactory
     {

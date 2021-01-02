@@ -1,6 +1,6 @@
 using Microsoft.Xna.Framework;
 using NUnit.Framework;
-using WForest.UI.Factories;
+using WForest.Factories;
 using WForest.UI.WidgetTree;
 
 namespace WForest.Tests
