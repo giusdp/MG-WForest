@@ -1,15 +1,15 @@
-using System;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using WForest.UI.Properties.Grid.Utils;
 using WForest.UI.Utils;
+using WForest.UI.WidgetTrees;
 
 namespace WForest.UI.Properties.Grid
 {
     public class Flex : Property
     {
         internal Flex(){}
-        internal override void ApplyOn(WidgetTree.WidgetTree widgetNode)
+        internal override void ApplyOn(WidgetTree widgetNode)
         {
             IncreaseSpaceWithChildren(widgetNode);
 
@@ -39,7 +39,7 @@ namespace WForest.UI.Properties.Grid
                 };
         }
 
-        private static void IncreaseSpaceWithChildren(WidgetTree.WidgetTree widgetNode)
+        private static void IncreaseSpaceWithChildren(WidgetTree widgetNode)
         {
             int w = 0, h = 0;
             widgetNode.Children.ForEach(c =>

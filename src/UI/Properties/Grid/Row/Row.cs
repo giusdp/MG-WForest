@@ -1,6 +1,6 @@
-using System;
 using System.Collections.Generic;
 using WForest.UI.Properties.Grid.Utils;
+using WForest.UI.WidgetTrees;
 
 namespace WForest.UI.Properties.Grid.Row
 {
@@ -10,7 +10,8 @@ namespace WForest.UI.Properties.Grid.Row
 
         internal List<WidgetsDataSubList> Rows = new List<WidgetsDataSubList>();
 
-        internal override void ApplyOn(WidgetTree.WidgetTree widgetNode)
+        internal Row(){}
+        internal override void ApplyOn(WidgetTree widgetNode)
         {
             if (widgetNode.Children.Count != 0)
                 Rows = GridHelper.OrganizeWidgetsInRows(widgetNode);

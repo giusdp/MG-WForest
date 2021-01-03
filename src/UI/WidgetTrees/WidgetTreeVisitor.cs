@@ -2,13 +2,12 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Serilog;
 using WForest.UI.Properties.Shaders;
 using WForest.UI.Widgets;
 using WForest.Utilities;
 using WForest.Utilities.Collections;
 
-namespace WForest.UI.WidgetTree
+namespace WForest.UI.WidgetTrees
 {
     public class WidgetTreeVisitor
     {

@@ -6,10 +6,9 @@ using Microsoft.Xna.Framework.Graphics;
 using WForest.UI.Properties;
 using WForest.UI.Utils;
 using WForest.UI.Widgets;
-using WForest.UI.Widgets.Interactions;
 using WForest.Utilities.Collections;
 
-namespace WForest.UI.WidgetTree
+namespace WForest.UI.WidgetTrees
 {
     public class WidgetTree : Tree<Widget>
     {

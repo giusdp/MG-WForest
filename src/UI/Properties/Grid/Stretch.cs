@@ -2,13 +2,14 @@ using System.Linq;
 using Microsoft.Xna.Framework;
 using WForest.UI.Properties.Grid.Utils;
 using WForest.UI.Utils;
+using WForest.UI.WidgetTrees;
 
 namespace WForest.UI.Properties.Grid
 {
     public class Stretch : Property
     {
         internal Stretch(){}
-        internal override void ApplyOn(WidgetTree.WidgetTree widgetNode)
+        internal override void ApplyOn(WidgetTree widgetNode)
         {
             if (widgetNode.IsRoot) return;
             WidgetsSpaceHelper.UpdateSpace(widgetNode,

@@ -6,7 +6,7 @@ using WForest.Factories;
 using WForest.Tests.Utils;
 using WForest.UI.Properties.Text;
 using WForest.UI.Widgets.TextWidget;
-using WForest.UI.WidgetTree;
+using WForest.UI.WidgetTrees;
 
 namespace WForest.Tests.PropertyTests.TextPropsTests
 {

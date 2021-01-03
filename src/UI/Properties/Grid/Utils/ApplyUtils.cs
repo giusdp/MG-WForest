@@ -1,13 +1,13 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Serilog;
+using WForest.UI.WidgetTrees;
 
 namespace WForest.UI.Properties.Grid.Utils
 {
     internal static class ApplyUtils
     {
-        internal static void ApplyIfThereAreChildren(WidgetTree.WidgetTree wt, string noApplyMsq, Action logic)
+        internal static void ApplyIfThereAreChildren(WidgetTree wt, string noApplyMsq, Action logic)
         {
             if (wt.Children.Count == 0)
                 Log.Warning(noApplyMsq);
@@ -15,27 +15,27 @@ namespace WForest.UI.Properties.Grid.Utils
                 logic();
         }
 
-        internal static bool TryExtractRows(WidgetTree.WidgetTree widgetNode, out List<WidgetsDataSubList> rows)
+        internal static bool TryExtractRows(WidgetTree widgetNode, out List<WidgetsDataSubList> rows)
         {
             var b = TryExtractProp<Row.Row>(widgetNode, out var res);
             rows = b ? res.Rows : new List<WidgetsDataSubList>();
             return b;
         }
 
-        internal static bool TryExtractColumns(WidgetTree.WidgetTree widgetNode, out List<WidgetsDataSubList> columns)
+        internal static bool TryExtractColumns(WidgetTree widgetNode, out List<WidgetsDataSubList> columns)
         {
             var b = TryExtractProp<Column.Column>(widgetNode, out var res);
             columns = b ? res.Columns : new List<WidgetsDataSubList>();
             return b;
         }
 
-        internal static bool TryExtractRow(WidgetTree.WidgetTree widgetNode, out Row.Row rowProp)
+        internal static bool TryExtractRow(WidgetTree widgetNode, out Row.Row rowProp)
             => TryExtractProp(widgetNode, out rowProp);
 
-        internal static bool TryExtractColumn(WidgetTree.WidgetTree widgetNode, out Column.Column colProp)
+        internal static bool TryExtractColumn(WidgetTree widgetNode, out Column.Column colProp)
             => TryExtractProp(widgetNode, out colProp);
 
-        private static bool TryExtractProp<T> (WidgetTree.WidgetTree widgetNode, out T res) where T : Property
+        private static bool TryExtractProp<T> (WidgetTree widgetNode, out T res) where T : Property
         {
             var prop = widgetNode.Properties.Find(p => p is T);
             if (prop != null)

@@ -4,7 +4,7 @@ using Serilog;
 using Serilog.Core;
 using Serilog.Events;
 using WForest.UI;
-using WForest.UI.WidgetTree;
+using WForest.UI.WidgetTrees;
 using WForest.Utilities.Collections;
 
 namespace WForest.Factories

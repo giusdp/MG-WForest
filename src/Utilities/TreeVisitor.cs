@@ -6,9 +6,9 @@ using WForest.Utilities.Collections;
 
 namespace WForest.Utilities
 {
-    public static class TreeVisitor<T>
+    internal static class TreeVisitor<T>
     {
-        public static void ApplyToTreeLevelByLevel(Tree<T> tree, Action<List<Tree<T>>> action)
+        internal static void ApplyToTreeLevelByLevel(Tree<T> tree, Action<List<Tree<T>>> action)
         {
             if (tree == null) throw new ArgumentNullException(nameof(tree));
             if (action == null) throw new ArgumentNullException(nameof(action));
@@ -28,14 +28,14 @@ namespace WForest.Utilities
           
         }
 
-        public static void ApplyToTreeFromLeaves(Tree<T> tree, Action<Tree<T>> action)
+        internal static void ApplyToTreeFromLeaves(Tree<T> tree, Action<Tree<T>> action)
         {
             if (tree == null) throw new ArgumentNullException(nameof(tree));
             if (action == null) throw new ArgumentNullException(nameof(action));
             foreach (var node in tree.Reverse()) action(node);
         }
 
-        public static Maybe<Tree<T>> GetLowestNodeThatHolds([NotNull] Tree<T> tree, Func<Tree<T>, bool> predicate)
+        internal static Maybe<Tree<T>> GetLowestNodeThatHolds([NotNull] Tree<T> tree, Func<Tree<T>, bool> predicate)
         {
             if (tree == null) throw new ArgumentNullException(nameof(tree));
             if (predicate == null) throw new ArgumentNullException(nameof(predicate));

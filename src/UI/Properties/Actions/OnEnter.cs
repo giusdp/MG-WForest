@@ -11,7 +11,7 @@ namespace WForest.UI.Properties.Actions
             _function = onPress;
         }
 
-        internal override void ApplyOn(WidgetTree.WidgetTree widgetNode)
+        internal override void ApplyOn(WidgetTrees.WidgetTree widgetNode)
         {
             widgetNode.Data.AddOnEnter(_function);
         }

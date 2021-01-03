@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using WForest.UI.Properties.Grid.Utils;
 using WForest.UI.Utils;
 using WForest.UI.Widgets;
+using WForest.UI.WidgetTrees;
 using WForest.Utilities.Collections;
 
 namespace WForest.UI.Properties.Grid.JustifyProps
@@ -12,7 +13,8 @@ namespace WForest.UI.Properties.Grid.JustifyProps
     {
         internal override int Priority { get; } = 2;
 
-        internal override void ApplyOn(WidgetTree.WidgetTree widgetNode)
+        internal JustifyEnd(){}
+        internal override void ApplyOn(WidgetTree widgetNode)
         {
             ApplyUtils.ApplyIfThereAreChildren(widgetNode,
                 $"{widgetNode.Data} has no children to justify-end.",
@@ -32,7 +34,7 @@ namespace WForest.UI.Properties.Grid.JustifyProps
                 });
         }
 
-        private static Action<List<WidgetsDataSubList>> PutAtEnd(WidgetTree.WidgetTree wTree, Func<Tree<Widget>, int> getSize,
+        private static Action<List<WidgetsDataSubList>> PutAtEnd(WidgetTree wTree, Func<Tree<Widget>, int> getSize,
             Func<int, Tree<Widget>, Point> updateLoc, Func<Widget, int> getMargin)
         {
             return wLists =>

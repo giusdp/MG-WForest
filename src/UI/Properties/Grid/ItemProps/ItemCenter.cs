@@ -1,4 +1,5 @@
 using WForest.UI.Properties.Grid.Utils;
+using WForest.UI.WidgetTrees;
 
 namespace WForest.UI.Properties.Grid.ItemProps
 {
@@ -6,7 +7,9 @@ namespace WForest.UI.Properties.Grid.ItemProps
     {
         internal override int Priority { get; } = 3;
 
-        internal override void ApplyOn(WidgetTree.WidgetTree widgetNode)
+        internal ItemCenter(){}
+
+        internal override void ApplyOn(WidgetTree widgetNode)
         {
             ApplyUtils.ApplyIfThereAreChildren(widgetNode,
                 $"{widgetNode.Data} has no children to item-center.",

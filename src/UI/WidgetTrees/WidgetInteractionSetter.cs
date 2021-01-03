@@ -1,14 +1,13 @@
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-using Serilog;
 using WForest.UI.Properties.Shaders;
 using WForest.UI.Widgets;
 using WForest.UI.Widgets.Interactions;
 using WForest.Utilities;
 using WForest.Utilities.Collections;
 
-namespace WForest.UI.WidgetTree
+namespace WForest.UI.WidgetTrees
 {
     public class WidgetInteractionSetter
     {

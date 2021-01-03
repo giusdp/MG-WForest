@@ -4,15 +4,17 @@ using Microsoft.Xna.Framework;
 using WForest.UI.Properties.Grid.Utils;
 using WForest.UI.Utils;
 using WForest.UI.Widgets;
+using WForest.UI.WidgetTrees;
 using WForest.Utilities.Collections;
 
 namespace WForest.UI.Properties.Grid.ItemProps
 {
     public class ItemBase : Property
     {
+        internal ItemBase(){}
         internal override int Priority { get; } = 3;
 
-        internal override void ApplyOn(WidgetTree.WidgetTree widgetNode)
+        internal override void ApplyOn(WidgetTree widgetNode)
         {
             ApplyUtils.ApplyIfThereAreChildren(widgetNode, $"{widgetNode.Data} has no children to item-base.",
                 () =>
@@ -31,7 +33,7 @@ namespace WForest.UI.Properties.Grid.ItemProps
                 });
         }
 
-        private static Action<List<WidgetsDataSubList>> PutAtBase(WidgetTree.WidgetTree wTree,
+        private static Action<List<WidgetsDataSubList>> PutAtBase(WidgetTree wTree,
             Func<WidgetsDataSubList, int> listSize, Func<Tree<Widget>, int> wSize,
             Func<int, Tree<Widget>, Point> updateLoc)
         {

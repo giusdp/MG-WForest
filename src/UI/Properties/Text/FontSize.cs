@@ -15,7 +15,7 @@ namespace WForest.UI.Properties.Text
             _size = size;
         }
 
-        internal override void ApplyOn(WidgetTree.WidgetTree widgetNode)
+        internal override void ApplyOn(WidgetTrees.WidgetTree widgetNode)
         {
             if (widgetNode.Data is Widgets.TextWidget.Text text)
             {

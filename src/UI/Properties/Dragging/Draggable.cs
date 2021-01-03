@@ -26,7 +26,7 @@ namespace WForest.UI.Properties.Dragging
             _device = device;
         }
 
-        internal override void ApplyOn(WidgetTree.WidgetTree widgetNode)
+        internal override void ApplyOn(WidgetTrees.WidgetTree widgetNode)
         {
             var dragCtx = new DragCtx();
 
@@ -64,7 +64,7 @@ namespace WForest.UI.Properties.Dragging
             widgetNode.Data.AddOnExit(() => dragCtx.IsDragging = false);
         }
 
-        private static (int, int) CheckBounds(WidgetTree.WidgetTree wt, int x, int y, bool isXFixed, bool isYFixed)
+        private static (int, int) CheckBounds(WidgetTrees.WidgetTree wt, int x, int y, bool isXFixed, bool isYFixed)
         {
             var (_, _, w, h) = wt.Data.Space;
             if (wt.Parent == null) return (x, y);

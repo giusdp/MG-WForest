@@ -4,7 +4,7 @@ using WForest.Factories;
 using WForest.UI.Properties.Grid.Column;
 using WForest.UI.Properties.Grid.ItemProps;
 using WForest.UI.Properties.Grid.Row;
-using WForest.UI.WidgetTree;
+using WForest.UI.WidgetTrees;
 
 namespace WForest.Tests.PropertyTests
 {

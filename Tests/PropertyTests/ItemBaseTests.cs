@@ -2,7 +2,7 @@ using Microsoft.Xna.Framework;
 using NUnit.Framework;
 using WForest.Factories;
 using WForest.UI.Properties.Grid.ItemProps;
-using WForest.UI.WidgetTree;
+using WForest.UI.WidgetTrees;
 
 namespace WForest.Tests.PropertyTests
 {

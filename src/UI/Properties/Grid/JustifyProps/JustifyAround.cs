@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using WForest.UI.Properties.Grid.Utils;
 using WForest.UI.Utils;
 using WForest.UI.Widgets;
+using WForest.UI.WidgetTrees;
 using WForest.Utilities.Collections;
 using static WForest.UI.Properties.Grid.Utils.GridHelper;
 
@@ -14,7 +15,8 @@ namespace WForest.UI.Properties.Grid.JustifyProps
     {
         internal override int Priority { get; } = 2;
 
-        internal override void ApplyOn(WidgetTree.WidgetTree widgetNode)
+        internal JustifyAround(){}
+        internal override void ApplyOn(WidgetTree widgetNode)
         {
             ApplyUtils.ApplyIfThereAreChildren(widgetNode,
                 $"{widgetNode.Data} has no children to justify space between.",
@@ -28,7 +30,7 @@ namespace WForest.UI.Properties.Grid.JustifyProps
                 });
         }
 
-        private static void SpaceAroundHorizontally(WidgetTree.WidgetTree wTree, List<WidgetsDataSubList> lists)
+        private static void SpaceAroundHorizontally(WidgetTree wTree, List<WidgetsDataSubList> lists)
         {
             int start = wTree.Data.Space.X;
             int size = WidgetWidth(wTree);
@@ -40,7 +42,7 @@ namespace WForest.UI.Properties.Grid.JustifyProps
             );
         }
 
-        private static void SpaceAroundVertically(WidgetTree.WidgetTree wTree, List<WidgetsDataSubList> lists)
+        private static void SpaceAroundVertically(WidgetTree wTree, List<WidgetsDataSubList> lists)
         {
             int start = wTree.Data.Space.Y;
             int size = WidgetHeight(wTree);
