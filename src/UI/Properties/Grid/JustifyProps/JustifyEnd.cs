@@ -22,10 +22,10 @@ namespace WForest.UI.Properties.Grid.JustifyProps
                 {
                     var rowsAtEnd =
                         PutAtEnd(widgetNode, GridHelper.WidgetWidth, (x, c) => new Point(x, c.Data.Space.Y),
-                            c => c.Margin.Left);
+                            c => c.MarginValues.Left);
                     var colsAtEnd =
                         PutAtEnd(widgetNode, GridHelper.WidgetHeight, (y, c) => new Point(c.Data.Space.X, y),
-                            c => c.Margin.Top);
+                            c => c.MarginValues.Top);
 
                     if (ApplyUtils.TryExtractRows(widgetNode, out var rows))
                         rowsAtEnd(rows);

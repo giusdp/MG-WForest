@@ -1,8 +1,8 @@
 namespace WForest.Utilities
 {
-    public readonly struct Margin
+    public readonly struct MarginValues
     {
-       public Margin(int left, int right, int top, int bottom)
+       public MarginValues(int left, int right, int top, int bottom)
         {
             Left = left;
             Right = right;

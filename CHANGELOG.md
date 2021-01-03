@@ -21,6 +21,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - WidgetTree AddProperty renamed to WithProperty which returns its WidgetTree instance so it can be concatenated
 - HUD changed name to WTreeManager
 - Moved factories folder outside UI
+- All properties have internal constructor, they can be created only through the factory
+- Margin struct renamed to MarginValues
 
 ### Removed
 - Program and Game1 classes 

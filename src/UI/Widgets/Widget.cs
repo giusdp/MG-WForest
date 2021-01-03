@@ -14,14 +14,14 @@ namespace WForest.UI.Widgets
         public Color Color;
         public List<Action<SpriteBatch>> PostDrawing { get; }
         public Rectangle Space { get; set; }
-        public Margin Margin { get; set; }
+        public MarginValues MarginValues { get; set; }
 
         public Rectangle TotalSpaceOccupied =>
             new Rectangle(
-                Space.X - Margin.Left,
-                Space.Y - Margin.Top,
-                Space.Width + Margin.Left + Margin.Right,
-                Space.Height + Margin.Top + Margin.Bottom
+                Space.X - MarginValues.Left,
+                Space.Y - MarginValues.Top,
+                Space.Width + MarginValues.Left + MarginValues.Right,
+                Space.Height + MarginValues.Top + MarginValues.Bottom
             );
 
         #endregion
@@ -31,7 +31,7 @@ namespace WForest.UI.Widgets
         protected Widget(Rectangle space)
         {
             Space = space;
-            Margin = new Margin();
+            MarginValues = new MarginValues();
             Color = Color.White;
             PostDrawing = new List<Action<SpriteBatch>>();
             _interactionHandler = new InteractionHandler();

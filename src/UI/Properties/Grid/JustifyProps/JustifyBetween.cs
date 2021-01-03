@@ -38,7 +38,7 @@ namespace WForest.UI.Properties.Grid.JustifyProps
                 DivideSpaceEvenly(start, size,
                     wTree.Children.GetRange(r.FirstWidgetIndex, r.LastWidgetIndex - r.FirstWidgetIndex ),
                     WidgetWidth,
-                    (c, p) => new Point(p + c.Margin.Left, c.Space.Y))
+                    (c, p) => new Point(p + c.MarginValues.Left, c.Space.Y))
             );
         }
 
@@ -50,7 +50,7 @@ namespace WForest.UI.Properties.Grid.JustifyProps
                 DivideSpaceEvenly(start, size,
                     wTree.Children.GetRange(r.FirstWidgetIndex, r.LastWidgetIndex - r.FirstWidgetIndex ),
                     WidgetHeight,
-                    (c, pos) => new Point(c.Space.X, pos + c.Margin.Top))
+                    (c, pos) => new Point(c.Space.X, pos + c.MarginValues.Top))
             );
         }
 

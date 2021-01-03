@@ -4,7 +4,7 @@ using WForest.UI.WidgetTrees;
 
 namespace WForest.UI.Properties.Grid.Row
 {
-    internal class Row : Property
+    public class Row : Property
     {
         internal override int Priority { get; } = 1;
 

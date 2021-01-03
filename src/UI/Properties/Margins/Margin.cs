@@ -10,18 +10,18 @@ namespace WForest.UI.Properties.Margins
     {
         internal override int Priority { get; } = 0;
 
-        private readonly Utilities.Margin _margin;
+        private readonly Utilities.MarginValues _marginValues;
 
         internal Margin(int marginLeft, int marginRight, int marginTop, int marginBottom)
         {
-            _margin = new Utilities.Margin(marginLeft, marginRight, marginTop, marginBottom);
+            _marginValues = new Utilities.MarginValues(marginLeft, marginRight, marginTop, marginBottom);
         }
 
         internal override void ApplyOn(WidgetTrees.WidgetTree widgetNode)
         {
             var (x, y, w, h) = widgetNode.Data.Space;
-            widgetNode.Data.Margin = _margin;
-            WidgetsSpaceHelper.UpdateSpace(widgetNode, new Rectangle(x + _margin.Left, y + _margin.Top, w, h));
+            widgetNode.Data.MarginValues = _marginValues;
+            WidgetsSpaceHelper.UpdateSpace(widgetNode, new Rectangle(x + _marginValues.Left, y + _marginValues.Top, w, h));
             TreeVisitor<Widget>.ApplyToTreeLevelByLevel(
                 widgetNode,
                 lvl =>

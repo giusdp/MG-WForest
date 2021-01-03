@@ -21,10 +21,10 @@ namespace WForest.UI.Properties.Grid.ItemProps
                 {
                     var rowsAtBase =
                         PutAtBase(widgetNode, l => l.Height, GridHelper.WidgetHeight,
-                            (y, c) => new Point(c.Data.Space.X, y + c.Data.Margin.Top));
+                            (y, c) => new Point(c.Data.Space.X, y + c.Data.MarginValues.Top));
                     var colsAtBase =
                         PutAtBase(widgetNode, l => l.Width, GridHelper.WidgetWidth,
-                            (x, c) => new Point(x + c.Data.Margin.Left, c.Data.Space.Y));
+                            (x, c) => new Point(x + c.Data.MarginValues.Left, c.Data.Space.Y));
 
                     if (ApplyUtils.TryExtractRows(widgetNode, out var rows))
                         rowsAtBase(rows);
