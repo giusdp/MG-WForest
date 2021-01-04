@@ -16,7 +16,7 @@ namespace WForest.UI.Properties.Shaders
             Effect = ShaderDb.Rounded;
         }
 
-       internal override void ApplyOn(WidgetTrees.WidgetTree widgetNode){}
+        public override void ApplyOn(WidgetTrees.WidgetTree widgetNode){}
 
        internal void ApplyParameters(int width, int height, int radius)
        {

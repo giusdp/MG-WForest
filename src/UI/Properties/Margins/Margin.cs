@@ -8,7 +8,7 @@ namespace WForest.UI.Properties.Margins
 {
     public class Margin : Property
     {
-        internal override int Priority { get; } = 0;
+        public override int Priority { get; } = 0;
 
         private readonly Utilities.MarginValues _marginValues;
 
@@ -17,7 +17,7 @@ namespace WForest.UI.Properties.Margins
             _marginValues = new Utilities.MarginValues(marginLeft, marginRight, marginTop, marginBottom);
         }
 
-        internal override void ApplyOn(WidgetTrees.WidgetTree widgetNode)
+        public override void ApplyOn(WidgetTrees.WidgetTree widgetNode)
         {
             var (x, y, w, h) = widgetNode.Data.Space;
             widgetNode.Data.MarginValues = _marginValues;

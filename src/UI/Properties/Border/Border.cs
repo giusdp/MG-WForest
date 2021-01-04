@@ -6,7 +6,7 @@ namespace WForest.UI.Properties.Border
 {
     public class Border : Property
     {
-        internal override int Priority { get; } = 10;
+        public override int Priority { get; } = 10;
         public Color Color { get; set; }
         public int LineWidth { get; set; }
 
@@ -16,7 +16,7 @@ namespace WForest.UI.Properties.Border
             Color = Color.Black;
         }
 
-        internal override void ApplyOn(WidgetTrees.WidgetTree widgetNode)
+        public override void ApplyOn(WidgetTrees.WidgetTree widgetNode)
         {
             widgetNode.Data.PostDrawing.Add(sb => { Primitives.DrawBorder(sb, widgetNode.Data.Space, Color, LineWidth); });
         }

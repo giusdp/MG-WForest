@@ -10,7 +10,8 @@ namespace WForest.UI.Properties.Actions
         {
             _function = onPress;
         }
-        internal override void ApplyOn(WidgetTrees.WidgetTree widgetNode)
+
+        public override void ApplyOn(WidgetTrees.WidgetTree widgetNode)
         {
             widgetNode.Data.AddOnPressed(_function);
         }

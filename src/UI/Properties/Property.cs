@@ -6,8 +6,8 @@ namespace WForest.UI.Properties
     {
         public event EventHandler Applied;
 
-        internal virtual int Priority { get; } = 0;
-        internal abstract void ApplyOn(WidgetTrees.WidgetTree widgetNode);
+        public virtual int Priority { get; } = 0;
+        public abstract void ApplyOn(WidgetTrees.WidgetTree widgetNode);
 
         internal void ApplyOnAndFireApplied(WidgetTrees.WidgetTree widgetNode)
         {

@@ -15,7 +15,7 @@ namespace WForest.UI.Properties.Text
             _font = font;
         }
 
-        internal override void ApplyOn(WidgetTrees.WidgetTree widgetNode)
+        public override void ApplyOn(WidgetTrees.WidgetTree widgetNode)
         {
             if (widgetNode.Data is Widgets.TextWidget.Text text)
             {

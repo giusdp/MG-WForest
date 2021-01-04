@@ -9,7 +9,8 @@ namespace WForest.UI.Properties.Grid
     public class Flex : Property
     {
         internal Flex(){}
-        internal override void ApplyOn(WidgetTree widgetNode)
+
+        public override void ApplyOn(WidgetTree widgetNode)
         {
             IncreaseSpaceWithChildren(widgetNode);
 

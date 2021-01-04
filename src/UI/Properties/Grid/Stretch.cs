@@ -9,7 +9,8 @@ namespace WForest.UI.Properties.Grid
     public class Stretch : Property
     {
         internal Stretch(){}
-        internal override void ApplyOn(WidgetTree widgetNode)
+
+        public override void ApplyOn(WidgetTree widgetNode)
         {
             if (widgetNode.IsRoot) return;
             WidgetsSpaceHelper.UpdateSpace(widgetNode,

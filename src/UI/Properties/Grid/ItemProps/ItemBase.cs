@@ -12,9 +12,9 @@ namespace WForest.UI.Properties.Grid.ItemProps
     public class ItemBase : Property
     {
         internal ItemBase(){}
-        internal override int Priority { get; } = 3;
+        public override int Priority { get; } = 3;
 
-        internal override void ApplyOn(WidgetTree widgetNode)
+        public override void ApplyOn(WidgetTree widgetNode)
         {
             ApplyUtils.ApplyIfThereAreChildren(widgetNode, $"{widgetNode.Data} has no children to item-base.",
                 () =>

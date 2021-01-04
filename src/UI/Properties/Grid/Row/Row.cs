@@ -6,12 +6,13 @@ namespace WForest.UI.Properties.Grid.Row
 {
     public class Row : Property
     {
-        internal override int Priority { get; } = 1;
+        public override int Priority { get; } = 1;
 
         internal List<WidgetsDataSubList> Rows = new List<WidgetsDataSubList>();
 
         internal Row(){}
-        internal override void ApplyOn(WidgetTree widgetNode)
+
+        public override void ApplyOn(WidgetTree widgetNode)
         {
             if (widgetNode.Children.Count != 0)
                 Rows = GridHelper.OrganizeWidgetsInRows(widgetNode);

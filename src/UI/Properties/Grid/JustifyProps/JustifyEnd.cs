@@ -11,10 +11,11 @@ namespace WForest.UI.Properties.Grid.JustifyProps
 {
     public class JustifyEnd : Property
     {
-        internal override int Priority { get; } = 2;
+        public override int Priority { get; } = 2;
 
         internal JustifyEnd(){}
-        internal override void ApplyOn(WidgetTree widgetNode)
+
+        public override void ApplyOn(WidgetTree widgetNode)
         {
             ApplyUtils.ApplyIfThereAreChildren(widgetNode,
                 $"{widgetNode.Data} has no children to justify-end.",

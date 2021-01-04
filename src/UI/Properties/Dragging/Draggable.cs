@@ -17,7 +17,7 @@ namespace WForest.UI.Properties.Dragging
 
     public class Draggable : Property
     {
-        internal override int Priority { get; } = 4;
+        public override int Priority { get; } = 4;
 
         private readonly IDevice _device;
 
@@ -26,7 +26,7 @@ namespace WForest.UI.Properties.Dragging
             _device = device;
         }
 
-        internal override void ApplyOn(WidgetTrees.WidgetTree widgetNode)
+        public override void ApplyOn(WidgetTrees.WidgetTree widgetNode)
         {
             var dragCtx = new DragCtx();
 

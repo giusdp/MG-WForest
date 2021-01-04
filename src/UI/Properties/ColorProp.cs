@@ -11,7 +11,7 @@ namespace WForest.UI.Properties
             _color = color;
         }
 
-        internal override void ApplyOn(WidgetTrees.WidgetTree widgetNode)
+        public override void ApplyOn(WidgetTrees.WidgetTree widgetNode)
         {
             widgetNode.Data.Color = _color;
         }
