@@ -1,18 +1,26 @@
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Serilog;
 using Serilog.Core;
 using Serilog.Events;
+using WForest.Exceptions;
 using WForest.UI;
 using WForest.UI.WidgetTrees;
 using WForest.Utilities.Collections;
 
 namespace WForest.Factories
 {
-    public class WForestFactory
+    /// <summary>
+    /// Entry point of the WForest Library.
+    /// Initialize it to prepare the library and use the factory to create WTreeManagers,
+    /// where each one is an usable instance of a menu.
+    /// </summary>
+    public static class WForestFactory
     {
+        private static bool _isInit;
 
-        public WForestFactory(GraphicsDevice graphicsDevice, bool isLoggingActive)
+        public static void Initialize(GraphicsDevice graphicsDevice, bool isLoggingActive)
         {
             ShaderDb.GraphicsDevice = graphicsDevice;
 
@@ -22,12 +30,24 @@ namespace WForest.Factories
                 .MinimumLevel.ControlledBy(ls)
                 .CreateLogger();
             Log.Information("WForest initialized, ready to create Widgets Trees.");
+            _isInit = true;
         }
 
-        public WTreeManager CreateWTree(int x, int y, int width, int height, WidgetTree wTree) =>
-            new WTreeManager(x, y, width, height, wTree);
+        public static WTreeManager CreateWTree(int x, int y, int width, int height, WidgetTree wTree)
+        {
+            if (wTree == null) throw new ArgumentNullException(nameof(wTree));
+            if (!_isInit)
+                throw new WForestNotInitializedException("Tried to create a widget tree without initializing WForest");
+            return new WTreeManager(x, y, width, height, wTree);
+        }
 
-        public WTreeManager CreateWTree(Rectangle windowSpace, WidgetTree wTree) =>
-            new WTreeManager(windowSpace.X, windowSpace.Y, windowSpace.Width, windowSpace.Height, wTree);
+        public static WTreeManager CreateWTree(Rectangle windowSpace, WidgetTree wTree)
+        {
+            if (windowSpace == null) throw new ArgumentNullException(nameof(windowSpace));
+            if (wTree == null) throw new ArgumentNullException(nameof(wTree));
+            if (!_isInit)
+                throw new WForestNotInitializedException("Tried to create a widget tree without initializing WForest");
+            return new WTreeManager(windowSpace.X, windowSpace.Y, windowSpace.Width, windowSpace.Height, wTree);
+        }
     }
 }
