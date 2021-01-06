@@ -25,7 +25,6 @@ namespace WForest.UI.Widgets.TextWidget
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.DrawString(Font.SpriteFont(FontSize), TextString, new Vector2(Space.X, Space.Y), Color);
-            base.Draw(spriteBatch);
         }
     }
 }

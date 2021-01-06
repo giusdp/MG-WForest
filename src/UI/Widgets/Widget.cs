@@ -42,7 +42,13 @@ namespace WForest.UI.Widgets
             _interactionHandler.Update();
         }
 
-        public virtual void Draw(SpriteBatch spriteBatch) => PostDrawing.ForEach(a => a(spriteBatch));
+        internal void DrawAndPostDraw(SpriteBatch spriteBatch)
+        {
+            Draw(spriteBatch);
+            PostDrawing.ForEach(a => a(spriteBatch));
+        }
+
+        public virtual void Draw(SpriteBatch spriteBatch) {}
 
         #region Utils
 

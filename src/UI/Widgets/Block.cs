@@ -15,7 +15,6 @@ namespace WForest.UI.Widgets
         {
             _texture ??= spriteBatch.CreateTexture(Color);
             spriteBatch.Draw(_texture, Space, Color.White);
-            base.Draw(spriteBatch);
         }
     }
 }

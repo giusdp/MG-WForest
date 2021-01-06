@@ -39,6 +39,6 @@ namespace WForest.UI.WidgetTrees
             Properties.OrderBy(p => p.Priority).ToList().ForEach(p => p.ApplyOnAndFireApplied(this));
 
 
-        internal void DrawWidget(SpriteBatch spriteBatch) => Data.Draw(spriteBatch);
+        internal void DrawWidget(SpriteBatch spriteBatch) => Data.DrawAndPostDraw(spriteBatch);
     }
 }

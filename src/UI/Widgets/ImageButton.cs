@@ -28,7 +28,6 @@ namespace WForest.UI.Widgets
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(_imageToDraw, Space, Color);
-            base.Draw(spriteBatch);
         }
 
         #region Visualization Based On Interactions
