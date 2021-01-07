@@ -10,6 +10,11 @@ namespace WForest.Devices
 
     public class MouseDevice : IDevice
     {
+        private MouseDevice(){}
+        private MouseDevice _mouseDevice;
+
+        public MouseDevice Instance => _mouseDevice ??= new MouseDevice();
+
         public Point GetPointedLocation()
         {
             return Mouse.GetState().Position;
