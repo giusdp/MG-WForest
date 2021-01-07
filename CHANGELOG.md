@@ -24,6 +24,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - All properties have internal constructor, they can be created only through the factory
 - Margin struct renamed to MarginValues
 - Internal DrawAndPostDraw method in Widget to handle drawing and modifiers separately from Draw virtual method
+- MouseDevice was made into a singleton since only one instance is needed for draggables
 
 ### Removed
 - Program and Game1 classes 
@@ -58,6 +59,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Added
 - Draggable property to drag widgets within the parent space
 - FixX and FixY properties, to use with draggable, to limit dragging on the x and/or y axis
+- IDevice interface to abstract over devices used and a MouseDevice subclass to get mouse pos, used with Draggable
 
 ### Changed
 - Moved the interaction with widget system into a state machine used by the widgets themselves
