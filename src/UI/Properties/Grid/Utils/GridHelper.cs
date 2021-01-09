@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
+using Serilog;
 using WForest.UI.Utils;
 using WForest.UI.Widgets;
 using WForest.UI.WidgetTrees;
@@ -32,7 +33,7 @@ namespace WForest.UI.Properties.Grid.Utils
         private static Rectangle AddToX(Rectangle r, int v) => new Rectangle(r.X + v, r.Y, r.Width, r.Height);
         private static Rectangle AddToY(Rectangle r, int v) => new Rectangle(r.X, r.Y + v, r.Width, r.Height);
 
-        private static (WidgetsDataSubList, int) CreateColumn(WidgetTrees.WidgetTree widget, int startIdx)
+        private static (WidgetsDataSubList, int) CreateColumn(WidgetTree widget, int startIdx)
         {
             var (x, firstIndexOnSubList) =
                 SumHeightsTilFit(widget.Children, startIdx, WidgetHeight(widget));
@@ -44,7 +45,7 @@ namespace WForest.UI.Properties.Grid.Utils
             return (subL, firstIndexOnSubList);
         }
 
-        private static (WidgetsDataSubList, int) CreateRow(WidgetTrees.WidgetTree widget, int startIdx)
+        private static (WidgetsDataSubList, int) CreateRow(WidgetTree widget, int startIdx)
         {
             var (x, firstIndexOnSubList) =
                 SumWidthsTilFit(widget.Children, startIdx, WidgetWidth(widget));
@@ -60,8 +61,8 @@ namespace WForest.UI.Properties.Grid.Utils
 
         #region Backend
 
-        private static List<WidgetsDataSubList> OrganizeWidgetsInSubLists(WidgetTrees.WidgetTree widget,
-            Func<WidgetTrees.WidgetTree, int, (WidgetsDataSubList, int)> f,
+        private static List<WidgetsDataSubList> OrganizeWidgetsInSubLists(WidgetTree widget,
+            Func<WidgetTree, int, (WidgetsDataSubList, int)> f,
             Action<List<Tree<Widget>>, List<WidgetsDataSubList>> offset)
         {
             var l = BuildSubLists(widget, f);
@@ -115,8 +116,8 @@ namespace WForest.UI.Properties.Grid.Utils
         }
 
 
-        private static List<WidgetsDataSubList> BuildSubLists(WidgetTrees.WidgetTree widget,
-            Func<WidgetTrees.WidgetTree, int, (WidgetsDataSubList, int)> f)
+        private static List<WidgetsDataSubList> BuildSubLists(WidgetTree widget,
+            Func<WidgetTree, int, (WidgetsDataSubList, int)> f)
         {
             var subList = new List<WidgetsDataSubList>();
             var previousIndex = 0;
@@ -128,6 +129,7 @@ namespace WForest.UI.Properties.Grid.Utils
                 subList.Add(sl);
                 previousIndex = firstIndexOnList;
                 done = firstIndexOnList == -1;
+                if (!done) Log.Warning($"Widget {widget} passed its size limit and was broken up in 2 or more parts.");
             }
 
             return subList;
