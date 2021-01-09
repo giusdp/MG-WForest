@@ -1,7 +1,5 @@
-using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-using WForest.UI.Properties.Shaders;
 using WForest.UI.Widgets;
 using WForest.UI.Widgets.Interactions;
 using WForest.Utilities;
@@ -80,13 +78,7 @@ namespace WForest.UI.WidgetTrees
         public static Maybe<WidgetTree> GetHoveredWidget(WidgetTree widgetTree, Point mouseLoc)
         {
             var m = TreeVisitor<Widget>.GetLowestNodeThatHolds(widgetTree,
-                w =>
-                {
-                    var rs = ((WidgetTree) w).Properties.OfType<Rounded>()
-                        .ToList(); // TODO update this part after implementing ad hoc props collection
-                    var radius = rs.Any() ? rs.First().Radius : 0;
-                    return IsMouseInsideWidgetSpace(w.Data.Space, mouseLoc, radius);
-                });
+                w => IsMouseInsideWidgetSpace(w.Data.Space, mouseLoc));
             return m switch
             {
                 Maybe<Tree<Widget>>.Some s => Maybe.Some((WidgetTree) s.Value),
@@ -94,7 +86,7 @@ namespace WForest.UI.WidgetTrees
             };
         }
 
-        private static bool IsMouseInsideWidgetSpace(Rectangle space, Point mouseLoc, int radius)
+        private static bool IsMouseInsideWidgetSpace(Rectangle space, Point mouseLoc)
         {
             // TODO if widget is rounded check hovering only on visible parts
             var (x, y) = mouseLoc;

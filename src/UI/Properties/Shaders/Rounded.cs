@@ -4,9 +4,9 @@ using WForest.Utilities.Collections;
 
 namespace WForest.UI.Properties.Shaders
 {
-    public class Rounded : Property 
+    internal class Rounded : Property 
     {
-        public int Radius { get; }
+        private int Radius { get; }
         private Effect Effect { get; }
 
         internal Rounded(int radius)

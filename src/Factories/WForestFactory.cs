@@ -20,9 +20,9 @@ namespace WForest.Factories
     {
         private static bool _isInit;
 
-        public static void Initialize(GraphicsDevice graphicsDevice, bool isLoggingActive)
+        public static void Initialize(bool isLoggingActive)
         {
-            ShaderDb.GraphicsDevice = graphicsDevice;
+            // ShaderDb.GraphicsDevice = graphicsDevice;
 
             var ls = new LoggingLevelSwitch(isLoggingActive ? LogEventLevel.Debug : LogEventLevel.Fatal);
             Log.Logger = new LoggerConfiguration()

@@ -56,7 +56,6 @@ namespace WForest.Factories
             CheckArgAndCreate(color, c => new Border {Color = c, LineWidth = width});
 
         public static Property Color(Color color) => new ColorProp(color);
-        public static Property Rounded(int r) => new Rounded(r);
 
         public static Property Draggable(IDevice device) => new Draggable(device);
 
