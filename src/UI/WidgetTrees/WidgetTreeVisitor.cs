@@ -8,16 +8,16 @@ using WForest.Utilities.Collections;
 
 namespace WForest.UI.WidgetTrees
 {
-    public class WidgetTreeVisitor
+    internal class WidgetTreeVisitor
     {
         private readonly WidgetInteractionSetter _interactionSetter;
 
-        public WidgetTreeVisitor()
+        internal WidgetTreeVisitor()
         {
             _interactionSetter = new WidgetInteractionSetter();
         }
 
-        public static void DrawTree(WidgetTree widgetTree, SpriteBatch spriteBatch)
+        internal static void DrawTree(WidgetTree widgetTree, SpriteBatch spriteBatch)
         {
             void DrawWidgets(List<Tree<Widget>> widgets)
             {
@@ -46,12 +46,12 @@ namespace WForest.UI.WidgetTrees
             TreeVisitor<Widget>.ApplyToTreeLevelByLevel(widgetTree, DrawWidgets);
         }
 
-        public static void ApplyPropertiesOnTree(WidgetTree widgetTree)
+        internal static void ApplyPropertiesOnTree(WidgetTree widgetTree)
         {
             TreeVisitor<Widget>.ApplyToTreeFromLeaves(widgetTree, w => ((WidgetTree) w).ApplyProperties());
         }
 
-        public void UpdateTree(WidgetTree widgetTree)
+        internal void UpdateTree(WidgetTree widgetTree)
         {
             var hoveredWidget = WidgetInteractionSetter.GetHoveredWidget(widgetTree, Mouse.GetState().Position);
             _interactionSetter.Update(hoveredWidget);

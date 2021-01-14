@@ -24,7 +24,7 @@ namespace WForest.Tests.PropertyTests.TextPropsTests
         [Test]
         public void ApplyOn_TextWidget_ChangesSizeOfFont()
         {
-            FontManager.Initialize(new FakeFont());
+            FontStore.Initialize(new FakeFont());
             var size = new FontSize(14);
             var testWidget = (Text) WidgetFactory.Text("Test string");
             var tree = new WidgetTree(testWidget);
@@ -35,7 +35,7 @@ namespace WForest.Tests.PropertyTests.TextPropsTests
         [Test]
         public void ApplyOn_WithInvalidSize_Throws()
         {
-            FontManager.Initialize(new FakeFont());
+            FontStore.Initialize(new FakeFont());
             var size = new FontSize(-1);
             var t = new Text("a");
             var tree = new WidgetTree(t);
@@ -46,7 +46,7 @@ namespace WForest.Tests.PropertyTests.TextPropsTests
         public void ApplyOn_RecalculatesSizeOfWidget()
         {
             var ff = new FakeFont();
-            FontManager.Initialize(ff);
+            FontStore.Initialize(ff);
             var size = new FontSize(14);
             var testWidget = (Text) WidgetFactory.Text("Test string");
             var tree = new WidgetTree(testWidget);

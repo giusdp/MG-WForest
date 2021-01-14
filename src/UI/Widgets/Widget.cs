@@ -7,16 +7,29 @@ using WForest.Utilities;
 
 namespace WForest.UI.Widgets
 {
+    /// <summary>
+    /// Base class for Widgets. It contains the main data used to handle and draw widgets.
+    /// </summary>
     public abstract class Widget
     {
         #region Widget Data
 
+        /// <summary>
+        /// The Widget color.
+        /// </summary>
         public Color Color;
-        public List<Action<SpriteBatch>> PostDrawing { get; }
+
+        /// <summary>
+        /// The Space used by the widget.
+        /// </summary>
         public Rectangle Space { get; set; }
+        
+        /// <summary>
+        /// The values for the left, right, top, bottom margins.
+        /// </summary>
         public MarginValues MarginValues { get; set; }
 
-        public Rectangle TotalSpaceOccupied =>
+        internal Rectangle TotalSpaceOccupied =>
             new Rectangle(
                 Space.X - MarginValues.Left,
                 Space.Y - MarginValues.Top,
@@ -24,10 +37,16 @@ namespace WForest.UI.Widgets
                 Space.Height + MarginValues.Top + MarginValues.Bottom
             );
 
+        internal List<Action<SpriteBatch>> PostDrawing { get; }
+
         #endregion
 
         private readonly InteractionHandler _interactionHandler;
 
+        /// <summary>
+        /// Base constructor that takes the destination space for the widget.
+        /// </summary>
+        /// <param name="space"></param>
         protected Widget(Rectangle space)
         {
             Space = space;
@@ -37,7 +56,7 @@ namespace WForest.UI.Widgets
             _interactionHandler = new InteractionHandler();
         }
 
-        public virtual void Update()
+        internal virtual void Update()
         {
             _interactionHandler.Update();
         }
@@ -48,6 +67,10 @@ namespace WForest.UI.Widgets
             PostDrawing.ForEach(a => a(spriteBatch));
         }
 
+        /// <summary>
+        /// Draw the widget with a SpriteBatch.
+        /// </summary>
+        /// <param name="spriteBatch"></param>
         public virtual void Draw(SpriteBatch spriteBatch) {}
 
         #region Utils

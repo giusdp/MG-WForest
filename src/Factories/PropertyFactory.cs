@@ -11,7 +11,7 @@ using WForest.UI.Properties.Grid.ItemProps;
 using WForest.UI.Properties.Grid.JustifyProps;
 using WForest.UI.Properties.Grid.Row;
 using WForest.UI.Properties.Margins;
-using WForest.UI.Properties.Shaders;
+using WForest.UI.Properties.Text;
 
 namespace WForest.Factories
 {
@@ -61,6 +61,13 @@ namespace WForest.Factories
 
         public static Property FixX() => new FixX();
         public static Property FixY() => new FixY();
+
+        #endregion
+        
+        #region Font
+
+        public static Property FontSize(int size) => new FontSize(size);
+        public static Property FontFamily(string name) => new FontFamily(name);
 
         #endregion
 

@@ -8,6 +8,7 @@
     <Title>WForest</Title>
     <Authors>Giuseppe De Palma</Authors>
     <OutputType>Library</OutputType>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="FontStashSharp.MonoGame" Version="0.9.0.1" />

@@ -2,7 +2,7 @@ using WForest.UI.Widgets.TextWidget;
 
 namespace WForest.Tests.Utils
 {
-    class FakeFont : Font
+    internal class FakeFont : Font
     {
         public (int, int) MeasureTextResult = (0, 0);
         public FakeFont() : base(null)
@@ -14,6 +14,6 @@ namespace WForest.Tests.Utils
             MeasureTextResult = measureTextResult;
         }
 
-        public override (int, int) MeasureText(string text, int fontSize) => MeasureTextResult;
+        internal override (int, int) MeasureText(string text, int fontSize) => MeasureTextResult;
     }
 }

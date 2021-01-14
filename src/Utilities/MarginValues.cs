@@ -1,7 +1,17 @@
 namespace WForest.Utilities
 {
+    /// <summary>
+    /// Simple struct to hold the margin values of a widget.
+    /// </summary>
     public readonly struct MarginValues
     {
+        /// <summary>
+        /// Constructor to create a Margin values struct with the left, right, top and bottom values.
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <param name="top"></param>
+        /// <param name="bottom"></param>
        public MarginValues(int left, int right, int top, int bottom)
         {
             Left = left;
@@ -10,6 +20,9 @@ namespace WForest.Utilities
             Bottom = bottom;
         }
 
-        public readonly int Left, Right, Top, Bottom; 
+        /// <summary>
+        /// The margin values.
+        /// </summary>
+        public readonly int Left, Right, Top, Bottom;
     }
 }

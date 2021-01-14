@@ -9,11 +9,27 @@ using WForest.Utilities.Collections;
 
 namespace WForest.UI.Properties.Grid.ItemProps
 {
+    /// <summary>
+    /// Property to move widgets to the bottom in a Row or to the right in a Column.
+    /// Differently from JustifyEnd, this property deals with the opposite axis of a Row/Column.
+    /// </summary>
     public class ItemBase : Property
     {
-        internal ItemBase(){}
+        internal ItemBase()
+        {
+        }
+
+        /// <summary>
+        /// Since it changes the layout for the other axis in a Row or Col, it should be applied after the layout
+        /// for the main axis is applied.
+        /// Row/Col have priority of 1, the Justify properties have priority of 2, so this has priority of 3.
+        /// </summary>
         public override int Priority { get; } = 3;
 
+        /// <summary>
+        /// Move the widgets to the bottom of a Row or right of a Column.
+        /// </summary>
+        /// <param name="widgetNode"></param>
         public override void ApplyOn(WidgetTree widgetNode)
         {
             ApplyUtils.ApplyIfThereAreChildren(widgetNode, $"{widgetNode.Data} has no children to item-base.",

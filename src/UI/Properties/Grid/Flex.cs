@@ -6,14 +6,21 @@ using WForest.UI.WidgetTrees;
 
 namespace WForest.UI.Properties.Grid
 {
+    /// <summary>
+    /// Property to make the space of the widget flexible. It stays as little as possible and grows to take the minimum
+    /// space required to accomodate the children.
+    /// </summary>
     public class Flex : Property
     {
         internal Flex(){}
 
+        /// <summary>
+        /// It gets the children of the widget and expands the space enough to accomodate them.
+        /// </summary>
+        /// <param name="widgetNode"></param>
         public override void ApplyOn(WidgetTree widgetNode)
         {
             IncreaseSpaceWithChildren(widgetNode);
-
 
             var (x, y, _, _) = widgetNode.Data.Space;
             if (ApplyUtils.TryExtractRow(widgetNode, out var row))
@@ -49,9 +56,9 @@ namespace WForest.UI.Properties.Grid
                 var (_, _, cw, ch) = c.Data.Space;
                 w += cw;
                 h += ch;
-                if (!widgetNode.IsRoot)
+                if (widgetNode.IsRoot == false)
                 {
-                    var (_, _, parentW, parentH) = widgetNode.Parent.Data.Space;
+                    var (_, _, parentW, parentH) = widgetNode.Parent!.Data.Space;
                     if (w > parentW) w -= cw;
                     if (h > parentH) h -= ch;
                 }

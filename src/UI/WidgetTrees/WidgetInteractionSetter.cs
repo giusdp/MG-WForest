@@ -7,12 +7,12 @@ using WForest.Utilities.Collections;
 
 namespace WForest.UI.WidgetTrees
 {
-    public class WidgetInteractionSetter
+    internal class WidgetInteractionSetter
     {
-        private Widget LastHovered { get; set; }
+        private Widget? LastHovered { get; set; }
         private bool IsButtonPressed { get; set; }
 
-        public void Update(Maybe<WidgetTree> hoveredWidget)
+        internal void Update(Maybe<WidgetTree> hoveredWidget)
         {
             switch (hoveredWidget)
             {
@@ -52,7 +52,7 @@ namespace WForest.UI.WidgetTrees
         private bool MouseJustReleased() =>
             Mouse.GetState().LeftButton == ButtonState.Released && IsButtonPressed;
 
-        private void ChangeWidgetIfNotPressed(Widget widget)
+        private void ChangeWidgetIfNotPressed(Widget? widget)
         {
             if (widget == null)
             {
@@ -65,7 +65,7 @@ namespace WForest.UI.WidgetTrees
             ChangeWidget(widget);
         }
 
-        private void ChangeWidget(Widget widget)
+        private void ChangeWidget(Widget? widget)
         {
             LastHovered?.ChangeInteraction(Interaction.Exited);
             LastHovered = widget;
@@ -75,7 +75,7 @@ namespace WForest.UI.WidgetTrees
 
         #region Static Methods
 
-        public static Maybe<WidgetTree> GetHoveredWidget(WidgetTree widgetTree, Point mouseLoc)
+        internal static Maybe<WidgetTree> GetHoveredWidget(WidgetTree widgetTree, Point mouseLoc)
         {
             var m = TreeVisitor<Widget>.GetLowestNodeThatHolds(widgetTree,
                 w => IsMouseInsideWidgetSpace(w.Data.Space, mouseLoc));

@@ -6,7 +6,7 @@ inspired by the typical web/mobile frontend frameworks.
 It's based on the idea of having trees of components (widgets) and properties.
 Having multiple menus as trees of widgets makes it a forest 😁
 
-### Version
+### Version (0.0.12)
 It's currently in a **pre-pre-alpha pre-0.1** work in progress state, so it's far from usable. I plan to release a *0.1* version after implemennting basic stuff 
 to make it at least somewhat usable.
 
@@ -43,7 +43,7 @@ If you only want to propose some feature you can open an issue.
 - [x] Draggable property and FixX/FixY to make x/y axis fixed 
 - [x] Text widget and relative properties for text
 - [x] Support resizing
-- [] Write Wiki
-- [] API to use the lib from outside
+- [x] Write Wiki
+- [x] API to use the lib from outside
 - [] Clean and build it as nuget package with a CD solution
 

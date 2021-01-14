@@ -4,25 +4,36 @@ using Serilog;
 using WForest.Exceptions;
 using WForest.UI.Utils;
 using WForest.UI.Widgets.TextWidget;
+using WForest.UI.WidgetTrees;
 
 namespace WForest.UI.Properties.Text
 {
+    /// <summary>
+    /// Property only applicable on Text Widget, it changes the font the widget.
+    /// </summary>
     public class FontFamily : Property
     {
-        private readonly Font _font;
-        internal FontFamily(Font font)
+        private readonly string _name;
+
+        internal FontFamily(string name)
         {
-            _font = font;
+            _name = name;
         }
 
-        public override void ApplyOn(WidgetTrees.WidgetTree widgetNode)
+        /// <summary>
+        /// Gets the font from the FontStore, with the name passed to FontFamily constructor and assigns it to the TextWidget.
+        /// Then the new space required by the widget is calculated and updated.
+        /// </summary>
+        /// <param name="widgetNode"></param>
+        /// <exception cref="IncompatibleWidgetException"></exception>
+        public override void ApplyOn(WidgetTree widgetNode)
         {
             if (widgetNode.Data is Widgets.TextWidget.Text text)
             {
-                text.Font = _font ?? throw new ArgumentException("Font cannot be null.");
-                var (x,y,_,_) = text.Space;
+                text.Font = FontStore.GetFont(_name);
+                var (x, y, _, _) = text.Space;
                 var (w, h) = text.Font.MeasureText(text.TextString, text.FontSize);
-                WidgetsSpaceHelper.UpdateSpace(widgetNode, new Rectangle(x,y, (int) w,(int) h));
+                WidgetsSpaceHelper.UpdateSpace(widgetNode, new Rectangle(x, y, w, h));
             }
             else
             {

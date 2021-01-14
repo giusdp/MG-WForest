@@ -4,9 +4,9 @@ using WForest.Utilities.Collections;
 
 namespace WForest.UI.Utils
 {
-    public static class WidgetsSpaceHelper
+    internal static class WidgetsSpaceHelper
     {
-        public static void UpdateSpace(Tree<Widget> wt, Rectangle newSpace)
+        internal static void UpdateSpace(Tree<Widget> wt, Rectangle newSpace)
         {
             Widget w = wt.Data;
             var diff = new Point(newSpace.Location.X - w.Space.Location.X, newSpace.Location.Y - w.Space.Location.Y);

@@ -9,12 +9,25 @@ using WForest.Utilities.Collections;
 
 namespace WForest.UI.Properties.Grid.JustifyProps
 {
+    /// <summary>
+    /// Property to move widgets to the end of a Row or Column.
+    /// </summary>
     public class JustifyEnd : Property
     {
+        /// <summary>
+        /// Since it changes the layout internally in a Row or Col, it should be applied after them.
+        /// Row/Col have priority of 1 so this has priority of 2.
+        /// </summary>
         public override int Priority { get; } = 2;
 
-        internal JustifyEnd(){}
+        internal JustifyEnd()
+        {
+        }
 
+        /// <summary>
+        /// Move the widgets to the end of a Row (to the right) or of a Col (to the bottom).
+        /// </summary>
+        /// <param name="widgetNode"></param>
         public override void ApplyOn(WidgetTree widgetNode)
         {
             ApplyUtils.ApplyIfThereAreChildren(widgetNode,
@@ -46,7 +59,7 @@ namespace WForest.UI.Properties.Grid.JustifyProps
                     {
                         var child = wTree.Children[i];
                         acc -= getSize(child) - getMargin(child.Data);
-                        WidgetsSpaceHelper.UpdateSpace(child,new Rectangle(updateLoc(acc, child),
+                        WidgetsSpaceHelper.UpdateSpace(child, new Rectangle(updateLoc(acc, child),
                             child.Data.Space.Size));
                         acc -= getMargin(child.Data);
                     }

@@ -6,6 +6,9 @@ using WForest.UI.Utils;
 
 namespace WForest.UI.Properties.Text
 {
+    /// <summary>
+    /// Property only applicable on Text Widget, it changes the size of the font of the widget.
+    /// </summary>
     public class FontSize : Property
     {
         private readonly int _size;
@@ -15,6 +18,12 @@ namespace WForest.UI.Properties.Text
             _size = size;
         }
 
+        /// <summary>
+        /// Applies font size change on Text Widget. It assigns the new size to the FontSize field of the widget and
+        /// measures (and updates) the new space taken by the text.
+        /// </summary>
+        /// <param name="widgetNode"></param>
+        /// <exception cref="IncompatibleWidgetException"></exception>
         public override void ApplyOn(WidgetTrees.WidgetTree widgetNode)
         {
             if (widgetNode.Data is Widgets.TextWidget.Text text)

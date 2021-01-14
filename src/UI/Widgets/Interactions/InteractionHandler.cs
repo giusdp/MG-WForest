@@ -3,16 +3,16 @@ using System.Collections.Generic;
 
 namespace WForest.UI.Widgets.Interactions
 {
-    public class InteractionHandler
+    internal class InteractionHandler
     {
-        public List<Action> OnEnter { get; }
-        public List<Action> OnExit { get; }
-        public List<Action> OnPress { get; }
-        public List<Action> OnRelease { get; }
+        internal List<Action> OnEnter { get; }
+        internal List<Action> OnExit { get; }
+        internal List<Action> OnPress { get; }
+        internal List<Action> OnRelease { get; }
 
-        public Interaction CurrentInteraction;
+        internal Interaction CurrentInteraction;
 
-        public InteractionHandler()
+        internal InteractionHandler()
         {
             OnEnter = new List<Action>();
             OnExit = new List<Action>();
@@ -21,7 +21,7 @@ namespace WForest.UI.Widgets.Interactions
             CurrentInteraction = Interaction.Untouched;
         }
 
-        public void ChangeState(Interaction interaction)
+        internal void ChangeState(Interaction interaction)
         {
             switch (CurrentInteraction)
             {
@@ -37,7 +37,7 @@ namespace WForest.UI.Widgets.Interactions
             }
         }
 
-        public void Update()
+        internal void Update()
         {
             switch (CurrentInteraction)
             {

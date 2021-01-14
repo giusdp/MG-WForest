@@ -2,6 +2,9 @@ using Microsoft.Xna.Framework;
 
 namespace WForest.UI.Properties
 {
+    /// <summary>
+    /// Property to change color used when drawing.
+    /// </summary>
     public class ColorProp : Property
     {
         private readonly Color _color;
@@ -11,6 +14,10 @@ namespace WForest.UI.Properties
             _color = color;
         }
 
+        /// <summary>
+        /// Changed the Color field of the widget with the new color passed to this property constructor.
+        /// </summary>
+        /// <param name="widgetNode"></param>
         public override void ApplyOn(WidgetTrees.WidgetTree widgetNode)
         {
             widgetNode.Data.Color = _color;

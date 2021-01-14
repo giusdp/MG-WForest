@@ -7,31 +7,31 @@ namespace WForest.Tests
 {
 
     [TestFixture]
-    public class FontManagerTests
+    public class FontStoreTests
     {
         [SetUp]
         public void BeforeEach()
         {
-            FontManager.DefaultFont = null;
+            FontStore.DefaultFont = null;
         }
         [Test]
         public void GetFont_NoFont_ThrowsFontNotFound()
         {
-            FontManager.Initialize(new FakeFont());
-            Assert.That(() => FontManager.GetFont("test"), Throws.TypeOf<FontNotFoundException>());
+            FontStore.Initialize(new FakeFont());
+            Assert.That(() => FontStore.GetFont("test"), Throws.TypeOf<FontNotFoundException>());
         }
 
         [Test]
         public void UseFontManager_NotInitialized_ThrowsException()
         {
-            Assert.That(() => FontManager.RegisterFont("test", new FakeFont()),
-                Throws.TypeOf<FontManagerNotInitializedException>());
+            Assert.That(() => FontStore.RegisterFont("test", new FakeFont()),
+                Throws.TypeOf<FontStoreNotInitializedException>());
         }
 
         [Test]
         public void AccessDefaultFont_NotInitialized_ThrowsException()
         {
-           Assert.That(() => FontManager.DefaultFont,Throws.TypeOf<FontManagerNotInitializedException>()); 
+           Assert.That(() => FontStore.DefaultFont,Throws.TypeOf<FontStoreNotInitializedException>()); 
         }
     }
 }

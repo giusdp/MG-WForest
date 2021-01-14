@@ -5,12 +5,23 @@ using Serilog;
 
 namespace WForest.UI.Widgets
 {
+    /// <summary>
+    /// Widget that displays Texture2Ds based on hovering and pressed states which can be used as a button.
+    /// </summary>
     public class ImageButton : Widget
     {
         private Texture2D _imageToDraw;
         private Texture2D NormalButton { get; }
-        public Texture2D HoverButton { get; set; }
-        public Texture2D PressedButton { get; set; }
+
+        /// <summary>
+        /// Texture2D to use when the widget is hovered. If not set it fallbacks to the normal button texture.
+        /// </summary>
+        public Texture2D? HoverButton { get; set; }
+
+        /// <summary>
+        /// Texture to use when the widget is pressed. If not set it fallbacks to the normal button texture.
+        /// </summary>
+        public Texture2D? PressedButton { get; set; }
 
         internal ImageButton(Texture2D normalButton) : base(Rectangle.Empty)
         {
@@ -25,6 +36,10 @@ namespace WForest.UI.Widgets
             AddOnRelease(Released);
         }
 
+        /// <summary>
+        /// Draws the widget using based on the interaction state (if hovered or not, pressed or not)
+        /// </summary>
+        /// <param name="spriteBatch"></param>
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(_imageToDraw, Space, Color);
@@ -33,6 +48,7 @@ namespace WForest.UI.Widgets
         #region Visualization Based On Interactions
 
         private bool _isHovering, _isPressed;
+
         private void StartedHovering()
         {
             if (_isHovering == false) _isHovering = true;
@@ -60,7 +76,7 @@ namespace WForest.UI.Widgets
                 _isHovering = false;
             }
             else return;
-            
+
             if (PressedButton == null)
             {
                 Log.Warning($"{GetType()} PressedButton texture missing, fallback to NormalButton.");
