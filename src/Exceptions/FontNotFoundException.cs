@@ -2,17 +2,16 @@ using System;
 
 namespace WForest.Exceptions
 {
+    /// <summary>
+    /// Exception related to missing Fonts in the FontStore.
+    /// </summary>
     public class FontNotFoundException : Exception
     {
-        public FontNotFoundException()
-        {
-        }
-
+        /// <summary>
+        /// Creates a new FontNotFoundException with a message.
+        /// </summary>
+        /// <param name="message"></param>
         public FontNotFoundException(string message) : base(message)
-        {
-        }
-
-        public FontNotFoundException(string message, Exception innerException) : base(message, innerException)
         {
         }
     }

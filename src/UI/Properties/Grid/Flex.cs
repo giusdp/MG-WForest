@@ -12,7 +12,9 @@ namespace WForest.UI.Properties.Grid
     /// </summary>
     public class Flex : Property
     {
-        internal Flex(){}
+        internal Flex()
+        {
+        }
 
         /// <summary>
         /// It gets the children of the widget and expands the space enough to accomodate them.
@@ -23,7 +25,9 @@ namespace WForest.UI.Properties.Grid
             IncreaseSpaceWithChildren(widgetNode);
 
             var (x, y, _, _) = widgetNode.Data.Space;
-            if (ApplyUtils.TryExtractRow(widgetNode, out var row))
+
+            var maybeRow = ApplyUtils.ExtractRowProp(widgetNode);
+            if (maybeRow.TryGetValue(out var row))
             {
                 row.Applied += (sender, args) =>
                 {
@@ -35,16 +39,20 @@ namespace WForest.UI.Properties.Grid
                             row.Rows.Sum(r => r.Height)));
                 };
             }
-            else if (ApplyUtils.TryExtractColumn(widgetNode, out var col))
-                col.Applied += (sender, args) =>
-                {
-                    WidgetsSpaceHelper.UpdateSpace(widgetNode,
-                        new Rectangle(
-                            x, 
-                            y, 
-                            col.Columns.Sum(c => c.Width), 
-                            col.Columns.Sum(c => c.Height)));
-                };
+            else
+            {
+                var maybeCol = ApplyUtils.ExtractColumnProp(widgetNode);
+                if (maybeCol.TryGetValue(out var col))
+                    col.Applied += (sender, args) =>
+                    {
+                        WidgetsSpaceHelper.UpdateSpace(widgetNode,
+                            new Rectangle(
+                                x,
+                                y,
+                                col.Columns.Sum(c => c.Width),
+                                col.Columns.Sum(c => c.Height)));
+                    };
+            }
         }
 
         private static void IncreaseSpaceWithChildren(WidgetTree widgetNode)

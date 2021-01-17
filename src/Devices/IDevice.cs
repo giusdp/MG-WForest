@@ -8,6 +8,10 @@ namespace WForest.Devices
     /// </summary>
     public interface IDevice
     {
+        /// <summary>
+        /// Get the (X,Y) coordinates on the screen pointed by the device.
+        /// </summary>
+        /// <returns>A Point that holds the pointed coordinates on the game window.</returns>
         Point GetPointedLocation();
     }
 

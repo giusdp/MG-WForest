@@ -12,7 +12,7 @@ namespace WForest.Tests
         [SetUp]
         public void BeforeEach()
         {
-            FontStore.DefaultFont = null;
+            FontStore.DefaultFont = null!;
         }
         [Test]
         public void GetFont_NoFont_ThrowsFontNotFound()

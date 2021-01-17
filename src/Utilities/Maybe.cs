@@ -67,7 +67,8 @@ namespace WForest.Utilities
         }
 
         /// <summary>
-        /// Try to get the value contained. Pass it to the value parameter if it's a Some(v) and return true, otherwise pass null and return false.
+        /// Try to get the value contained. If it is Some, the value contained is placed in the
+        /// out variable and returns true. Otherwise returns false and a null is placed in the variable.
         /// </summary>
         /// <param name="value">Variable in which the data contained in Maybe is placed.</param>
         /// <returns>true if it was Some (contains a value), false if it was None (does not contain any value)</returns>
@@ -85,7 +86,7 @@ namespace WForest.Utilities
     }
 
     /// <summary>
-    /// Static class to easily use Maybe<T>.
+    /// Static class to create Maybe objects.
     /// </summary>
     public static class Maybe
     {

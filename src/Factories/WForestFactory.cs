@@ -20,6 +20,11 @@ namespace WForest.Factories
     {
         private static bool _isInit;
 
+        /// <summary>
+        /// Initializes the library and sets up a logger that will be used to log information or errors
+        /// if isLoggingActive passed is true.
+        /// </summary>
+        /// <param name="isLoggingActive"></param>
         public static void Initialize(bool isLoggingActive)
         {
             // ShaderDb.GraphicsDevice = graphicsDevice;
@@ -33,6 +38,18 @@ namespace WForest.Factories
             _isInit = true;
         }
 
+        /// <summary>
+        /// Creates a <see cref="WTreeManager"/> that covers the area passed as input and handles the given
+        /// <see cref="WidgetTree"/>.
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="width"></param>
+        /// <param name="height"></param>
+        /// <param name="wTree"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="WForestNotInitializedException"></exception>
         public static WTreeManager CreateWTree(int x, int y, int width, int height, WidgetTree wTree)
         {
             if (wTree == null) throw new ArgumentNullException(nameof(wTree));
@@ -41,6 +58,16 @@ namespace WForest.Factories
             return new WTreeManager(x, y, width, height, wTree);
         }
 
+
+        /// <summary>
+        /// Creates a <see cref="WTreeManager"/> that covers the area passed as input and handles the given
+        /// <see cref="WidgetTree"/>. 
+        /// </summary>
+        /// <param name="windowSpace"></param>
+        /// <param name="wTree"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="WForestNotInitializedException"></exception>
         public static WTreeManager CreateWTree(Rectangle windowSpace, WidgetTree wTree)
         {
             if (windowSpace == null) throw new ArgumentNullException(nameof(windowSpace));

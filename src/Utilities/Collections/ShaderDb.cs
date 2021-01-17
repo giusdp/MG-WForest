@@ -7,7 +7,7 @@ namespace WForest.Utilities.Collections
 {
     internal static class ShaderDb
     {
-        internal static GraphicsDevice GraphicsDevice { get; set; }
+        internal static GraphicsDevice? GraphicsDevice { get; set; }
 
         private static readonly Lazy<Effect> RoundedEffect = new Lazy<Effect>(LoadRoundedShader);
 
