@@ -7,6 +7,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Added
 - Documentation for public classes and methods
 
+### Changed
+- Stretch property divided in HorizontalStretch and VerticalStretch and they work directly on the widgets space independently if row or column
+- Changed FontManager name to FontStore
+- Move FontStore to Utilities namespace
+
 ## [0.0.12]
 ### Added
 - A csproj file in the src folder to build nuget package without the tests and other stuff
