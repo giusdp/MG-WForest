@@ -56,7 +56,7 @@ namespace WForest.UI.Widgets
             _interactionHandler = new InteractionHandler();
         }
 
-        internal virtual void Update()
+        public virtual void Update()
         {
             _interactionHandler.Update();
         }
