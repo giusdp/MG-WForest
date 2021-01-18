@@ -26,7 +26,7 @@ namespace WForest.UI.Properties.Text
         /// <exception cref="IncompatibleWidgetException"></exception>
         public override void ApplyOn(WidgetTrees.WidgetTree widgetNode)
         {
-            if (widgetNode.Data is Widgets.TextWidget.Text text)
+            if (widgetNode.Data is Widgets.Text text)
             {
                 if (text.FontSize == _size) return;
                 text.FontSize = _size >= 0 ? _size : throw new ArgumentException("FontSize cannot be negative.");

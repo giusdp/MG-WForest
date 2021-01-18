@@ -1,7 +1,7 @@
 using NUnit.Framework;
 using WForest.Exceptions;
 using WForest.Tests.Utils;
-using WForest.UI.Widgets.TextWidget;
+using WForest.Utilities.Text;
 
 namespace WForest.Tests
 {

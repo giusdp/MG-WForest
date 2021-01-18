@@ -3,7 +3,7 @@ using System.IO;
 using FontStashSharp;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace WForest.UI.Widgets.TextWidget
+namespace WForest.Utilities.Text
 {
     /// <summary>
     /// A font used to display text with the Text Widget. It uses the FontSystem from the FontStashSharp library.

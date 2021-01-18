@@ -2,8 +2,9 @@ using System;
 using FontStashSharp;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using WForest.Utilities.Text;
 
-namespace WForest.UI.Widgets.TextWidget
+namespace WForest.UI.Widgets
 {
     /// <summary>
     /// The Text Widget. It displays strings using a Font and a size.

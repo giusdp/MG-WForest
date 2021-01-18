@@ -1,4 +1,4 @@
-using WForest.UI.Widgets.TextWidget;
+using WForest.Utilities.Text;
 
 namespace WForest.Tests.Utils
 {

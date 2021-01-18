@@ -2,7 +2,6 @@ using Microsoft.Xna.Framework;
 using NUnit.Framework;
 using WForest.Factories;
 using WForest.UI.Widgets;
-using WForest.UI.Widgets.TextWidget;
 
 namespace WForest.Tests
 {

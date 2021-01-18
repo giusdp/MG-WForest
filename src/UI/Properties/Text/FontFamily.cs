@@ -3,8 +3,8 @@ using Microsoft.Xna.Framework;
 using Serilog;
 using WForest.Exceptions;
 using WForest.UI.Utils;
-using WForest.UI.Widgets.TextWidget;
 using WForest.UI.WidgetTrees;
+using WForest.Utilities.Text;
 
 namespace WForest.UI.Properties.Text
 {
@@ -28,7 +28,7 @@ namespace WForest.UI.Properties.Text
         /// <exception cref="IncompatibleWidgetException"></exception>
         public override void ApplyOn(WidgetTree widgetNode)
         {
-            if (widgetNode.Data is Widgets.TextWidget.Text text)
+            if (widgetNode.Data is Widgets.Text text)
             {
                 text.Font = FontStore.GetFont(_name);
                 var (x, y, _, _) = text.Space;

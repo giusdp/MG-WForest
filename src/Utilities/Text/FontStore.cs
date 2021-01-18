@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Serilog;
 using WForest.Exceptions;
 
-namespace WForest.UI.Widgets.TextWidget
+namespace WForest.Utilities.Text
 {
     /// <summary>
     /// Static class to handle fonts.
