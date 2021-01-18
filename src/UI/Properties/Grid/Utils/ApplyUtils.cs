@@ -18,7 +18,7 @@ namespace WForest.UI.Properties.Grid.Utils
 
         internal static bool TryExtractRows(WidgetTree widgetNode, out List<WidgetsDataSubList> rows)
         {
-            var maybeRows = ExtractProp<Row.Row>(widgetNode);
+            var maybeRows = ExtractProp<Row>(widgetNode);
             if (maybeRows.TryGetValue(out var res))
             {
                 rows = res.Rows;
@@ -30,7 +30,7 @@ namespace WForest.UI.Properties.Grid.Utils
 
         internal static bool TryExtractColumns(WidgetTree widgetNode, out List<WidgetsDataSubList> columns)
         {
-            var maybeCols = ExtractProp<Column.Column>(widgetNode);
+            var maybeCols = ExtractProp<Column>(widgetNode);
             
             if (maybeCols.TryGetValue(out var res))
             {
@@ -42,11 +42,11 @@ namespace WForest.UI.Properties.Grid.Utils
             return false;
         }
 
-        internal static Maybe<Row.Row> ExtractRowProp(WidgetTree widgetNode)
-            => ExtractProp<Row.Row>(widgetNode);
+        internal static Maybe<Row> ExtractRowProp(WidgetTree widgetNode)
+            => ExtractProp<Row>(widgetNode);
 
-        internal static Maybe<Column.Column> ExtractColumnProp(WidgetTree widgetNode)
-            => ExtractProp<Column.Column>(widgetNode);
+        internal static Maybe<Column> ExtractColumnProp(WidgetTree widgetNode)
+            => ExtractProp<Column>(widgetNode);
 
         private static Maybe<T> ExtractProp<T> (WidgetTree widgetNode) where T : Property
         {

@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using NUnit.Framework;
 using WForest.Factories;
+using WForest.UI.Properties.Grid;
 using WForest.UI.WidgetTrees;
 
 namespace WForest.Tests.PropertyTests
@@ -8,13 +9,13 @@ namespace WForest.Tests.PropertyTests
     [TestFixture]
     public class RowPropertyTests
     {
-        private UI.Properties.Grid.Row.Row _row;
+        private Row _row;
         private WidgetTree _root;
 
         [SetUp]
         public void BeforeEach()
         {
-            _row = new UI.Properties.Grid.Row.Row();
+            _row = new Row();
             _root = new WidgetTree(WidgetFactory.Container(new Rectangle(0, 0, 1280, 720)));
         }
 

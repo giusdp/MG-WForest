@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using WForest.UI.Properties.Grid.Utils;
 using WForest.UI.WidgetTrees;
 
-namespace WForest.UI.Properties.Grid.Column
+namespace WForest.UI.Properties.Grid
 {
     /// <summary>
     /// Property that deals with the layout. It puts the children of the widget with this property in a vertical sequence.
