@@ -39,7 +39,16 @@ namespace WForest.Factories
         /// <returns></returns>
         public static Property Flex() => new Flex();
 
+        /// <summary>
+        /// Creates a HorizontalStretch property. HorizontalStretch makes the widget width as big as its parent's width.
+        /// </summary>
+        /// <returns></returns>
         public static Property HorizontalStretch() => new HorizontalStretch();
+
+        /// <summary>
+        /// Creates a VerticalStretch property. VerticalStretch makes the widget height as big as its parent's height.
+        /// </summary>
+        /// <returns></returns>
         public static Property VerticalStretch() => new VerticalStretch();
 
         /// <summary>
@@ -180,7 +189,7 @@ namespace WForest.Factories
         /// </summary>
         /// <returns></returns>
         public static Property FixX() => new FixX();
-        
+
         /// <summary>
         /// Creates a FixY property that makes a widget unmovable on the Y axis.
         /// </summary>
@@ -197,7 +206,7 @@ namespace WForest.Factories
         /// <param name="size"></param>
         /// <returns></returns>
         public static Property FontSize(int size) => new FontSize(size);
-        
+
         /// <summary>
         /// Creates a FontFamily property. It's used together with the Text Widget to change its font.
         /// </summary>
@@ -215,21 +224,21 @@ namespace WForest.Factories
         /// <param name="logic"></param>
         /// <returns></returns>
         public static Property OnPress(Action logic) => CheckArgAndCreate(logic, action => new OnPress(action));
-        
+
         /// <summary>
         /// Creates an OnRelease property. Adds logic to a widget when it is released from a pressed.
         /// </summary>
         /// <param name="logic"></param>
         /// <returns></returns>
         public static Property OnRelease(Action logic) => CheckArgAndCreate(logic, action => new OnRelease(action));
-        
+
         /// <summary>
         /// Creates an OnEnter property. Adds logic to a widget when it starts being hovered.
         /// </summary>
         /// <param name="logic"></param>
         /// <returns></returns>
         public static Property OnEnter(Action logic) => CheckArgAndCreate(logic, action => new OnEnter(action));
-        
+
         /// <summary>
         /// Creates an OnExit property. Adds logic to a widget when it stops being hovered.
         /// </summary>

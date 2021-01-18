@@ -56,6 +56,10 @@ namespace WForest.UI.Widgets
             _interactionHandler = new InteractionHandler();
         }
 
+        /// <summary>
+        /// Updates the widget and checks for interactions. Override it to add custom logic, base.Update()
+        /// is needed to keep the interactions checks.
+        /// </summary>
         public virtual void Update()
         {
             _interactionHandler.Update();
