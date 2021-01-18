@@ -4,7 +4,7 @@ using WForest.UI.Properties.Grid.Utils;
 using WForest.UI.Utils;
 using WForest.UI.WidgetTrees;
 
-namespace WForest.UI.Properties.Grid
+namespace WForest.UI.Properties.Grid.StretchingProps
 {
     /// <summary>
     /// Property to make the space of the widget flexible. It stays as little as possible and grows to take the minimum
@@ -17,7 +17,8 @@ namespace WForest.UI.Properties.Grid
         }
 
         /// <summary>
-        /// It gets the children of the widget and expands the space enough to accomodate them.
+        /// It gets the children of the widget and expands the space enough to accomodate them,
+        /// depending on if the parent is Row or Column.
         /// </summary>
         /// <param name="widgetNode"></param>
         public override void ApplyOn(WidgetTree widgetNode)

@@ -6,10 +6,9 @@ using WForest.UI.Properties.Actions;
 using WForest.UI.Properties.Border;
 using WForest.UI.Properties.Dragging;
 using WForest.UI.Properties.Grid;
-using WForest.UI.Properties.Grid.Column;
 using WForest.UI.Properties.Grid.ItemProps;
 using WForest.UI.Properties.Grid.JustifyProps;
-using WForest.UI.Properties.Grid.Row;
+using WForest.UI.Properties.Grid.StretchingProps;
 using WForest.UI.Properties.Margins;
 using WForest.UI.Properties.Text;
 
@@ -40,7 +39,8 @@ namespace WForest.Factories
         /// <returns></returns>
         public static Property Flex() => new Flex();
 
-        public static Property Stretch() => new Stretch();
+        public static Property HorizontalStretch() => new HorizontalStretch();
+        public static Property VerticalStretch() => new VerticalStretch();
 
         /// <summary>
         /// Creates a JustifyCenter property. It puts widgets to the center of a Row (horizontally) or Column (vertically).

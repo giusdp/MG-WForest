@@ -8,51 +8,46 @@ namespace WForest.Tests.PropertyTests
     [TestFixture]
     public class StretchTests
     {
-        private WidgetTree _root;
+        private WidgetTree? _root;
 
-        [Test]
-        public void StretchContainer_AsBigAsParent()
+        [SetUp]
+        public void BeforeEach()
         {
             _root = new WidgetTree(WidgetFactory.Container(400, 401));
-            var c = _root.AddChild(WidgetFactory.Container());
-            c.WithProperty(PropertyFactory.Stretch());
-            c.ApplyProperties();
-            Assert.That(c.Data.Space, Is.EqualTo(new Rectangle(0, 0, 400, 401)));
         }
 
         [Test]
-        public void StretchRowContainer_OnlyWidthAsParent()
+        public void HorizontalStretch_OnRoot_DoesNothing()
         {
-            _root = new WidgetTree(WidgetFactory.Container(400, 401));
-            var c = _root.AddChild(WidgetFactory.Container());
-            c.WithProperty(PropertyFactory.Stretch());
-            c.WithProperty(PropertyFactory.Row());
+            _root!.WithProperty(PropertyFactory.HorizontalStretch());
+            _root.ApplyProperties();
+            Assert.That(_root.Data.Space, Is.EqualTo(new Rectangle(0, 0, 400, 401)));
+        }
+
+        [Test]
+        public void HorizontalStretch_OnContainer_WidthAsBigAsParent()
+        {
+            var c = _root!.AddChild(WidgetFactory.Container());
+            c.WithProperty(PropertyFactory.HorizontalStretch());
             c.ApplyProperties();
             Assert.That(c.Data.Space, Is.EqualTo(new Rectangle(0, 0, 400, 0)));
         }
 
         [Test]
-        public void StretchRowContainer_HeightAsRows()
+        public void VerticalStretch_OnRoot_DoesNothing()
         {
-            _root = new WidgetTree(WidgetFactory.Container(400, 401));
-            var c = _root.AddChild(WidgetFactory.Container(40, 55));
-            c.AddChild(WidgetFactory.Container(40, 95));
-            c.WithProperty(PropertyFactory.Stretch());
-            c.WithProperty(PropertyFactory.Row());
-            c.ApplyProperties();
-            Assert.That(c.Data.Space, Is.EqualTo(new Rectangle(0, 0, 400, 95)));
+            _root!.WithProperty(PropertyFactory.VerticalStretch());
+            _root.ApplyProperties();
+            Assert.That(_root.Data.Space, Is.EqualTo(new Rectangle(0, 0, 400, 401)));
         }
 
         [Test]
-        public void StretchColumnContainer_StretchHeightOnly()
+        public void VerticalStretch_OnContainer_HeightAsBigAsParent()
         {
-            _root = new WidgetTree(WidgetFactory.Container(400, 401));
-            var c = _root.AddChild(WidgetFactory.Container(41, 55));
-            c.AddChild(WidgetFactory.Container(42, 95));
-            c.WithProperty(PropertyFactory.Stretch());
-            c.WithProperty(PropertyFactory.Column());
+            var c = _root!.AddChild(WidgetFactory.Container());
+            c.WithProperty(PropertyFactory.VerticalStretch());
             c.ApplyProperties();
-            Assert.That(c.Data.Space, Is.EqualTo(new Rectangle(0, 0, 42, 401)));
+            Assert.That(c.Data.Space, Is.EqualTo(new Rectangle(0, 0, 0, 401)));
         }
     }
 }
