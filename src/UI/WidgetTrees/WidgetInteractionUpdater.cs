@@ -1,5 +1,4 @@
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
 using WForest.Devices;
 using WForest.UI.Widgets;
 using WForest.UI.Widgets.Interactions;
@@ -10,9 +9,8 @@ namespace WForest.UI.WidgetTrees
 {
     internal class WidgetInteractionUpdater
     {
-        private IDevice _device;
+        internal IDevice _device;
         private Widget? LastHovered { get; set; }
-        private bool IsButtonPressed { get; set; }
 
         internal WidgetInteractionUpdater(IDevice device)
         {
@@ -40,24 +38,13 @@ namespace WForest.UI.WidgetTrees
 
         private void HandleMouseInteraction(Widget widget)
         {
-            if (MouseJustPressed())
+            if (_device.IsPressed()) widget.ChangeInteraction(Interaction.Pressed);
+            else if (_device.IsReleased())
             {
-                widget.ChangeInteraction(Interaction.Pressed);
-                IsButtonPressed = true;
-            }
-            else if (MouseJustReleased())
-            {
-                IsButtonPressed = false;
                 if (LastHovered == widget) LastHovered.ChangeInteraction(Interaction.Released);
-                else ChangeWidget(widget); 
+                else ChangeWidget(widget);
             }
         }
-
-        private bool MouseJustPressed() =>
-            Mouse.GetState().LeftButton == ButtonState.Pressed && !IsButtonPressed;
-
-        private bool MouseJustReleased() =>
-            Mouse.GetState().LeftButton == ButtonState.Released && IsButtonPressed;
 
         private void ChangeWidgetIfNotPressed(Widget? widget)
         {
@@ -66,6 +53,7 @@ namespace WForest.UI.WidgetTrees
                 ChangeWidget(null);
                 return;
             }
+
             if (LastHovered != null && LastHovered.CurrentInteraction() == Interaction.Pressed)
                 return;
 
@@ -77,7 +65,7 @@ namespace WForest.UI.WidgetTrees
             LastHovered?.ChangeInteraction(Interaction.Exited);
             LastHovered = widget;
             LastHovered?.ChangeInteraction(Interaction.Entered);
-            IsButtonPressed = false;
+            _device.Reset();
         }
 
         #region Static Methods

@@ -100,6 +100,7 @@ namespace WForest.Tests
             _updater.Update(Maybe.Some(wTree));
             // Then press the interaction button
             mockedDevice.Setup(device => device.IsPressed()).Returns(true);
+            _updater._device = mockedDevice.Object;
             // Update to press widget
             _updater.Update(Maybe.Some(wTree));
             

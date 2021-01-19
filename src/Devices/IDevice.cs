@@ -15,10 +15,24 @@ namespace WForest.Devices
         Point GetPointedLocation();
 
         /// <summary>
-        /// Returns true if the device interact button is pressed or not.
+        /// Returns true if the device interact button was just pressed.
         /// </summary>
         /// <returns></returns>
         bool IsPressed();
+
+        /// <summary>
+        /// Returns true if the device interact button was previously pressed and is held down.
+        /// </summary>
+        /// <returns></returns>
+        bool IsHeld();
+
+        /// <summary>
+        /// Returns true if the device interact button was previously pressed and was just released.
+        /// </summary>
+        /// <returns></returns>
+        bool IsReleased();
+
+        internal void Reset();
     }
 
     /// <summary>
@@ -26,8 +40,13 @@ namespace WForest.Devices
     /// </summary>
     public class MouseDevice : IDevice
     {
-        private MouseDevice(){}
+        private MouseDevice()
+        {
+        }
+
         private static MouseDevice? _mouseDevice;
+
+        private bool _isLeftButtonPressed;
 
         /// <summary>
         /// Get the singleton instance of the MouseDevice class.
@@ -44,12 +63,40 @@ namespace WForest.Devices
         }
 
         /// <summary>
-        /// Returns true if the left button is clicked or not. 
+        /// Returns true if the left mouse button was just clicked. 
         /// </summary>
         /// <returns></returns>
         public bool IsPressed()
         {
-            return Mouse.GetState().LeftButton == ButtonState.Pressed;
+            var isBtnPressed = Mouse.GetState().LeftButton == ButtonState.Pressed; 
+            var b= isBtnPressed && !_isLeftButtonPressed;
+            _isLeftButtonPressed = isBtnPressed;
+            return b;
+        }
+
+        /// <summary>
+        /// Returns true if the left mouse button is being held down.
+        /// </summary>
+        /// <returns></returns>
+        public bool IsHeld()
+        {
+            return _isLeftButtonPressed && Mouse.GetState().LeftButton == ButtonState.Pressed;
+        }
+
+        /// <summary>
+        /// Returns true if the left mouse button was just released.
+        /// </summary>
+        /// <returns></returns>
+        public bool IsReleased()
+        {
+            var b = Mouse.GetState().LeftButton == ButtonState.Released && _isLeftButtonPressed;
+            _isLeftButtonPressed = false;
+            return b;
+        }
+
+        void IDevice.Reset()
+        {
+            _isLeftButtonPressed = false;
         }
     }
 }
