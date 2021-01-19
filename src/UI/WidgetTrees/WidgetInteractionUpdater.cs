@@ -9,55 +9,43 @@ namespace WForest.UI.WidgetTrees
 {
     internal class WidgetInteractionUpdater
     {
-        internal IDevice _device;
+        internal IDevice Device;
         private Widget? LastHovered { get; set; }
 
         internal WidgetInteractionUpdater(IDevice device)
         {
-            _device = device;
+            Device = device;
         }
 
         internal void Update(Maybe<WidgetTree> hoveredWidget)
         {
+            Device.Update();
             switch (hoveredWidget)
             {
                 case Maybe<WidgetTree>.Some m:
                     HandleWidgetInteraction(m.Value.Data);
                     break;
                 default:
-                    ChangeWidgetIfNotPressed(null);
+                    ChangeWidget(null);
                     break;
             }
         }
 
         private void HandleWidgetInteraction(Widget widget)
         {
-            if (LastHovered != widget) ChangeWidgetIfNotPressed(widget);
-            HandleMouseInteraction(widget);
+            if (LastHovered != widget) ChangeWidget(widget);
+            HandleInteraction(widget);
         }
 
-        private void HandleMouseInteraction(Widget widget)
+        private void HandleInteraction(Widget widget)
         {
-            if (_device.IsPressed()) widget.ChangeInteraction(Interaction.Pressed);
-            else if (_device.IsReleased())
+            if (Device.IsPressed() && widget.CurrentInteraction() != Interaction.Pressed) 
+                widget.ChangeInteraction(Interaction.Pressed);
+            else if (Device.IsReleased())
             {
                 if (LastHovered == widget) LastHovered.ChangeInteraction(Interaction.Released);
                 else ChangeWidget(widget);
             }
-        }
-
-        private void ChangeWidgetIfNotPressed(Widget? widget)
-        {
-            if (widget == null)
-            {
-                ChangeWidget(null);
-                return;
-            }
-
-            if (LastHovered != null && LastHovered.CurrentInteraction() == Interaction.Pressed)
-                return;
-
-            ChangeWidget(widget);
         }
 
         private void ChangeWidget(Widget? widget)
@@ -65,7 +53,6 @@ namespace WForest.UI.WidgetTrees
             LastHovered?.ChangeInteraction(Interaction.Exited);
             LastHovered = widget;
             LastHovered?.ChangeInteraction(Interaction.Entered);
-            _device.Reset();
         }
 
         #region Static Methods

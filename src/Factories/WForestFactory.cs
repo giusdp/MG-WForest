@@ -34,7 +34,7 @@ namespace WForest.Factories
                 .WriteTo.Console()
                 .MinimumLevel.ControlledBy(ls)
                 .CreateLogger();
-            Log.Information("WForest initialized, ready to create Widgets Trees.");
+            Log.Information("WForest initialized, ready to create Widgets Trees");
             _isInit = true;
         }
 
