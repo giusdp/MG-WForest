@@ -13,6 +13,12 @@ namespace WForest.Devices
         /// </summary>
         /// <returns>A Point that holds the pointed coordinates on the game window.</returns>
         Point GetPointedLocation();
+
+        /// <summary>
+        /// Returns true if the device interact button is pressed or not.
+        /// </summary>
+        /// <returns></returns>
+        bool IsPressed();
     }
 
     /// <summary>
@@ -35,6 +41,15 @@ namespace WForest.Devices
         public Point GetPointedLocation()
         {
             return Mouse.GetState().Position;
+        }
+
+        /// <summary>
+        /// Returns true if the left button is clicked or not. 
+        /// </summary>
+        /// <returns></returns>
+        public bool IsPressed()
+        {
+            return Mouse.GetState().LeftButton == ButtonState.Pressed;
         }
     }
 }

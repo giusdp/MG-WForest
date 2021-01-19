@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using WForest.Devices;
 using WForest.UI.Widgets;
 using WForest.Utilities;
 using WForest.Utilities.Collections;
@@ -10,11 +11,11 @@ namespace WForest.UI.WidgetTrees
 {
     internal class WidgetTreeVisitor
     {
-        private readonly WidgetInteractionSetter _interactionSetter;
+        private readonly WidgetInteractionUpdater _interactionUpdater;
 
         internal WidgetTreeVisitor()
         {
-            _interactionSetter = new WidgetInteractionSetter();
+            _interactionUpdater = new WidgetInteractionUpdater(MouseDevice.Instance);
         }
 
         internal static void DrawTree(WidgetTree widgetTree, SpriteBatch spriteBatch)
@@ -53,8 +54,8 @@ namespace WForest.UI.WidgetTrees
 
         internal void UpdateTree(WidgetTree widgetTree)
         {
-            var hoveredWidget = WidgetInteractionSetter.GetHoveredWidget(widgetTree, Mouse.GetState().Position);
-            _interactionSetter.Update(hoveredWidget);
+            var hoveredWidget = WidgetInteractionUpdater.GetHoveredWidget(widgetTree, Mouse.GetState().Position);
+            _interactionUpdater.Update(hoveredWidget);
 
             foreach (var tree in widgetTree)
             {
