@@ -10,7 +10,8 @@ namespace WForest.UI.WidgetTrees
     internal class WidgetInteractionUpdater
     {
         internal IDevice Device;
-        private Widget? LastHovered { get; set; }
+        private Widget? Hovered { get; set; }
+        private bool _wasPressed;
 
         internal WidgetInteractionUpdater(IDevice device)
         {
@@ -26,33 +27,42 @@ namespace WForest.UI.WidgetTrees
                     HandleWidgetInteraction(m.Value.Data);
                     break;
                 default:
-                    ChangeWidget(null);
+                    UpdateHovered(null);
                     break;
             }
         }
 
         private void HandleWidgetInteraction(Widget widget)
         {
-            if (LastHovered != widget) ChangeWidget(widget);
-            HandleInteraction(widget);
+            if (Hovered != widget) UpdateHovered(widget);
+            if (Hovered != null) HandleInteraction();
         }
 
-        private void HandleInteraction(Widget widget)
+        private void HandleInteraction()
         {
-            if (Device.IsPressed() && widget.CurrentInteraction() != Interaction.Pressed) 
-                widget.ChangeInteraction(Interaction.Pressed);
+            if (Device.IsPressed() || Device.IsHeld())
+            {
+                if (_wasPressed) return;
+                Hovered?.ChangeInteraction(Interaction.Pressed);
+                _wasPressed = true;
+            }
             else if (Device.IsReleased())
             {
-                if (LastHovered == widget) LastHovered.ChangeInteraction(Interaction.Released);
-                else ChangeWidget(widget);
+                if (_wasPressed) Hovered?.ChangeInteraction(Interaction.Released);
+                else UpdateHovered(Hovered);
+                _wasPressed = false;
             }
         }
 
-        private void ChangeWidget(Widget? widget)
+        private void UpdateHovered(Widget? widget)
         {
-            LastHovered?.ChangeInteraction(Interaction.Exited);
-            LastHovered = widget;
-            LastHovered?.ChangeInteraction(Interaction.Entered);
+            if (Hovered != null && Hovered != widget &&
+                Hovered.CurrentInteraction() == Interaction.Pressed && (Device.IsPressed()||Device.IsHeld())) return;
+
+            _wasPressed = false;
+            Hovered?.ChangeInteraction(Interaction.Exited);
+            Hovered = widget;
+            Hovered?.ChangeInteraction(Interaction.Entered);
         }
 
         #region Static Methods

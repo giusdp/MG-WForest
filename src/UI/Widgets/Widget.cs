@@ -79,7 +79,7 @@ namespace WForest.UI.Widgets
 
         #region Utils
 
-        internal Interaction CurrentInteraction() => _interactionHandler.CurrentInteraction;
+        internal virtual Interaction CurrentInteraction() => _interactionHandler.CurrentInteraction;
         internal virtual void ChangeInteraction(Interaction interaction) => _interactionHandler.ChangeState(interaction);
         internal void AddOnEnter(Action onEnter) => _interactionHandler.OnEnter.Add(onEnter);
         internal void AddOnExit(Action onExit) => _interactionHandler.OnExit.Add(onExit);
