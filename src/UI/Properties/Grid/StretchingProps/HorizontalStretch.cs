@@ -10,6 +10,8 @@ namespace WForest.UI.Properties.Grid.StretchingProps
     /// </summary>
     public class HorizontalStretch : Property
     {
+    
+        internal HorizontalStretch(){}
         /// <summary>
         /// It gets the width of the parent (if it has one) and replaces the widget's width with it, then updates the spaces of its children.
         /// </summary>

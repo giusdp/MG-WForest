@@ -58,7 +58,6 @@ namespace WForest.Factories
             return new WTreeManager(x, y, width, height, wTree);
         }
 
-
         /// <summary>
         /// Creates a <see cref="WTreeManager"/> that covers the area passed as input and handles the given
         /// <see cref="WidgetTree"/>. 

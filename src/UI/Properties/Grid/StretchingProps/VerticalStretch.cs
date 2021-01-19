@@ -10,6 +10,7 @@ namespace WForest.UI.Properties.Grid.StretchingProps
     /// </summary>
     public class VerticalStretch : Property
     {
+        internal VerticalStretch(){}
         /// <summary>
         /// It gets the height of the parent (if it has one) and replaces the widget's height with it, then updates the spaces of its children.
         /// </summary>

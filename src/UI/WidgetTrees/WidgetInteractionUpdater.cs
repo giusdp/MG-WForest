@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using WForest.Devices;
 using WForest.UI.Widgets;
 using WForest.UI.Widgets.Interactions;
 using WForest.Utilities;
@@ -7,10 +8,16 @@ using WForest.Utilities.Collections;
 
 namespace WForest.UI.WidgetTrees
 {
-    internal class WidgetInteractionSetter
+    internal class WidgetInteractionUpdater
     {
+        private IDevice _device;
         private Widget? LastHovered { get; set; }
         private bool IsButtonPressed { get; set; }
+
+        internal WidgetInteractionUpdater(IDevice device)
+        {
+            _device = device;
+        }
 
         internal void Update(Maybe<WidgetTree> hoveredWidget)
         {
@@ -88,7 +95,6 @@ namespace WForest.UI.WidgetTrees
 
         private static bool IsMouseInsideWidgetSpace(Rectangle space, Point mouseLoc)
         {
-            // TODO if widget is rounded check hovering only on visible parts
             var (x, y) = mouseLoc;
             var (widgetX, widgetY, widgetWidth, widgetHeight) = space;
             var isInsideHorizontally = x >= widgetX && x <= widgetX + widgetWidth - 1;
