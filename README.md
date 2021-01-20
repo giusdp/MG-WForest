@@ -6,23 +6,29 @@ inspired by the typical web/mobile frontend frameworks.
 It's based on the idea of having trees of components (widgets) and properties.
 Having multiple menus as trees of widgets makes it a forest 😁
 
-### Version (0.0.12)
-It's currently in a **pre-pre-alpha pre-0.1** work in progress state, so it's far from usable. I plan to release a *0.1* version after implemennting basic stuff 
-to make it at least somewhat usable.
+### Version (0.0.13)
+It's currently a WIP, it's usable only for basic stuff for now. 
+I plan to release a *0.1* version only when I'm confident it can be used
+for highly customizable stuff.
 
 As of now it only has a simple tree collection for widgets, 
 several properties to associate to widgets (mostly layout), 
-a container widget (to just use as row/col), an ImageButton widget (it uses texture2D)
-with normal, hovering and pressed textures and a Block widget which is a basic colored 
-rectangle. Widgets are inheritable to create custom ones, as well as the properties, but the idea 
-to create complex widgets is to do it by building a tree of widgets and props.
-
-You can check out the roadmap below to see the current status of the project.
+a container widget (to just use as row/col), 
+an ImageButton widget (it uses texture2D) with normal, hovering and pressed textures 
+a Block widget which is a basic colored 
+rectangle and a Text widget which can be customized through the FontSize and FontFamily properties. 
+Widgets are inheritable to create custom ones, as well as the properties, 
+but the core idea to create complex widgets is to do it by building a tree of widgets and props.
 
 ### How to use it
 Coming soon with version 0.1...
 
-If you really want to try it out, clone this project and open src/UI/HUD.cs. In the constructor you can see I add children and props to the _root widget which is the tree that gets drawn in Game1.cs.
+If you really want to try it out, clone this project 
+and reference it in your monogame project (I guess?) or build the nuget package with
+```bash
+dotnet pack src -c Release -o artifacts
+```
+then install the nuget package in your monogame project.
 
 ### Contributing
 
@@ -43,7 +49,8 @@ If you only want to propose some feature you can open an issue.
 - [x] Draggable property and FixX/FixY to make x/y axis fixed 
 - [x] Text widget and relative properties for text
 - [x] Support resizing
-- [x] Write Wiki
 - [x] API to use the lib from outside
+- [] Refactor refactor refactor
+- [] Write Wiki
 - [] Clean and build it as nuget package with a CD solution
 
