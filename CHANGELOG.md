@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ## [0.0.13]
 ### Added
 - Documentation for public classes and methods
+- Install Moq lib
+- Many tests for the WidgetInteractionUpdater
 
 ### Changed
 - Stretch property divided in HorizontalStretch and VerticalStretch and they work directly on the widgets space independently if row or column
@@ -13,8 +15,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Move FontStore to Utilities namespace
 - Make Widgets.Update public
 - Decouple MouseDevice and WidgetInteractionUpdater by moving mouse tracking from the updater into the mouse device class. The updater only deals with IDevice now.
+- Update tests converting Fake classes to Moq 
 
 ## [0.0.12]
+
 ### Added
 - A csproj file in the src folder to build nuget package without the tests and other stuff
 - A Program class with a main method in the tests folder so that building and testing the project works (for some reason running the tests was giving missing main method error)
