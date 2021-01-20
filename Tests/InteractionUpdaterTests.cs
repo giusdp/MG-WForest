@@ -43,8 +43,23 @@ namespace WForest.Tests
         }
 
         [Test]
-        public void EnteringWidget_FirstTime_GoesIntoEnteredInteraction()
+        public void CurrentInteraction_OnStateChange_Changes()
         {
+            _widgetTree.Data.ChangeInteraction(Interaction.Entered);
+            Assert.That(_widgetTree.Data.CurrentInteraction(), Is.EqualTo(Interaction.Entered));
+        }
+
+        [Test]
+        public void Enter_WidgetFirstTime_RunsEnteredInteraction()
+        {
+            _updater.Update(Maybe.Some(_widgetTree));
+            Assert.That(_widgetTree.Data.CurrentInteraction(), Is.EqualTo(Interaction.Entered));
+        }
+
+        [Test]
+        public void EnterWidget_WithOldWidgetEntered_NewRunsEnter()
+        {
+            _updater.Update(Maybe.Some(new WidgetTree(WidgetFactory.Container())));
             _updater.Update(Maybe.Some(_widgetTree));
             Assert.That(_widgetTree.Data.CurrentInteraction(), Is.EqualTo(Interaction.Entered));
         }
@@ -56,7 +71,7 @@ namespace WForest.Tests
         }
 
         [Test]
-        public void HoveringAnotherWidget_WithPreviousWidgetEntered_RunsExitInteraction()
+        public void EnterAnotherWidget_WithOldWidgetEntered_RunsExitOnOld()
         {
             Mock<Widget> w = new Mock<Widget>(Rectangle.Empty);
             _updater.Update(Maybe.Some(new WidgetTree(w.Object)));
@@ -65,15 +80,16 @@ namespace WForest.Tests
         }
 
         [Test]
-        public void HoveringAnotherWidget_WithAPreviousWidgetEntered_PreviousGoesUntouched()
+        public void EnterAnotherWidget_WithOldWidgetEntered_OldGoesUntouched()
         {
             _updater.Update(Maybe.Some(_widgetTree));
             _updater.Update(Maybe.Some(new WidgetTree(WidgetFactory.Container())));
             Assert.That(_widgetTree.Data.CurrentInteraction(), Is.EqualTo(Interaction.Untouched));
         }
 
+
         [Test]
-        public void HoveringNothing_WithAPreviousWidget_PreviousRunsExit()
+        public void HoveringNothing_WithOldWidget_OldRunsExit()
         {
             Mock<Widget> w = new Mock<Widget>(Rectangle.Empty);
             _updater.Update(Maybe.Some(new WidgetTree(w.Object)));
@@ -90,21 +106,181 @@ namespace WForest.Tests
         }
 
         [Test]
-        public void PressingOnHoveredWidget_RunsPressInteraction()
+        public void Press_OnHoveredWidget_RunsPressInteraction()
         {
             Mock<IDevice> mockedDevice = new Mock<IDevice>();
             Mock<Widget> mockedWidget = new Mock<Widget>(Rectangle.Empty);
             var wTree = new WidgetTree(mockedWidget.Object);
-            
+
             // First enter the widget
             _updater.Update(Maybe.Some(wTree));
             // Then press the interaction button
             mockedDevice.Setup(device => device.IsPressed()).Returns(true);
+            _updater.Device = mockedDevice.Object;
             // Update to press widget
             _updater.Update(Maybe.Some(wTree));
-            
+
             mockedWidget.Verify(w => w.ChangeInteraction(Interaction.Entered));
             mockedWidget.Verify(widget => widget.ChangeInteraction(Interaction.Pressed));
+        }
+
+
+        [Test]
+        public void Press_OnNonEnteredWidget_EntersAndPresses()
+        {
+            Mock<IDevice> mockedDevice = new Mock<IDevice>();
+            Mock<Widget> mockedWidget = new Mock<Widget>(Rectangle.Empty);
+            var wTree = new WidgetTree(mockedWidget.Object);
+
+            // Press the interaction button
+            mockedDevice.Setup(device => device.IsPressed()).Returns(true);
+            _updater.Device = mockedDevice.Object;
+            // Update to press widget
+            _updater.Update(Maybe.Some(wTree));
+
+            mockedWidget.Verify(w => w.ChangeInteraction(Interaction.Entered), Times.Once);
+            mockedWidget.Verify(widget => widget.ChangeInteraction(Interaction.Pressed), Times.Once);
+        }
+
+        [Test]
+        public void Release_OnSamePressedWidget_RunsReleaseInteraction()
+        {
+            Mock<IDevice> mockedDevice = new Mock<IDevice>();
+            Mock<Widget> mockedWidget = new Mock<Widget>(Rectangle.Empty);
+            var wTree = new WidgetTree(mockedWidget.Object);
+
+            // First enter the widget
+            _updater.Update(Maybe.Some(wTree));
+            // Then press the interaction button
+            mockedDevice.Setup(device => device.IsPressed()).Returns(true);
+            _updater.Device = mockedDevice.Object;
+            // Update to press widget
+            _updater.Update(Maybe.Some(wTree));
+            //Then release the button
+            mockedDevice.Setup(device => device.IsPressed()).Returns(false);
+            mockedDevice.Setup(device => device.IsReleased()).Returns(true);
+            _updater.Update(Maybe.Some(wTree));
+
+            mockedWidget.Verify(widget => widget.ChangeInteraction(Interaction.Released), Times.Once);
+        }
+
+        [Test]
+        public void PressOnWidget_ThenEnterAnother_OldDoesNotRelease()
+        {
+            Mock<IDevice> mockedDevice = new Mock<IDevice>();
+            Mock<Widget> mockedWidget = new Mock<Widget>(Rectangle.Empty);
+            mockedWidget.Setup(w => w.CurrentInteraction()).Returns(Interaction.Pressed);
+            var wTree = new WidgetTree(mockedWidget.Object);
+
+            // Press the interaction button
+            mockedDevice.Setup(device => device.IsPressed()).Returns(true);
+            _updater.Device = mockedDevice.Object;
+            // Press widget
+            _updater.Update(Maybe.Some(wTree));
+
+            mockedDevice.Setup(device => device.IsPressed()).Returns(false);
+            mockedDevice.Setup(device => device.IsHeld()).Returns(true);
+            _updater.Device = mockedDevice.Object;
+
+            // Move while pressing to another widget
+            _updater.Update(Maybe.Some(new WidgetTree(WidgetFactory.Container())));
+
+            mockedWidget.Verify(widget => widget.ChangeInteraction(Interaction.Released), Times.Never);
+        }
+
+        [Test]
+        public void PressOnWidget_ThenEnterAnother_OldStaysPressed()
+        {
+            Mock<IDevice> mockedDevice = new Mock<IDevice>();
+
+            // Press the interaction button
+            mockedDevice.Setup(device => device.IsPressed()).Returns(true);
+            _updater.Device = mockedDevice.Object;
+            // Press widget
+            _updater.Update(Maybe.Some(_widgetTree));
+
+            mockedDevice.Setup(device => device.IsPressed()).Returns(false);
+            mockedDevice.Setup(device => device.IsHeld()).Returns(true);
+            _updater.Device = mockedDevice.Object;
+            var w = new WidgetTree(WidgetFactory.Container());
+            // Move while pressing to another widget
+            _updater.Update(Maybe.Some(w));
+
+            Assert.That(_widgetTree.Data.CurrentInteraction(), Is.EqualTo(Interaction.Pressed));
+        }
+
+        [Test]
+        public void PressOnWidget_ThenEnterAnother_OldDoesNotExit()
+        {
+            Mock<IDevice> mockedDevice = new Mock<IDevice>();
+            Mock<Widget> mockedWidget = new Mock<Widget>(Rectangle.Empty);
+            mockedWidget.Setup(w => w.CurrentInteraction()).Returns(Interaction.Pressed);
+            var wTree = new WidgetTree(mockedWidget.Object);
+
+            // Press the interaction button
+            mockedDevice.Setup(device => device.IsPressed()).Returns(true);
+            _updater.Device = mockedDevice.Object;
+            // Press widget
+            _updater.Update(Maybe.Some(wTree));
+            
+            mockedDevice.Setup(device => device.IsPressed()).Returns(false);
+            mockedDevice.Setup(device => device.IsHeld()).Returns(true);
+            _updater.Device = mockedDevice.Object;
+            
+            // Move while pressing to another widget
+            _updater.Update(Maybe.Some(_widgetTree));
+
+            mockedWidget.Verify(w => w.ChangeInteraction(Interaction.Exited), Times.Never);
+        }
+
+        [Test]
+        public void PressOnWidget_ThenEnterAnother_NewDoesNotGetPressed()
+        {
+            Mock<IDevice> mockedDevice = new Mock<IDevice>();
+            Mock<Widget> mockedWidget = new Mock<Widget>(Rectangle.Empty);
+            mockedWidget.Setup(w => w.CurrentInteraction()).Returns(Interaction.Pressed);
+            var wTree = new WidgetTree(mockedWidget.Object);
+
+            // Press the interaction button
+            mockedDevice.Setup(device => device.IsPressed()).Returns(true);
+            _updater.Device = mockedDevice.Object;
+            // Press widget
+            _updater.Update(Maybe.Some(wTree));
+
+            // Move while pressing to another widget
+            _updater.Update(Maybe.Some(_widgetTree));
+
+            Assert.That(_widgetTree.Data.CurrentInteraction(), Is.Not.EqualTo(Interaction.Pressed));
+        }
+
+        [Test]
+        public void PressOnWidget_ThenEnterAnotherAndRelease_NoRelease()
+        {
+            Mock<IDevice> mockedDevice = new Mock<IDevice>();
+            Mock<Widget> firstPressed = new Mock<Widget>(Rectangle.Empty);
+            Mock<Widget> thenEntered = new Mock<Widget>(Rectangle.Empty);
+
+            var wTree = new WidgetTree(thenEntered.Object);
+
+            mockedDevice.Setup(device => device.IsPressed()).Returns(true);
+            _updater.Device = mockedDevice.Object;
+
+            firstPressed.Setup(w => w.CurrentInteraction()).Returns(Interaction.Pressed);
+
+            // Press firstPressed
+            _updater.Update(Maybe.Some(new WidgetTree(firstPressed.Object)));
+
+            // Move to thenEntered while pressing
+            _updater.Update(wTree);
+
+            mockedDevice.Setup(device => device.IsPressed()).Returns(false);
+            mockedDevice.Setup(d => d.IsReleased()).Returns(true);
+            _updater.Device = mockedDevice.Object;
+
+            _updater.Update(Maybe.Some(wTree));
+
+            firstPressed.Verify(w => w.ChangeInteraction(Interaction.Released), Times.Never);
+            thenEntered.Verify(w => w.ChangeInteraction(Interaction.Released), Times.Never);
         }
     }
 }

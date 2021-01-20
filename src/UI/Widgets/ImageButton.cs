@@ -51,20 +51,23 @@ namespace WForest.UI.Widgets
 
         private void StartedHovering()
         {
-            if (_isHovering == false) _isHovering = true;
-            else return;
+            if (_isHovering) return;
+
+            _isHovering = true;
 
             if (HoverButton == null)
             {
-                Log.Warning($"{GetType()} HoverButton texture missing, fallback to NormalButton.");
+                Log.Warning("ImageButton Widget: HoverButton texture missing, fallback to NormalButton");
                 _imageToDraw = NormalButton;
             }
-            else _imageToDraw = HoverButton;
+            else
+                _imageToDraw = HoverButton;
         }
 
         private void StoppedHovering()
         {
             _isHovering = false;
+            _isPressed = false;
             _imageToDraw = NormalButton;
         }
 
@@ -79,7 +82,7 @@ namespace WForest.UI.Widgets
 
             if (PressedButton == null)
             {
-                Log.Warning($"{GetType()} PressedButton texture missing, fallback to NormalButton.");
+                Log.Warning("ImageButton Widget: PressedButton texture missing, fallback to NormalButton");
                 _imageToDraw = NormalButton;
             }
             else _imageToDraw = PressedButton;

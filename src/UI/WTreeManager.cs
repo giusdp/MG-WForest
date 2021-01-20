@@ -16,7 +16,7 @@ namespace WForest.UI
 
         internal WTreeManager(int x, int y, int width, int height, WidgetTree wTree)
         {
-            Log.Information($"Created new WTree with {x},{y} coordinates and {width},{height} size.");
+            Log.Information("Created new WTreeManager");
             _widgetTreeVisitor = new WidgetTreeVisitor();
 
             _root = new WidgetTree(WidgetFactory.Container(new Rectangle(x, y, width, height)));

@@ -1,5 +1,4 @@
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
 using WForest.Devices;
 using WForest.UI.Widgets;
 using WForest.UI.Widgets.Interactions;
@@ -10,74 +9,60 @@ namespace WForest.UI.WidgetTrees
 {
     internal class WidgetInteractionUpdater
     {
-        private IDevice _device;
-        private Widget? LastHovered { get; set; }
-        private bool IsButtonPressed { get; set; }
+        internal IDevice Device;
+        private Widget? Hovered { get; set; }
+        private bool _wasPressed;
 
         internal WidgetInteractionUpdater(IDevice device)
         {
-            _device = device;
+            Device = device;
         }
 
         internal void Update(Maybe<WidgetTree> hoveredWidget)
         {
+            Device.Update();
             switch (hoveredWidget)
             {
                 case Maybe<WidgetTree>.Some m:
                     HandleWidgetInteraction(m.Value.Data);
                     break;
                 default:
-                    ChangeWidgetIfNotPressed(null);
+                    UpdateHovered(null);
                     break;
             }
         }
 
         private void HandleWidgetInteraction(Widget widget)
         {
-            if (LastHovered != widget) ChangeWidgetIfNotPressed(widget);
-            HandleMouseInteraction(widget);
+            if (Hovered != widget) UpdateHovered(widget);
+            if (Hovered != null) HandleInteraction();
         }
 
-        private void HandleMouseInteraction(Widget widget)
+        private void HandleInteraction()
         {
-            if (MouseJustPressed())
+            if (Device.IsPressed() || Device.IsHeld())
             {
-                widget.ChangeInteraction(Interaction.Pressed);
-                IsButtonPressed = true;
+                if (_wasPressed) return;
+                Hovered?.ChangeInteraction(Interaction.Pressed);
+                _wasPressed = true;
             }
-            else if (MouseJustReleased())
+            else if (Device.IsReleased())
             {
-                IsButtonPressed = false;
-                if (LastHovered == widget) LastHovered.ChangeInteraction(Interaction.Released);
-                else ChangeWidget(widget); 
+                if (_wasPressed) Hovered?.ChangeInteraction(Interaction.Released);
+                else UpdateHovered(Hovered);
+                _wasPressed = false;
             }
         }
 
-        private bool MouseJustPressed() =>
-            Mouse.GetState().LeftButton == ButtonState.Pressed && !IsButtonPressed;
-
-        private bool MouseJustReleased() =>
-            Mouse.GetState().LeftButton == ButtonState.Released && IsButtonPressed;
-
-        private void ChangeWidgetIfNotPressed(Widget? widget)
+        private void UpdateHovered(Widget? widget)
         {
-            if (widget == null)
-            {
-                ChangeWidget(null);
-                return;
-            }
-            if (LastHovered != null && LastHovered.CurrentInteraction() == Interaction.Pressed)
-                return;
+            if (Hovered != null && Hovered != widget &&
+                Hovered.CurrentInteraction() == Interaction.Pressed && (Device.IsPressed()||Device.IsHeld())) return;
 
-            ChangeWidget(widget);
-        }
-
-        private void ChangeWidget(Widget? widget)
-        {
-            LastHovered?.ChangeInteraction(Interaction.Exited);
-            LastHovered = widget;
-            LastHovered?.ChangeInteraction(Interaction.Entered);
-            IsButtonPressed = false;
+            _wasPressed = false;
+            Hovered?.ChangeInteraction(Interaction.Exited);
+            Hovered = widget;
+            Hovered?.ChangeInteraction(Interaction.Entered);
         }
 
         #region Static Methods
