@@ -14,7 +14,8 @@ namespace WForest.Utilities.Text
         private static Font? _defaultFont;
 
         /// <summary>
-        /// Get or set the DefaultFont.
+        /// Get or set the DefaultFont. Set the default font before using the FontStore.
+        /// It will be used whenever text is used and a custom font is not required.
         /// </summary>
         /// <exception cref="FontStoreNotInitializedException"></exception>
         public static Font DefaultFont
@@ -26,20 +27,14 @@ namespace WForest.Utilities.Text
                         "No DefaultFont set, was FontManager.Initialize() invoked?");
                 return _defaultFont;
             }
-            set => _defaultFont = value;
+            set
+            {
+                _defaultFont = value;
+                Log.Information("FontStore Default Font has been set");
+            }
         }
 
         private static readonly Dictionary<string, Font> Fonts = new Dictionary<string, Font>();
-
-        /// <summary>
-        /// Initialize the store passing it a font which will be the default font.
-        /// </summary>
-        /// <param name="defaultFont"></param>
-        public static void Initialize(Font defaultFont)
-        {
-            _defaultFont = defaultFont;
-            Log.Information($"FontStore Initialized.");
-        }
 
         /// <summary>
         /// Add a new font to the store with a name associated to it that you can use to retrieve the font with GetFont.
@@ -50,7 +45,7 @@ namespace WForest.Utilities.Text
         {
             CheckIfInit();
             Fonts.Add(name, font);
-            Log.Information($"Font {name} registered.");
+            Log.Information("New font registered in the Font Store");
         }
 
         /// <summary>

@@ -1,3 +1,4 @@
+using Moq;
 using NUnit.Framework;
 using WForest.Exceptions;
 using WForest.Tests.Utils;
@@ -17,14 +18,15 @@ namespace WForest.Tests
         [Test]
         public void GetFont_NoFont_ThrowsFontNotFound()
         {
-            FontStore.Initialize(new FakeFont());
+            Mock<Font> mockedFont = new Mock<Font>(null);
+            FontStore.DefaultFont = mockedFont.Object;
             Assert.That(() => FontStore.GetFont("test"), Throws.TypeOf<FontNotFoundException>());
         }
 
         [Test]
         public void UseFontManager_NotInitialized_ThrowsException()
         {
-            Assert.That(() => FontStore.RegisterFont("test", new FakeFont()),
+            Assert.That(() => FontStore.RegisterFont("test", new Mock<Font>(null).Object),
                 Throws.TypeOf<FontStoreNotInitializedException>());
         }
 

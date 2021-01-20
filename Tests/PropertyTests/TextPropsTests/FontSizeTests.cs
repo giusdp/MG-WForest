@@ -1,5 +1,6 @@
 using System;
 using Microsoft.Xna.Framework;
+using Moq;
 using NUnit.Framework;
 using WForest.Exceptions;
 using WForest.Factories;
@@ -14,6 +15,13 @@ namespace WForest.Tests.PropertyTests.TextPropsTests
     [TestFixture]
     public class FontSizeTests
     {
+
+        [SetUp]
+        public void BeforeEach()
+        {
+            FontStore.DefaultFont = new Mock<Font>(null).Object;
+        }
+
         [Test]
         public void ApplyOn_NotTextWidget_ThrowsException()
         {
@@ -25,7 +33,6 @@ namespace WForest.Tests.PropertyTests.TextPropsTests
         [Test]
         public void ApplyOn_TextWidget_ChangesSizeOfFont()
         {
-            FontStore.Initialize(new FakeFont());
             var size = new FontSize(14);
             var testWidget = (Text) WidgetFactory.Text("Test string");
             var tree = new WidgetTree(testWidget);
@@ -36,7 +43,6 @@ namespace WForest.Tests.PropertyTests.TextPropsTests
         [Test]
         public void ApplyOn_WithInvalidSize_Throws()
         {
-            FontStore.Initialize(new FakeFont());
             var size = new FontSize(-1);
             var t = new Text("a");
             var tree = new WidgetTree(t);
@@ -46,13 +52,16 @@ namespace WForest.Tests.PropertyTests.TextPropsTests
         [Test]
         public void ApplyOn_RecalculatesSizeOfWidget()
         {
-            var ff = new FakeFont();
-            FontStore.Initialize(ff);
-            var size = new FontSize(14);
+            var mockFont = new Mock<Font>(null);
+            FontStore.DefaultFont = mockFont.Object;
+            
             var testWidget = (Text) WidgetFactory.Text("Test string");
             var tree = new WidgetTree(testWidget);
             Assert.That(testWidget.Space.Size, Is.EqualTo(new Point(0,0)));
-            ff.MeasureTextResult = (1, 1);
+            
+            mockFont.Setup(f => f.MeasureText(It.IsAny<string>(), It.IsAny<int>())).Returns((1, 1));
+            FontStore.DefaultFont = mockFont.Object;
+            var size = new FontSize(14);
             size.ApplyOn(tree);
             Assert.That(testWidget.Space.Size, Is.EqualTo(new Point(1,1))); 
         }

@@ -3,7 +3,7 @@ using System;
 namespace WForest.Exceptions
 {
     /// <summary>
-    /// Exception related to the FontStore when it's used without being initialized.
+    /// Exception related to the FontStore when it's used without setting a DefaultFont first.
     /// </summary>
     public class FontStoreNotInitializedException : Exception
     {
