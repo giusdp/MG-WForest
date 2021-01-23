@@ -1,6 +1,6 @@
 namespace WForest.UI.Widgets.Interactions
 {
-    internal enum Interaction
+    public enum Interaction
     {
         Untouched,
         Entered,

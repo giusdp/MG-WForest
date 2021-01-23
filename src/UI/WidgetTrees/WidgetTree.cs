@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using WForest.UI.Properties;
+using WForest.UI.Props;
 using WForest.UI.Utils;
 using WForest.UI.Widgets;
 using WForest.Utilities.Collections;
@@ -19,7 +19,7 @@ namespace WForest.UI.WidgetTrees
         /// <summary>
         /// Properties of the widget associated with this node.
         /// </summary>
-        public List<Property> Properties { get; }
+        public List<Prop> Properties { get; }
 
         /// <summary>
         /// Creates a WidgetTree holding the widget data.
@@ -27,19 +27,19 @@ namespace WForest.UI.WidgetTrees
         /// <param name="data"></param>
         public WidgetTree(Widget data) : base(data)
         {
-            Properties = new List<Property>();
+            Properties = new List<Prop>();
         }
 
         /// <summary>
         /// Add a property to the widget of this node.
         /// </summary>
-        /// <param name="property"></param>
+        /// <param name="prop"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException"></exception>
-        public WidgetTree WithProperty(Property property)
+        public WidgetTree WithProperty(Prop prop)
         {
-            if (property == null) throw new ArgumentNullException(nameof(property));
-            Properties.Add(property);
+            if (prop == null) throw new ArgumentNullException(nameof(prop));
+            Properties.Add(prop);
             return this;
         }
 
