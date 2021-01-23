@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework.Graphics;
@@ -16,6 +17,16 @@ namespace WForest.UI.WidgetTrees
         internal WidgetTreeVisitor()
         {
             _interactionUpdater = new WidgetInteractionUpdater(MouseDevice.Instance);
+        }
+
+        internal static void ApplyPropsOnTree(IWidget widgetTree)
+        {
+            if (widgetTree == null) throw new ArgumentNullException(nameof(widgetTree));
+            
+            foreach (var widget in widgetTree.Reverse())
+            {
+                widget.ApplyProps();
+            }
         }
 
         internal static void DrawTree(WidgetTree widgetTree, SpriteBatch spriteBatch)
