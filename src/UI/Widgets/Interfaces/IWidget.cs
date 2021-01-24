@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using WForest.UI.Interactions;
+using WForest.UI.Utils;
 using WForest.Utilities;
 
 namespace WForest.UI.Widgets.Interfaces
@@ -28,6 +29,7 @@ namespace WForest.UI.Widgets.Interfaces
             );
 
         public Interaction CurrentInteraction { get; set; }
+
         #endregion
 
         #region Widget Tree
@@ -39,6 +41,7 @@ namespace WForest.UI.Widgets.Interfaces
         {
             if (widget == null) throw new ArgumentNullException(nameof(widget));
             if (widget == this) throw new ArgumentException("Widgets cannot add themselves as their children");
+            WidgetsSpaceHelper.UpdateSpace(widget, new Rectangle(Space.Location, widget.Space.Size));
             widget.Parent = this;
             Children.Add(widget);
         }
