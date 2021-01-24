@@ -1,7 +1,6 @@
 using Microsoft.Xna.Framework;
 using WForest.Devices;
-using WForest.UI.Utils;
-using WForest.UI.Widgets;
+using WForest.UI.Widgets.Interfaces;
 
 namespace WForest.UI.Props.Dragging
 {

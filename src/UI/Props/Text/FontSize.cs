@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 using Serilog;
 using WForest.Exceptions;
 using WForest.UI.Utils;
-using WForest.UI.Widgets;
+using WForest.UI.Widgets.Interfaces;
 
 namespace WForest.UI.Props.Text
 {

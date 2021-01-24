@@ -1,5 +1,5 @@
 using Microsoft.Xna.Framework;
-using WForest.UI.Widgets;
+using WForest.UI.Widgets.Interfaces;
 
 namespace WForest.UI.Utils
 {

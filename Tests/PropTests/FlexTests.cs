@@ -3,7 +3,7 @@ using NUnit.Framework;
 using WForest.Factories;
 using WForest.UI.Props.Grid;
 using WForest.UI.Props.Grid.StretchingProps;
-using WForest.UI.Widgets;
+using WForest.UI.Widgets.Interfaces;
 using static WForest.Tests.Utils.HelperMethods;
 
 namespace WForest.Tests.PropTests

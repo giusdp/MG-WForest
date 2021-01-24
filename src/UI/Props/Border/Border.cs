@@ -1,6 +1,5 @@
 using Microsoft.Xna.Framework;
-using WForest.UI.Widgets;
-using WForest.Utilities;
+using WForest.UI.Widgets.Interfaces;
 
 namespace WForest.UI.Props.Border
 {

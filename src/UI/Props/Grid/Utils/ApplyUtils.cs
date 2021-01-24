@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Serilog;
-using WForest.UI.Widgets;
+using WForest.UI.Widgets.Interfaces;
 using WForest.Utilities;
 
 namespace WForest.UI.Props.Grid.Utils

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using WForest.UI.Utils;
-using WForest.UI.Widgets;
+using WForest.UI.Widgets.Interfaces;
 
 namespace WForest.UI.Props.Grid.Utils
 {

@@ -3,10 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
-using WForest.UI.Widgets.Interfaces;
+using WForest.UI.Interactions;
 using WForest.Utilities;
 
-namespace WForest.UI.Widgets
+namespace WForest.UI.Widgets.Interfaces
 {
     public interface IWidget : IEnumerable<IWidget>, IPropHolder
     {
@@ -27,6 +27,7 @@ namespace WForest.UI.Widgets
                 Space.Height + Margins.Top + Margins.Bottom
             );
 
+        public Interaction CurrentInteraction { get; set; }
         #endregion
 
         #region Widget Tree

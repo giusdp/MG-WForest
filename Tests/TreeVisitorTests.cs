@@ -3,12 +3,10 @@ using System.Linq;
 using Microsoft.Xna.Framework;
 using Moq;
 using NUnit.Framework;
-using WForest.Factories;
 using WForest.UI.Props;
 using WForest.UI.Widgets;
-using WForest.UI.WidgetTrees;
+using WForest.UI.Widgets.Interfaces;
 using WForest.Utilities;
-using WForest.Utilities.Collections;
 
 namespace WForest.Tests
 {

@@ -1,4 +1,4 @@
-using WForest.UI.Widgets;
+using WForest.UI.Widgets.Interfaces;
 using WForest.Utilities;
 
 namespace WForest.Tests.Utils

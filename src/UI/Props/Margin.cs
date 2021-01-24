@@ -1,6 +1,6 @@
 using Microsoft.Xna.Framework;
 using WForest.UI.Utils;
-using WForest.UI.Widgets;
+using WForest.UI.Widgets.Interfaces;
 using WForest.Utilities;
 
 namespace WForest.UI.Props

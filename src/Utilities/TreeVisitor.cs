@@ -2,8 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using WForest.UI.Widgets;
-using WForest.Utilities.Collections;
+using WForest.UI.Widgets.Interfaces;
 
 namespace WForest.Utilities
 {
@@ -43,17 +42,18 @@ namespace WForest.Utilities
         //     ApplyLevelByLevel(new List<Tree<T>> {tree});
         // }
 
-        // internal static Maybe<Tree<T>> GetLowestNodeThatHolds([NotNull] Tree<T> tree, Func<Tree<T>, bool> predicate)
-        // {
-        //     if (tree == null) throw new ArgumentNullException(nameof(tree));
-        //     if (predicate == null) throw new ArgumentNullException(nameof(predicate));
-        //
-        //     var revCh = Enumerable.Reverse(tree.Children);
-        //     var nodesThatHold = revCh.Select(child => GetLowestNodeThatHolds(child, predicate))
-        //         .OfType<Maybe<Tree<T>>.Some>().ToList();
-        //     if (nodesThatHold.Any()) return nodesThatHold.Last();
-        //
-        //     return predicate(tree) ? Maybe.Some(tree) : Maybe.None;
-        // }
+        internal static Maybe<IWidget> GetLowestNodeThatHolds([NotNull] IWidget tree,
+            Func<IWidget, IEnumerable<IWidget>> childrenSelector, Func<IWidget, bool> predicate)
+        {
+            if (tree == null) throw new ArgumentNullException(nameof(tree));
+            if (predicate == null) throw new ArgumentNullException(nameof(predicate));
+
+            var revCh = childrenSelector(tree);
+            var nodesThatHold = revCh.Select(child => GetLowestNodeThatHolds(child, childrenSelector, predicate))
+                .OfType<Maybe<IWidget>.Some>().ToList();
+
+            if (nodesThatHold.Any()) return nodesThatHold.Last();
+            else return predicate(tree) ? Maybe.Some(tree) : Maybe.None;
+        }
     }
 }
