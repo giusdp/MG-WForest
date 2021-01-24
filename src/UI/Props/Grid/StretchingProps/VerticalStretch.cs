@@ -1,7 +1,6 @@
 using Microsoft.Xna.Framework;
 using WForest.UI.Utils;
 using WForest.UI.Widgets;
-using WForest.UI.WidgetTrees;
 
 namespace WForest.UI.Props.Grid.StretchingProps
 {

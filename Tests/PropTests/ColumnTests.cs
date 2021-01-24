@@ -4,7 +4,6 @@ using WForest.Factories;
 using WForest.UI.Props;
 using WForest.UI.Props.Grid;
 using WForest.UI.Widgets;
-using WForest.UI.WidgetTrees;
 
 namespace WForest.Tests.PropTests
 {

@@ -3,8 +3,6 @@ using NUnit.Framework;
 using WForest.Exceptions;
 using WForest.Factories;
 using WForest.UI.Widgets;
-using WForest.UI.WidgetTrees;
-using WForest.Utilities.Collections;
 
 namespace WForest.Tests
 {

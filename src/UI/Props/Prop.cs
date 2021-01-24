@@ -1,6 +1,5 @@
 using System;
 using WForest.UI.Widgets;
-using WForest.UI.WidgetTrees;
 
 namespace WForest.UI.Props
 {
