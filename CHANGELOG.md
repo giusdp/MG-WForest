@@ -5,8 +5,20 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [0.0.14]
 
+### Added
+- IWidget interface that represents a Widget with its props and children and holds only the most common data: Space and Margins
+- Widget, a simple concrete implementation of IWidget that other widgets can inherit from
+- Prop collection with a dictionary
+- IPropHolder to separate prop handling
 ### Changed
 - Property renamed to Prop (it was confusing with C# property)
+- Merged WidgetTree and Widget into IWidget
+- Updated code and tests to integrate this change
+- TreeVisitor in Utilities now is the only one that takes care of applying functions to IWidget trees.
+### Removed
+- Tree collection
+- WidgetTree
+- WidgetTreeVisitor
 
 ## [0.0.13]
 ### Added

@@ -2,7 +2,7 @@ using System.Linq;
 using Microsoft.Xna.Framework;
 using WForest.UI.Props.Grid.Utils;
 using WForest.UI.Utils;
-using WForest.UI.WidgetTrees;
+using WForest.UI.Widgets;
 
 namespace WForest.UI.Props.Grid.StretchingProps
 {
@@ -17,22 +17,22 @@ namespace WForest.UI.Props.Grid.StretchingProps
         }
 
         /// <summary>
-        /// It gets the children of the widget and expands the space enough to accomodate them,
+        /// Gets the children of the widget and expands the space enough to accomodate them,
         /// depending on if the parent is Row or Column.
         /// </summary>
-        /// <param name="widgetNode"></param>
-        public override void ApplyOn(WidgetTree widgetNode)
+        /// <param name="widget"></param>
+        public override void ApplyOn(IWidget widget)
         {
-            IncreaseSpaceWithChildren(widgetNode);
+            IncreaseSpaceWithChildren(widget);
 
-            var (x, y, _, _) = widgetNode.Data.Space;
+            var (x, y, _, _) = widget.Space;
 
-            var maybeRow = ApplyUtils.ExtractRowProp(widgetNode);
+            var maybeRow = ApplyUtils.ExtractRowProp(widget);
             if (maybeRow.TryGetValue(out var row))
             {
                 row.Applied += (sender, args) =>
                 {
-                    WidgetsSpaceHelper.UpdateSpace(widgetNode,
+                    WidgetsSpaceHelper.UpdateSpace(widget,
                         new Rectangle(
                             x,
                             y,
@@ -42,11 +42,11 @@ namespace WForest.UI.Props.Grid.StretchingProps
             }
             else
             {
-                var maybeCol = ApplyUtils.ExtractColumnProp(widgetNode);
+                var maybeCol = ApplyUtils.ExtractColumnProp(widget);
                 if (maybeCol.TryGetValue(out var col))
                     col.Applied += (sender, args) =>
                     {
-                        WidgetsSpaceHelper.UpdateSpace(widgetNode,
+                        WidgetsSpaceHelper.UpdateSpace(widget,
                             new Rectangle(
                                 x,
                                 y,
@@ -56,24 +56,24 @@ namespace WForest.UI.Props.Grid.StretchingProps
             }
         }
 
-        private static void IncreaseSpaceWithChildren(WidgetTree widgetNode)
+        private static void IncreaseSpaceWithChildren(IWidget widgetNode)
         {
             int w = 0, h = 0;
-            widgetNode.Children.ForEach(c =>
+            foreach (var c in widgetNode.Children)
             {
-                var (x, y, _, _) = widgetNode.Data.Space;
-                var (_, _, cw, ch) = c.Data.Space;
+                var (x, y, _, _) = widgetNode.Space;
+                var (_, _, cw, ch) = c.Space;
                 w += cw;
                 h += ch;
                 if (widgetNode.IsRoot == false)
                 {
-                    var (_, _, parentW, parentH) = widgetNode.Parent!.Data.Space;
+                    var (_, _, parentW, parentH) = widgetNode.Parent!.Space;
                     if (w > parentW) w -= cw;
                     if (h > parentH) h -= ch;
                 }
 
                 WidgetsSpaceHelper.UpdateSpace(widgetNode, new Rectangle(x, y, w, h));
-            });
+            }
         }
     }
 }

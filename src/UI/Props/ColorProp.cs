@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using WForest.UI.Widgets;
 
 namespace WForest.UI.Props
 {
@@ -17,10 +18,10 @@ namespace WForest.UI.Props
         /// <summary>
         /// Changed the Color field of the widget with the new color passed to this property constructor.
         /// </summary>
-        /// <param name="widgetNode"></param>
-        public override void ApplyOn(WidgetTrees.WidgetTree widgetNode)
+        /// <param name="widget"></param>
+        public override void ApplyOn(IWidget widget)
         {
-            widgetNode.Data.Color = _color;
+            // widget.WidgetNode.Data.Color = _color;
         }
     }
 }

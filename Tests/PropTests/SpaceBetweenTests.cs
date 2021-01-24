@@ -2,7 +2,8 @@ using Microsoft.Xna.Framework;
 using NUnit.Framework;
 using WForest.Factories;
 using WForest.UI.Props.Grid.JustifyProps;
-using WForest.UI.WidgetTrees;
+using WForest.UI.Widgets;
+using static WForest.Tests.Utils.HelperMethods;
 
 namespace WForest.Tests.PropTests
 {
@@ -10,13 +11,13 @@ namespace WForest.Tests.PropTests
     public class SpaceBetweenTests
     {
         private JustifyBetween _justifyBetween;
-        private WidgetTree _root;
+        private IWidget _root;
 
         [SetUp]
         public void BeforeEach()
         {
             _justifyBetween = new JustifyBetween();
-            _root = new WidgetTree(WidgetFactory.Container(new Rectangle(0, 0, 1280, 720)));
+            _root = WidgetFactory.Container(new Rectangle(0, 0, 1280, 720));
         }
 
         [Test]
@@ -28,82 +29,95 @@ namespace WForest.Tests.PropTests
         [Test]
         public void WidgetWithoutRowOrCol_NothingHappens()
         {
-            var child = _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 130, 120)));
+            var child = WidgetFactory.Container(new Rectangle(0, 0, 130, 120));
+            _root.AddChild(child);
             _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 120, 110)));
 
             _justifyBetween.ApplyOn(_root);
 
             var expected = new Rectangle(0, 0, 130, 120);
 
-            Assert.That(child.Data.Space, Is.EqualTo(expected));
+            Assert.That(child.Space, Is.EqualTo(expected));
         }
 
         [Test]
         public void RowWithOneChild_NothingHappens()
         {
-            var child = _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 130, 120)));
+            var child = WidgetFactory.Container(new Rectangle(0, 0, 130, 120));
+            _root.AddChild(child);
 
-            _root.WithProperty(PropertyFactory.Row());
-            _root.WithProperty(_justifyBetween);
+            _root.WithProp(PropertyFactory.Row());
+            _root.WithProp(_justifyBetween);
 
-            _root.ApplyProperties();
+            ApplyProps(_root);
             var expected = new Rectangle(0, 0, 130, 120);
 
-            Assert.That(child.Data.Space, Is.EqualTo(expected));
+            Assert.That(child.Space, Is.EqualTo(expected));
         }
 
         [Test]
         public void RowWithTwoW_MaximizesSpaceBetween()
         {
-            var child = _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 130, 120)));
-            var child1 = _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 120, 110)));
+            var child = WidgetFactory.Container(new Rectangle(0, 0, 130, 120));
+            var child1 = WidgetFactory.Container(new Rectangle(0, 0, 120, 110));
+            _root.AddChild(child);
+            _root.AddChild(child1);
 
-            _root.WithProperty(PropertyFactory.Row());
-            _root.WithProperty(_justifyBetween);
+            _root.WithProp(PropertyFactory.Row());
+            _root.WithProp(_justifyBetween);
 
-            _root.ApplyProperties();
+            ApplyProps(_root);
 
             var exp = new Rectangle(0, 0, 130, 120);
             var exp1 = new Rectangle(1160, 0, 120, 110);
 
-            Assert.That(child.Data.Space, Is.EqualTo(exp));
-            Assert.That(child1.Data.Space, Is.EqualTo(exp1));
+            Assert.That(child.Space, Is.EqualTo(exp));
+            Assert.That(child1.Space, Is.EqualTo(exp1));
         }
 
         [Test]
         public void RowWithThreeW_MaximizesSpaceBetween()
         {
-            var child = _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 130, 120)));
-            var child1 = _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 120, 110)));
-            var child2 = _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 140, 110)));
+            var child = WidgetFactory.Container(new Rectangle(0, 0, 130, 120));
+            var child1 = WidgetFactory.Container(new Rectangle(0, 0, 120, 110));
+            var child2 = WidgetFactory.Container(new Rectangle(0, 0, 140, 110));
+            _root.AddChild(child);
+            _root.AddChild(child1);
+            _root.AddChild(child2);
 
-            _root.WithProperty(PropertyFactory.Row());
-            _root.WithProperty(_justifyBetween);
+            _root.WithProp(PropertyFactory.Row());
+            _root.WithProp(_justifyBetween);
 
-            _root.ApplyProperties();
+            ApplyProps(_root);
 
             var exp = new Rectangle(0, 0, 130, 120);
             var exp1 = new Rectangle(575, 0, 120, 110);
             var exp2 = new Rectangle(1140, 0, 140, 110);
 
-            Assert.That(child.Data.Space, Is.EqualTo(exp));
-            Assert.That(child1.Data.Space, Is.EqualTo(exp1));
-            Assert.That(child2.Data.Space, Is.EqualTo(exp2));
+            Assert.That(child.Space, Is.EqualTo(exp));
+            Assert.That(child1.Space, Is.EqualTo(exp1));
+            Assert.That(child2.Space, Is.EqualTo(exp2));
         }
 
         [Test]
         public void RowWithFiveW_MaximizesSpaceBetween()
         {
-            var child = _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 130, 120)));
-            var child1 = _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 120, 110)));
-            var child2 = _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 140, 110)));
-            var child3 = _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 90, 120)));
-            var child4 = _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 100, 20)));
+            var child = WidgetFactory.Container(new Rectangle(0, 0, 130, 120));
+            var child1 = WidgetFactory.Container(new Rectangle(0, 0, 120, 110));
+            var child2 = WidgetFactory.Container(new Rectangle(0, 0, 140, 110));
+            var child3 = WidgetFactory.Container(new Rectangle(0, 0, 90, 120));
+            var child4 = WidgetFactory.Container(new Rectangle(0, 0, 100, 20));
 
-            _root.WithProperty(PropertyFactory.Row());
-            _root.WithProperty(_justifyBetween);
+            _root.AddChild(child);
+            _root.AddChild(child1);
+            _root.AddChild(child2);
+            _root.AddChild(child3);
+            _root.AddChild(child4);
 
-            _root.ApplyProperties();
+            _root.WithProp(PropertyFactory.Row());
+            _root.WithProp(_justifyBetween);
+
+            ApplyProps(_root);
 
             var exp = new Rectangle(0, 0, 130, 120);
             var exp1 = new Rectangle(305, 0, 120, 110);
@@ -111,35 +125,39 @@ namespace WForest.Tests.PropTests
             var exp3 = new Rectangle(915, 0, 90, 120);
             var exp4 = new Rectangle(1180, 0, 100, 20);
 
-            Assert.That(child.Data.Space, Is.EqualTo(exp));
-            Assert.That(child1.Data.Space, Is.EqualTo(exp1));
-            Assert.That(child2.Data.Space, Is.EqualTo(exp2));
-            Assert.That(child3.Data.Space, Is.EqualTo(exp3));
-            Assert.That(child4.Data.Space, Is.EqualTo(exp4));
+            Assert.That(child.Space, Is.EqualTo(exp));
+            Assert.That(child1.Space, Is.EqualTo(exp1));
+            Assert.That(child2.Space, Is.EqualTo(exp2));
+            Assert.That(child3.Space, Is.EqualTo(exp3));
+            Assert.That(child4.Space, Is.EqualTo(exp4));
         }
 
         [Test]
         public void RowWithFourW_MaximizesSpaceBetween()
         {
-            var child = _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 130, 120)));
-            var child1 = _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 120, 110)));
-            var child2 = _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 200, 200)));
-            var child3 = _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 90, 110)));
+            var child = WidgetFactory.Container(new Rectangle(0, 0, 130, 120));
+            var child1 = WidgetFactory.Container(new Rectangle(0, 0, 120, 110));
+            var child2 = WidgetFactory.Container(new Rectangle(0, 0, 200, 200));
+            var child3 = WidgetFactory.Container(new Rectangle(0, 0, 90, 110));
 
-            _root.WithProperty(PropertyFactory.Row());
-            _root.WithProperty(_justifyBetween);
+            _root.AddChild(child);
+            _root.AddChild(child1);
+            _root.AddChild(child2);
+            _root.AddChild(child3);
+            _root.WithProp(PropertyFactory.Row());
+            _root.WithProp(_justifyBetween);
 
-            _root.ApplyProperties();
+            ApplyProps(_root);
 
             var exp = new Rectangle(0, 0, 130, 120);
             var exp1 = new Rectangle(377, 0, 120, 110);
             var exp2 = new Rectangle(743, 0, 200, 200);
             var exp3 = new Rectangle(1190, 0, 90, 110);
 
-            Assert.That(child.Data.Space, Is.EqualTo(exp));
-            Assert.That(child1.Data.Space, Is.EqualTo(exp1));
-            Assert.That(child2.Data.Space, Is.EqualTo(exp2));
-            Assert.That(child3.Data.Space, Is.EqualTo(exp3));
+            Assert.That(child.Space, Is.EqualTo(exp));
+            Assert.That(child1.Space, Is.EqualTo(exp1));
+            Assert.That(child2.Space, Is.EqualTo(exp2));
+            Assert.That(child3.Space, Is.EqualTo(exp3));
         }
     }
 }

@@ -1,11 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using WForest.UI.Props.Grid.Utils;
 using WForest.UI.Utils;
 using WForest.UI.Widgets;
-using WForest.UI.WidgetTrees;
-using WForest.Utilities.Collections;
 
 namespace WForest.UI.Props.Grid.JustifyProps
 {
@@ -27,29 +26,29 @@ namespace WForest.UI.Props.Grid.JustifyProps
         /// <summary>
         /// Move the widgets to the end of a Row (to the right) or of a Col (to the bottom).
         /// </summary>
-        /// <param name="widgetNode"></param>
-        public override void ApplyOn(WidgetTree widgetNode)
+        /// <param name="widget"></param>
+        public override void ApplyOn(IWidget widget)
         {
-            ApplyUtils.ApplyIfThereAreChildren(widgetNode,
-                $"{widgetNode.Data} has no children to justify-end.",
+            ApplyUtils.ApplyIfThereAreChildren(widget,
+                $"{widget} has no children to justify-end.",
                 () =>
                 {
                     var rowsAtEnd =
-                        PutAtEnd(widgetNode, GridHelper.WidgetWidth, (x, c) => new Point(x, c.Data.Space.Y),
-                            c => c.MarginValues.Left);
+                        PutAtEnd(widget, GridHelper.WidgetWidth, (x, c) => new Point(x, c.Space.Y),
+                            c => c.Margins.Left);
                     var colsAtEnd =
-                        PutAtEnd(widgetNode, GridHelper.WidgetHeight, (y, c) => new Point(c.Data.Space.X, y),
-                            c => c.MarginValues.Top);
+                        PutAtEnd(widget, GridHelper.WidgetHeight, (y, c) => new Point(c.Space.X, y),
+                            c => c.Margins.Top);
 
-                    if (ApplyUtils.TryExtractRows(widgetNode, out var rows))
+                    if (ApplyUtils.TryExtractRows(widget, out var rows))
                         rowsAtEnd(rows);
-                    else if (ApplyUtils.TryExtractColumns(widgetNode, out var cols))
+                    else if (ApplyUtils.TryExtractColumns(widget, out var cols))
                         colsAtEnd(cols);
                 });
         }
 
-        private static Action<List<WidgetsDataSubList>> PutAtEnd(WidgetTree wTree, Func<Tree<Widget>, int> getSize,
-            Func<int, Tree<Widget>, Point> updateLoc, Func<Widget, int> getMargin)
+        private static Action<List<WidgetsDataSubList>> PutAtEnd(IWidget wTree, Func<IWidget, int> getSize,
+            Func<int, IWidget, Point> updateLoc, Func<IWidget, int> getMargin)
         {
             return wLists =>
                 wLists.ForEach(r =>
@@ -57,11 +56,11 @@ namespace WForest.UI.Props.Grid.JustifyProps
                     var acc = getSize(wTree);
                     for (var i = r.LastWidgetIndex - 1; i >= r.FirstWidgetIndex; i--)
                     {
-                        var child = wTree.Children[i];
-                        acc -= getSize(child) - getMargin(child.Data);
+                        var child = wTree.Children.ElementAt(i);
+                        acc -= getSize(child) - getMargin(child);
                         WidgetsSpaceHelper.UpdateSpace(child, new Rectangle(updateLoc(acc, child),
-                            child.Data.Space.Size));
-                        acc -= getMargin(child.Data);
+                            child.Space.Size));
+                        acc -= getMargin(child);
                     }
                 });
         }

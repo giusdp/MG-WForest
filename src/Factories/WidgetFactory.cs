@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using WForest.UI.Widgets;
+using WForest.UI.Widgets.BuiltIn;
 
 namespace WForest.Factories
 {

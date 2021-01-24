@@ -5,8 +5,6 @@ using Microsoft.Xna.Framework;
 using WForest.UI.Props.Grid.Utils;
 using WForest.UI.Utils;
 using WForest.UI.Widgets;
-using WForest.UI.WidgetTrees;
-using WForest.Utilities.Collections;
 using static WForest.UI.Props.Grid.Utils.GridHelper;
 
 namespace WForest.UI.Props.Grid.JustifyProps
@@ -30,47 +28,47 @@ namespace WForest.UI.Props.Grid.JustifyProps
         /// Move the widgets in a way to have them maximally separated between them.
         /// In a Row they are separated horizontally, in a Column vertically.
         /// </summary>
-        /// <param name="widgetNode"></param>
-        public override void ApplyOn(WidgetTree widgetNode)
+        /// <param name="widget"></param>
+        public override void ApplyOn(IWidget widget)
         {
-            ApplyUtils.ApplyIfThereAreChildren(widgetNode,
-                $"{widgetNode.Data} has no children to justify space between.",
+            ApplyUtils.ApplyIfThereAreChildren(widget,
+                $"{widget} has no children to justify space between.",
                 () =>
                 {
-                    if (widgetNode.Children.Count == 1) return;
-                    if (ApplyUtils.TryExtractRows(widgetNode, out var rows))
-                        SpaceBetweenHorizontally(widgetNode, rows);
-                    else if (ApplyUtils.TryExtractColumns(widgetNode, out var cols))
-                        SpaceBetweenVertically(widgetNode, cols);
+                    if (widget.Children.Count == 1) return;
+                    if (ApplyUtils.TryExtractRows(widget, out var rows))
+                        SpaceBetweenHorizontally(widget, rows);
+                    else if (ApplyUtils.TryExtractColumns(widget, out var cols))
+                        SpaceBetweenVertically(widget, cols);
                 });
         }
 
-        private static void SpaceBetweenHorizontally(WidgetTree wTree, List<WidgetsDataSubList> lists)
+        private static void SpaceBetweenHorizontally(IWidget wTree, List<WidgetsDataSubList> lists)
         {
-            int start = wTree.Data.Space.X;
+            int start = wTree.Space.X;
             int size = WidgetWidth(wTree);
             lists.ForEach(r =>
                 DivideSpaceEvenly(start, size,
-                    wTree.Children.GetRange(r.FirstWidgetIndex, r.LastWidgetIndex - r.FirstWidgetIndex),
+                    wTree.Children.ToList().GetRange(r.FirstWidgetIndex, r.LastWidgetIndex - r.FirstWidgetIndex),
                     WidgetWidth,
-                    (c, p) => new Point(p + c.MarginValues.Left, c.Space.Y))
+                    (c, p) => new Point(p + c.Margins.Left, c.Space.Y))
             );
         }
 
-        private static void SpaceBetweenVertically(WidgetTree wTree, List<WidgetsDataSubList> lists)
+        private static void SpaceBetweenVertically(IWidget wTree, List<WidgetsDataSubList> lists)
         {
-            int start = wTree.Data.Space.Y;
+            int start = wTree.Space.Y;
             int size = WidgetHeight(wTree);
             lists.ForEach(r =>
                 DivideSpaceEvenly(start, size,
-                    wTree.Children.GetRange(r.FirstWidgetIndex, r.LastWidgetIndex - r.FirstWidgetIndex),
+                    wTree.Children.ToList().GetRange(r.FirstWidgetIndex, r.LastWidgetIndex - r.FirstWidgetIndex),
                     WidgetHeight,
-                    (c, pos) => new Point(c.Space.X, pos + c.MarginValues.Top))
+                    (c, pos) => new Point(c.Space.X, pos + c.Margins.Top))
             );
         }
 
-        private static void DivideSpaceEvenly(int start, int parentSize, List<Tree<Widget>> widgets,
-            Func<Tree<Widget>, int> getSize, Func<Widget, int, Point> updateLoc)
+        private static void DivideSpaceEvenly(int start, int parentSize, List<IWidget> widgets,
+            Func<IWidget, int> getSize, Func<IWidget, int, Point> updateLoc)
         {
             float startPoint = start;
             float usedPixels = widgets.Sum(getSize);
@@ -79,7 +77,7 @@ namespace WForest.UI.Props.Grid.JustifyProps
 
             widgets.ForEach(w =>
             {
-                WidgetsSpaceHelper.UpdateSpace(w, new Rectangle(updateLoc(w.Data, start), w.Data.Space.Size));
+                WidgetsSpaceHelper.UpdateSpace(w, new Rectangle(updateLoc(w, start), w.Space.Size));
                 startPoint += getSize(w) + spaceBetween;
                 start = (int) Math.Round(startPoint);
             });

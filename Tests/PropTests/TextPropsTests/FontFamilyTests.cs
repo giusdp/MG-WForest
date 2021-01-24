@@ -4,8 +4,7 @@ using NUnit.Framework;
 using WForest.Exceptions;
 using WForest.Factories;
 using WForest.UI.Props.Text;
-using WForest.UI.Widgets;
-using WForest.UI.WidgetTrees;
+using WForest.UI.Widgets.BuiltIn;
 using WForest.Utilities.Text;
 
 namespace WForest.Tests.PropTests.TextPropsTests
@@ -24,7 +23,7 @@ namespace WForest.Tests.PropTests.TextPropsTests
         public void ApplyOn_NotTextWidget_ThrowsException()
         {
             var font = new FontFamily("ff");
-            var tree = new WidgetTree(WidgetFactory.Container(0, 0));
+            var tree =  WidgetFactory.Container(0, 0);
             Assert.That(() => font.ApplyOn(tree), Throws.TypeOf<IncompatibleWidgetException>());
         }
 
@@ -36,8 +35,8 @@ namespace WForest.Tests.PropTests.TextPropsTests
             
             var font = new FontFamily("ff1");
             var testWidget = (Text) WidgetFactory.Text("Test string");
-            var tree = new WidgetTree(testWidget);
-            font.ApplyOn(tree);
+            
+            font.ApplyOn(testWidget);
             
             Assert.That(testWidget.Font, Is.EqualTo(anotherFont));
         }
@@ -51,10 +50,9 @@ namespace WForest.Tests.PropTests.TextPropsTests
             
             var font = new FontFamily("mockF");
             var testWidget = (Text) WidgetFactory.Text("Test string");
-            var tree = new WidgetTree(testWidget);
             Assert.That(testWidget.Space.Size, Is.EqualTo(new Point(0, 0)));
 
-            font.ApplyOn(tree);
+            font.ApplyOn(testWidget);
             Assert.That(testWidget.Space.Size, Is.EqualTo(new Point(1, 1)));
         }
     }

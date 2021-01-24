@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Serilog;
 
-namespace WForest.UI.Widgets
+namespace WForest.UI.Widgets.BuiltIn
 {
     /// <summary>
     /// Widget that displays Texture2Ds based on hovering and pressed states which can be used as a button.
@@ -29,20 +29,20 @@ namespace WForest.UI.Widgets
                            throw new ArgumentNullException(nameof(normalButton));
             _imageToDraw = NormalButton;
             Space = new Rectangle(0, 0, normalButton.Width, normalButton.Height);
-
-            AddOnEnter(StartedHovering);
-            AddOnExit(StoppedHovering);
-            AddOnPressed(PressedDown);
-            AddOnRelease(Released);
+            //
+            // AddOnEnter(StartedHovering);
+            // AddOnExit(StoppedHovering);
+            // AddOnPressed(PressedDown);
+            // AddOnRelease(Released);
         }
 
         /// <summary>
         /// Draws the widget using based on the interaction state (if hovered or not, pressed or not)
         /// </summary>
         /// <param name="spriteBatch"></param>
-        public override void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(_imageToDraw, Space, Color);
+            // spriteBatch.Draw(_imageToDraw, Space, Color);
         }
 
         #region Visualization Based On Interactions

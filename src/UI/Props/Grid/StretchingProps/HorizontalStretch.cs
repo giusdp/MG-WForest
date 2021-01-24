@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using WForest.UI.Utils;
+using WForest.UI.Widgets;
 using WForest.UI.WidgetTrees;
 
 namespace WForest.UI.Props.Grid.StretchingProps
@@ -10,18 +11,20 @@ namespace WForest.UI.Props.Grid.StretchingProps
     /// </summary>
     public class HorizontalStretch : Prop
     {
-    
-        internal HorizontalStretch(){}
+        internal HorizontalStretch()
+        {
+        }
+
         /// <summary>
         /// It gets the width of the parent (if it has one) and replaces the widget's width with it, then updates the spaces of its children.
         /// </summary>
-        /// <param name="widgetNode"></param>
-        public override void ApplyOn(WidgetTree widgetNode)
+        /// <param name="widget"></param>
+        public override void ApplyOn(IWidget widget)
         {
-            if (widgetNode.IsRoot) return;
-            var (x, y, _, h) = widgetNode.Data.Space;
-            WidgetsSpaceHelper.UpdateSpace(widgetNode,
-                new Rectangle(x, y, widgetNode.Parent!.Data.Space.Width, h));
+            if (widget.IsRoot) return;
+            var (x, y, _, h) = widget.Space;
+            WidgetsSpaceHelper.UpdateSpace(widget,
+                new Rectangle(x, y, widget.Parent!.Space.Width, h));
         }
     }
 }

@@ -1,3 +1,5 @@
+using WForest.UI.Widgets;
+
 namespace WForest.UI.Props.Dragging
 {
     /// <summary>
@@ -10,8 +12,8 @@ namespace WForest.UI.Props.Dragging
         /// <summary>
         /// This ApplyOn does nothing. Just having this property is enough for a widget to become unmovable on the X axis.
         /// </summary>
-        /// <param name="widgetNode"></param>
-        public override void ApplyOn(WidgetTrees.WidgetTree widgetNode)
+        /// <param name="widget"></param>
+        public override void ApplyOn(IWidget widget)
         {
         }
     }

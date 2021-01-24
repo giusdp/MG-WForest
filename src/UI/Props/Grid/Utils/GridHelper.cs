@@ -5,8 +5,6 @@ using Microsoft.Xna.Framework;
 using Serilog;
 using WForest.UI.Utils;
 using WForest.UI.Widgets;
-using WForest.UI.WidgetTrees;
-using WForest.Utilities.Collections;
 
 namespace WForest.UI.Props.Grid.Utils
 {
@@ -14,18 +12,18 @@ namespace WForest.UI.Props.Grid.Utils
     {
         #region API
 
-        internal static List<WidgetsDataSubList> OrganizeWidgetsInColumns(WidgetTree widget)
+        internal static List<WidgetsDataSubList> OrganizeWidgetsInColumns(IWidget widget)
             => OrganizeWidgetsInSubLists(widget, CreateColumn, OffsetWidgetsInColumns);
 
-        internal static List<WidgetsDataSubList> OrganizeWidgetsInRows(WidgetTree widgetTree)
-            => OrganizeWidgetsInSubLists(widgetTree, CreateRow, OffsetWidgetsInRows);
+        internal static List<WidgetsDataSubList> OrganizeWidgetsInRows(IWidget widget)
+            => OrganizeWidgetsInSubLists(widget, CreateRow, OffsetWidgetsInRows);
 
         #endregion
 
         #region DI Functions
 
-        internal static int WidgetWidth(Tree<Widget> t) => t.Data.TotalSpaceOccupied.Width;
-        internal static int WidgetHeight(Tree<Widget> t) => t.Data.TotalSpaceOccupied.Height;
+        internal static int WidgetWidth(IWidget w) => w.TotalSpaceOccupied.Width;
+        internal static int WidgetHeight(IWidget w) => w.TotalSpaceOccupied.Height;
 
         private static int SubListWidth(WidgetsDataSubList w) => w.Width;
         private static int SubListHeight(WidgetsDataSubList w) => w.Height;
@@ -33,7 +31,7 @@ namespace WForest.UI.Props.Grid.Utils
         private static Rectangle AddToX(Rectangle r, int v) => new Rectangle(r.X + v, r.Y, r.Width, r.Height);
         private static Rectangle AddToY(Rectangle r, int v) => new Rectangle(r.X, r.Y + v, r.Width, r.Height);
 
-        private static (WidgetsDataSubList, int) CreateColumn(WidgetTree widget, int startIdx)
+        private static (WidgetsDataSubList, int) CreateColumn(IWidget widget, int startIdx)
         {
             var (x, firstIndexOnSubList) =
                 SumHeightsTilFit(widget.Children, startIdx, WidgetHeight(widget));
@@ -45,7 +43,7 @@ namespace WForest.UI.Props.Grid.Utils
             return (subL, firstIndexOnSubList);
         }
 
-        private static (WidgetsDataSubList, int) CreateRow(WidgetTree widget, int startIdx)
+        private static (WidgetsDataSubList, int) CreateRow(IWidget widget, int startIdx)
         {
             var (x, firstIndexOnSubList) =
                 SumWidthsTilFit(widget.Children, startIdx, WidgetWidth(widget));
@@ -61,29 +59,29 @@ namespace WForest.UI.Props.Grid.Utils
 
         #region Backend
 
-        private static List<WidgetsDataSubList> OrganizeWidgetsInSubLists(WidgetTree widget,
-            Func<WidgetTree, int, (WidgetsDataSubList, int)> f,
-            Action<List<Tree<Widget>>, List<WidgetsDataSubList>> offset)
+        private static List<WidgetsDataSubList> OrganizeWidgetsInSubLists(IWidget widget,
+            Func<IWidget, int, (WidgetsDataSubList, int)> f,
+            Action<ICollection<IWidget>, List<WidgetsDataSubList>> offset)
         {
             var l = BuildSubLists(widget, f);
             offset(widget.Children, l);
             return l;
         }
 
-        private static void OffsetWidgetsInRows(List<Tree<Widget>> widgetTrees, List<WidgetsDataSubList> rows)
+        private static void OffsetWidgetsInRows(ICollection<IWidget> widgets, List<WidgetsDataSubList> rows)
         {
-            OffsetByMainPosition(widgetTrees, rows, WidgetWidth, AddToX);
-            OffsetBySecondaryPosition(widgetTrees, rows, SubListHeight, AddToY);
+            OffsetByMainPosition(widgets, rows, WidgetWidth, AddToX);
+            OffsetBySecondaryPosition(widgets, rows, SubListHeight, AddToY);
         }
 
-        private static void OffsetWidgetsInColumns(List<Tree<Widget>> widgetTrees, List<WidgetsDataSubList> cols)
+        private static void OffsetWidgetsInColumns(ICollection<IWidget> widgets, List<WidgetsDataSubList> cols)
         {
-            OffsetByMainPosition(widgetTrees, cols, WidgetHeight, AddToY);
-            OffsetBySecondaryPosition(widgetTrees, cols, SubListWidth, AddToX);
+            OffsetByMainPosition(widgets, cols, WidgetHeight, AddToY);
+            OffsetBySecondaryPosition(widgets, cols, SubListWidth, AddToX);
         }
 
-        private static void OffsetByMainPosition(List<Tree<Widget>> widgetTrees, List<WidgetsDataSubList> subLists,
-            Func<Tree<Widget>, int> getSize, Func<Rectangle, int, Rectangle> updateRect)
+        private static void OffsetByMainPosition(ICollection<IWidget> widgets, List<WidgetsDataSubList> subLists,
+            Func<IWidget, int> getSize, Func<Rectangle, int, Rectangle> updateRect)
         {
             if (subLists.Count == 0) return;
 
@@ -92,32 +90,31 @@ namespace WForest.UI.Props.Grid.Utils
                 var acc = 0;
                 for (var i = l.FirstWidgetIndex; i < l.LastWidgetIndex; i++)
                 {
-                    var widgetSpace = widgetTrees[i].Data.Space;
-                    WidgetsSpaceHelper.UpdateSpace(widgetTrees[i], updateRect(widgetSpace, acc));
-                    acc += getSize(widgetTrees[i]);
+                    var widgetSpace = widgets.ElementAt(i).Space;
+                    WidgetsSpaceHelper.UpdateSpace(widgets.ElementAt(i), updateRect(widgetSpace, acc));
+                    acc += getSize(widgets.ElementAt(i));
                 }
             });
         }
 
-        private static void OffsetBySecondaryPosition(List<Tree<Widget>> widgetTrees, List<WidgetsDataSubList> subLists,
+        private static void OffsetBySecondaryPosition(ICollection<IWidget> widgets, List<WidgetsDataSubList> subLists,
             Func<WidgetsDataSubList, int> getSlSize, Func<Rectangle, int, Rectangle> updateRect)
         {
             if (subLists.Count <= 1) return;
 
-            var widgets = widgetTrees.Select(t => t.Data).ToList();
             var acc = getSlSize(subLists[0]);
             for (var i = 1; i < subLists.Count; i++)
             {
                 for (var j = subLists[i].FirstWidgetIndex; j < subLists[i].LastWidgetIndex; j++)
-                    widgets[j].Space = updateRect(widgets[j].Space, acc);
+                    widgets.ElementAt(j).Space = updateRect(widgets.ElementAt(j).Space, acc);
 
                 acc += getSlSize(subLists[i]);
             }
         }
 
 
-        private static List<WidgetsDataSubList> BuildSubLists(WidgetTree widget,
-            Func<WidgetTree, int, (WidgetsDataSubList, int)> f)
+        private static List<WidgetsDataSubList> BuildSubLists(IWidget widget,
+            Func<IWidget, int, (WidgetsDataSubList, int)> f)
         {
             var subList = new List<WidgetsDataSubList>();
             var previousIndex = 0;
@@ -129,39 +126,39 @@ namespace WForest.UI.Props.Grid.Utils
                 subList.Add(sl);
                 previousIndex = firstIndexOnList;
                 done = firstIndexOnList == -1;
-                if (!done) Log.Warning($"Widget {widget} passed its size limit and was broken up in 2 or more parts.");
+                if (!done) Log.Warning("Widget violated its size limit and was broken up in 2 or more parts");
             }
 
             return subList;
         }
 
-        private static (int, int) SumHeightsTilFit(List<Tree<Widget>> children, int startIdx, int maxHeight)
+        private static (int, int) SumHeightsTilFit(ICollection<IWidget> children, int startIdx, int maxHeight)
             => GetSizeAndIndexTilLimitSize(children, startIdx, maxHeight, WidgetHeight);
 
-        private static (int, int) SumWidthsTilFit(List<Tree<Widget>> children, int startIdx, int maxWidth)
+        private static (int, int) SumWidthsTilFit(ICollection<IWidget> children, int startIdx, int maxWidth)
             => GetSizeAndIndexTilLimitSize(children, startIdx, maxWidth, WidgetWidth);
 
-        private static int MaxWidthInSubList(List<Tree<Widget>> children, int from, int until) =>
+        private static int MaxWidthInSubList(ICollection<IWidget> children, int from, int until) =>
             GetMaxSizeInChildrenSubList(children, from, until, WidgetWidth);
 
-        private static int MaxHeightInSubList(List<Tree<Widget>> children, int from, int until) =>
+        private static int MaxHeightInSubList(ICollection<IWidget> children, int from, int until) =>
             GetMaxSizeInChildrenSubList(children, from, until, WidgetHeight);
 
-        private static int GetMaxSizeInChildrenSubList(List<Tree<Widget>> cs, int from, int until,
-            Func<Tree<Widget>, int> size)
-            => cs.GetRange(from, until <= 0 ? cs.Count - from : until - from).Max(size);
+        private static int GetMaxSizeInChildrenSubList(ICollection<IWidget> cs, int from, int until,
+            Func<IWidget, int> size)
+            => cs.ToList().GetRange(from, until <= 0 ? cs.Count - from : until - from).Max(size);
 
 
-        private static (int, int) GetSizeAndIndexTilLimitSize(List<Tree<Widget>> children, int firstChildIndex,
+        private static (int, int) GetSizeAndIndexTilLimitSize(ICollection<IWidget> children, int firstChildIndex,
             int limit,
-            Func<Tree<Widget>, int> getSize)
+            Func<IWidget, int> getSize)
         {
             var acc = 0;
             var indexOnNewRow = -1;
 
             for (var i = firstChildIndex; i < children.Count; i++)
             {
-                var size = getSize(children[i]);
+                var size = getSize(children.ElementAt(i));
                 if (acc + size > limit && size < limit)
                 {
                     indexOnNewRow = i;

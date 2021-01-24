@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using NUnit.Framework;
 using WForest.Exceptions;
 using WForest.Factories;
+using WForest.UI.Widgets;
 using WForest.UI.WidgetTrees;
 using WForest.Utilities.Collections;
 
@@ -13,7 +14,7 @@ namespace WForest.Tests
         [Test]
         public void CreateTree_NotInit_Throws()
         {
-            Assert.That(() => WForestFactory.CreateWTree(0, 0, 0, 0, new WidgetTree(null)),
+            Assert.That(() => WForestFactory.CreateWTree(0, 0, 0, 0, new Widget(Rectangle.Empty)),
                 Throws.TypeOf<WForestNotInitializedException>());
         }
 

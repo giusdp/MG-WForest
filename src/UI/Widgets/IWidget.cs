@@ -3,46 +3,42 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
-using WForest.UI.Props;
+using WForest.UI.Widgets.Interfaces;
+using WForest.Utilities;
 
 namespace WForest.UI.Widgets
 {
-    public interface IWidget : IEnumerable<IWidget>
+    public interface IWidget : IEnumerable<IWidget>, IPropHolder
     {
+        #region Shared State
+
         /// <summary>
         /// The Space used by the widget.
         /// </summary>
         Rectangle Space { get; set; }
 
-        Rectangle TotalSpaceOccupied() => Space;
+        public MarginValues Margins { get; set; }
 
-        #region Props
-
-        ICollection<Prop> Props { get; }
-
-        void WithProp(Prop prop)
-        {
-            if (prop == null) throw new ArgumentNullException(nameof(prop));
-            Props.Add(prop);
-        }
-
-        void ApplyProps()
-        {
-            foreach (var prop in Props)
-                prop.Apply(this);
-        }
+        public Rectangle TotalSpaceOccupied =>
+            new Rectangle(
+                Space.X - Margins.Left,
+                Space.Y - Margins.Top,
+                Space.Width + Margins.Left + Margins.Right,
+                Space.Height + Margins.Top + Margins.Bottom
+            );
 
         #endregion
 
         #region Widget Tree
 
-        IWidget? Parent { get; }
+        IWidget? Parent { get; set; }
         public ICollection<IWidget> Children { get; }
 
         void AddChild(IWidget widget)
         {
             if (widget == null) throw new ArgumentNullException(nameof(widget));
             if (widget == this) throw new ArgumentException("Widgets cannot add themselves as their children");
+            widget.Parent = this;
             Children.Add(widget);
         }
 
@@ -60,10 +56,7 @@ namespace WForest.UI.Widgets
 
         #region Enumerator
 
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         /// <summary>
         /// Enumerator to cycle through the tree.

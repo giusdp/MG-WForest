@@ -1,4 +1,5 @@
 using WForest.UI.Props.Grid.Utils;
+using WForest.UI.Widgets;
 using WForest.UI.WidgetTrees;
 
 namespace WForest.UI.Props.Grid.JustifyProps
@@ -21,17 +22,17 @@ namespace WForest.UI.Props.Grid.JustifyProps
         /// <summary>
         /// Move the widgets to the center of a Row (centered horizontally) or of a Column (centered vertically).
         /// </summary>
-        /// <param name="widgetNode"></param>
-        public override void ApplyOn(WidgetTree widgetNode)
+        /// <param name="widget"></param>
+        public override void ApplyOn(IWidget widget)
         {
-            ApplyUtils.ApplyIfThereAreChildren(widgetNode,
-                $"{widgetNode.Data} has no children to center.",
+            ApplyUtils.ApplyIfThereAreChildren(widget,
+                $"{widget} has no children to center.",
                 () =>
                 {
-                    if (ApplyUtils.TryExtractRows(widgetNode, out var rows))
-                        CenterHelper.JustifyCenterByRow(widgetNode, rows);
-                    else if (ApplyUtils.TryExtractColumns(widgetNode, out var cols))
-                        CenterHelper.JustifyCenterByColumn(widgetNode, cols);
+                    if (ApplyUtils.TryExtractRows(widget, out var rows))
+                        CenterHelper.JustifyCenterByRow(widget, rows);
+                    else if (ApplyUtils.TryExtractColumns(widget, out var cols))
+                        CenterHelper.JustifyCenterByColumn(widget, cols);
                 }
             );
         }

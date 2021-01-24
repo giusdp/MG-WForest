@@ -1,7 +1,10 @@
 using System;
+using WForest.UI.Widgets;
+using WForest.UI.WidgetTrees;
 
 namespace WForest.UI.Props
 {
+
     /// <summary>
     /// Base class for properties to apply on widgets. Inherit this class to create custom props.
     /// </summary>
@@ -18,14 +21,14 @@ namespace WForest.UI.Props
         public virtual int Priority { get; } = 0;
         
         /// <summary>
-        /// Abstract method used to apply modifications (the property) on a widget.
+        /// Apply the prop on a widget.
         /// </summary>
-        /// <param name="widgetNode"></param>
-        public abstract void ApplyOn(WidgetTrees.WidgetTree widgetNode);
+        /// <param name="widget"></param>
+        public abstract void ApplyOn(IWidget widget);
 
-        internal void ApplyOnAndFireApplied(WidgetTrees.WidgetTree widgetNode)
+        internal void ApplyOnAndFireApplied(IWidget widget)
         {
-            ApplyOn(widgetNode);
+            ApplyOn(widget);
             OnApplied();
         }
 

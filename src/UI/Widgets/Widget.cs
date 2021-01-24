@@ -1,91 +1,44 @@
-using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using WForest.UI.Widgets.Interactions;
 using WForest.Utilities;
+using WForest.Utilities.Collections;
 
 namespace WForest.UI.Widgets
 {
-    /// <summary>
-    /// Base class for Widgets. It contains the main data used to handle and draw widgets.
-    /// </summary>
-    public abstract class Widget
+    public class Widget : IWidget
     {
-        #region Widget Data
-
         /// <summary>
-        /// The Widget color.
-        /// </summary>
-        public Color Color;
-
-        /// <summary>
-        /// The Space used by the widget.
-        /// </summary>
-        public Rectangle Space { get; set; }
-        
-        /// <summary>
-        /// The values for the left, right, top, bottom margins.
-        /// </summary>
-        public MarginValues MarginValues { get; set; }
-
-        internal Rectangle TotalSpaceOccupied =>
-            new Rectangle(
-                Space.X - MarginValues.Left,
-                Space.Y - MarginValues.Top,
-                Space.Width + MarginValues.Left + MarginValues.Right,
-                Space.Height + MarginValues.Top + MarginValues.Bottom
-            );
-
-        internal List<Action<SpriteBatch>> PostDrawing { get; }
-
-        #endregion
-
-        private readonly InteractionHandler _interactionHandler;
-
-        /// <summary>
-        /// Base constructor that takes the destination space for the widget.
+        /// Creates a Widget without a parent. The widget will be a root of a new tree.
         /// </summary>
         /// <param name="space"></param>
-        protected Widget(Rectangle space)
+        public Widget(Rectangle space)
         {
             Space = space;
-            MarginValues = new MarginValues();
-            Color = Color.White;
-            PostDrawing = new List<Action<SpriteBatch>>();
-            _interactionHandler = new InteractionHandler();
+            Margins = new MarginValues();
+            Props = new PropCollection();
+            Children = new List<IWidget>();
         }
 
         /// <summary>
-        /// Updates the widget and checks for interactions. Override it to add custom logic, base.Update()
-        /// is needed to keep the interactions checks.
+        /// Creates a Widget with a parent. The widget will be a node or a leaf.
         /// </summary>
-        public virtual void Update()
+        /// <param name="parent"></param>
+        /// <param name="space"></param>
+        public Widget(IWidget parent, Rectangle space)
         {
-            _interactionHandler.Update();
+            Space = space;
+            Parent = parent;
+            Margins = new MarginValues();
+            Props = new PropCollection();
+            Children = new List<IWidget>();
         }
 
-        internal void DrawAndPostDraw(SpriteBatch spriteBatch)
-        {
-            Draw(spriteBatch);
-            PostDrawing.ForEach(a => a(spriteBatch));
-        }
+        public Rectangle Space { get; set; }
+        public MarginValues Margins { get; set; }
 
-        /// <summary>
-        /// Draw the widget with a SpriteBatch.
-        /// </summary>
-        /// <param name="spriteBatch"></param>
-        public virtual void Draw(SpriteBatch spriteBatch) {}
+        public PropCollection Props { get; }
 
-        #region Utils
-
-        internal virtual Interaction CurrentInteraction() => _interactionHandler.CurrentInteraction;
-        internal virtual void ChangeInteraction(Interaction interaction) => _interactionHandler.ChangeState(interaction);
-        internal void AddOnEnter(Action onEnter) => _interactionHandler.OnEnter.Add(onEnter);
-        internal void AddOnExit(Action onExit) => _interactionHandler.OnExit.Add(onExit);
-        internal void AddOnPressed(Action onPress) => _interactionHandler.OnPress.Add(onPress);
-        internal void AddOnRelease(Action onRelease) => _interactionHandler.OnRelease.Add(onRelease);
-
-        #endregion
+        public IWidget? Parent { get; set; }
+        public ICollection<IWidget> Children { get; }
     }
 }

@@ -2,7 +2,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using WForest.Utilities;
 
-namespace WForest.UI.Widgets
+namespace WForest.UI.Widgets.BuiltIn
 {
     /// <summary>
     /// Basic UI block, it's just a customizable colored rectangle.
@@ -16,9 +16,9 @@ namespace WForest.UI.Widgets
         /// Draws a colored rectangle (white if not set with the Color prop) to cover the Space of the widget.
         /// </summary>
         /// <param name="spriteBatch"></param>
-        public override void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch)
         {
-            _texture ??= spriteBatch.CreateTexture(Color);
+            // _texture ??= spriteBatch.CreateTexture(Color);
             spriteBatch.Draw(_texture, Space, Color.White);
         }
     }

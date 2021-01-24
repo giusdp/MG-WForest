@@ -1,6 +1,6 @@
 using Microsoft.Xna.Framework;
 
-namespace WForest.UI.Widgets
+namespace WForest.UI.Widgets.BuiltIn
 {
     /// <summary>
     /// Widget that acts as a container for other widgets. By itself it does nothing, use it only as a

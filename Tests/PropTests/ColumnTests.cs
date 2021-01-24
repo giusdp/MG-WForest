@@ -1,7 +1,9 @@
 using Microsoft.Xna.Framework;
 using NUnit.Framework;
 using WForest.Factories;
+using WForest.UI.Props;
 using WForest.UI.Props.Grid;
+using WForest.UI.Widgets;
 using WForest.UI.WidgetTrees;
 
 namespace WForest.Tests.PropTests
@@ -10,13 +12,13 @@ namespace WForest.Tests.PropTests
     public class ColumnPropertyTests
     {
         private Column _column;
-        private WidgetTree _root;
+        private IWidget _root;
 
         [SetUp]
         public void BeforeEach()
         {
             _column = new Column();
-            _root = new WidgetTree(WidgetFactory.Container(new Rectangle(0, 0, 1280, 720)));
+            _root = WidgetFactory.Container(new Rectangle(0, 0, 1280, 720));
         }
 
         [Test]
@@ -28,64 +30,67 @@ namespace WForest.Tests.PropTests
         [Test]
         public void ApplyOn_OneWidget_PositionIsUnchanged()
         {
-            var child = _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 120, 120)));
-        
+            var child = WidgetFactory.Container(new Rectangle(0, 0, 120, 120));
+            _root.AddChild(child);
+
             var expected = new Rectangle(0, 0, 120, 120);
             _column.ApplyOn(_root);
-            Assert.That(child.Data.Space, Is.EqualTo(expected));
+            Assert.That(child.Space, Is.EqualTo(expected));
         }
-        
+
         [Test]
         public void ApplyOn_TwoWidgets_OneAboveOther()
         {
-            var child = _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 120, 120)));
-            var secondChild = _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 120, 120)));
-        
+            var child = WidgetFactory.Container(new Rectangle(0, 0, 120, 120));
+            var secondChild = WidgetFactory.Container(new Rectangle(0, 0, 120, 120));
+            _root.AddChild(child);
+            _root.AddChild(secondChild);
             var expectedLocFirst = new Rectangle(0, 0, 120, 120);
             var expectedLocSecond = new Rectangle(0, 120, 120, 120);
-        
+
             _column.ApplyOn(_root);
-            Assert.That(child.Data.Space, Is.EqualTo(expectedLocFirst));
-            Assert.That(secondChild.Data.Space, Is.EqualTo(expectedLocSecond));
+            Assert.That(child.Space, Is.EqualTo(expectedLocFirst));
+            Assert.That(secondChild.Space, Is.EqualTo(expectedLocSecond));
         }
-        
+
         [Test]
         public void ApplyOn_WidgetsPassVerticalLimit_GoOnNewColumn()
         {
             var acts = new[]
             {
-                _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 640, 640))),
-                _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 120, 70))),
-                _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 160, 120))),
+               WidgetFactory.Container(new Rectangle(0, 0, 640, 640)),
+               WidgetFactory.Container(new Rectangle(0, 0, 120, 70)),
+               WidgetFactory.Container(new Rectangle(0, 0, 160, 120)),
             };
-        
+
             var expects = new[]
             {
                 new Rectangle(0, 0, 640, 640),
                 new Rectangle(0, 640, 120, 70),
                 new Rectangle(640, 0, 160, 120),
             };
-        
+
+            foreach (var widget in acts) _root.AddChild(widget);
             _column.ApplyOn(_root);
             for (var i = 0; i < acts.Length; i++)
             {
-                Assert.That(acts[i].Data.Space, Is.EqualTo(expects[i]));
+                Assert.That(acts[i].Space, Is.EqualTo(expects[i]));
             }
         }
-        
+
         [Test]
         public void ApplyOn_ThreeColsWithSameWidgets_CreatesThreeCols()
         {
             var acts = new[]
             {
-                _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 120, 330))),
-                _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 120, 330))),
-                _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 120, 330))),
-                _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 120, 330))),
-                _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 120, 330))),
-                _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 120, 330))),
+                WidgetFactory.Container(new Rectangle(0, 0, 120, 330)),
+                WidgetFactory.Container(new Rectangle(0, 0, 120, 330)),
+                WidgetFactory.Container(new Rectangle(0, 0, 120, 330)),
+                WidgetFactory.Container(new Rectangle(0, 0, 120, 330)),
+                WidgetFactory.Container(new Rectangle(0, 0, 120, 330)),
+                WidgetFactory.Container(new Rectangle(0, 0, 120, 330)),
             };
-        
+
             var expects = new[]
             {
                 new Rectangle(0, 0, 120, 330),
@@ -95,11 +100,13 @@ namespace WForest.Tests.PropTests
                 new Rectangle(240, 0, 120, 330),
                 new Rectangle(240, 330, 120, 330),
             };
-        
+            
+            foreach (var widget in acts) _root.AddChild(widget);
+
             _column.ApplyOn(_root);
             for (var i = 0; i < acts.Length; i++)
             {
-                Assert.That(acts[i].Data.Space, Is.EqualTo(expects[i]));
+                Assert.That(acts[i].Space, Is.EqualTo(expects[i]));
             }
         }
     }

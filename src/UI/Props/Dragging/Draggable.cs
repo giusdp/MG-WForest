@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using WForest.Devices;
 using WForest.UI.Utils;
+using WForest.UI.Widgets;
 
 namespace WForest.UI.Props.Dragging
 {
@@ -36,65 +37,65 @@ namespace WForest.UI.Props.Dragging
         /// <summary>
         /// Adds an OnPress and OnRelease actions to the widget that handle the dragging logic.
         /// </summary>
-        /// <param name="widgetNode"></param>
-        public override void ApplyOn(WidgetTrees.WidgetTree widgetNode)
+        /// <param name="widget"></param>
+        public override void ApplyOn(IWidget widget)
         {
-            var dragCtx = new DragCtx();
-
-            var isXFixed = widgetNode.Properties.Find(p => p is FixX) != null;
-            var isYFixed = widgetNode.Properties.Find(p => p is FixY) != null;
-
-            widgetNode.Data.AddOnPressed(() =>
-            {
-                if (isXFixed && isYFixed) return;
-
-                var devLoc = _device.GetPointedLocation();
-                if (!dragCtx.IsDragging)
-                {
-                    dragCtx.IsDragging = true;
-                    dragCtx.Set(devLoc);
-                }
-                else
-                {
-                    var (devX, devY) = devLoc;
-                    var (x, y, w, h) = widgetNode.Data.Space;
-                    if (dragCtx.DevX == devX && dragCtx.DevY == devY) return;
-
-                    var nx = x;
-                    var ny = y;
-                    nx += isXFixed ? 0 : devX - dragCtx.DevX;
-                    ny += isYFixed ? 0 : devY - dragCtx.DevY;
-                    (nx, ny) = CheckBounds(widgetNode, nx, ny, isXFixed, isYFixed);
-
-                    WidgetsSpaceHelper.UpdateSpace(widgetNode, new Rectangle(nx, ny, w, h));
-                    dragCtx.Set(devLoc);
-                }
-            });
-
-            widgetNode.Data.AddOnRelease(() => dragCtx.IsDragging = false);
-            widgetNode.Data.AddOnExit(() => dragCtx.IsDragging = false);
+            // var dragCtx = new DragCtx();
+            //
+            // var isXFixed = widget.WidgetNode.Properties.Find(p => p is FixX) != null;
+            // var isYFixed = widget.WidgetNode.Properties.Find(p => p is FixY) != null;
+            //
+            // widget.WidgetNode.Data.AddOnPressed(() =>
+            // {
+            //     if (isXFixed && isYFixed) return;
+            //
+            //     var devLoc = _device.GetPointedLocation();
+            //     if (!dragCtx.IsDragging)
+            //     {
+            //         dragCtx.IsDragging = true;
+            //         dragCtx.Set(devLoc);
+            //     }
+            //     else
+            //     {
+            //         var (devX, devY) = devLoc;
+            //         var (x, y, w, h) = widget.WidgetNode.Data.Space;
+            //         if (dragCtx.DevX == devX && dragCtx.DevY == devY) return;
+            //
+            //         var nx = x;
+            //         var ny = y;
+            //         nx += isXFixed ? 0 : devX - dragCtx.DevX;
+            //         ny += isYFixed ? 0 : devY - dragCtx.DevY;
+            //         (nx, ny) = CheckBounds(widget.WidgetNode, nx, ny, isXFixed, isYFixed);
+            //
+            //         WidgetsSpaceHelper.UpdateSpace(widget.WidgetNode, new Rectangle(nx, ny, w, h));
+            //         dragCtx.Set(devLoc);
+            //     }
+            // });
+            //
+            // widget.WidgetNode.Data.AddOnRelease(() => dragCtx.IsDragging = false);
+            // widget.WidgetNode.Data.AddOnExit(() => dragCtx.IsDragging = false);
         }
 
-        private static (int, int) CheckBounds(WidgetTrees.WidgetTree wt, int x, int y, bool isXFixed, bool isYFixed)
+        private static (int, int) CheckBounds(IWidget wt, int x, int y, bool isXFixed, bool isYFixed)
         {
-            var (_, _, w, h) = wt.Data.Space;
+            var (_, _, w, h) = wt.Space;
             if (wt.Parent == null) return (x, y);
 
-            var pRight = wt.Parent.Data.Space.Right;
-            var pBottom = wt.Parent.Data.Space.Bottom;
+            var pRight = wt.Parent.Space.Right;
+            var pBottom = wt.Parent.Space.Bottom;
 
             if (!isXFixed)
             {
                 if (x + w > pRight)
                     x = pRight - w;
-                else if (x < wt.Parent.Data.Space.X) x = wt.Parent.Data.Space.X;
+                else if (x < wt.Parent.Space.X) x = wt.Parent.Space.X;
             }
 
             if (isYFixed) return (x, y);
             if (y + h > pBottom)
                 y = pBottom - h;
-            else if (y < wt.Parent.Data.Space.Y)
-                y = wt.Parent.Data.Space.Y;
+            else if (y < wt.Parent.Space.Y)
+                y = wt.Parent.Space.Y;
 
             return (x, y);
         }

@@ -6,6 +6,7 @@ using Serilog.Core;
 using Serilog.Events;
 using WForest.Exceptions;
 using WForest.UI;
+using WForest.UI.Widgets;
 using WForest.UI.WidgetTrees;
 using WForest.Utilities.Collections;
 
@@ -50,7 +51,7 @@ namespace WForest.Factories
         /// <returns></returns>
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="WForestNotInitializedException"></exception>
-        public static WTreeManager CreateWTree(int x, int y, int width, int height, WidgetTree wTree)
+        public static WTreeManager CreateWTree(int x, int y, int width, int height, IWidget wTree)
         {
             if (wTree == null) throw new ArgumentNullException(nameof(wTree));
             if (!_isInit)
@@ -67,7 +68,7 @@ namespace WForest.Factories
         /// <returns></returns>
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="WForestNotInitializedException"></exception>
-        public static WTreeManager CreateWTree(Rectangle windowSpace, WidgetTree wTree)
+        public static WTreeManager CreateWTree(Rectangle windowSpace, IWidget wTree)
         {
             if (windowSpace == null) throw new ArgumentNullException(nameof(windowSpace));
             if (wTree == null) throw new ArgumentNullException(nameof(wTree));

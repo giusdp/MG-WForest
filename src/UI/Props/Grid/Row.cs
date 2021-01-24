@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using WForest.UI.Props.Grid.Utils;
-using WForest.UI.WidgetTrees;
+using WForest.UI.Widgets;
 
 namespace WForest.UI.Props.Grid
 {
@@ -24,11 +24,11 @@ namespace WForest.UI.Props.Grid
         /// Organizes widgets in a horizontal sequence. If the row exceeds the maximum width of the parent, it goes on
         /// a new row below.
         /// </summary>
-        /// <param name="widgetNode"></param>
-        public override void ApplyOn(WidgetTree widgetNode)
+        /// <param name="widget"></param>
+        public override void ApplyOn(IWidget widget)
         {
-            if (widgetNode.Children.Count != 0)
-                Rows = GridHelper.OrganizeWidgetsInRows(widgetNode);
+            if (!widget.IsLeaf)
+                Rows = GridHelper.OrganizeWidgetsInRows(widget);
         }
     }
 }

@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using WForest.Utilities.Text;
 
-namespace WForest.UI.Widgets
+namespace WForest.UI.Widgets.BuiltIn
 {
     /// <summary>
     /// The Text Widget. It displays strings using a Font and a size.
@@ -41,9 +41,9 @@ namespace WForest.UI.Widgets
         /// it uses the FontStore.DefaultFont font and a size of 12.
         /// </summary>
         /// <param name="spriteBatch"></param>
-        public override void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.DrawString(Font.SpriteFont(FontSize), TextString, new Vector2(Space.X, Space.Y), Color);
+            // spriteBatch.DrawString(Font.SpriteFont(FontSize), TextString, new Vector2(Space.X, Space.Y), Color);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using WForest.Exceptions;
+using WForest.UI.Widgets;
 using WForest.Utilities.Collections;
 
 namespace WForest.UI.Props.Shaders
@@ -16,7 +17,7 @@ namespace WForest.UI.Props.Shaders
             Effect = ShaderDb.Rounded;
         }
 
-        public override void ApplyOn(WidgetTrees.WidgetTree widgetNode){}
+        public override void ApplyOn(IWidget widget){}
 
        internal void ApplyParameters(int width, int height, int radius)
        {

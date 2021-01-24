@@ -7,24 +7,24 @@ using WForest.Utilities.Collections;
 
 namespace WForest.UI.WidgetTrees
 {
-    internal class WidgetInteractionUpdater
+    internal class InteractionUpdater
     {
         internal IDevice Device;
-        private Widget? Hovered { get; set; }
+        private IWidget? Hovered { get; set; }
         private bool _wasPressed;
 
-        internal WidgetInteractionUpdater(IDevice device)
+        internal InteractionUpdater(IDevice device)
         {
             Device = device;
         }
 
-        internal void Update(Maybe<WidgetTree> hoveredWidget)
+        internal void Update(Maybe<IWidget> hoveredWidget)
         {
             Device.Update();
             switch (hoveredWidget)
             {
-                case Maybe<WidgetTree>.Some m:
-                    HandleWidgetInteraction(m.Value.Data);
+                case Maybe<IWidget>.Some m:
+                    HandleWidgetInteraction(m.Value);
                     break;
                 default:
                     UpdateHovered(null);
@@ -32,7 +32,7 @@ namespace WForest.UI.WidgetTrees
             }
         }
 
-        private void HandleWidgetInteraction(Widget widget)
+        private void HandleWidgetInteraction(IWidget widget)
         {
             if (Hovered != widget) UpdateHovered(widget);
             if (Hovered != null) HandleInteraction();
@@ -43,39 +43,40 @@ namespace WForest.UI.WidgetTrees
             if (Device.IsPressed() || Device.IsHeld())
             {
                 if (_wasPressed) return;
-                Hovered?.ChangeInteraction(Interaction.Pressed);
+                // Hovered?.ChangeInteraction(Interaction.Pressed);
                 _wasPressed = true;
             }
             else if (Device.IsReleased())
             {
-                if (_wasPressed) Hovered?.ChangeInteraction(Interaction.Released);
-                else UpdateHovered(Hovered);
+                // if (_wasPressed) Hovered?.ChangeInteraction(Interaction.Released);
+                // else UpdateHovered(Hovered);
                 _wasPressed = false;
             }
         }
 
-        private void UpdateHovered(Widget? widget)
+        private void UpdateHovered(IWidget? widget)
         {
-            if (Hovered != null && Hovered != widget &&
-                Hovered.CurrentInteraction() == Interaction.Pressed && (Device.IsPressed()||Device.IsHeld())) return;
-
-            _wasPressed = false;
-            Hovered?.ChangeInteraction(Interaction.Exited);
-            Hovered = widget;
-            Hovered?.ChangeInteraction(Interaction.Entered);
+            // if (Hovered != null && Hovered != widget &&
+            //     Hovered.CurrentInteraction() == Interaction.Pressed && (Device.IsPressed()||Device.IsHeld())) return;
+            //
+            // _wasPressed = false;
+            // Hovered?.ChangeInteraction(Interaction.Exited);
+            // Hovered = widget;
+            // Hovered?.ChangeInteraction(Interaction.Entered);
         }
 
         #region Static Methods
 
-        internal static Maybe<WidgetTree> GetHoveredWidget(WidgetTree widgetTree, Point mouseLoc)
+        internal static Maybe<IWidget> GetHoveredWidget(IWidget widget, Point mouseLoc)
         {
-            var m = TreeVisitor<Widget>.GetLowestNodeThatHolds(widgetTree,
-                w => IsMouseInsideWidgetSpace(w.Data.Space, mouseLoc));
-            return m switch
-            {
-                Maybe<Tree<Widget>>.Some s => Maybe.Some((WidgetTree) s.Value),
-                _ => Maybe.None
-            };
+            // var m = TreeVisitor.GetLowestNodeThatHolds(widget,
+            //     w => IsMouseInsideWidgetSpace(w.Data.Space, mouseLoc));
+            // return m switch
+            // {
+            //     Maybe<Tree<Widget>>.Some s => Maybe.Some((IWidget) s.Value),
+            //     _ => Maybe.None
+            // };
+            return Maybe.None;
         }
 
         private static bool IsMouseInsideWidgetSpace(Rectangle space, Point mouseLoc)

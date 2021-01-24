@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using WForest.UI.Widgets;
 using WForest.Utilities;
 
 namespace WForest.UI.Props.Border
@@ -24,10 +25,10 @@ namespace WForest.UI.Props.Border
         /// <summary>
         /// Adds a PostDrawing modifier so that the border is drawn on top of the widget.
         /// </summary>
-        /// <param name="widgetNode"></param>
-        public override void ApplyOn(WidgetTrees.WidgetTree widgetNode)
+        /// <param name="widget"></param>
+        public override void ApplyOn(IWidget widget)
         {
-            widgetNode.Data.PostDrawing.Add(sb => { Primitives.DrawBorder(sb, widgetNode.Data.Space, Color, LineWidth); });
+            // widget.WidgetNode.Data.PostDrawing.Add(sb => { Primitives.DrawBorder(sb, widget.WidgetNode.Data.Space, Color, LineWidth); });
         }
     }
 }

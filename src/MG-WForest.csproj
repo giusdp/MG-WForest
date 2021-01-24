@@ -4,7 +4,7 @@
         <TargetFramework>netcoreapp3.1</TargetFramework>
         <PackageId>WForest</PackageId>
         <Title>MG-WForest</Title>
-        <Version>0.0.13</Version>
+        <Version>0.0.14-alpha</Version>
         <Description>Yet another GUI library for MonoGame. Inspired by React/Flutter frontend frameworks.</Description>
         <Authors>Giuseppe De Palma</Authors>
         <Owners>Giuseppe De Palma</Owners>

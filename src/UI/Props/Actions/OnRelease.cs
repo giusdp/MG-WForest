@@ -1,4 +1,5 @@
 using System;
+using WForest.UI.Widgets;
 
 namespace WForest.UI.Props.Actions
 {
@@ -18,10 +19,10 @@ namespace WForest.UI.Props.Actions
         /// <summary>
         /// Adds this OnRelease action to the widget.
         /// </summary>
-        /// <param name="widgetNode"></param>
-        public override void ApplyOn(WidgetTrees.WidgetTree widgetNode)
+        /// <param name="widget"></param>
+        public override void ApplyOn(IWidget widget)
         {
-            widgetNode.Data.AddOnRelease(_function);
+            // widget.WidgetNode.Data.AddOnRelease(_function);
         }
     }
 }
