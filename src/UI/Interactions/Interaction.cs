@@ -1,4 +1,4 @@
-namespace WForest.UI.Widgets.Interactions
+namespace WForest.UI.Interactions
 {
     public enum Interaction
     {
