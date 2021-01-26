@@ -1,4 +1,6 @@
+using System;
 using Microsoft.Xna.Framework;
+using WForest.UI.Props.Interfaces;
 using WForest.UI.Utils;
 using WForest.UI.Widgets.Interfaces;
 using WForest.Utilities;
@@ -8,12 +10,14 @@ namespace WForest.UI.Props
     /// <summary>
     /// Margin property that adds margin space on a widget on all four directions.
     /// </summary>
-    public class Margin : Prop
+    public class Margin : IApplicableProp
     {
         /// <summary>
         /// Margin should be one of the first to be applied.
         /// </summary>
-        public override int Priority { get; } = 0;
+        public  int Priority { get; set; } = 0;
+
+        public event EventHandler? Applied;
 
         private readonly MarginValues _marginValues;
 
@@ -26,7 +30,7 @@ namespace WForest.UI.Props
         /// Adds margin space to the widget. It updates the space required by the widget and applies the changes to all the children.
         /// </summary>
         /// <param name="widget"></param>
-        public override void ApplyOn(IWidget widget)
+        public void ApplyOn(IWidget widget)
         {
             var (x, y, w, h) = widget.Space;
             widget.Margins = AddMargin(widget);

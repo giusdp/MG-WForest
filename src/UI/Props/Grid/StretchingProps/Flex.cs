@@ -1,6 +1,8 @@
+using System;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using WForest.UI.Props.Grid.Utils;
+using WForest.UI.Props.Interfaces;
 using WForest.UI.Utils;
 using WForest.UI.Widgets.Interfaces;
 
@@ -10,18 +12,21 @@ namespace WForest.UI.Props.Grid.StretchingProps
     /// Property to make the space of the widget flexible. It stays as little as possible and grows to take the minimum
     /// space required to accomodate the children.
     /// </summary>
-    public class Flex : Prop
+    public class Flex : IApplicableProp
     {
         internal Flex()
         {
         }
+
+        public int Priority { get; set; }
+        public event EventHandler? Applied;
 
         /// <summary>
         /// Gets the children of the widget and expands the space enough to accomodate them,
         /// depending on if the parent is Row or Column.
         /// </summary>
         /// <param name="widget"></param>
-        public override void ApplyOn(IWidget widget)
+        public void ApplyOn(IWidget widget)
         {
             IncreaseSpaceWithChildren(widget);
 

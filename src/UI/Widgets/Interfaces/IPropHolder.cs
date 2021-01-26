@@ -1,4 +1,5 @@
 using WForest.UI.Props;
+using WForest.UI.Props.Interfaces;
 using WForest.Utilities.Collections;
 
 namespace WForest.UI.Widgets.Interfaces
@@ -7,7 +8,7 @@ namespace WForest.UI.Widgets.Interfaces
     {
         PropCollection Props { get; }
 
-        IPropHolder WithProp(Prop prop)
+        IPropHolder WithProp(IProp prop)
         {
             Props.AddProp(prop);
             return this;

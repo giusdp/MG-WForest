@@ -2,6 +2,7 @@ using System;
 using Microsoft.Xna.Framework;
 using Serilog;
 using WForest.Exceptions;
+using WForest.UI.Props.Interfaces;
 using WForest.UI.Utils;
 using WForest.UI.Widgets.Interfaces;
 
@@ -10,7 +11,7 @@ namespace WForest.UI.Props.Text
     /// <summary>
     /// Property only applicable on Text Widget, it changes the size of the font of the widget.
     /// </summary>
-    public class FontSize : Prop
+    public class FontSize : IApplicableProp
     {
         private readonly int _size;
 
@@ -19,13 +20,16 @@ namespace WForest.UI.Props.Text
             _size = size;
         }
 
+        public int Priority { get; set; }
+        public event EventHandler? Applied;
+
         /// <summary>
         /// Applies font size change on Text Widget. It assigns the new size to the FontSize field of the widget and
         /// measures (and updates) the new space taken by the text.
         /// </summary>
         /// <param name="widget"></param>
         /// <exception cref="IncompatibleWidgetException"></exception>
-        public override void ApplyOn(IWidget widget)
+        public void ApplyOn(IWidget widget)
         {
             if (widget is Widgets.BuiltIn.Text text)
             {

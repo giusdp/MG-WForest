@@ -3,6 +3,7 @@ using NUnit.Framework;
 using WForest.Factories;
 using WForest.UI.Props.Grid;
 using WForest.UI.Props.Grid.ItemProps;
+using WForest.UI.Props.Interfaces;
 using WForest.UI.Widgets.Interfaces;
 using static WForest.Tests.Utils.HelperMethods;
 
@@ -65,7 +66,7 @@ namespace WForest.Tests.PropTests
             var c = WidgetFactory.Container(20, 20);
             _root.AddChild(c);
             ApplyRow();
-            PropertyFactory.JustifyCenter().ApplyOn(_root);
+            ((IApplicableProp)PropertyFactory.JustifyCenter()).ApplyOn(_root);
             _itemCenter.ApplyOn(_root);
             Assert.That(c.Space, Is.EqualTo(new Rectangle(630, 350, 20, 20)));
         }
@@ -80,7 +81,7 @@ namespace WForest.Tests.PropTests
             _root.AddChild(c1);
             _root.AddChild(c2);
             ApplyRow();
-            PropertyFactory.JustifyCenter().ApplyOn(_root);
+            ((IApplicableProp)PropertyFactory.JustifyCenter()).ApplyOn(_root);
             _itemCenter.ApplyOn(_root);
             Assert.That(c.Space, Is.EqualTo(new Rectangle(605, 350, 20, 20)));
             Assert.That(c1.Space, Is.EqualTo(new Rectangle(625, 340, 30, 40)));
@@ -98,7 +99,7 @@ namespace WForest.Tests.PropTests
             _root.AddChild(c2);
             
             ApplyRow();
-            PropertyFactory.JustifyCenter().ApplyOn(_root);
+            ((IApplicableProp)PropertyFactory.JustifyCenter()).ApplyOn(_root);
             _itemCenter.ApplyOn(_root);
             Assert.That(c.Space, Is.EqualTo(new Rectangle(30, 335, 1120, 20)));
             Assert.That(c1.Space, Is.EqualTo(new Rectangle(1150, 325, 100, 40)));
@@ -117,7 +118,7 @@ namespace WForest.Tests.PropTests
             
             ApplyCol();
             
-            PropertyFactory.JustifyCenter().ApplyOn(_root);
+            ((IApplicableProp)PropertyFactory.JustifyCenter()).ApplyOn(_root);
             _itemCenter.ApplyOn(_root);
             Assert.That(c.Space, Is.EqualTo(new Rectangle(630, 315, 20, 20)));
             Assert.That(c1.Space, Is.EqualTo(new Rectangle(625, 335, 30, 40)));
@@ -135,7 +136,7 @@ namespace WForest.Tests.PropTests
             _root.AddChild(c2);
             
             ApplyCol();
-            PropertyFactory.JustifyCenter().ApplyOn(_root);
+            ((IApplicableProp)PropertyFactory.JustifyCenter()).ApplyOn(_root);
             _itemCenter.ApplyOn(_root);
             Assert.That(c.Space, Is.EqualTo(new Rectangle(80, 315, 1120, 20)));
             Assert.That(c1.Space, Is.EqualTo(new Rectangle(590, 335, 100, 40)));

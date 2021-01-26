@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using WForest.UI.Props.Grid.Utils;
+using WForest.UI.Props.Interfaces;
 using WForest.UI.Utils;
 using WForest.UI.Widgets.Interfaces;
 
@@ -12,7 +13,7 @@ namespace WForest.UI.Props.Grid.ItemProps
     /// Property to move widgets to the bottom in a Row or to the right in a Column.
     /// Differently from JustifyEnd, this property deals with the opposite axis of a Row/Column.
     /// </summary>
-    public class ItemBase : Prop
+    public class ItemBase : IApplicableProp
     {
         internal ItemBase()
         {
@@ -23,13 +24,15 @@ namespace WForest.UI.Props.Grid.ItemProps
         /// for the main axis is applied.
         /// Row/Col have priority of 1, the Justify properties have priority of 2, so this has priority of 3.
         /// </summary>
-        public override int Priority { get; } = 3;
+        public int Priority { get; set; } = 3;
+
+        public event EventHandler? Applied;
 
         /// <summary>
         /// Move the widgets to the bottom of a Row or right of a Column.
         /// </summary>
         /// <param name="widget"></param>
-        public override void ApplyOn(IWidget widget)
+        public void ApplyOn(IWidget widget)
         {
             ApplyUtils.ApplyIfThereAreChildren(widget, $"{widget} has no children to item-base.",
                 () =>

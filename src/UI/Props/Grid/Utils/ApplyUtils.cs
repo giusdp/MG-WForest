@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Serilog;
+using WForest.UI.Props.Interfaces;
 using WForest.UI.Widgets.Interfaces;
 using WForest.Utilities;
 
@@ -49,7 +50,7 @@ namespace WForest.UI.Props.Grid.Utils
         internal static Maybe<Column> ExtractColumnProp(IWidget widgetNode)
             => ExtractProp<Column>(widgetNode);
 
-        private static Maybe<T> ExtractProp<T> (IWidget widgetNode) where T : Prop
+        private static Maybe<T> ExtractProp<T> (IWidget widgetNode) where T : IProp
         {
             var prop = widgetNode.Props.FirstOrDefault(p => p is T);
             return prop != null ? Maybe.Some((T) prop) : Maybe.None;

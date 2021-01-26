@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using WForest.UI.Props.Grid.Utils;
+using WForest.UI.Props.Interfaces;
 using WForest.UI.Utils;
 using WForest.UI.Widgets.Interfaces;
 using static WForest.UI.Props.Grid.Utils.GridHelper;
@@ -12,13 +13,15 @@ namespace WForest.UI.Props.Grid.JustifyProps
     /// <summary>
     /// Property to separate widgets in a Row or Column, setting maximum space in between them.
     /// </summary>
-    public class JustifyBetween : Prop
+    public class JustifyBetween : IApplicableProp
     {
         /// <summary>
         /// Since it changes the layout internally in a Row or Col, it should be applied after them.
         /// Row/Col have priority of 1 so this has priority of 2.
         /// </summary>
-        public override int Priority { get; } = 2;
+        public int Priority { get; set; } = 2;
+
+        public event EventHandler? Applied;
 
         internal JustifyBetween()
         {
@@ -29,7 +32,7 @@ namespace WForest.UI.Props.Grid.JustifyProps
         /// In a Row they are separated horizontally, in a Column vertically.
         /// </summary>
         /// <param name="widget"></param>
-        public override void ApplyOn(IWidget widget)
+        public void ApplyOn(IWidget widget)
         {
             ApplyUtils.ApplyIfThereAreChildren(widget,
                 $"{widget} has no children to justify space between.",

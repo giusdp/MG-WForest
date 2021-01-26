@@ -1,24 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using WForest.UI.Props;
-using WForest.UI.Props.Actions;
+using WForest.UI.Props.Interfaces;
 
 namespace WForest.Utilities.Collections
 {
-    public class PropCollection: TypeDictionary<Prop>, IEnumerable<Prop>
+    public class PropCollection : TypeDictionary<IProp>, IEnumerable<IProp>
     {
-       public void AddProp(Prop prop) => Add(prop);
+        public void AddProp(IProp prop) => Add(prop);
+        
+        public bool TryGetPropValue<TP>(out List<IProp>? tList) where TP : IProp => Data.TryGetValue(typeof(TP), out tList);
+        public List<IProp> GetByProp<TP>() where TP : IProp => Get<TP>();
 
-
-        public List<Prop> GetByProp<TP>() where TP : Prop => Get<TP>();
-
-        public bool AnyInteractionProp()
-            => Data.ContainsKey(typeof(OnEnter)) || Data.ContainsKey(typeof(OnEnter)) ||
-               Data.ContainsKey(typeof(OnPress)) || Data.ContainsKey(typeof(OnRelease));
-
-
-        public IEnumerator<Prop> GetEnumerator()
+        public IEnumerator<IProp> GetEnumerator()
         {
             var props = Data.Values.SelectMany(l => l);
             foreach (var p in props) yield return p;
@@ -27,6 +21,6 @@ namespace WForest.Utilities.Collections
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
-        } 
+        }
     }
 }

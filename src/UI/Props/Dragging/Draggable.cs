@@ -1,5 +1,7 @@
+using System;
 using Microsoft.Xna.Framework;
 using WForest.Devices;
+using WForest.UI.Props.Interfaces;
 using WForest.UI.Widgets.Interfaces;
 
 namespace WForest.UI.Props.Dragging
@@ -18,13 +20,15 @@ namespace WForest.UI.Props.Dragging
     /// <summary>
     /// Property to make a widget draggable using an IDevice (such as Mouse).
     /// </summary>
-    public class Draggable : Prop
+    public class Draggable : IApplicableProp
     {
         /// <summary>
         /// This property should be applied after the widget tree is completely set up, so it has a priority of 4
         /// (after the last layout priorities that have priority of 3 such as ItemBase)
         /// </summary>
-        public override int Priority { get; } = 4;
+        public int Priority { get; set; } = 4;
+
+        public event EventHandler? Applied;
 
         private readonly IDevice _device;
 
@@ -32,12 +36,12 @@ namespace WForest.UI.Props.Dragging
         {
             _device = device;
         }
-
+        
         /// <summary>
         /// Adds an OnPress and OnRelease actions to the widget that handle the dragging logic.
         /// </summary>
         /// <param name="widget"></param>
-        public override void ApplyOn(IWidget widget)
+        public void ApplyOn(IWidget widget)
         {
             // var dragCtx = new DragCtx();
             //

@@ -1,4 +1,5 @@
 using System;
+using WForest.UI.Props.Interfaces;
 using WForest.UI.Widgets.Interfaces;
 
 namespace WForest.UI.Props.Actions
@@ -7,7 +8,7 @@ namespace WForest.UI.Props.Actions
     /// Property that adds an action on the widget. When a cursor exits the widget space all the OnExit actions are
     /// triggered.
     /// </summary>
-    public class OnExit : Prop
+    public class OnExit : ICommandProp
     {
         private readonly Action _function;
 
@@ -16,13 +17,9 @@ namespace WForest.UI.Props.Actions
             _function = onPress;
         }
 
-        /// <summary>
-        /// Adds this OnExit action to the widget.
-        /// </summary>
-        /// <param name="widget"></param>
-        public override void ApplyOn(IWidget widget)
+        public void Execute()
         {
-            // widget.WidgetNode.Data.AddOnExit(_function);
+            throw new NotImplementedException();
         }
     }
 }

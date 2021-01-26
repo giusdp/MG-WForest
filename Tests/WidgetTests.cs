@@ -2,7 +2,7 @@ using Microsoft.Xna.Framework;
 using Moq;
 using NUnit.Framework;
 using WForest.Factories;
-using WForest.UI.Props;
+using WForest.UI.Props.Interfaces;
 using WForest.UI.Widgets;
 using WForest.UI.Widgets.BuiltIn;
 using WForest.UI.Widgets.Interfaces;
@@ -29,7 +29,7 @@ namespace WForest.Tests
         [Test]
         public void WithProp_Prop_AddsToPropList()
         {
-            _widget.WithProp(Mock.Of<Prop>());
+            _widget.WithProp(Mock.Of<IProp>());
             Assert.That(_widget.Props, Is.Not.Empty);
         }
 

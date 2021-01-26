@@ -1,11 +1,12 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using WForest.Exceptions;
+using WForest.UI.Props.Interfaces;
 using WForest.UI.Widgets.Interfaces;
 using WForest.Utilities.Collections;
 
 namespace WForest.UI.Props.Shaders
 {
-    internal class Rounded : Prop 
+    internal class Rounded : IProp 
     {
         private int Radius { get; }
         private Effect Effect { get; }
@@ -16,8 +17,6 @@ namespace WForest.UI.Props.Shaders
             Radius = radius;
             Effect = ShaderDb.Rounded;
         }
-
-        public override void ApplyOn(IWidget widget){}
 
        internal void ApplyParameters(int width, int height, int radius)
        {

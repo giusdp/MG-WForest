@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using WForest.UI.Props.Interfaces;
 using WForest.UI.Widgets.Interfaces;
 
 namespace WForest.Utilities
@@ -12,7 +13,7 @@ namespace WForest.Utilities
         {
             ApplyToTreeFromLeaves(widgetTree, w =>
             {
-                foreach (var prop in w.Props) prop.ApplyOnAndFireApplied(w);
+                foreach (var prop in w.Props.OfType<IApplicableProp>().OrderBy(p=>p.Priority)) prop.ApplyOn(w);
             });
         }
 
@@ -46,6 +47,7 @@ namespace WForest.Utilities
             Func<IWidget, IEnumerable<IWidget>> childrenSelector, Func<IWidget, bool> predicate)
         {
             if (tree == null) throw new ArgumentNullException(nameof(tree));
+            if (childrenSelector == null) throw new ArgumentNullException(nameof(childrenSelector));
             if (predicate == null) throw new ArgumentNullException(nameof(predicate));
 
             var revCh = childrenSelector(tree);

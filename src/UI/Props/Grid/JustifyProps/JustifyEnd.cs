@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using WForest.UI.Props.Grid.Utils;
+using WForest.UI.Props.Interfaces;
 using WForest.UI.Utils;
 using WForest.UI.Widgets.Interfaces;
 
@@ -11,13 +12,15 @@ namespace WForest.UI.Props.Grid.JustifyProps
     /// <summary>
     /// Property to move widgets to the end of a Row or Column.
     /// </summary>
-    public class JustifyEnd : Prop
+    public class JustifyEnd : IApplicableProp
     {
         /// <summary>
         /// Since it changes the layout internally in a Row or Col, it should be applied after them.
         /// Row/Col have priority of 1 so this has priority of 2.
         /// </summary>
-        public override int Priority { get; } = 2;
+        public int Priority { get; set; } = 2;
+
+        public event EventHandler? Applied;
 
         internal JustifyEnd()
         {
@@ -27,7 +30,7 @@ namespace WForest.UI.Props.Grid.JustifyProps
         /// Move the widgets to the end of a Row (to the right) or of a Col (to the bottom).
         /// </summary>
         /// <param name="widget"></param>
-        public override void ApplyOn(IWidget widget)
+        public void ApplyOn(IWidget widget)
         {
             ApplyUtils.ApplyIfThereAreChildren(widget,
                 $"{widget} has no children to justify-end.",

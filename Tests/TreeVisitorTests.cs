@@ -1,9 +1,8 @@
-using System;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Moq;
 using NUnit.Framework;
-using WForest.UI.Props;
+using WForest.UI.Props.Interfaces;
 using WForest.UI.Widgets;
 using WForest.UI.Widgets.Interfaces;
 using WForest.Utilities;
@@ -20,7 +19,7 @@ namespace WForest.Tests
         {
             _tree = new Widget(Rectangle.Empty);
             _tree.Children.Add(new Widget(new Rectangle(0, 0, 1, 1)));
-            _tree.Children.Add(new Widget(new Rectangle(0, 0, 2, 2)));
+            _tree.Children.Add(new Widget(new Rectangle(0, 0, 10, 2)));
             _tree.Children.First().Children.Add(new Widget(new Rectangle(0, 0, 20, 20)));
         }
 
@@ -28,7 +27,7 @@ namespace WForest.Tests
         public void ApplyProps_WidgetTree_Applies()
         {
             IWidget root = new Widget(Rectangle.Empty);
-            Mock<Prop> mock = new Mock<Prop>();
+            Mock<IApplicableProp> mock = new Mock<IApplicableProp>();
             root.WithProp(mock.Object);
 
             TreeVisitor.ApplyPropsOnTree(root);
@@ -47,8 +46,8 @@ namespace WForest.Tests
         {
             IWidget root = new Widget(Rectangle.Empty);
             IWidget child = new Widget(Rectangle.Empty);
-            Mock<Prop> mockRootProp = new Mock<Prop>();
-            Mock<Prop> mockChildProp = new Mock<Prop>();
+            Mock<IApplicableProp> mockRootProp = new Mock<IApplicableProp>();
+            Mock<IApplicableProp> mockChildProp = new Mock<IApplicableProp>();
 
             var lastCalled = 0;
             mockRootProp.Setup(p => p.ApplyOn(It.IsAny<IWidget>())).Callback(() => lastCalled = 1);
@@ -72,9 +71,9 @@ namespace WForest.Tests
             IWidget root = new Widget(Rectangle.Empty);
             IWidget child = new Widget(Rectangle.Empty);
             IWidget rightChild = new Widget(Rectangle.Empty);
-            Mock<Prop> mockRootProp = new Mock<Prop>();
-            Mock<Prop> mockLeftLeaf = new Mock<Prop>();
-            Mock<Prop> mockRightLeaf = new Mock<Prop>();
+            Mock<IApplicableProp> mockRootProp = new Mock<IApplicableProp>();
+            Mock<IApplicableProp> mockLeftLeaf = new Mock<IApplicableProp>();
+            Mock<IApplicableProp> mockRightLeaf = new Mock<IApplicableProp>();
 
             var firstCalled = 0;
             var lastCalled = 0;
@@ -85,9 +84,12 @@ namespace WForest.Tests
                 lastCalled = x;
             }
 
-            mockRootProp.Setup(p => p.ApplyOn(It.IsAny<IWidget>())).Callback(() => SetVerification(1));
-            mockLeftLeaf.Setup(p => p.ApplyOn(It.IsAny<IWidget>())).Callback(() => SetVerification(2));
-            mockRightLeaf.Setup(p => p.ApplyOn(It.IsAny<IWidget>())).Callback(() => SetVerification(3));
+            mockRootProp.Setup(p => p.ApplyOn(It.IsAny<IWidget>()))
+                .Callback(() => SetVerification(1));
+            mockLeftLeaf.Setup(p => p.ApplyOn(It.IsAny<IWidget>()))
+                .Callback(() => SetVerification(2));
+            mockRightLeaf.Setup(p => p.ApplyOn(It.IsAny<IWidget>()))
+                .Callback(() => SetVerification(3));
 
             root.WithProp(mockRootProp.Object);
             child.WithProp(mockLeftLeaf.Object);
@@ -106,7 +108,7 @@ namespace WForest.Tests
         }
 
         // [Test]
-        // public void ApplyToTree_NullArgs_ThrowsError()
+        // public void ApplyToTreeLevelByLevel_NullArgs_ThrowsError()
         // {
         //     Assert.That(() => TreeVisitor<int>.ApplyToTreeLevelByLevel(null, tree => { }),
         //         Throws.ArgumentNullException);
@@ -121,39 +123,43 @@ namespace WForest.Tests
         //     TreeVisitor<int>.ApplyToTreeLevelByLevel(_tree, node => count += node.Sum(n => n.Data));
         //     Assert.That(count, Is.EqualTo(33));
         // }
-        //
-        // [Test]
-        // public void GetLowestNodeThatHolds_TruePredicateForThirdNode_ReturnsSome()
-        // {
-        //     var res = TreeVisitor<int>.GetLowestNodeThatHolds(_tree, t => t.Data > 9 && t.Data < 11);
-        //     var b = res.TryGetValue(out var r);
-        //     Assert.That(r.Data, Is.EqualTo(10));
-        //     Assert.That(b, Is.True);
-        // }
-        //
-        // [Test]
-        // public void GetLowestNodeThatHolds_TruePredicateForLeaf_ReturnsSome()
-        // {
-        //     var res = TreeVisitor<int>.GetLowestNodeThatHolds(_tree, t => t.Data >= 10);
-        //     var b = res.TryGetValue(out var r);
-        //     Assert.That(b, Is.True);
-        //     Assert.That(r.Data, Is.EqualTo(20));
-        // }
-        //
-        // [Test]
-        // public void GetLowestNodeThatHolds_FalsePredicate_ReturnsNone()
-        // {
-        //     var res = TreeVisitor<int>.GetLowestNodeThatHolds(_tree, t => t.Data > 30);
-        //     var b = res.TryGetValue(out _);
-        //     Assert.That(b, Is.False);
-        // }
-        //
-        // [Test]
-        // public void GetLowestNodeThatHolds_Null_Throws()
-        // {
-        //     Assert.That(() => TreeVisitor<int>.GetLowestNodeThatHolds(null, tree => true),
-        //         Throws.ArgumentNullException);
-        //     Assert.That(() => TreeVisitor<int>.GetLowestNodeThatHolds(_tree, null), Throws.ArgumentNullException);
-        // }
+
+        [Test]
+        public void GetLowestNodeThatHolds_TruePredicateForThirdNode_ReturnsSome()
+        {
+            var res = TreeVisitor.GetLowestNodeThatHolds(_tree, w => w.Children.Reverse(),
+                t => t.Space.Width > 9 && t.Space.Width < 11);
+            var b = res.TryGetValue(out var r);
+            Assert.That(r.Space.Width, Is.EqualTo(10));
+            Assert.That(b, Is.True);
+        }
+
+        [Test]
+        public void GetLowestNodeThatHolds_TruePredicateForLeaf_ReturnsSome()
+        {
+            var res = TreeVisitor.GetLowestNodeThatHolds(_tree, w => w.Children.Reverse(), t => t.Space.Width >= 10);
+            var b = res.TryGetValue(out var r);
+            Assert.That(b, Is.True);
+            Assert.That(r.Space.Width, Is.EqualTo(20));
+        }
+
+        [Test]
+        public void GetLowestNodeThatHolds_FalsePredicate_ReturnsNone()
+        {
+            var res = TreeVisitor.GetLowestNodeThatHolds(_tree, w => w.Children.Reverse(), t => t.Space.Width > 30);
+            var b = res.TryGetValue(out _);
+            Assert.That(b, Is.False);
+        }
+
+        [Test]
+        public void GetLowestNodeThatHolds_Null_Throws()
+        {
+            Assert.That(() => TreeVisitor.GetLowestNodeThatHolds(null, w => w.Children, tree => true),
+                Throws.ArgumentNullException);
+            Assert.That(() => TreeVisitor.GetLowestNodeThatHolds(_tree, null, _tree => true),
+                Throws.ArgumentNullException);
+            Assert.That(() => TreeVisitor.GetLowestNodeThatHolds(_tree, w => w.Children, null),
+                Throws.ArgumentNullException);
+        }
     }
 }
