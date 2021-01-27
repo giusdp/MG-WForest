@@ -15,7 +15,7 @@ namespace WForest.UI.Props
         /// <summary>
         /// Margin should be one of the first to be applied.
         /// </summary>
-        public  int Priority { get; set; } = 0;
+        public int Priority { get; set; } = 0;
 
         public event EventHandler? Applied;
 
@@ -42,7 +42,10 @@ namespace WForest.UI.Props
             //     widget,
             //     lvl => lvl.ForEach(node =>
             //         WidgetsSpaceHelper.UpdateSpace(node, new Rectangle(widget.Space.Location, node.Data.Space.Size))));
+            OnApplied();
         }
+
+        protected virtual void OnApplied() => Applied?.Invoke(this, EventArgs.Empty);
 
         private MarginValues AddMargin(IWidget widget)
         {

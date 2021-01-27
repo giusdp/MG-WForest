@@ -29,6 +29,9 @@ namespace WForest.UI.Props.Grid.StretchingProps
             var (x, y, _, h) = widget.Space;
             WidgetsSpaceHelper.UpdateSpace(widget,
                 new Rectangle(x, y, widget.Parent!.Space.Width, h));
+            OnApplied();
         }
+
+        protected virtual void OnApplied() => Applied?.Invoke(this, EventArgs.Empty);
     }
 }

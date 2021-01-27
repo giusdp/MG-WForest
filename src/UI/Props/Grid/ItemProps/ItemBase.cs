@@ -43,13 +43,16 @@ namespace WForest.UI.Props.Grid.ItemProps
                     var colsAtBase =
                         PutAtBase(widget, l => l.Width, GridHelper.WidgetWidth,
                             (x, c) => new Point(x + c.Margins.Left, c.Space.Y));
-            
+
                     if (ApplyUtils.TryExtractRows(widget, out var rows))
                         rowsAtBase(rows);
                     else if (ApplyUtils.TryExtractColumns(widget, out var cols))
                         colsAtBase(cols);
                 });
+            OnApplied();
         }
+
+        protected virtual void OnApplied() => Applied?.Invoke(this, EventArgs.Empty);
 
         private static Action<List<WidgetsDataSubList>> PutAtBase(IWidget wTree,
             Func<WidgetsDataSubList, int> listSize, Func<IWidget, int> wSize,

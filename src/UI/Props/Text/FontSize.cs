@@ -35,15 +35,20 @@ namespace WForest.UI.Props.Text
             {
                 if (text.FontSize == _size) return;
                 text.FontSize = _size >= 0 ? _size : throw new ArgumentException("FontSize cannot be negative.");
-                var (x,y,_,_) = text.Space;
+                var (x, y, _, _) = text.Space;
                 var (w, h) = text.Font.MeasureText(text.TextString, _size);
-                WidgetsSpaceHelper.UpdateSpace(widget, new Rectangle(x,y, (int) w,(int) h));
+                WidgetsSpaceHelper.UpdateSpace(widget, new Rectangle(x, y, (int) w, (int) h));
             }
             else
             {
-                Log.Error("FontSize property is only applicable to a Text Widget. Instead it has received a {W}", widget);
+                Log.Error("FontSize property is only applicable to a Text Widget. Instead it has received a {W}",
+                    widget);
                 throw new IncompatibleWidgetException("Property only applicable to a Text Widget.");
             }
+
+            OnApplied();
         }
+
+        protected virtual void OnApplied() => Applied?.Invoke(this, EventArgs.Empty);
     }
 }

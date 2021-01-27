@@ -48,7 +48,10 @@ namespace WForest.UI.Props.Grid.JustifyProps
                     else if (ApplyUtils.TryExtractColumns(widget, out var cols))
                         colsAtEnd(cols);
                 });
+            OnApplied();
         }
+
+        protected virtual void OnApplied() => Applied?.Invoke(this, EventArgs.Empty);
 
         private static Action<List<WidgetsDataSubList>> PutAtEnd(IWidget wTree, Func<IWidget, int> getSize,
             Func<int, IWidget, Point> updateLoc, Func<IWidget, int> getMargin)

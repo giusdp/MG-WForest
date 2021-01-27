@@ -59,7 +59,11 @@ namespace WForest.UI.Props.Grid.StretchingProps
                                 col.Columns.Sum(c => c.Height)));
                     };
             }
+
+            OnApplied();
         }
+
+        protected virtual void OnApplied() => Applied?.Invoke(this, EventArgs.Empty);
 
         private static void IncreaseSpaceWithChildren(IWidget widgetNode)
         {

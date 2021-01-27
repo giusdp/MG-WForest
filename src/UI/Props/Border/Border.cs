@@ -14,6 +14,7 @@ namespace WForest.UI.Props.Border
         /// Border is one of the last props.
         /// </summary>
         public int Priority { get; set; } = 4;
+
         public event EventHandler? Applied;
         internal Color Color { get; set; }
         internal int LineWidth { get; set; }
@@ -23,7 +24,7 @@ namespace WForest.UI.Props.Border
             LineWidth = 1;
             Color = Color.Black;
         }
-        
+
         /// <summary>
         /// Adds a PostDrawing modifier so that the border is drawn on top of the widget.
         /// </summary>
@@ -31,6 +32,9 @@ namespace WForest.UI.Props.Border
         public void ApplyOn(IWidget widget)
         {
             // widget.WidgetNode.Data.PostDrawing.Add(sb => { Primitives.DrawBorder(sb, widget.WidgetNode.Data.Space, Color, LineWidth); });
+            OnApplied();
         }
+
+        protected virtual void OnApplied() => Applied?.Invoke(this, EventArgs.Empty);
     }
 }

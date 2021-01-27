@@ -12,7 +12,10 @@ namespace WForest.UI.Props.Grid.StretchingProps
     /// </summary>
     public class VerticalStretch : IApplicableProp
     {
-        internal VerticalStretch(){}
+        internal VerticalStretch()
+        {
+        }
+
         public int Priority { get; set; }
         public event EventHandler? Applied;
 
@@ -26,6 +29,9 @@ namespace WForest.UI.Props.Grid.StretchingProps
             var (x, y, w, _) = widget.Space;
             WidgetsSpaceHelper.UpdateSpace(widget,
                 new Rectangle(x, y, w, widget.Parent!.Space.Height));
+            OnApplied();
         }
+
+        protected virtual void OnApplied() => Applied?.Invoke(this, EventArgs.Empty);
     }
 }

@@ -38,6 +38,9 @@ namespace WForest.UI.Props.Grid.JustifyProps
                         CenterHelper.JustifyCenterByColumn(widget, cols);
                 }
             );
+            OnApplied();
         }
+
+        protected virtual void OnApplied() => Applied?.Invoke(this, EventArgs.Empty);
     }
 }

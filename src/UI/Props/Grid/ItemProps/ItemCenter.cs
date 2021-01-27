@@ -39,6 +39,9 @@ namespace WForest.UI.Props.Grid.ItemProps
                     else if (ApplyUtils.TryExtractColumns(widget, out var cols))
                         CenterHelper.ItemCenterHorizontal(widget, cols);
                 });
+            OnApplied();
         }
+
+        protected virtual void OnApplied() => Applied?.Invoke(this, EventArgs.Empty);
     }
 }

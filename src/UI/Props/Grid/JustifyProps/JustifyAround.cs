@@ -44,7 +44,10 @@ namespace WForest.UI.Props.Grid.JustifyProps
                     else if (ApplyUtils.TryExtractColumns(widget, out var cols))
                         SpaceAroundVertically(widget, cols);
                 });
+            OnApplied();
         }
+
+        protected virtual void OnApplied() => Applied?.Invoke(this, EventArgs.Empty);
 
         private static void SpaceAroundHorizontally(IWidget wTree, List<WidgetsDataSubList> lists)
         {

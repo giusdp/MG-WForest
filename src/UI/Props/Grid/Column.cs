@@ -33,6 +33,9 @@ namespace WForest.UI.Props.Grid
         {
             if (!widget.IsLeaf)
                 Columns = GridHelper.OrganizeWidgetsInColumns(widget);
+            OnApplied();
         }
+
+        protected virtual void OnApplied() => Applied?.Invoke(this, EventArgs.Empty);
     }
 }

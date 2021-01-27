@@ -36,7 +36,7 @@ namespace WForest.UI.Props.Dragging
         {
             _device = device;
         }
-        
+
         /// <summary>
         /// Adds an OnPress and OnRelease actions to the widget that handle the dragging logic.
         /// </summary>
@@ -77,7 +77,10 @@ namespace WForest.UI.Props.Dragging
             //
             // widget.WidgetNode.Data.AddOnRelease(() => dragCtx.IsDragging = false);
             // widget.WidgetNode.Data.AddOnExit(() => dragCtx.IsDragging = false);
+            OnApplied();
         }
+
+        protected virtual void OnApplied() => Applied?.Invoke(this, EventArgs.Empty);
 
         private static (int, int) CheckBounds(IWidget wt, int x, int y, bool isXFixed, bool isYFixed)
         {
