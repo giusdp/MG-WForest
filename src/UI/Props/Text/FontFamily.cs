@@ -35,9 +35,6 @@ namespace WForest.UI.Props.Text
             if (widget is Widgets.BuiltIn.Text text)
             {
                 text.Font = FontStore.GetFont(_name);
-                var (x, y, _, _) = text.Space;
-                var (w, h) = text.Font.MeasureText(text.TextString, text.FontSize);
-                WidgetsSpaceHelper.UpdateSpace(widget, new Rectangle(x, y, w, h));
             }
             else
             {

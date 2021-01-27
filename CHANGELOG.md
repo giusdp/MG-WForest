@@ -25,6 +25,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Applied event update for every ApplicableProp, now Flex works again because it uses the Row/Col applied event
 - Draggable was reintegrated with the new Props collections for the OnPress/OnEnter/OnExit commands
 - WTreeManager get the transition commands from the InteractionHandler and is responsible for executing them
+- Text Widget now updates the space when the FontSize or the Font changes (in the setters), instead of the props
 ### Removed
 - Tree collection
 - WidgetTree

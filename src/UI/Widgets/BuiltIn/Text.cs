@@ -1,7 +1,7 @@
 using System;
-using FontStashSharp;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using WForest.UI.Utils;
 using WForest.Utilities.Text;
 
 namespace WForest.UI.Widgets.BuiltIn
@@ -11,6 +11,9 @@ namespace WForest.UI.Widgets.BuiltIn
     /// </summary>
     public class Text : Widget
     {
+        private int _size;
+        private Font _font;
+
         /// <summary>
         /// The string to display.
         /// </summary>
@@ -19,12 +22,28 @@ namespace WForest.UI.Widgets.BuiltIn
         /// <summary>
         /// The size of the text.
         /// </summary>
-        public int FontSize { get; set; }
+        public int FontSize
+        {
+            get => _size;
+            set
+            {
+                _size = value;
+                UpdateTextSize();
+            }
+        }
 
         /// <summary>
         /// The font to use for TextString.
         /// </summary>
-        public Font Font { get; set; }
+        public Font Font
+        {
+            get => _font;
+            set
+            {
+                _font = value;
+                UpdateTextSize();
+            }
+        }
 
         internal Text(string text, int fontSize = 12) : base(Rectangle.Empty)
         {
@@ -44,6 +63,13 @@ namespace WForest.UI.Widgets.BuiltIn
         public void Draw(SpriteBatch spriteBatch)
         {
             // spriteBatch.DrawString(Font.SpriteFont(FontSize), TextString, new Vector2(Space.X, Space.Y), Color);
+        }
+
+        private void UpdateTextSize()
+        {
+            var (x, y, _, _) = Space;
+            var (w, h) = Font.MeasureText(TextString, FontSize);
+            WidgetsSpaceHelper.UpdateSpace(this, new Rectangle(x, y, w, h));
         }
     }
 }
