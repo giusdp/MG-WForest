@@ -1,6 +1,8 @@
 using System;
 using System.Linq;
 using Microsoft.Xna.Framework;
+using Serilog;
+using WForest.Exceptions;
 using WForest.UI.Props.Grid.Utils;
 using WForest.UI.Props.Interfaces;
 using WForest.UI.Utils;
@@ -49,6 +51,7 @@ namespace WForest.UI.Props.Grid.StretchingProps
             {
                 var maybeCol = ApplyUtils.ExtractColumnProp(widget);
                 if (maybeCol.TryGetValue(out var col))
+                {
                     col.Applied += (sender, args) =>
                     {
                         WidgetsSpaceHelper.UpdateSpace(widget,
@@ -58,6 +61,15 @@ namespace WForest.UI.Props.Grid.StretchingProps
                                 col.Columns.Sum(c => c.Width),
                                 col.Columns.Sum(c => c.Height)));
                     };
+                }
+                else
+                {
+                    Log.Error(
+                        "Flex can only be applied to a Row or Column Widget! Make sure this {W} has a Row or Column Prop",
+                        widget);
+                    throw new IncompatibleWidgetException(
+                        "Tried to apply Flexto a widget without a Row or Column Prop");
+                }
             }
 
             OnApplied();

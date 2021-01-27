@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using NUnit.Framework;
+using WForest.Exceptions;
 using WForest.Factories;
 using WForest.UI.Props.Grid.ItemProps;
 using WForest.UI.Widgets.Interfaces;
@@ -24,9 +25,9 @@ namespace WForest.Tests.PropTests
         }
 
         [Test]
-        public void ApplyOn_NoChildren_NothingHappens()
+        public void ApplyOn_NoRowOrCol_ThrowsIncompatibleWidget()
         {
-            Assert.That(() => _itemBase.ApplyOn(_root), Throws.Nothing);
+            Assert.That(() => _itemBase.ApplyOn(_root), Throws.TypeOf<IncompatibleWidgetException>());
         }
 
         [Test]

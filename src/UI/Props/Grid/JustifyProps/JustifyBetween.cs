@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
+using Serilog;
+using WForest.Exceptions;
 using WForest.UI.Props.Grid.Utils;
 using WForest.UI.Props.Interfaces;
 using WForest.UI.Utils;
@@ -43,6 +45,14 @@ namespace WForest.UI.Props.Grid.JustifyProps
                         SpaceBetweenHorizontally(widget, rows);
                     else if (ApplyUtils.TryExtractColumns(widget, out var cols))
                         SpaceBetweenVertically(widget, cols);
+                    else
+                    {
+                        Log.Error(
+                            "JustifyBetween can only be applied to a Row or Column Widget! Make sure this {W} has a Row or Column Prop",
+                            widget);
+                        throw new IncompatibleWidgetException(
+                            "Tried to apply JustifyBetween to a widget without a Row or Column Prop");
+                    }
                 });
             OnApplied();
         }

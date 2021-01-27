@@ -50,9 +50,20 @@ namespace WForest.UI.Props.Dragging
             var isXFixed = widget.Props.TryGetPropValue<FixX>(out _);
             var isYFixed = widget.Props.TryGetPropValue<FixY>(out _);
             
-            OnPress onPress = new OnPress(() =>
-            {
-                if (isXFixed && isYFixed) return;
+            OnPress onPress = new OnPress(() => DragAction(widget, isXFixed, isYFixed, dragCtx));
+            OnRelease onRelease = new OnRelease(() => dragCtx.IsDragging = false);
+            OnExit onExit = new OnExit(() => dragCtx.IsDragging = false);
+            
+            widget.Props.AddProp(onPress);
+            widget.Props.AddProp(onRelease);
+            widget.Props.AddProp(onExit);
+            
+            OnApplied();
+        }
+
+        private void DragAction(IWidget widget, bool isXFixed, bool isYFixed, DragCtx dragCtx)
+        {
+           if (isXFixed && isYFixed) return;
             
                 var devLoc = _device.GetPointedLocation();
                 if (!dragCtx.IsDragging)
@@ -74,18 +85,8 @@ namespace WForest.UI.Props.Dragging
             
                     WidgetsSpaceHelper.UpdateSpace(widget, new Rectangle(nx, ny, w, h));
                     dragCtx.Set(devLoc);
-                }
-            });
-            OnRelease onRelease = new OnRelease(() => dragCtx.IsDragging = false);
-            OnExit onExit = new OnExit(() => dragCtx.IsDragging = false);
-            
-            widget.Props.AddProp(onPress);
-            widget.Props.AddProp(onRelease);
-            widget.Props.AddProp(onExit);
-            
-            OnApplied();
+                } 
         }
-
         protected virtual void OnApplied() => Applied?.Invoke(this, EventArgs.Empty);
 
         private static (int, int) CheckBounds(IWidget wt, int x, int y, bool isXFixed, bool isYFixed)

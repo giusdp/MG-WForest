@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using NUnit.Framework;
+using WForest.Exceptions;
 using WForest.Factories;
 using WForest.UI.Props.Grid.JustifyProps;
 using WForest.UI.Widgets.Interfaces;
@@ -27,17 +28,13 @@ namespace WForest.Tests.PropTests
         }
 
         [Test]
-        public void WidgetWithoutRowOrCol_NothingHappens()
+        public void WidgetWithoutRowOrCol_ThrowsExc()
         {
             var child = WidgetFactory.Container(new Rectangle(0, 0, 130, 120));
             _root.AddChild(child);
             _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 120, 110)));
 
-            _justifyBetween.ApplyOn(_root);
-
-            var expected = new Rectangle(0, 0, 130, 120);
-
-            Assert.That(child.Space, Is.EqualTo(expected));
+            Assert.That(() => _justifyBetween.ApplyOn(_root), Throws.TypeOf<IncompatibleWidgetException>());
         }
 
         [Test]

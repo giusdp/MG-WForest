@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using NUnit.Framework;
+using WForest.Exceptions;
 using WForest.Factories;
 using WForest.UI.Props.Grid;
 using WForest.UI.Props.Grid.JustifyProps;
@@ -42,14 +43,10 @@ namespace WForest.Tests.PropTests
         }
 
         [Test]
-        public void ApplyOn_WidgetWithoutRowOrCol_NothingHappens()
+        public void ApplyOn_WidgetWithoutRowOrCol_Throws()
         {
             _root.AddChild(child);
-            _justifyCenter.ApplyOn(_root);
-
-            var expected = new Rectangle(0, 0, 120, 120);
-
-            Assert.That(child.Space, Is.EqualTo(expected));
+            Assert.That(() => _justifyCenter.ApplyOn(_root), Throws.TypeOf<IncompatibleWidgetException>());
         }
 
         [Test]
@@ -114,7 +111,7 @@ namespace WForest.Tests.PropTests
         [Test]
         public void ApplyOn_RowWithTwoSizesWidgets_CentersOnlyRowsNotInternally()
         {
-            child.Space = new Rectangle(0, 0, 220, 120); 
+            child.Space = new Rectangle(0, 0, 220, 120);
             _root.AddChild(child);
             var secondChild = WidgetFactory.Container(new Rectangle(0, 0, 120, 330));
             _root.AddChild(secondChild);
@@ -291,10 +288,11 @@ namespace WForest.Tests.PropTests
                 new Rectangle(240, 30, 120, 330),
                 new Rectangle(240, 360, 120, 330),
             };
-foreach (var widget in acts)
+            foreach (var widget in acts)
             {
                 _root.AddChild(widget);
             }
+
             ApplyCol();
             _justifyCenter.ApplyOn(_root);
             for (var i = 0; i < acts.Length; i++)
@@ -353,10 +351,11 @@ foreach (var widget in acts)
 
                 new Rectangle(90, 360, 220, 120) // new widget
             };
-foreach (var widget in acts)
+            foreach (var widget in acts)
             {
                 _root.AddChild(widget);
             }
+
             ApplyRow();
             _justifyCenter.ApplyOn(_root);
             for (var i = 0; i < acts.Length; i++)
@@ -396,10 +395,11 @@ foreach (var widget in acts)
                 new Rectangle(240, 360, 120, 330),
                 new Rectangle(360, 30, 220, 120)
             };
-foreach (var widget in acts)
+            foreach (var widget in acts)
             {
                 _root.AddChild(widget);
             }
+
             ApplyCol();
             _justifyCenter.ApplyOn(_root);
             for (var i = 0; i < acts.Length; i++)
@@ -432,10 +432,11 @@ foreach (var widget in acts)
                 new Rectangle(1030, 0, 220, 120),
                 new Rectangle(30, 330, 220, 120),
             };
-foreach (var widget in acts)
+            foreach (var widget in acts)
             {
                 _root.AddChild(widget);
             }
+
             ApplyRow();
             _justifyCenter.ApplyOn(_root);
             for (var i = 0; i < acts.Length; i++)
@@ -470,10 +471,11 @@ foreach (var widget in acts)
                 new Rectangle(220, 135, 220, 120),
                 new Rectangle(220, 255, 220, 120),
             };
-foreach (var widget in acts)
+            foreach (var widget in acts)
             {
                 _root.AddChild(widget);
             }
+
             ApplyCol();
             _justifyCenter.ApplyOn(_root);
             for (var i = 0; i < acts.Length; i++)

@@ -1,4 +1,6 @@
 using System;
+using Serilog;
+using WForest.Exceptions;
 using WForest.UI.Props.Grid.Utils;
 using WForest.UI.Props.Interfaces;
 using WForest.UI.Widgets.Interfaces;
@@ -38,6 +40,14 @@ namespace WForest.UI.Props.Grid.ItemProps
                         CenterHelper.ItemCenterVertical(widget, rows);
                     else if (ApplyUtils.TryExtractColumns(widget, out var cols))
                         CenterHelper.ItemCenterHorizontal(widget, cols);
+                    else
+                    {
+                        Log.Error(
+                            "ItemCenter can only be applied to a Row or Column Widget! Make sure this {W} has a Row or Column Prop",
+                            widget);
+                        throw new IncompatibleWidgetException(
+                            "Tried to apply ItemCenter to a widget without a Row or Column Prop");
+                    }
                 });
             OnApplied();
         }

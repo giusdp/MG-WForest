@@ -1,4 +1,6 @@
 using System;
+using Serilog;
+using WForest.Exceptions;
 using WForest.UI.Props.Grid.Utils;
 using WForest.UI.Props.Interfaces;
 using WForest.UI.Widgets.Interfaces;
@@ -36,6 +38,14 @@ namespace WForest.UI.Props.Grid.JustifyProps
                         CenterHelper.JustifyCenterByRow(widget, rows);
                     else if (ApplyUtils.TryExtractColumns(widget, out var cols))
                         CenterHelper.JustifyCenterByColumn(widget, cols);
+                    else
+                    {
+                        Log.Error(
+                            "JustifyCenter can only be applied to a Row or Column Widget! Make sure this {W} has a Row or Column Prop",
+                            widget);
+                        throw new IncompatibleWidgetException(
+                            "Tried to apply JustifyCenter to a widget without a Row or Column Prop");
+                    }
                 }
             );
             OnApplied();

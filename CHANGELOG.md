@@ -27,6 +27,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - WTreeManager get the transition commands from the InteractionHandler and is responsible for executing them
 - Text Widget now updates the space when the FontSize or the Font changes (in the setters), instead of the props
 - JustifyAround with only one child puts it at the center instead of doing nothing. It makes more sense this way since it's supposed to put empty space around widgets
+- IApplicableProps that need a Row or Column prop to work now throw IncompatibleWidgetException when applied on widgets without a Row nor Col prop
 ### Removed
 - Tree collection
 - WidgetTree

@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using NUnit.Framework;
+using WForest.Exceptions;
 using WForest.Factories;
 using WForest.UI.Props.Grid;
 using WForest.UI.Props.Grid.StretchingProps;
@@ -35,9 +36,9 @@ namespace WForest.Tests.PropTests
         }
 
         [Test]
-        public void ApplyOn_NoChildren_NothingHappens()
+        public void ApplyOn_NoRowOrCol_ThrowsExc()
         {
-            Assert.That(() => _flex.ApplyOn(_root), Throws.Nothing);
+            Assert.That(() => _flex.ApplyOn(_root), Throws.TypeOf<IncompatibleWidgetException>());
         }
 
         [Test]
