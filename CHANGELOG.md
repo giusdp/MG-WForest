@@ -22,6 +22,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Updated code and tests to integrate this change
 - TreeVisitor in Utilities now is the only one that takes care of applying functions to IWidget trees.
 - Abstracted Prop into interfaces with base interface IProp for other classes to use
+- Applied event update for every ApplicableProp, now Flex works again because it uses the Row/Col applied event
+- Draggable was reintegrated with the new Props collections for the OnPress/OnEnter/OnExit commands
+- WTreeManager get the transition commands from the InteractionHandler and is responsible for executing them
 ### Removed
 - Tree collection
 - WidgetTree
