@@ -17,9 +17,6 @@ namespace WForest.UI.Props.Actions
             _function = onPress;
         }
 
-        public void Execute()
-        {
-            throw new NotImplementedException();
-        }
+        public void Execute() => _function();
     }
 }
