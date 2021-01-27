@@ -42,7 +42,7 @@ namespace WForest.Tests.PropTests
         }
 
         [Test]
-        public void RowWithOneChild_NothingHappens()
+        public void RowWithOneChild_PutsAtCenter()
         {
             var child = WidgetFactory.Container(new Rectangle(0, 0, 130, 120));
             _root.AddChild(child);
@@ -50,7 +50,20 @@ namespace WForest.Tests.PropTests
             _root.WithProp(_justifyAround);
 
             ApplyProps(_root);
-            var expected = new Rectangle(0, 0, 130, 120);
+            var expected = new Rectangle(575, 0, 130, 120);
+
+            Assert.That(child.Space, Is.EqualTo(expected));
+        }
+        [Test]
+        public void ColWithOneChild_PutsAtCenter()
+        {
+            var child = WidgetFactory.Container(new Rectangle(0, 0, 130, 120));
+            _root.AddChild(child);
+            _root.WithProp(PropertyFactory.Column());
+            _root.WithProp(_justifyAround);
+
+            ApplyProps(_root);
+            var expected = new Rectangle(0, 300, 130, 120);
 
             Assert.That(child.Space, Is.EqualTo(expected));
         }

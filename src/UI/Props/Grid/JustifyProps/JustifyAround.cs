@@ -38,7 +38,6 @@ namespace WForest.UI.Props.Grid.JustifyProps
                 $"{widget} has no children to justify space between.",
                 () =>
                 {
-                    if (widget.Children.Count == 1) return;
                     if (ApplyUtils.TryExtractRows(widget, out var rows))
                         SpaceAroundHorizontally(widget, rows);
                     else if (ApplyUtils.TryExtractColumns(widget, out var cols))
