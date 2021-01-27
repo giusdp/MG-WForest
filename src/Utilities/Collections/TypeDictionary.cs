@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace WForest.Utilities.Collections
 {
-    public class TypeDictionary<T>
+    public abstract class TypeDictionary<T>
     {
         protected readonly Dictionary<Type, List<T>> Data = new Dictionary<Type, List<T>>();
 
@@ -15,6 +15,8 @@ namespace WForest.Utilities.Collections
             else Data[type] = new List<T> {element};
             Console.WriteLine("added : " + type);
         }
+
+        protected bool TryGetValue<TP>(out List<T>? tList) where TP : T => Data.TryGetValue(typeof(TP), out tList);
 
         protected List<T> Get<TP>() where TP : T => Data[typeof(TP)];
     }

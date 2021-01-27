@@ -1,9 +1,11 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Serilog;
+using WForest.Devices;
 using WForest.Factories;
+using WForest.UI.Interactions;
 using WForest.UI.Widgets;
-using WForest.UI.WidgetTrees;
+using WForest.UI.Widgets.Interfaces;
 using WForest.Utilities;
 
 namespace WForest.UI
@@ -13,16 +15,21 @@ namespace WForest.UI
     /// </summary>
     public class WTreeManager
     {
-        // private readonly WidgetTree _root;
+        private readonly IWidget _root;
+        private UserInteractionHandler _userInteractionHandler;
 
         internal WTreeManager(int x, int y, int width, int height, IWidget widgetRoot)
         {
+            _userInteractionHandler = new UserInteractionHandler(MouseDevice.Instance, new InteractionUpdater());
+
+            _root = widgetRoot;
             Log.Information("Created new WTreeManager");
             //
             // _root = new WidgetTree(WidgetFactory.Container(new Rectangle(x, y, width, height)));
             // wTree.Parent = _root;
             // _root.Children.Add(wTree);
             // Resize(width, height);
+            TreeVisitor.ApplyPropsOnTree(_root);
         }
 
         // /// <summary>
@@ -32,16 +39,23 @@ namespace WForest.UI
         // /// <param name="height"></param>
         // public void Resize(int width, int height)
         // {
-        //     _root.Data.Space = new Rectangle(_root.Data.Space.X, _root.Data.Space.Y, width, height);
-        //     WidgetTreeVisitor.ApplyPropertiesOnTree(_root);
+        //     _root.Space = new Rectangle(_root.Space.X, _root.Space.Y, width, height);
+        //     TreeVisitor.ApplyPropsOnTree(_root);
         // }
 
-        // /// <summary>
-        // /// Update the WidgetTree handled by the manager.
-        // /// It calls the Update methods of the widgets, handles the interactions with the device etc.
-        // /// </summary>
-        // public void Update() => _widgetTreeVisitor.UpdateTree(_root);
-        //
+        /// <summary>
+        /// Update the WidgetTree handled by the manager.
+        /// It calls the Update methods of the widgets, handles the interactions with the device etc.
+        /// </summary>
+        public void Update()
+        {
+            var transitions = _userInteractionHandler.UpdateAndGenerateTransitions(_root);
+            foreach (var t in transitions) t.Execute();
+
+            // TreeVisitor.UpdateTree(_root);
+        }
+
+        
         // /// <summary>
         // /// Draws the WidgetTree. It visits the entire tree calling the Draw methods of the widgets.
         // /// </summary>

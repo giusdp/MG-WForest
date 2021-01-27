@@ -1,14 +1,11 @@
 using System;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Serilog;
 using Serilog.Core;
 using Serilog.Events;
 using WForest.Exceptions;
 using WForest.UI;
-using WForest.UI.Widgets;
-using WForest.UI.WidgetTrees;
-using WForest.Utilities.Collections;
+using WForest.UI.Widgets.Interfaces;
 
 namespace WForest.Factories
 {
