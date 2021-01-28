@@ -4,7 +4,7 @@ using WForest.UI.Props.Interfaces;
 using WForest.UI.Widgets.Interfaces;
 using WForest.Utilities;
 
-namespace WForest.UI.Props.Border
+namespace WForest.UI.Props
 {
     /// <summary>
     /// Property that adds a rectangular border to a widget. Customizable with the color and line width.

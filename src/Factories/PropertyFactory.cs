@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework;
 using WForest.Devices;
 using WForest.UI.Props;
 using WForest.UI.Props.Actions;
-using WForest.UI.Props.Border;
 using WForest.UI.Props.Dragging;
 using WForest.UI.Props.Grid;
 using WForest.UI.Props.Grid.ItemProps;
