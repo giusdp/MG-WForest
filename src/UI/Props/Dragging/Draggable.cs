@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using WForest.Devices;
 using WForest.UI.Props.Actions;
@@ -30,6 +31,7 @@ namespace WForest.UI.Props.Dragging
         /// </summary>
         public int Priority { get; set; } = 4;
 
+        /// <inheritdoc/>
         public event EventHandler? Applied;
 
         private readonly IDevice _device;
@@ -47,10 +49,10 @@ namespace WForest.UI.Props.Dragging
         {
             var dragCtx = new DragCtx();
 
-            var isXFixed = widget.Props.TryGetPropValue<FixX>(out _);
-            var isYFixed = widget.Props.TryGetPropValue<FixY>(out _);
+            widget.Props.SafeGetByProp<FixX>().TryGetValue(out var fixX);
+            widget.Props.SafeGetByProp<FixY>().TryGetValue(out var fixY);
             
-            OnPress onPress = new OnPress(() => DragAction(widget, isXFixed, isYFixed, dragCtx));
+            OnPress onPress = new OnPress(() => DragAction(widget, fixX.Any(), fixY.Any(), dragCtx));
             OnRelease onRelease = new OnRelease(() => dragCtx.IsDragging = false);
             OnExit onExit = new OnExit(() => dragCtx.IsDragging = false);
             
@@ -87,7 +89,7 @@ namespace WForest.UI.Props.Dragging
                     dragCtx.Set(devLoc);
                 } 
         }
-        protected virtual void OnApplied() => Applied?.Invoke(this, EventArgs.Empty);
+        private void OnApplied() => Applied?.Invoke(this, EventArgs.Empty);
 
         private static (int, int) CheckBounds(IWidget wt, int x, int y, bool isXFixed, bool isYFixed)
         {

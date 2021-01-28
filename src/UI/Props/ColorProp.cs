@@ -10,9 +10,12 @@ namespace WForest.UI.Props
     /// </summary>
     public class ColorProp : IApplicableProp
     {
+        /// <inheritdoc/>
         public int Priority { get; set; }
+
+        /// <inheritdoc/>
         public event EventHandler? Applied;
-        
+
         private readonly Color _color;
 
         internal ColorProp(Color color)
@@ -20,10 +23,10 @@ namespace WForest.UI.Props
             _color = color;
         }
 
-        // /// <summary>
-        // /// Changed the Color field of the widget with the new color passed to this property constructor.
-        // /// </summary>
-        // /// <param name="widget"></param>
+        /// <summary>
+        /// Changed the Color field of the widget with the new color passed to this property constructor.
+        /// </summary>
+        /// <param name="widget"></param>
         public void ApplyOn(IWidget widget)
         {
             widget.Color = _color;

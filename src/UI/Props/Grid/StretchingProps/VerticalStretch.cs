@@ -16,7 +16,10 @@ namespace WForest.UI.Props.Grid.StretchingProps
         {
         }
 
+        /// <inheritdoc/>
         public int Priority { get; set; }
+
+        /// <inherit/>
         public event EventHandler? Applied;
 
         /// <summary>
@@ -32,6 +35,6 @@ namespace WForest.UI.Props.Grid.StretchingProps
             OnApplied();
         }
 
-        protected virtual void OnApplied() => Applied?.Invoke(this, EventArgs.Empty);
+        private void OnApplied() => Applied?.Invoke(this, EventArgs.Empty);
     }
 }

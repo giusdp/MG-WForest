@@ -28,6 +28,7 @@ namespace WForest.UI.Props.Grid.ItemProps
         /// </summary>
         public int Priority { get; set; } = 3;
 
+        /// <inherit/>
         public event EventHandler? Applied;
 
         /// <summary>
@@ -62,7 +63,7 @@ namespace WForest.UI.Props.Grid.ItemProps
             OnApplied();
         }
 
-        protected virtual void OnApplied() => Applied?.Invoke(this, EventArgs.Empty);
+        private void OnApplied() => Applied?.Invoke(this, EventArgs.Empty);
 
         private static Action<List<WidgetsDataSubList>> PutAtBase(IWidget wTree,
             Func<WidgetsDataSubList, int> listSize, Func<IWidget, int> wSize,

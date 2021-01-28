@@ -10,6 +10,7 @@ namespace WForest.UI.Props.Actions
     /// </summary>
     public class OnExit : ICommandProp
     {
+        /// <inherit/>
         public Action Action { get; set; }
 
         internal OnExit(Action onPress)

@@ -245,6 +245,13 @@ namespace WForest.Factories
         /// <returns></returns>
         public static IProp OnExit(Action logic) => CheckArgAndCreate(logic, action => new OnExit(action));
 
+        /// <summary>
+        /// Creates an OnUpdate property. Adds logic to a widget that is run at every Update of the game.
+        /// </summary>
+        /// <param name="logic"></param>
+        /// <returns></returns>
+        public static IProp OnUpdate(Action logic) => CheckArgAndCreate(logic, action => new OnUpdate(action));
+
         #endregion
 
         #region Utils

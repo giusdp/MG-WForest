@@ -3,6 +3,9 @@ using WForest.UI.Widgets.Interfaces;
 
 namespace WForest.UI.Props.Interfaces
 {
+    /// <summary>
+    /// Props that are applicable on a widget to change it or to add some data to it.
+    /// </summary>
     public interface IApplicableProp : IProp
     {
         /// <summary>
@@ -19,6 +22,6 @@ namespace WForest.UI.Props.Interfaces
         /// Apply the prop on a widget.
         /// </summary>
         /// <param name="widget"></param>
-        public  void ApplyOn(IWidget widget);
+        public void ApplyOn(IWidget widget);
     }
 }

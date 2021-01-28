@@ -9,15 +9,41 @@ using WForest.Utilities;
 
 namespace WForest.UI.Widgets.Interfaces
 {
+    /// <summary>
+    /// Base interface for Widgets. It contains the main functionality for having trees of widgets
+    /// and implements the functionalities to use props and to draw. 
+    /// </summary>
     public interface IWidget : IEnumerable<IWidget>, IRenderData, IPropHolder
     {
+        /// <summary>
+        /// The current interaction of this widget with the input device.
+        /// It can be:
+        /// - Untouched
+        /// - Entered
+        /// - Exited
+        /// - Pressed
+        /// - Released
+        /// </summary>
         public Interaction CurrentInteraction { get; set; }
 
         #region Widget Tree
 
+        /// <summary>
+        /// The parent of this widget. If there is not one, then this widget is root.
+        /// </summary>
         IWidget? Parent { get; set; }
+        /// <summary>
+        /// The collection of widget children.
+        /// </summary>
         public ICollection<IWidget> Children { get; }
 
+        /// <summary>
+        /// Add a widget as a child of this widget. It updates it's location relative to this widget location
+        /// and the child's parent is set to this widget.
+        /// </summary>
+        /// <param name="widget"></param>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentException"></exception>
         void AddChild(IWidget widget)
         {
             if (widget == null) throw new ArgumentNullException(nameof(widget));

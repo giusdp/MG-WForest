@@ -3,13 +3,14 @@ using System.Linq;
 using WForest.UI.Props.Actions;
 using WForest.UI.Props.Interfaces;
 using WForest.UI.Widgets.Interfaces;
+using WForest.Utilities;
 using WForest.Utilities.Collections;
 
 namespace WForest.UI.Interactions
 {
-    public class InteractionUpdater
+    internal class InteractionUpdater
     {
-        public virtual IEnumerable<ICommandProp> NextState(IWidget interactedObj, Interaction interaction)
+        internal virtual IEnumerable<ICommandProp> NextState(IWidget interactedObj, Interaction interaction)
         {
             var (nextInteraction, transitionInteraction) = GetNextAndTransitionInteraction(interactedObj, interaction);
             interactedObj.CurrentInteraction = nextInteraction;
@@ -60,19 +61,21 @@ namespace WForest.UI.Interactions
         }
 
 
-        private IEnumerable<ICommandProp> GetPropsOfInteraction(PropCollection props, Interaction interaction)
+        private static IEnumerable<ICommandProp> GetPropsOfInteraction(PropCollection props, Interaction interaction)
         {
-            var l = new List<IProp>();
-            var b = interaction switch
+            var maybeProps = interaction switch
             {
-                Interaction.Entered => props.TryGetPropValue<OnEnter>(out l),
-                Interaction.Exited => props.TryGetPropValue<OnExit>(out l),
-                Interaction.Pressed => props.TryGetPropValue<OnPress>(out l),
-                Interaction.Released => props.TryGetPropValue<OnRelease>(out l),
-                _ => false
+                Interaction.Entered => props.SafeGetByProp<OnEnter>(),
+                Interaction.Exited => props.SafeGetByProp<OnExit>(),
+                Interaction.Pressed => props.SafeGetByProp<OnPress>(),
+                Interaction.Released => props.SafeGetByProp<OnRelease>(),
+                _ => Maybe.None
             };
-            if (b && l != null) return l.Cast<ICommandProp>();
-            return new List<ICommandProp>();
+            return maybeProps switch
+            {
+                Maybe<List<IProp>>.Some l => l.Value.Cast<ICommandProp>(),
+                _ => new List<ICommandProp>()
+            };
         }
 
         //

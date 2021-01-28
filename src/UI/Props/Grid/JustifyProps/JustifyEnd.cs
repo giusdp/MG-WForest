@@ -22,6 +22,7 @@ namespace WForest.UI.Props.Grid.JustifyProps
         /// </summary>
         public int Priority { get; set; } = 2;
 
+        /// <inherit/>
         public event EventHandler? Applied;
 
         internal JustifyEnd()
@@ -61,7 +62,7 @@ namespace WForest.UI.Props.Grid.JustifyProps
             OnApplied();
         }
 
-        protected virtual void OnApplied() => Applied?.Invoke(this, EventArgs.Empty);
+        private void OnApplied() => Applied?.Invoke(this, EventArgs.Empty);
 
         private static Action<List<WidgetsDataSubList>> PutAtEnd(IWidget wTree, Func<IWidget, int> getSize,
             Func<int, IWidget, Point> updateLoc, Func<IWidget, int> getMargin)

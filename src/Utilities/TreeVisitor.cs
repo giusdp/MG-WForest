@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Net;
 using WForest.UI.Props.Actions;
 using WForest.UI.Props.Interfaces;
 using WForest.UI.Widgets.Interfaces;
@@ -22,8 +23,15 @@ namespace WForest.Utilities
         {
             foreach (var w in widget)
             {
-                if (!w.Props.TryGetPropValue<OnUpdate>(out var ups)) continue;
-                foreach (var command in ups!.Cast<ICommandProp>()) command.Execute();
+                var maybe = w.Props.SafeGetByProp<OnUpdate>();
+                switch (maybe)
+                {
+                    case Maybe<List<IProp>>.Some s:
+                        foreach (var command in s.Value.Cast<ICommandProp>()) command.Execute();
+                        break;
+                    default:
+                        continue;
+                }
             }
         }
 

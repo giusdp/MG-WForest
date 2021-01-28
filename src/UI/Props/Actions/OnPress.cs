@@ -1,6 +1,5 @@
 using System;
 using WForest.UI.Props.Interfaces;
-using WForest.UI.Widgets.Interfaces;
 
 namespace WForest.UI.Props.Actions
 {
@@ -10,13 +9,12 @@ namespace WForest.UI.Props.Actions
     /// </summary>
     public class OnPress : ICommandProp
     {
+        /// <inherit/>
         public Action Action { get; set; }
 
         internal OnPress(Action onPress)
         {
             Action = onPress;
         }
-
-        public void Execute() => Action();
     }
 }

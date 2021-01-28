@@ -10,6 +10,7 @@ namespace WForest.UI.Props.Actions
     /// </summary>
     public class OnEnter : ICommandProp
     {
+        /// <inherit/>
         public Action Action { get; set; }
 
         internal OnEnter(Action onPress)

@@ -17,6 +17,7 @@ namespace WForest.UI.Props
         /// </summary>
         public int Priority { get; set; } = 0;
 
+        /// <inherit/>
         public event EventHandler? Applied;
 
         private readonly MarginValues _marginValues;
@@ -45,7 +46,7 @@ namespace WForest.UI.Props
             OnApplied();
         }
 
-        protected virtual void OnApplied() => Applied?.Invoke(this, EventArgs.Empty);
+        private void OnApplied() => Applied?.Invoke(this, EventArgs.Empty);
 
         private MarginValues AddMargin(IWidget widget)
         {

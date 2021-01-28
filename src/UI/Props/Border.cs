@@ -16,6 +16,7 @@ namespace WForest.UI.Props
         /// </summary>
         public int Priority { get; set; } = 4;
 
+        /// <inheritdoc/>
         public event EventHandler? Applied;
         internal Color Color { get; set; }
         internal int LineWidth { get; set; }
@@ -36,6 +37,6 @@ namespace WForest.UI.Props
             OnApplied();
         }
 
-        protected virtual void OnApplied() => Applied?.Invoke(this, EventArgs.Empty);
+        private void OnApplied() => Applied?.Invoke(this, EventArgs.Empty);
     }
 }

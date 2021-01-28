@@ -9,9 +9,15 @@ using WForest.Utilities.Collections;
 
 namespace WForest.UI.Widgets
 {
+    /// <summary>
+    /// Concrete base class for the IWidget interface.
+    /// </summary>
     public class Widget : IWidget
     {
+        ///<inheritdoc/> 
         public Interaction CurrentInteraction { get; set; }
+
+        ///<inheritdoc/> 
         public PropCollection Props { get; }
 
         /// <summary>
@@ -46,10 +52,16 @@ namespace WForest.UI.Widgets
 
         #region Rendering
 
+        ///<inheritdoc/> 
         public Rectangle Space { get; set; }
+        ///<inheritdoc/> 
         public MarginValues Margins { get; set; }
+        ///<inheritdoc/> 
         public Color Color { get; set; }
+        ///<inheritdoc/> 
         public List<Action<SpriteBatch>> PostDrawActions { get; }
+
+        ///<inheritdoc/> 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
         }
@@ -58,8 +70,10 @@ namespace WForest.UI.Widgets
 
         #region Widget Tree
 
+        ///<inheritdoc/> 
         public IWidget? Parent { get; set; }
 
+        ///<inheritdoc/> 
         public ICollection<IWidget> Children { get; }
 
         #endregion

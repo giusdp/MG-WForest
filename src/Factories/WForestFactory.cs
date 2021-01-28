@@ -36,6 +36,14 @@ namespace WForest.Factories
             _isInit = true;
         }
 
+        /// <summary>
+        /// Creates a <see cref="WTreeManager"/> that covers the area defined by the space of the root widget and handles
+        /// resizing, updating and drawing the widget tree. 
+        /// </summary>
+        /// <param name="wTree"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="WForestNotInitializedException"></exception>
         public static WTreeManager CreateWTree(IWidget wTree)
         {
             if (wTree == null) throw new ArgumentNullException(nameof(wTree));

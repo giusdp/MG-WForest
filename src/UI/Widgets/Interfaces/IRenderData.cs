@@ -2,11 +2,13 @@ using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using NUnit.Framework;
 using WForest.Utilities;
 
 namespace WForest.UI.Widgets.Interfaces
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public interface IRenderData
     {
         /// <summary>
@@ -14,10 +16,19 @@ namespace WForest.UI.Widgets.Interfaces
         /// </summary>
         Rectangle Space { get; set; }
 
+        /// <summary>
+        /// The values for the left, right, top, bottom margins.
+        /// </summary>
         public MarginValues Margins { get; set; }
 
+        /// <summary>
+        /// The widget color.
+        /// </summary>
         Color Color { get; set; }
 
+        /// <summary>
+        /// Get the total space occupied by the widget, that is it's space + margins.
+        /// </summary>
         public Rectangle TotalSpaceOccupied =>
             new Rectangle(
                 Space.X - Margins.Left,
@@ -26,7 +37,15 @@ namespace WForest.UI.Widgets.Interfaces
                 Space.Height + Margins.Top + Margins.Bottom
             );
 
+        /// <summary>
+        /// Actions that can be run after drawing. The border prop adds a post draw action that adds the border.
+        /// </summary>
         public List<Action<SpriteBatch>> PostDrawActions { get; }
+
+        /// <summary>
+        /// Draw the widget with a SpriteBatch.
+        /// </summary>
+        /// <param name="spriteBatch"></param>
         void Draw(SpriteBatch spriteBatch);
     }
 }

@@ -16,6 +16,7 @@ namespace WForest.UI.Props.Grid
         /// </summary>
         public int Priority { get; set; } = 1;
 
+        /// <inheritdoc/>
         public event EventHandler? Applied;
 
         internal List<WidgetsDataSubList> Rows = new List<WidgetsDataSubList>();
@@ -36,6 +37,6 @@ namespace WForest.UI.Props.Grid
             OnApplied();
         }
 
-        protected virtual void OnApplied() => Applied?.Invoke(this, EventArgs.Empty);
+        private void OnApplied() => Applied?.Invoke(this, EventArgs.Empty);
     }
 }
