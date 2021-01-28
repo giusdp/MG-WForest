@@ -1,286 +1,148 @@
-using System.Runtime.CompilerServices;
 using Microsoft.Xna.Framework;
-using Moq;
 using NUnit.Framework;
-using WForest.Devices;
-using WForest.Factories;
+using WForest.UI.Interactions;
 using WForest.UI.Widgets;
-using WForest.UI.Widgets.Interactions;
-using WForest.UI.WidgetTrees;
-using WForest.Utilities;
-
-[assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]
 
 namespace WForest.Tests
 {
     [TestFixture]
     public class InteractionUpdaterTests
     {
-        private WidgetTree _widgetTree;
-        private WidgetInteractionUpdater _updater;
+        private InteractionUpdater _updater;
+        private Widget _widget;
 
         [SetUp]
         public void BeforeEach()
         {
-            _widgetTree = new WidgetTree(WidgetFactory.Container(new Rectangle(0, 0, 540, 260)));
-            _updater = new WidgetInteractionUpdater(new Mock<IDevice>().Object);
+            _updater = new InteractionUpdater();
+            _widget = new Widget(Rectangle.Empty);
+        }
+
+        #region Untouched Case
+
+        [Test]
+        public void UpdateTest_FromUntouchedToUntouched_NothingHappens()
+        {
+            _updater.NextState(_widget, Interaction.Untouched);
+            Assert.That(_widget.CurrentInteraction, Is.EqualTo(Interaction.Untouched));
         }
 
         [Test]
-        public void IsHovered_LocationInside_ReturnsTrue()
+        public void UpdateTest_FromUntouchedToEnter_GoToEntered()
         {
-            var b = WidgetInteractionUpdater.GetHoveredWidget(_widgetTree,
-                new Point(332, 43)) is Maybe<WidgetTree>.Some;
-            Assert.That(b, Is.True);
+            _updater.NextState(_widget, Interaction.Entered);
+            Assert.That(_widget.CurrentInteraction, Is.EqualTo(Interaction.Entered));
         }
 
         [Test]
-        public void IsHovered_NotInside_ReturnsFalse()
+        public void UpdateTest_FromUntouchedToExit_DoesNotChange()
         {
-            var b = WidgetInteractionUpdater.GetHoveredWidget(_widgetTree, new Point(332, 678)) is Maybe<WidgetTree>
-                .Some;
-            Assert.That(b, Is.False);
+            _updater.NextState(_widget, Interaction.Exited);
+            Assert.That(_widget.CurrentInteraction, Is.EqualTo(Interaction.Untouched));
         }
 
         [Test]
-        public void CurrentInteraction_OnStateChange_Changes()
+        public void UpdateTest_FromUntouchedToPress_GoToPress()
         {
-            _widgetTree.Data.ChangeInteraction(Interaction.Entered);
-            Assert.That(_widgetTree.Data.CurrentInteraction(), Is.EqualTo(Interaction.Entered));
+            _updater.NextState(_widget, Interaction.Pressed);
+            Assert.That(_widget.CurrentInteraction, Is.EqualTo(Interaction.Pressed));
         }
 
         [Test]
-        public void Enter_WidgetFirstTime_RunsEnteredInteraction()
+        public void UpdateTest_FromUntouchedToRelease_DoesNotChange()
         {
-            _updater.Update(Maybe.Some(_widgetTree));
-            Assert.That(_widgetTree.Data.CurrentInteraction(), Is.EqualTo(Interaction.Entered));
+            _updater.NextState(_widget, Interaction.Released);
+            Assert.That(_widget.CurrentInteraction, Is.EqualTo(Interaction.Untouched));
+        }
+
+        #endregion
+
+        #region Entered Case
+
+        [Test]
+        public void UpdateTest_FromEnterToUntouched_GoToUntouched()
+        {
+            _widget.CurrentInteraction = Interaction.Entered;
+            _updater.NextState(_widget, Interaction.Untouched);
+            Assert.That(_widget.CurrentInteraction, Is.EqualTo(Interaction.Untouched));
         }
 
         [Test]
-        public void EnterWidget_WithOldWidgetEntered_NewRunsEnter()
+        public void UpdateTest_FromEnterToEnter_DoesNotChange()
         {
-            _updater.Update(Maybe.Some(new WidgetTree(WidgetFactory.Container())));
-            _updater.Update(Maybe.Some(_widgetTree));
-            Assert.That(_widgetTree.Data.CurrentInteraction(), Is.EqualTo(Interaction.Entered));
+            _widget.CurrentInteraction = Interaction.Entered;
+            _updater.NextState(_widget, Interaction.Entered);
+            Assert.That(_widget.CurrentInteraction, Is.EqualTo(Interaction.Entered));
         }
 
         [Test]
-        public void HoveringNothing_WithNoPreviousWidget_DoesNothing()
+        public void UpdateTest_FromEnterToExit_GoToUntouched()
         {
-            Assert.That(() => _updater.Update(Maybe.None), Throws.Nothing);
+            _widget.CurrentInteraction = Interaction.Entered;
+            _updater.NextState(_widget, Interaction.Exited);
+            Assert.That(_widget.CurrentInteraction, Is.EqualTo(Interaction.Untouched));
         }
 
         [Test]
-        public void EnterAnotherWidget_WithOldWidgetEntered_RunsExitOnOld()
+        public void UpdateTest_FromEnterToPress_GoToPressed()
         {
-            Mock<Widget> w = new Mock<Widget>(Rectangle.Empty);
-            _updater.Update(Maybe.Some(new WidgetTree(w.Object)));
-            _updater.Update(Maybe.Some(new WidgetTree(WidgetFactory.Container())));
-            w.Verify(widget => widget.ChangeInteraction(Interaction.Exited), Times.Once);
+            _widget.CurrentInteraction = Interaction.Entered;
+            _updater.NextState(_widget, Interaction.Pressed);
+            Assert.That(_widget.CurrentInteraction, Is.EqualTo(Interaction.Pressed));
         }
 
         [Test]
-        public void EnterAnotherWidget_WithOldWidgetEntered_OldGoesUntouched()
+        public void UpdateTest_FromEnterToReleased_GoToEntered()
         {
-            _updater.Update(Maybe.Some(_widgetTree));
-            _updater.Update(Maybe.Some(new WidgetTree(WidgetFactory.Container())));
-            Assert.That(_widgetTree.Data.CurrentInteraction(), Is.EqualTo(Interaction.Untouched));
+            _widget.CurrentInteraction = Interaction.Entered;
+            _updater.NextState(_widget, Interaction.Released);
+            Assert.That(_widget.CurrentInteraction, Is.EqualTo(Interaction.Entered));
         }
 
+        #endregion
+
+        #region Pressed Case
 
         [Test]
-        public void HoveringNothing_WithOldWidget_OldRunsExit()
+        public void UpdateTest_FromPressToUntouched_StayPressed()
         {
-            Mock<Widget> w = new Mock<Widget>(Rectangle.Empty);
-            _updater.Update(Maybe.Some(new WidgetTree(w.Object)));
-            _updater.Update(Maybe.None);
-            w.Verify(widget => widget.ChangeInteraction(Interaction.Exited), Times.Once);
-        }
-
-        [Test]
-        public void HoveringNothing_WithAPreviousWidget_PreviousGoesUntouched()
-        {
-            _updater.Update(Maybe.Some(_widgetTree));
-            _updater.Update(Maybe.None);
-            Assert.That(_widgetTree.Data.CurrentInteraction(), Is.EqualTo(Interaction.Untouched));
+            _widget.CurrentInteraction = Interaction.Pressed;
+            _updater.NextState(_widget, Interaction.Untouched);
+            Assert.That(_widget.CurrentInteraction, Is.EqualTo(Interaction.Pressed));
         }
 
         [Test]
-        public void Press_OnHoveredWidget_RunsPressInteraction()
+        public void UpdateTest_FromPressToEnter_StayPressed()
         {
-            Mock<IDevice> mockedDevice = new Mock<IDevice>();
-            Mock<Widget> mockedWidget = new Mock<Widget>(Rectangle.Empty);
-            var wTree = new WidgetTree(mockedWidget.Object);
-
-            // First enter the widget
-            _updater.Update(Maybe.Some(wTree));
-            // Then press the interaction button
-            mockedDevice.Setup(device => device.IsPressed()).Returns(true);
-            _updater.Device = mockedDevice.Object;
-            // Update to press widget
-            _updater.Update(Maybe.Some(wTree));
-
-            mockedWidget.Verify(w => w.ChangeInteraction(Interaction.Entered));
-            mockedWidget.Verify(widget => widget.ChangeInteraction(Interaction.Pressed));
-        }
-
-
-        [Test]
-        public void Press_OnNonEnteredWidget_EntersAndPresses()
-        {
-            Mock<IDevice> mockedDevice = new Mock<IDevice>();
-            Mock<Widget> mockedWidget = new Mock<Widget>(Rectangle.Empty);
-            var wTree = new WidgetTree(mockedWidget.Object);
-
-            // Press the interaction button
-            mockedDevice.Setup(device => device.IsPressed()).Returns(true);
-            _updater.Device = mockedDevice.Object;
-            // Update to press widget
-            _updater.Update(Maybe.Some(wTree));
-
-            mockedWidget.Verify(w => w.ChangeInteraction(Interaction.Entered), Times.Once);
-            mockedWidget.Verify(widget => widget.ChangeInteraction(Interaction.Pressed), Times.Once);
+            _widget.CurrentInteraction = Interaction.Pressed;
+            _updater.NextState(_widget, Interaction.Entered);
+            Assert.That(_widget.CurrentInteraction, Is.EqualTo(Interaction.Pressed));
         }
 
         [Test]
-        public void Release_OnSamePressedWidget_RunsReleaseInteraction()
+        public void UpdateTest_FromPressToExit_GoToUntouched()
         {
-            Mock<IDevice> mockedDevice = new Mock<IDevice>();
-            Mock<Widget> mockedWidget = new Mock<Widget>(Rectangle.Empty);
-            var wTree = new WidgetTree(mockedWidget.Object);
-
-            // First enter the widget
-            _updater.Update(Maybe.Some(wTree));
-            // Then press the interaction button
-            mockedDevice.Setup(device => device.IsPressed()).Returns(true);
-            _updater.Device = mockedDevice.Object;
-            // Update to press widget
-            _updater.Update(Maybe.Some(wTree));
-            //Then release the button
-            mockedDevice.Setup(device => device.IsPressed()).Returns(false);
-            mockedDevice.Setup(device => device.IsReleased()).Returns(true);
-            _updater.Update(Maybe.Some(wTree));
-
-            mockedWidget.Verify(widget => widget.ChangeInteraction(Interaction.Released), Times.Once);
+            _widget.CurrentInteraction = Interaction.Pressed;
+            _updater.NextState(_widget, Interaction.Exited);
+            Assert.That(_widget.CurrentInteraction, Is.EqualTo(Interaction.Untouched));
         }
 
         [Test]
-        public void PressOnWidget_ThenEnterAnother_OldDoesNotRelease()
+        public void UpdateTest_FromPressToPress_StayPressed()
         {
-            Mock<IDevice> mockedDevice = new Mock<IDevice>();
-            Mock<Widget> mockedWidget = new Mock<Widget>(Rectangle.Empty);
-            mockedWidget.Setup(w => w.CurrentInteraction()).Returns(Interaction.Pressed);
-            var wTree = new WidgetTree(mockedWidget.Object);
-
-            // Press the interaction button
-            mockedDevice.Setup(device => device.IsPressed()).Returns(true);
-            _updater.Device = mockedDevice.Object;
-            // Press widget
-            _updater.Update(Maybe.Some(wTree));
-
-            mockedDevice.Setup(device => device.IsPressed()).Returns(false);
-            mockedDevice.Setup(device => device.IsHeld()).Returns(true);
-            _updater.Device = mockedDevice.Object;
-
-            // Move while pressing to another widget
-            _updater.Update(Maybe.Some(new WidgetTree(WidgetFactory.Container())));
-
-            mockedWidget.Verify(widget => widget.ChangeInteraction(Interaction.Released), Times.Never);
+            _widget.CurrentInteraction = Interaction.Pressed;
+            _updater.NextState(_widget, Interaction.Pressed);
+            Assert.That(_widget.CurrentInteraction, Is.EqualTo(Interaction.Pressed));
         }
 
         [Test]
-        public void PressOnWidget_ThenEnterAnother_OldStaysPressed()
+        public void UpdateTest_FromPressToReleased_GoToEntered()
         {
-            Mock<IDevice> mockedDevice = new Mock<IDevice>();
-
-            // Press the interaction button
-            mockedDevice.Setup(device => device.IsPressed()).Returns(true);
-            _updater.Device = mockedDevice.Object;
-            // Press widget
-            _updater.Update(Maybe.Some(_widgetTree));
-
-            mockedDevice.Setup(device => device.IsPressed()).Returns(false);
-            mockedDevice.Setup(device => device.IsHeld()).Returns(true);
-            _updater.Device = mockedDevice.Object;
-            var w = new WidgetTree(WidgetFactory.Container());
-            // Move while pressing to another widget
-            _updater.Update(Maybe.Some(w));
-
-            Assert.That(_widgetTree.Data.CurrentInteraction(), Is.EqualTo(Interaction.Pressed));
+            _widget.CurrentInteraction = Interaction.Pressed;
+            _updater.NextState(_widget, Interaction.Released);
+            Assert.That(_widget.CurrentInteraction, Is.EqualTo(Interaction.Entered));
         }
 
-        [Test]
-        public void PressOnWidget_ThenEnterAnother_OldDoesNotExit()
-        {
-            Mock<IDevice> mockedDevice = new Mock<IDevice>();
-            Mock<Widget> mockedWidget = new Mock<Widget>(Rectangle.Empty);
-            mockedWidget.Setup(w => w.CurrentInteraction()).Returns(Interaction.Pressed);
-            var wTree = new WidgetTree(mockedWidget.Object);
-
-            // Press the interaction button
-            mockedDevice.Setup(device => device.IsPressed()).Returns(true);
-            _updater.Device = mockedDevice.Object;
-            // Press widget
-            _updater.Update(Maybe.Some(wTree));
-            
-            mockedDevice.Setup(device => device.IsPressed()).Returns(false);
-            mockedDevice.Setup(device => device.IsHeld()).Returns(true);
-            _updater.Device = mockedDevice.Object;
-            
-            // Move while pressing to another widget
-            _updater.Update(Maybe.Some(_widgetTree));
-
-            mockedWidget.Verify(w => w.ChangeInteraction(Interaction.Exited), Times.Never);
-        }
-
-        [Test]
-        public void PressOnWidget_ThenEnterAnother_NewDoesNotGetPressed()
-        {
-            Mock<IDevice> mockedDevice = new Mock<IDevice>();
-            Mock<Widget> mockedWidget = new Mock<Widget>(Rectangle.Empty);
-            mockedWidget.Setup(w => w.CurrentInteraction()).Returns(Interaction.Pressed);
-            var wTree = new WidgetTree(mockedWidget.Object);
-
-            // Press the interaction button
-            mockedDevice.Setup(device => device.IsPressed()).Returns(true);
-            _updater.Device = mockedDevice.Object;
-            // Press widget
-            _updater.Update(Maybe.Some(wTree));
-
-            // Move while pressing to another widget
-            _updater.Update(Maybe.Some(_widgetTree));
-
-            Assert.That(_widgetTree.Data.CurrentInteraction(), Is.Not.EqualTo(Interaction.Pressed));
-        }
-
-        [Test]
-        public void PressOnWidget_ThenEnterAnotherAndRelease_NoRelease()
-        {
-            Mock<IDevice> mockedDevice = new Mock<IDevice>();
-            Mock<Widget> firstPressed = new Mock<Widget>(Rectangle.Empty);
-            Mock<Widget> thenEntered = new Mock<Widget>(Rectangle.Empty);
-
-            var wTree = new WidgetTree(thenEntered.Object);
-
-            mockedDevice.Setup(device => device.IsPressed()).Returns(true);
-            _updater.Device = mockedDevice.Object;
-
-            firstPressed.Setup(w => w.CurrentInteraction()).Returns(Interaction.Pressed);
-
-            // Press firstPressed
-            _updater.Update(Maybe.Some(new WidgetTree(firstPressed.Object)));
-
-            // Move to thenEntered while pressing
-            _updater.Update(wTree);
-
-            mockedDevice.Setup(device => device.IsPressed()).Returns(false);
-            mockedDevice.Setup(d => d.IsReleased()).Returns(true);
-            _updater.Device = mockedDevice.Object;
-
-            _updater.Update(Maybe.Some(wTree));
-
-            firstPressed.Verify(w => w.ChangeInteraction(Interaction.Released), Times.Never);
-            thenEntered.Verify(w => w.ChangeInteraction(Interaction.Released), Times.Never);
-        }
+        #endregion
     }
 }

@@ -2,50 +2,78 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using WForest.Utilities.Collections;
+using System.Net;
+using WForest.UI.Props.Actions;
+using WForest.UI.Props.Interfaces;
+using WForest.UI.Widgets.Interfaces;
 
 namespace WForest.Utilities
 {
-    internal static class TreeVisitor<T>
+    internal static class TreeVisitor
     {
-        internal static void ApplyToTreeLevelByLevel(Tree<T> tree, Action<List<Tree<T>>> action)
+        public static void ApplyPropsOnTree(IWidget widgetTree)
         {
-            if (tree == null) throw new ArgumentNullException(nameof(tree));
-            if (action == null) throw new ArgumentNullException(nameof(action));
-
-            void ApplyLevelByLevel(List<Tree<T>> lvl)
+            ApplyToTreeFromLeaves(widgetTree, w =>
             {
-                action(lvl);
-                while (lvl.Any())
-                {
-                    var oneLvlDown = lvl.SelectMany(c => c.Children).ToList();
-                        action(oneLvlDown);
-                    lvl = oneLvlDown;
-                }
-            }
-
-            ApplyLevelByLevel(new List<Tree<T>> {tree});
-          
+                foreach (var prop in w.Props.OfType<IApplicableProp>().OrderBy(p => p.Priority)) prop.ApplyOn(w);
+            });
         }
 
-        internal static void ApplyToTreeFromLeaves(Tree<T> tree, Action<Tree<T>> action)
+        public static void UpdateTree(IWidget widget)
+        {
+            foreach (var w in widget)
+            {
+                var maybe = w.Props.SafeGetByProp<OnUpdate>();
+                switch (maybe)
+                {
+                    case Maybe<List<IProp>>.Some s:
+                        foreach (var command in s.Value.Cast<ICommandProp>()) command.Execute();
+                        break;
+                    default:
+                        continue;
+                }
+            }
+        }
+
+        public static void ApplyToTreeFromLeaves(IWidget tree, Action<IWidget> action)
         {
             if (tree == null) throw new ArgumentNullException(nameof(tree));
             if (action == null) throw new ArgumentNullException(nameof(action));
             foreach (var node in tree.Reverse()) action(node);
         }
 
-        internal static Maybe<Tree<T>> GetLowestNodeThatHolds([NotNull] Tree<T> tree, Func<Tree<T>, bool> predicate)
+        public static void ApplyToTreeLevelByLevel(IWidget tree, Action<List<IWidget>> action)
         {
             if (tree == null) throw new ArgumentNullException(nameof(tree));
+            if (action == null) throw new ArgumentNullException(nameof(action));
+
+            void ApplyLevelByLevel(List<IWidget> lvl)
+            {
+                action(lvl);
+                while (lvl.Any())
+                {
+                    var oneLvlDown = lvl.SelectMany(c => c.Children).ToList();
+                    action(oneLvlDown);
+                    lvl = oneLvlDown;
+                }
+            }
+
+            ApplyLevelByLevel(new List<IWidget> {tree});
+        }
+
+        public static Maybe<IWidget> GetLowestNodeThatHolds([NotNull] IWidget tree,
+            Func<IWidget, IEnumerable<IWidget>> childrenSelector, Func<IWidget, bool> predicate)
+        {
+            if (tree == null) throw new ArgumentNullException(nameof(tree));
+            if (childrenSelector == null) throw new ArgumentNullException(nameof(childrenSelector));
             if (predicate == null) throw new ArgumentNullException(nameof(predicate));
 
-            var revCh = Enumerable.Reverse(tree.Children);
-            var nodesThatHold = revCh.Select(child => GetLowestNodeThatHolds(child, predicate))
-                .OfType<Maybe<Tree<T>>.Some>().ToList();
-            if (nodesThatHold.Any()) return nodesThatHold.Last();
+            var revCh = childrenSelector(tree);
+            var nodesThatHold = revCh.Select(child => GetLowestNodeThatHolds(child, childrenSelector, predicate))
+                .OfType<Maybe<IWidget>.Some>().ToList();
 
-            return predicate(tree) ? Maybe.Some(tree) : Maybe.None;
+            if (nodesThatHold.Any()) return nodesThatHold.Last();
+            else return predicate(tree) ? Maybe.Some(tree) : Maybe.None;
         }
     }
 }

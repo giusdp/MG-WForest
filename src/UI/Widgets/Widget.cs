@@ -2,89 +2,79 @@ using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using WForest.UI.Widgets.Interactions;
+using WForest.UI.Interactions;
+using WForest.UI.Widgets.Interfaces;
 using WForest.Utilities;
+using WForest.Utilities.Collections;
 
 namespace WForest.UI.Widgets
 {
     /// <summary>
-    /// Base class for Widgets. It contains the main data used to handle and draw widgets.
+    /// Concrete base class for the IWidget interface.
     /// </summary>
-    public abstract class Widget
+    public class Widget : IWidget
     {
-        #region Widget Data
+        ///<inheritdoc/> 
+        public Interaction CurrentInteraction { get; set; }
+
+        ///<inheritdoc/> 
+        public PropCollection Props { get; }
 
         /// <summary>
-        /// The Widget color.
+        /// Creates a Widget without a parent. The widget will be a root of a new tree.
         /// </summary>
-        public Color Color;
+        /// <param name="space"></param>
+        public Widget(Rectangle space)
+        {
+            Space = space;
+            Margins = new MarginValues();
+            Props = new PropCollection();
+            Children = new List<IWidget>();
+            CurrentInteraction = Interaction.Untouched;
+            PostDrawActions = new List<Action<SpriteBatch>>();
+        }
 
         /// <summary>
-        /// The Space used by the widget.
+        /// Creates a Widget with a parent. The widget will be a node or a leaf.
         /// </summary>
+        /// <param name="parent"></param>
+        /// <param name="space"></param>
+        public Widget(IWidget parent, Rectangle space)
+        {
+            Space = space;
+            Parent = parent;
+            Margins = new MarginValues();
+            Props = new PropCollection();
+            Children = new List<IWidget>();
+            CurrentInteraction = Interaction.Untouched;
+            PostDrawActions = new List<Action<SpriteBatch>>();
+        }
+
+        #region Rendering
+
+        ///<inheritdoc/> 
         public Rectangle Space { get; set; }
-        
-        /// <summary>
-        /// The values for the left, right, top, bottom margins.
-        /// </summary>
-        public MarginValues MarginValues { get; set; }
+        ///<inheritdoc/> 
+        public MarginValues Margins { get; set; }
+        ///<inheritdoc/> 
+        public Color Color { get; set; }
+        ///<inheritdoc/> 
+        public List<Action<SpriteBatch>> PostDrawActions { get; }
 
-        internal Rectangle TotalSpaceOccupied =>
-            new Rectangle(
-                Space.X - MarginValues.Left,
-                Space.Y - MarginValues.Top,
-                Space.Width + MarginValues.Left + MarginValues.Right,
-                Space.Height + MarginValues.Top + MarginValues.Bottom
-            );
-
-        internal List<Action<SpriteBatch>> PostDrawing { get; }
+        ///<inheritdoc/> 
+        public virtual void Draw(SpriteBatch spriteBatch)
+        {
+        }
 
         #endregion
 
-        private readonly InteractionHandler _interactionHandler;
+        #region Widget Tree
 
-        /// <summary>
-        /// Base constructor that takes the destination space for the widget.
-        /// </summary>
-        /// <param name="space"></param>
-        protected Widget(Rectangle space)
-        {
-            Space = space;
-            MarginValues = new MarginValues();
-            Color = Color.White;
-            PostDrawing = new List<Action<SpriteBatch>>();
-            _interactionHandler = new InteractionHandler();
-        }
+        ///<inheritdoc/> 
+        public IWidget? Parent { get; set; }
 
-        /// <summary>
-        /// Updates the widget and checks for interactions. Override it to add custom logic, base.Update()
-        /// is needed to keep the interactions checks.
-        /// </summary>
-        public virtual void Update()
-        {
-            _interactionHandler.Update();
-        }
-
-        internal void DrawAndPostDraw(SpriteBatch spriteBatch)
-        {
-            Draw(spriteBatch);
-            PostDrawing.ForEach(a => a(spriteBatch));
-        }
-
-        /// <summary>
-        /// Draw the widget with a SpriteBatch.
-        /// </summary>
-        /// <param name="spriteBatch"></param>
-        public virtual void Draw(SpriteBatch spriteBatch) {}
-
-        #region Utils
-
-        internal virtual Interaction CurrentInteraction() => _interactionHandler.CurrentInteraction;
-        internal virtual void ChangeInteraction(Interaction interaction) => _interactionHandler.ChangeState(interaction);
-        internal void AddOnEnter(Action onEnter) => _interactionHandler.OnEnter.Add(onEnter);
-        internal void AddOnExit(Action onExit) => _interactionHandler.OnExit.Add(onExit);
-        internal void AddOnPressed(Action onPress) => _interactionHandler.OnPress.Add(onPress);
-        internal void AddOnRelease(Action onRelease) => _interactionHandler.OnRelease.Add(onRelease);
+        ///<inheritdoc/> 
+        public ICollection<IWidget> Children { get; }
 
         #endregion
     }

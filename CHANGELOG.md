@@ -3,6 +3,42 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [0.0.14]
+
+### Added
+- IWidget interface that represents a Widget with its props, children and rendering data 
+- Widget, a simple concrete implementation of IWidget that other widgets can inherit from
+- Prop collection with a dictionary
+- IPropHolder to separate prop handling
+- UserInteractionHandler to handle device input on widgets and calculate the interactions per frame
+- InteractionUpdater used by the handler to get the next interactions for the widget and the interaction logic to run
+- IProp base interface
+- IApplicableProp for props that only have to ApplyOn widgets
+- ICommandProp for props that hold logic to run later, like the interaction props (onEnter etc)
+- OnUpdate command prop which is executed in the update method
+- UpdateTree method in TreeVisitor that takes the OnUpdate props for every widget and executes them
+
+### Changed
+- Property renamed to Prop (it was confusing with C# property)
+- Merged WidgetTree and Widget into IWidget
+- Updated code and tests to integrate this change
+- TreeVisitor in Utilities now is the only one that takes care of applying functions to IWidget trees.
+- Abstracted Prop into interfaces with base interface IProp for other classes to use
+- Applied event update for every ApplicableProp, now Flex works again because it uses the Row/Col applied event
+- Draggable was reintegrated with the new Props collections for the OnPress/OnEnter/OnExit commands
+- WTreeManager get the transition commands from the InteractionHandler and is responsible for executing them
+- Text Widget now updates the space when the FontSize or the Font changes (in the setters), instead of the props
+- JustifyAround with only one child puts it at the center instead of doing nothing. It makes more sense this way since it's supposed to put empty space around widgets
+- IApplicableProps that need a Row or Column prop to work now throw IncompatibleWidgetException when applied on widgets without a Row nor Col prop
+- Methods of the TreeVisitor are now public
+- WTreeManager doesn't add an empty root anymore
+
+### Removed
+- Tree collection
+- WidgetTree
+- WidgetTreeVisitor
+- Prop class
+
 ## [0.0.13]
 ### Added
 - Documentation for public classes and methods
@@ -116,6 +152,8 @@ To add custom logic for these events through property as well as overriding the 
 
 ## [0.0.4]
 ### Added
+- Base layout functionality
+- GridHelper and utils to for the layout systems to use
 - Center property to center any widget in the middle of the parent widget
 
 ## [0.0.3]
@@ -128,6 +166,8 @@ To add custom logic for these events through property as well as overriding the 
 
 ## [0.0.2]
 ### Added
+- Classes to apply functions to the tree of widgets 
+- Base TreeVisitor class
 - WidgetTree visitor to apply properties to the entire tree and draw it
 
 ## [0.0.1]

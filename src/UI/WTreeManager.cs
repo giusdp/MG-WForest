@@ -1,8 +1,10 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Serilog;
-using WForest.Factories;
-using WForest.UI.WidgetTrees;
+using WForest.Devices;
+using WForest.UI.Interactions;
+using WForest.UI.Widgets.Interfaces;
+using WForest.Utilities;
 
 namespace WForest.UI
 {
@@ -11,18 +13,19 @@ namespace WForest.UI
     /// </summary>
     public class WTreeManager
     {
-        private readonly WidgetTree _root;
-        private readonly WidgetTreeVisitor _widgetTreeVisitor;
+        private readonly IWidget _root;
+        private UserInteractionHandler _userInteractionHandler;
 
-        internal WTreeManager(int x, int y, int width, int height, WidgetTree wTree)
+        internal WTreeManager(IWidget widgetRoot)
         {
-            Log.Information("Created new WTreeManager");
-            _widgetTreeVisitor = new WidgetTreeVisitor();
+            _userInteractionHandler = new UserInteractionHandler(MouseDevice.Instance, new InteractionUpdater());
+            _root = widgetRoot;
+            TreeVisitor.ApplyPropsOnTree(_root);
 
-            _root = new WidgetTree(WidgetFactory.Container(new Rectangle(x, y, width, height)));
-            wTree.Parent = _root;
-            _root.Children.Add(wTree);
-            Resize(width, height);
+            Log.Information(
+                "Created new WTreeManager with root starting at ({X},{Y}) for ({W},{H}) of space",
+                _root.Space.X, _root.Space.Y, _root.Space.Width, _root.Space.Height
+                );
         }
 
         /// <summary>
@@ -32,20 +35,36 @@ namespace WForest.UI
         /// <param name="height"></param>
         public void Resize(int width, int height)
         {
-            _root.Data.Space = new Rectangle(_root.Data.Space.X, _root.Data.Space.Y, width, height);
-            WidgetTreeVisitor.ApplyPropertiesOnTree(_root);
+            _root.Space = new Rectangle(_root.Space.X, _root.Space.Y, width, height);
+            TreeVisitor.ApplyPropsOnTree(_root);
         }
 
         /// <summary>
         /// Update the WidgetTree handled by the manager.
         /// It calls the Update methods of the widgets, handles the interactions with the device etc.
         /// </summary>
-        public void Update() => _widgetTreeVisitor.UpdateTree(_root);
+        public void Update()
+        {
+            var transitions = _userInteractionHandler.UpdateAndGenerateTransitions(_root);
+            foreach (var t in transitions) t.Execute();
+
+            TreeVisitor.UpdateTree(_root);
+        }
+
 
         /// <summary>
         /// Draws the WidgetTree. It visits the entire tree calling the Draw methods of the widgets.
         /// </summary>
         /// <param name="spriteBatch"></param>
-        public void Draw(SpriteBatch spriteBatch) => WidgetTreeVisitor.DrawTree(_root, spriteBatch);
+        public void Draw(SpriteBatch spriteBatch) => DrawWidgetTree(spriteBatch);
+
+        private void DrawWidgetTree(SpriteBatch spriteBatch)
+        {
+            TreeVisitor.ApplyToTreeLevelByLevel(_root, widgets => widgets.ForEach(w =>
+            {
+                w.Draw(spriteBatch);
+                w.PostDrawActions.ForEach(postDraw => postDraw(spriteBatch));
+            }));
+        }
     }
 }

@@ -6,7 +6,7 @@ inspired by the typical web/mobile frontend frameworks.
 It's based on the idea of having trees of components (widgets) and properties.
 Having multiple menus as trees of widgets makes it a forest 😁
 
-### Version (0.0.13)
+### Version (0.0.14)
 It's currently a WIP, it's usable only for basic stuff for now. 
 I plan to release a *0.1* version only when I'm confident it can be used
 for highly customizable stuff.

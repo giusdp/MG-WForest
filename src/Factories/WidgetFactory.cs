@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using WForest.UI.Widgets;
+using WForest.UI.Widgets.BuiltIn;
+using WForest.UI.Widgets.Interfaces;
 
 namespace WForest.Factories
 {
@@ -15,27 +16,27 @@ namespace WForest.Factories
         /// <param name="width"></param>
         /// <param name="height"></param>
         /// <returns>Block Widget</returns>
-        public static Widget Block(int width, int height) => new Block(new Rectangle(0, 0, width, height));
+        public static IWidget Block(int width, int height) => new Block(new Rectangle(0, 0, width, height));
         
         /// <summary>
         /// Creates a <see cref="ImageButton"/> widget with a NormalButtonTexture.
         /// </summary>
         /// <param name="texture2D"></param>
         /// <returns></returns>
-        public static Widget ImageButton(Texture2D texture2D) => new ImageButton(texture2D);
+        public static IWidget ImageButton(Texture2D texture2D) => new ImageButton(texture2D);
 
         /// <summary>
         /// Creates a <see cref="Container()"/> widget with position and size of (0,0).
         /// </summary>
         /// <returns></returns>
-        public static Widget Container() => new Container(Rectangle.Empty);
+        public static IWidget Container() => new Container(Rectangle.Empty);
         
         /// <summary>
         /// Creates a <see cref="Container()"/> widget with a defined space.
         /// </summary>
         /// <param name="space"></param>
         /// <returns></returns>
-        public static Widget Container(Rectangle space) => new Container(space);
+        public static IWidget Container(Rectangle space) => new Container(space);
 
         /// <summary>
         /// Creates a <see cref="Container()"/> with position of (0,0) and a defined size.
@@ -43,7 +44,7 @@ namespace WForest.Factories
         /// <param name="width"></param>
         /// <param name="height"></param>
         /// <returns></returns>
-        public static Widget Container(int width, int height) =>
+        public static IWidget Container(int width, int height) =>
             new Container(new Rectangle(0, 0, width, height));
 
         /// <summary>
@@ -51,6 +52,6 @@ namespace WForest.Factories
         /// </summary>
         /// <param name="text"></param>
         /// <returns></returns>
-        public static Widget Text(string text) => new Text(text);
+        public static IWidget Text(string text) => new Text(text);
     }
 }
