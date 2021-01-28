@@ -12,14 +12,8 @@ namespace WForest.Tests
         [Test]
         public void CreateTree_NotInit_Throws()
         {
-            Assert.That(() => WForestFactory.CreateWTree(0, 0, 0, 0, new Widget(Rectangle.Empty)),
+            Assert.That(() => WForestFactory.CreateWTree(new Widget(Rectangle.Empty)),
                 Throws.TypeOf<WForestNotInitializedException>());
-        }
-
-        [Test]
-        public void CreateTree_NullWTree_Throws()
-        {
-            Assert.That(() => WForestFactory.CreateWTree(Rectangle.Empty, null), Throws.ArgumentNullException);
         }
     }
 }

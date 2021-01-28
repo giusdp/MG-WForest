@@ -16,18 +16,16 @@ namespace WForest.UI
         private readonly IWidget _root;
         private UserInteractionHandler _userInteractionHandler;
 
-        internal WTreeManager(int x, int y, int width, int height, IWidget widgetRoot)
+        internal WTreeManager(IWidget widgetRoot)
         {
             _userInteractionHandler = new UserInteractionHandler(MouseDevice.Instance, new InteractionUpdater());
-
             _root = widgetRoot;
-            Log.Information("Created new WTreeManager");
-            
-            // _root = new WidgetTree(WidgetFactory.Container(new Rectangle(x, y, width, height)));
-            // wTree.Parent = _root;
-            // _root.Children.Add(wTree);
-            // Resize(width, height);
             TreeVisitor.ApplyPropsOnTree(_root);
+
+            Log.Information(
+                "Created new WTreeManager with root starting at ({X},{Y}) for ({W},{H}) of space",
+                _root.Space.X, _root.Space.Y, _root.Space.Width, _root.Space.Height
+                );
         }
 
         /// <summary>
@@ -62,11 +60,11 @@ namespace WForest.UI
 
         private void DrawWidgetTree(SpriteBatch spriteBatch)
         {
-           TreeVisitor.ApplyToTreeLevelByLevel(_root, widgets => widgets.ForEach(w =>
+            TreeVisitor.ApplyToTreeLevelByLevel(_root, widgets => widgets.ForEach(w =>
             {
                 w.Draw(spriteBatch);
                 w.PostDrawActions.ForEach(postDraw => postDraw(spriteBatch));
-            })); 
+            }));
         }
     }
 }

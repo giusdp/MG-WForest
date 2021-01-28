@@ -31,6 +31,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - JustifyAround with only one child puts it at the center instead of doing nothing. It makes more sense this way since it's supposed to put empty space around widgets
 - IApplicableProps that need a Row or Column prop to work now throw IncompatibleWidgetException when applied on widgets without a Row nor Col prop
 - Methods of the TreeVisitor are now public
+- WTreeManager doesn't add an empty root anymore
 
 ### Removed
 - Tree collection
