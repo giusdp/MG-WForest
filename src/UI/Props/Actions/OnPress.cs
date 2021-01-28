@@ -10,13 +10,13 @@ namespace WForest.UI.Props.Actions
     /// </summary>
     public class OnPress : ICommandProp
     {
-        private readonly Action _function;
+        public Action Action { get; set; }
 
         internal OnPress(Action onPress)
         {
-            _function = onPress;
+            Action = onPress;
         }
 
-        public void Execute() => _function();
+        public void Execute() => Action();
     }
 }

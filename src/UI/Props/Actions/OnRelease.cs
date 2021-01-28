@@ -10,13 +10,13 @@ namespace WForest.UI.Props.Actions
     /// </summary>
     public class OnRelease : ICommandProp
     {
-        private readonly Action _function;
+        public Action Action { get; set; }
 
         internal OnRelease(Action onPress)
         {
-            _function = onPress;
+            Action = onPress;
         }
 
-        public void Execute() => _function();
+        public void Execute() => Action();
     }
 }

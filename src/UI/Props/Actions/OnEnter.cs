@@ -10,13 +10,11 @@ namespace WForest.UI.Props.Actions
     /// </summary>
     public class OnEnter : ICommandProp
     {
-        private readonly Action _function;
+        public Action Action { get; set; }
 
         internal OnEnter(Action onPress)
         {
-            _function = onPress;
+            Action = onPress;
         }
-
-        public void Execute() => _function();
     }
 }
