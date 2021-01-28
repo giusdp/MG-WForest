@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using WForest.UI.Props.Actions;
 using WForest.UI.Props.Interfaces;
 using WForest.UI.Widgets.Interfaces;
 
@@ -9,26 +10,35 @@ namespace WForest.Utilities
 {
     internal static class TreeVisitor
     {
-        internal static void ApplyPropsOnTree(IWidget widgetTree)
+        public static void ApplyPropsOnTree(IWidget widgetTree)
         {
             ApplyToTreeFromLeaves(widgetTree, w =>
             {
-                foreach (var prop in w.Props.OfType<IApplicableProp>().OrderBy(p=>p.Priority)) prop.ApplyOn(w);
+                foreach (var prop in w.Props.OfType<IApplicableProp>().OrderBy(p => p.Priority)) prop.ApplyOn(w);
             });
         }
 
-        private static void ApplyToTreeFromLeaves(IWidget tree, Action<IWidget> action)
+        public static void UpdateTree(IWidget widget)
+        {
+            foreach (var w in widget)
+            {
+                if (!w.Props.TryGetPropValue<OnUpdate>(out var ups)) continue;
+                foreach (var command in ups!.Cast<ICommandProp>()) command.Execute();
+            }
+        }
+
+        public static void ApplyToTreeFromLeaves(IWidget tree, Action<IWidget> action)
         {
             if (tree == null) throw new ArgumentNullException(nameof(tree));
             if (action == null) throw new ArgumentNullException(nameof(action));
             foreach (var node in tree.Reverse()) action(node);
         }
 
-        internal static void ApplyToTreeLevelByLevel(IWidget tree, Action<List<IWidget>> action)
+        public static void ApplyToTreeLevelByLevel(IWidget tree, Action<List<IWidget>> action)
         {
             if (tree == null) throw new ArgumentNullException(nameof(tree));
             if (action == null) throw new ArgumentNullException(nameof(action));
-        
+
             void ApplyLevelByLevel(List<IWidget> lvl)
             {
                 action(lvl);
@@ -39,11 +49,11 @@ namespace WForest.Utilities
                     lvl = oneLvlDown;
                 }
             }
-        
+
             ApplyLevelByLevel(new List<IWidget> {tree});
         }
 
-        internal static Maybe<IWidget> GetLowestNodeThatHolds([NotNull] IWidget tree,
+        public static Maybe<IWidget> GetLowestNodeThatHolds([NotNull] IWidget tree,
             Func<IWidget, IEnumerable<IWidget>> childrenSelector, Func<IWidget, bool> predicate)
         {
             if (tree == null) throw new ArgumentNullException(nameof(tree));

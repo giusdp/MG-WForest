@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ## [0.0.14]
 
 ### Added
-- IWidget interface that represents a Widget with its props and children and holds only the most common data: Space and Margins
+- IWidget interface that represents a Widget with its props, children and rendering data 
 - Widget, a simple concrete implementation of IWidget that other widgets can inherit from
 - Prop collection with a dictionary
 - IPropHolder to separate prop handling
@@ -15,6 +15,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - IProp base interface
 - IApplicableProp for props that only have to ApplyOn widgets
 - ICommandProp for props that hold logic to run later, like the interaction props (onEnter etc)
+- OnUpdate command prop which is executed in the update method
+- UpdateTree method in TreeVisitor that takes the OnUpdate props for every widget and executes them
 
 ### Changed
 - Property renamed to Prop (it was confusing with C# property)
@@ -28,6 +30,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Text Widget now updates the space when the FontSize or the Font changes (in the setters), instead of the props
 - JustifyAround with only one child puts it at the center instead of doing nothing. It makes more sense this way since it's supposed to put empty space around widgets
 - IApplicableProps that need a Row or Column prop to work now throw IncompatibleWidgetException when applied on widgets without a Row nor Col prop
+- Methods of the TreeVisitor are now public
+
 ### Removed
 - Tree collection
 - WidgetTree

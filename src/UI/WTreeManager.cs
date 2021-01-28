@@ -22,7 +22,7 @@ namespace WForest.UI
 
             _root = widgetRoot;
             Log.Information("Created new WTreeManager");
-            //
+            
             // _root = new WidgetTree(WidgetFactory.Container(new Rectangle(x, y, width, height)));
             // wTree.Parent = _root;
             // _root.Children.Add(wTree);
@@ -50,7 +50,7 @@ namespace WForest.UI
             var transitions = _userInteractionHandler.UpdateAndGenerateTransitions(_root);
             foreach (var t in transitions) t.Execute();
 
-            // TreeVisitor.UpdateTree(_root);
+            TreeVisitor.UpdateTree(_root);
         }
 
 
