@@ -2,6 +2,7 @@ using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Serilog;
+using WForest.UI.Props.Actions;
 
 namespace WForest.UI.Widgets.BuiltIn
 {
@@ -29,20 +30,20 @@ namespace WForest.UI.Widgets.BuiltIn
                            throw new ArgumentNullException(nameof(normalButton));
             _imageToDraw = NormalButton;
             Space = new Rectangle(0, 0, normalButton.Width, normalButton.Height);
-            //
-            // AddOnEnter(StartedHovering);
-            // AddOnExit(StoppedHovering);
-            // AddOnPressed(PressedDown);
-            // AddOnRelease(Released);
+            
+            Props.AddProp(new OnEnter(StartedHovering));
+            Props.AddProp(new OnEnter(StoppedHovering));
+            Props.AddProp(new OnPress(PressedDown));
+            Props.AddProp(new OnRelease(Released));
         }
 
         /// <summary>
         /// Draws the widget using based on the interaction state (if hovered or not, pressed or not)
         /// </summary>
         /// <param name="spriteBatch"></param>
-        public void Draw(SpriteBatch spriteBatch)
+        public override void Draw(SpriteBatch spriteBatch)
         {
-            // spriteBatch.Draw(_imageToDraw, Space, Color);
+            spriteBatch.Draw(_imageToDraw, Space, Color);
         }
 
         #region Visualization Based On Interactions

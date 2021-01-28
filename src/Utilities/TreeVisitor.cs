@@ -24,24 +24,24 @@ namespace WForest.Utilities
             foreach (var node in tree.Reverse()) action(node);
         }
 
-        // internal static void ApplyToTreeLevelByLevel(Tree<T> tree, Action<List<Tree<T>>> action)
-        // {
-        //     if (tree == null) throw new ArgumentNullException(nameof(tree));
-        //     if (action == null) throw new ArgumentNullException(nameof(action));
-        //
-        //     void ApplyLevelByLevel(List<Tree<T>> lvl)
-        //     {
-        //         action(lvl);
-        //         while (lvl.Any())
-        //         {
-        //             var oneLvlDown = lvl.SelectMany(c => c.Children).ToList();
-        //             action(oneLvlDown);
-        //             lvl = oneLvlDown;
-        //         }
-        //     }
-        //
-        //     ApplyLevelByLevel(new List<Tree<T>> {tree});
-        // }
+        internal static void ApplyToTreeLevelByLevel(IWidget tree, Action<List<IWidget>> action)
+        {
+            if (tree == null) throw new ArgumentNullException(nameof(tree));
+            if (action == null) throw new ArgumentNullException(nameof(action));
+        
+            void ApplyLevelByLevel(List<IWidget> lvl)
+            {
+                action(lvl);
+                while (lvl.Any())
+                {
+                    var oneLvlDown = lvl.SelectMany(c => c.Children).ToList();
+                    action(oneLvlDown);
+                    lvl = oneLvlDown;
+                }
+            }
+        
+            ApplyLevelByLevel(new List<IWidget> {tree});
+        }
 
         internal static Maybe<IWidget> GetLowestNodeThatHolds([NotNull] IWidget tree,
             Func<IWidget, IEnumerable<IWidget>> childrenSelector, Func<IWidget, bool> predicate)

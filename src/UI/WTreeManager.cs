@@ -2,9 +2,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Serilog;
 using WForest.Devices;
-using WForest.Factories;
 using WForest.UI.Interactions;
-using WForest.UI.Widgets;
 using WForest.UI.Widgets.Interfaces;
 using WForest.Utilities;
 
@@ -32,16 +30,16 @@ namespace WForest.UI
             TreeVisitor.ApplyPropsOnTree(_root);
         }
 
-        // /// <summary>
-        // /// Resize the space in which the WidgetTree is located.
-        // /// </summary>
-        // /// <param name="width"></param>
-        // /// <param name="height"></param>
-        // public void Resize(int width, int height)
-        // {
-        //     _root.Space = new Rectangle(_root.Space.X, _root.Space.Y, width, height);
-        //     TreeVisitor.ApplyPropsOnTree(_root);
-        // }
+        /// <summary>
+        /// Resize the space in which the WidgetTree is located.
+        /// </summary>
+        /// <param name="width"></param>
+        /// <param name="height"></param>
+        public void Resize(int width, int height)
+        {
+            _root.Space = new Rectangle(_root.Space.X, _root.Space.Y, width, height);
+            TreeVisitor.ApplyPropsOnTree(_root);
+        }
 
         /// <summary>
         /// Update the WidgetTree handled by the manager.
@@ -55,11 +53,20 @@ namespace WForest.UI
             // TreeVisitor.UpdateTree(_root);
         }
 
-        
-        // /// <summary>
-        // /// Draws the WidgetTree. It visits the entire tree calling the Draw methods of the widgets.
-        // /// </summary>
-        // /// <param name="spriteBatch"></param>
-        // public void Draw(SpriteBatch spriteBatch) => WidgetTreeVisitor.DrawTree(_root, spriteBatch);
+
+        /// <summary>
+        /// Draws the WidgetTree. It visits the entire tree calling the Draw methods of the widgets.
+        /// </summary>
+        /// <param name="spriteBatch"></param>
+        public void Draw(SpriteBatch spriteBatch) => DrawWidgetTree(spriteBatch);
+
+        private void DrawWidgetTree(SpriteBatch spriteBatch)
+        {
+           TreeVisitor.ApplyToTreeLevelByLevel(_root, widgets => widgets.ForEach(w =>
+            {
+                w.Draw(spriteBatch);
+                w.PostDrawActions.ForEach(postDraw => postDraw(spriteBatch));
+            })); 
+        }
     }
 }

@@ -2,6 +2,7 @@ using System;
 using Microsoft.Xna.Framework;
 using WForest.UI.Props.Interfaces;
 using WForest.UI.Widgets.Interfaces;
+using WForest.Utilities;
 
 namespace WForest.UI.Props.Border
 {
@@ -31,7 +32,7 @@ namespace WForest.UI.Props.Border
         /// <param name="widget"></param>
         public void ApplyOn(IWidget widget)
         {
-            // widget.WidgetNode.Data.PostDrawing.Add(sb => { Primitives.DrawBorder(sb, widget.WidgetNode.Data.Space, Color, LineWidth); });
+            widget.PostDrawActions.Add(sb => Primitives.DrawBorder(sb, widget.Space, Color, LineWidth));
             OnApplied();
         }
 

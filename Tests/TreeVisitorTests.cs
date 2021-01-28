@@ -107,22 +107,22 @@ namespace WForest.Tests
             Assert.That(firstCalled, Is.EqualTo(3));
         }
 
-        // [Test]
-        // public void ApplyToTreeLevelByLevel_NullArgs_ThrowsError()
-        // {
-        //     Assert.That(() => TreeVisitor<int>.ApplyToTreeLevelByLevel(null, tree => { }),
-        //         Throws.ArgumentNullException);
-        //     Assert.That(() => TreeVisitor<int>.ApplyToTreeLevelByLevel(new Tree<int>(0), null),
-        //         Throws.ArgumentNullException);
-        // }
-        //
-        // [Test]
-        // public void ApplyToTreLevelByLevel_TakesAnAction_AppliesItToAllNodes()
-        // {
-        //     var count = 0;
-        //     TreeVisitor<int>.ApplyToTreeLevelByLevel(_tree, node => count += node.Sum(n => n.Data));
-        //     Assert.That(count, Is.EqualTo(33));
-        // }
+        [Test]
+        public void ApplyToTreeLevelByLevel_NullArgs_ThrowsError()
+        {
+            Assert.That(() => TreeVisitor.ApplyToTreeLevelByLevel(null, tree => { }),
+                Throws.ArgumentNullException);
+            Assert.That(() => TreeVisitor.ApplyToTreeLevelByLevel(new Widget(Rectangle.Empty), null),
+                Throws.ArgumentNullException);
+        }
+        
+        [Test]
+        public void ApplyToTreLevelByLevel_TakesAnAction_AppliesItToAllNodes()
+        {
+            var count = 0;
+            TreeVisitor.ApplyToTreeLevelByLevel(_tree, node => count += node.Sum(n => n.Space.Width));
+            Assert.That(count, Is.EqualTo(31));
+        }
 
         [Test]
         public void GetLowestNodeThatHolds_TruePredicateForThirdNode_ReturnsSome()

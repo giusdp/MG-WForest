@@ -1,4 +1,5 @@
 using System;
+using FontStashSharp;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using WForest.UI.Utils;
@@ -48,10 +49,9 @@ namespace WForest.UI.Widgets.BuiltIn
         internal Text(string text, int fontSize = 12) : base(Rectangle.Empty)
         {
             TextString = text ?? throw new ArgumentNullException();
-            Font = FontStore.DefaultFont;
-            FontSize = fontSize;
-            var (w, h) = Font.MeasureText(TextString, FontSize);
-            Space = new Rectangle(Space.X, Space.Y, w, h);
+            _font = FontStore.DefaultFont;
+            _size = fontSize;
+            UpdateTextSize();
         }
 
         /// <summary>
@@ -60,9 +60,9 @@ namespace WForest.UI.Widgets.BuiltIn
         /// it uses the FontStore.DefaultFont font and a size of 12.
         /// </summary>
         /// <param name="spriteBatch"></param>
-        public void Draw(SpriteBatch spriteBatch)
+        public override void Draw(SpriteBatch spriteBatch)
         {
-            // spriteBatch.DrawString(Font.SpriteFont(FontSize), TextString, new Vector2(Space.X, Space.Y), Color);
+            spriteBatch.DrawString(Font.SpriteFont(FontSize), TextString, new Vector2(Space.X, Space.Y), Color);
         }
 
         private void UpdateTextSize()

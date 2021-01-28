@@ -9,28 +9,9 @@ using WForest.Utilities;
 
 namespace WForest.UI.Widgets.Interfaces
 {
-    public interface IWidget : IEnumerable<IWidget>, IPropHolder
+    public interface IWidget : IEnumerable<IWidget>, IRenderData, IPropHolder
     {
-        #region Shared State
-
-        /// <summary>
-        /// The Space used by the widget.
-        /// </summary>
-        Rectangle Space { get; set; }
-
-        public MarginValues Margins { get; set; }
-
-        public Rectangle TotalSpaceOccupied =>
-            new Rectangle(
-                Space.X - Margins.Left,
-                Space.Y - Margins.Top,
-                Space.Width + Margins.Left + Margins.Right,
-                Space.Height + Margins.Top + Margins.Bottom
-            );
-
         public Interaction CurrentInteraction { get; set; }
-
-        #endregion
 
         #region Widget Tree
 
