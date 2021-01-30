@@ -32,6 +32,7 @@ namespace WForest.UI.Widgets.Interfaces
         /// The parent of this widget. If there is not one, then this widget is root.
         /// </summary>
         IWidget? Parent { get; set; }
+
         /// <summary>
         /// The collection of widget children.
         /// </summary>
@@ -48,7 +49,8 @@ namespace WForest.UI.Widgets.Interfaces
         {
             if (widget == null) throw new ArgumentNullException(nameof(widget));
             if (widget == this) throw new ArgumentException("Widgets cannot add themselves as their children");
-            WidgetsSpaceHelper.UpdateSpace(widget, new Rectangle(Space.Location, widget.Space.Size));
+            WidgetsSpaceHelper.UpdateSpace(widget,
+                new RectangleF(Space.X, Space.Y, widget.Space.Width, widget.Space.Height));
             widget.Parent = this;
             Children.Add(widget);
         }

@@ -1,4 +1,3 @@
-using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -29,13 +28,13 @@ namespace WForest.Utilities
         /// Draw a colored rectangle border. 
         /// </summary>
         /// <param name="spriteBatch">Spritebatch to use for drawing.</param>
-        /// <param name="rectangle">The rectangle outline.</param>
+        /// <param name="rectangleF">The rectangle outline.</param>
         /// <param name="color">The color of the border.</param>
         /// <param name="lineWidth">The width of the border.</param>
-        public static void DrawBorder(SpriteBatch spriteBatch, Rectangle rectangle, Color color, int lineWidth)
+        public static void DrawBorder(SpriteBatch spriteBatch, Rectangle rectangleF, Color color, int lineWidth)
         {
             _blankTexture ??= spriteBatch.CreateTexture(Color.White);
-            var (x, y, width, height) = rectangle;
+            var (x, y, width, height) = rectangleF;
             spriteBatch.Draw(_blankTexture, new Rectangle(x, y, lineWidth, height + lineWidth), color);
             spriteBatch.Draw(_blankTexture, new Rectangle(x, y, width + lineWidth, lineWidth), color);
             spriteBatch.Draw(_blankTexture, new Rectangle(x + width, y, lineWidth, height + lineWidth), color);

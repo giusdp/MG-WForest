@@ -17,16 +17,16 @@ namespace WForest.Tests
         [SetUp]
         public void SetUpBeforeEach()
         {
-            _tree = new Widget(Rectangle.Empty);
-            _tree.Children.Add(new Widget(new Rectangle(0, 0, 1, 1)));
-            _tree.Children.Add(new Widget(new Rectangle(0, 0, 10, 2)));
-            _tree.Children.First().Children.Add(new Widget(new Rectangle(0, 0, 20, 20)));
+            _tree = new Widget(RectangleF.Empty);
+            _tree.Children.Add(new Widget(new RectangleF(0, 0, 1, 1)));
+            _tree.Children.Add(new Widget(new RectangleF(0, 0, 10, 2)));
+            _tree.Children.First().Children.Add(new Widget(new RectangleF(0, 0, 20, 20)));
         }
 
         [Test]
         public void ApplyProps_WidgetTree_Applies()
         {
-            IWidget root = new Widget(Rectangle.Empty);
+            IWidget root = new Widget(RectangleF.Empty);
             Mock<IApplicableProp> mock = new Mock<IApplicableProp>();
             root.WithProp(mock.Object);
 
@@ -44,8 +44,8 @@ namespace WForest.Tests
         [Test]
         public void ApplyProps_Tree_StartsFromLeaf()
         {
-            IWidget root = new Widget(Rectangle.Empty);
-            IWidget child = new Widget(Rectangle.Empty);
+            IWidget root = new Widget(RectangleF.Empty);
+            IWidget child = new Widget(RectangleF.Empty);
             Mock<IApplicableProp> mockRootProp = new Mock<IApplicableProp>();
             Mock<IApplicableProp> mockChildProp = new Mock<IApplicableProp>();
 
@@ -68,9 +68,9 @@ namespace WForest.Tests
         [Test]
         public void ApplyProps_Tree_StartsFromRightLeaf()
         {
-            IWidget root = new Widget(Rectangle.Empty);
-            IWidget child = new Widget(Rectangle.Empty);
-            IWidget rightChild = new Widget(Rectangle.Empty);
+            IWidget root = new Widget(RectangleF.Empty);
+            IWidget child = new Widget(RectangleF.Empty);
+            IWidget rightChild = new Widget(RectangleF.Empty);
             Mock<IApplicableProp> mockRootProp = new Mock<IApplicableProp>();
             Mock<IApplicableProp> mockLeftLeaf = new Mock<IApplicableProp>();
             Mock<IApplicableProp> mockRightLeaf = new Mock<IApplicableProp>();
@@ -112,14 +112,14 @@ namespace WForest.Tests
         {
             Assert.That(() => TreeVisitor.ApplyToTreeLevelByLevel(null, tree => { }),
                 Throws.ArgumentNullException);
-            Assert.That(() => TreeVisitor.ApplyToTreeLevelByLevel(new Widget(Rectangle.Empty), null),
+            Assert.That(() => TreeVisitor.ApplyToTreeLevelByLevel(new Widget(RectangleF.Empty), null),
                 Throws.ArgumentNullException);
         }
         
         [Test]
         public void ApplyToTreLevelByLevel_TakesAnAction_AppliesItToAllNodes()
         {
-            var count = 0;
+            float count = 0;
             TreeVisitor.ApplyToTreeLevelByLevel(_tree, node => count += node.Sum(n => n.Space.Width));
             Assert.That(count, Is.EqualTo(31));
         }

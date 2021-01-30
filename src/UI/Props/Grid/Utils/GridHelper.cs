@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.Xna.Framework;
 using Serilog;
 using WForest.UI.Utils;
 using WForest.UI.Widgets.Interfaces;
+using WForest.Utilities;
 
 namespace WForest.UI.Props.Grid.Utils
 {
@@ -22,14 +22,14 @@ namespace WForest.UI.Props.Grid.Utils
 
         #region DI Functions
 
-        internal static int WidgetWidth(IWidget w) => w.TotalSpaceOccupied.Width;
-        internal static int WidgetHeight(IWidget w) => w.TotalSpaceOccupied.Height;
+        internal static float WidgetWidth(IWidget w) => w.TotalSpaceOccupied.Width;
+        internal static float WidgetHeight(IWidget w) => w.TotalSpaceOccupied.Height;
 
-        private static int SubListWidth(WidgetsDataSubList w) => w.Width;
-        private static int SubListHeight(WidgetsDataSubList w) => w.Height;
+        private static float SubListWidth(WidgetsDataSubList w) => w.Width;
+        private static float SubListHeight(WidgetsDataSubList w) => w.Height;
 
-        private static Rectangle AddToX(Rectangle r, int v) => new Rectangle(r.X + v, r.Y, r.Width, r.Height);
-        private static Rectangle AddToY(Rectangle r, int v) => new Rectangle(r.X, r.Y + v, r.Width, r.Height);
+        private static RectangleF AddToX(RectangleF r, float v) => new RectangleF(r.X + v, r.Y, r.Width, r.Height);
+        private static RectangleF AddToY(RectangleF r, float v) => new RectangleF(r.X, r.Y + v, r.Width, r.Height);
 
         private static (WidgetsDataSubList, int) CreateColumn(IWidget widget, int startIdx)
         {
@@ -60,10 +60,10 @@ namespace WForest.UI.Props.Grid.Utils
         #region Backend
 
         private static List<WidgetsDataSubList> OrganizeWidgetsInSubLists(IWidget widget,
-            Func<IWidget, int, (WidgetsDataSubList, int)> f,
+            Func<IWidget, int, (WidgetsDataSubList, int)> create,
             Action<ICollection<IWidget>, List<WidgetsDataSubList>> offset)
         {
-            var l = BuildSubLists(widget, f);
+            var l = BuildSubLists(widget, create);
             offset(widget.Children, l);
             return l;
         }
@@ -81,13 +81,13 @@ namespace WForest.UI.Props.Grid.Utils
         }
 
         private static void OffsetByMainPosition(ICollection<IWidget> widgets, List<WidgetsDataSubList> subLists,
-            Func<IWidget, int> getSize, Func<Rectangle, int, Rectangle> updateRect)
+            Func<IWidget, float> getSize, Func<RectangleF, float, RectangleF> updateRect)
         {
             if (subLists.Count == 0) return;
 
             subLists.ForEach(l =>
             {
-                var acc = 0;
+                float acc = 0;
                 for (var i = l.FirstWidgetIndex; i < l.LastWidgetIndex; i++)
                 {
                     var widgetSpace = widgets.ElementAt(i).Space;
@@ -98,7 +98,7 @@ namespace WForest.UI.Props.Grid.Utils
         }
 
         private static void OffsetBySecondaryPosition(ICollection<IWidget> widgets, List<WidgetsDataSubList> subLists,
-            Func<WidgetsDataSubList, int> getSlSize, Func<Rectangle, int, Rectangle> updateRect)
+            Func<WidgetsDataSubList, float> getSlSize, Func<RectangleF, float, RectangleF> updateRect)
         {
             if (subLists.Count <= 1) return;
 
@@ -132,28 +132,28 @@ namespace WForest.UI.Props.Grid.Utils
             return subList;
         }
 
-        private static (int, int) SumHeightsTilFit(ICollection<IWidget> children, int startIdx, int maxHeight)
+        private static (float, int) SumHeightsTilFit(ICollection<IWidget> children, int startIdx, float maxHeight)
             => GetSizeAndIndexTilLimitSize(children, startIdx, maxHeight, WidgetHeight);
 
-        private static (int, int) SumWidthsTilFit(ICollection<IWidget> children, int startIdx, int maxWidth)
+        private static (float, int) SumWidthsTilFit(ICollection<IWidget> children, int startIdx, float maxWidth)
             => GetSizeAndIndexTilLimitSize(children, startIdx, maxWidth, WidgetWidth);
 
-        private static int MaxWidthInSubList(ICollection<IWidget> children, int from, int until) =>
+        private static float MaxWidthInSubList(ICollection<IWidget> children, int from, int until) =>
             GetMaxSizeInChildrenSubList(children, from, until, WidgetWidth);
 
-        private static int MaxHeightInSubList(ICollection<IWidget> children, int from, int until) =>
+        private static float MaxHeightInSubList(ICollection<IWidget> children, int from, int until) =>
             GetMaxSizeInChildrenSubList(children, from, until, WidgetHeight);
 
-        private static int GetMaxSizeInChildrenSubList(ICollection<IWidget> cs, int from, int until,
-            Func<IWidget, int> size)
+        private static float GetMaxSizeInChildrenSubList(ICollection<IWidget> cs, int from, int until,
+            Func<IWidget, float> size)
             => cs.ToList().GetRange(from, until <= 0 ? cs.Count - from : until - from).Max(size);
 
 
-        private static (int, int) GetSizeAndIndexTilLimitSize(ICollection<IWidget> children, int firstChildIndex,
-            int limit,
-            Func<IWidget, int> getSize)
+        private static (float, int) GetSizeAndIndexTilLimitSize(ICollection<IWidget> children, int firstChildIndex,
+            float limit,
+            Func<IWidget, float> getSize)
         {
-            var acc = 0;
+            float acc = 0;
             var indexOnNewRow = -1;
 
             for (var i = firstChildIndex; i < children.Count; i++)

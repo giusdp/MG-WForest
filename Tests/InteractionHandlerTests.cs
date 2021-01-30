@@ -22,7 +22,7 @@ namespace WForest.Tests
         [SetUp]
         public void BeforeEach()
         {
-            _widgetTree = new Widget(new Rectangle(0, 0, 540, 260));
+            _widgetTree = new Widget(new RectangleF(0, 0, 540, 260));
             _device = new Mock<IDevice>();
             intRun = new Mock<InteractionUpdater>();
             _handler = new UserInteractionHandler(_device.Object, intRun.Object);
@@ -46,7 +46,7 @@ namespace WForest.Tests
         [Test]
         public void GetHoveredWidget_HoverChildInWidget_ReturnsChild()
         {
-            var child = new Widget(new Rectangle(0, 0, 50, 60));
+            var child = new Widget(new RectangleF(0, 0, 50, 60));
             _widgetTree.AddChild(child);
             var hovered = UserInteractionHandler.GetHoveredWidget(_widgetTree, new Point(32, 8));
             var b = hovered.TryGetValue(out var value);

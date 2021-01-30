@@ -16,9 +16,8 @@ namespace WForest.UI.Props.Grid.ItemProps
         /// <summary>
         /// Since it changes the layout for the other axis in a Row or Col, it should be applied after the layout
         /// for the main axis is applied.
-        /// Row/Col have priority of 1, the Justify properties have priority of 2, so this has priority of 3.
         /// </summary>
-        public int Priority { get; set; } = 3;
+        public int Priority { get; set; } = 4;
 
         /// <inherit/>
         public event EventHandler? Applied;

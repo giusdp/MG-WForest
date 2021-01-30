@@ -14,9 +14,8 @@ namespace WForest.UI.Props.Grid.JustifyProps
     {
         /// <summary>
         /// Since it changes the layout internally in a Row or Col, it should be applied after them.
-        /// Row/Col have priority of 1 so this has priority of 2.
         /// </summary>
-        public int Priority { get; set; } = 2;
+        public int Priority { get; set; } = 3;
 
         /// <inherit/>
         public event EventHandler? Applied;

@@ -35,7 +35,7 @@ namespace WForest.UI
         /// <param name="height"></param>
         public void Resize(int width, int height)
         {
-            _root.Space = new Rectangle(_root.Space.X, _root.Space.Y, width, height);
+            _root.Space = new RectangleF(_root.Space.X, _root.Space.Y, width, height);
             TreeVisitor.ApplyPropsOnTree(_root);
         }
 

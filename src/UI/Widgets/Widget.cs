@@ -24,7 +24,7 @@ namespace WForest.UI.Widgets
         /// Creates a Widget without a parent. The widget will be a root of a new tree.
         /// </summary>
         /// <param name="space"></param>
-        public Widget(Rectangle space)
+        public Widget(RectangleF space)
         {
             Space = space;
             Margins = new MarginValues();
@@ -38,7 +38,7 @@ namespace WForest.UI.Widgets
         #region Rendering
 
         ///<inheritdoc/> 
-        public Rectangle Space { get; set; }
+        public RectangleF Space { get; set; }
         ///<inheritdoc/> 
         public MarginValues Margins { get; set; }
         ///<inheritdoc/> 

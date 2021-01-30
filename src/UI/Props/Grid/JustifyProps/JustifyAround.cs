@@ -8,6 +8,7 @@ using WForest.UI.Props.Grid.Utils;
 using WForest.UI.Props.Interfaces;
 using WForest.UI.Utils;
 using WForest.UI.Widgets.Interfaces;
+using WForest.Utilities;
 using static WForest.UI.Props.Grid.Utils.GridHelper;
 
 namespace WForest.UI.Props.Grid.JustifyProps
@@ -19,9 +20,8 @@ namespace WForest.UI.Props.Grid.JustifyProps
     {
         /// <summary>
         /// Since it changes the layout internally in a Row or Col, it should be applied after them.
-        /// Row/Col have priority of 1 so this has priority of 2.
         /// </summary>
-        public int Priority { get; set; } = 2;
+        public int Priority { get; set; } = 3;
 
         /// <inherit/>
         public event EventHandler? Applied;
@@ -57,30 +57,30 @@ namespace WForest.UI.Props.Grid.JustifyProps
 
         private static void SpaceAroundHorizontally(IWidget wTree, List<WidgetsDataSubList> lists)
         {
-            int start = wTree.Space.X;
-            int size = WidgetWidth(wTree);
+            float start = wTree.Space.X;
+            float size = WidgetWidth(wTree);
             lists.ForEach(r =>
                 DivideSpaceEvenly(start, size,
                     wTree.Children.ToList().GetRange(r.FirstWidgetIndex, r.LastWidgetIndex - r.FirstWidgetIndex),
                     WidgetWidth,
-                    (c, p) => new Point(p + c.Margins.Left, c.Space.Y))
+                    (c, p) => new Vector2(p + c.Margins.Left, c.Space.Y))
             );
         }
 
         private static void SpaceAroundVertically(IWidget wTree, List<WidgetsDataSubList> lists)
         {
-            int start = wTree.Space.Y;
-            int size = WidgetHeight(wTree);
+            float start = wTree.Space.Y;
+            float size = WidgetHeight(wTree);
             lists.ForEach(r =>
                 DivideSpaceEvenly(start, size,
                     wTree.Children.ToList().GetRange(r.FirstWidgetIndex, r.LastWidgetIndex - r.FirstWidgetIndex),
                     WidgetHeight,
-                    (c, p) => new Point(c.Space.X, p + c.Margins.Top))
+                    (c, p) => new Vector2(c.Space.X, p + c.Margins.Top))
             );
         }
 
-        private static void DivideSpaceEvenly(int start, int parentSize, ICollection<IWidget> widgets,
-            Func<IWidget, int> getSize, Func<IWidget, int, Point> updateLoc)
+        private static void DivideSpaceEvenly(float start, float parentSize, ICollection<IWidget> widgets,
+            Func<IWidget, float> getSize, Func<IWidget, float, Vector2> updateLoc)
         {
             float usedPixels = widgets.Sum(getSize);
             float freePixels = parentSize - usedPixels;
@@ -90,7 +90,7 @@ namespace WForest.UI.Props.Grid.JustifyProps
 
             foreach (var w in widgets)
             {
-                WidgetsSpaceHelper.UpdateSpace(w, new Rectangle(updateLoc(w, start), w.Space.Size));
+                WidgetsSpaceHelper.UpdateSpace(w, new RectangleF(updateLoc(w, start), w.Space.Size));
                 startPoint += getSize(w) + spaceBetween;
                 start = (int) Math.Round(startPoint);
             }

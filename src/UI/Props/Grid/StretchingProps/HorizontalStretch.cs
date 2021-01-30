@@ -1,9 +1,9 @@
 using System;
 using System.Linq;
-using Microsoft.Xna.Framework;
 using WForest.UI.Props.Interfaces;
 using WForest.UI.Utils;
 using WForest.UI.Widgets.Interfaces;
+using WForest.Utilities;
 
 namespace WForest.UI.Props.Grid.StretchingProps
 {
@@ -14,7 +14,7 @@ namespace WForest.UI.Props.Grid.StretchingProps
     public class HorizontalStretch : IApplicableProp
     {
         /// <inheritdoc/>
-        public int Priority { get; set; }
+        public int Priority { get; set; } = 2;
 
         /// <inherit/>
         public event EventHandler? Applied;
@@ -27,11 +27,34 @@ namespace WForest.UI.Props.Grid.StretchingProps
         {
             if (widget.IsRoot) return;
             var (x, y, _, h) = widget.Space;
-            var nw = widget.Parent!.Space.Width -
-                     widget.Parent!.Children.Where(w => w != widget).Sum(w => w.Space.Width);
+            var nw = CalculateStretchedWidth(widget);
+
+            if (!widget.Props.Contains<VerticalStretch>())
+                h = widget.Children.Any() ? widget.Children.Max(c => c.Space.Height) : h;
+
             WidgetsSpaceHelper.UpdateSpace(widget,
-                new Rectangle(x, y, nw, h));
+                new RectangleF(x, y, nw, h));
             OnApplied();
+        }
+
+        private static float CalculateStretchedWidth(IWidget widget)
+        {
+            var nw = widget.Parent!.Space.Width;
+
+            if (!widget.Parent.Props.SafeGetByProp<Row>().TryGetValue(out var rows)) return nw;
+            if (rows!.FirstOrDefault() == null) return nw;
+
+            var siblings = widget.Parent.Children.Where(w => w != widget);
+            var count = 1;
+            float nonStretchedWidth = 0;
+            foreach (var sibling in siblings)
+            {
+                if (sibling.Props.Contains<HorizontalStretch>()) count++;
+                else nonStretchedWidth += sibling.Space.Width;
+            }
+
+            nw -= nonStretchedWidth;
+            return nw / count;
         }
 
         private void OnApplied() => Applied?.Invoke(this, EventArgs.Empty);

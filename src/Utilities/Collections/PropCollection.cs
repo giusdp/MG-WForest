@@ -17,6 +17,8 @@ namespace WForest.Utilities.Collections
         /// <param name="prop"></param>
         public void AddProp(IProp prop) => Add(prop);
 
+        public bool Contains<TP>() where TP : IProp => Data.ContainsKey(typeof(TP));
+
         /// <summary>
         /// Try to get the list of props of type Prop.
         /// Returns Some with the list if prop type found, None otherwise.

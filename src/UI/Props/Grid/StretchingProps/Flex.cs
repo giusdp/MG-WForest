@@ -1,12 +1,12 @@
 using System;
 using System.Linq;
-using Microsoft.Xna.Framework;
 using Serilog;
 using WForest.Exceptions;
 using WForest.UI.Props.Grid.Utils;
 using WForest.UI.Props.Interfaces;
 using WForest.UI.Utils;
 using WForest.UI.Widgets.Interfaces;
+using WForest.Utilities;
 
 namespace WForest.UI.Props.Grid.StretchingProps
 {
@@ -39,7 +39,7 @@ namespace WForest.UI.Props.Grid.StretchingProps
                 row.Applied += (sender, args) =>
                 {
                     WidgetsSpaceHelper.UpdateSpace(widget,
-                        new Rectangle(
+                        new RectangleF(
                             x,
                             y,
                             row.Rows.Max(r => r.Width),
@@ -54,7 +54,7 @@ namespace WForest.UI.Props.Grid.StretchingProps
                     col.Applied += (sender, args) =>
                     {
                         WidgetsSpaceHelper.UpdateSpace(widget,
-                            new Rectangle(
+                            new RectangleF(
                                 x,
                                 y,
                                 col.Columns.Sum(c => c.Width),
@@ -64,8 +64,7 @@ namespace WForest.UI.Props.Grid.StretchingProps
                 else
                 {
                     Log.Error(
-                        "Flex can only be applied to a Row or Column Widget! Make sure this {W} has a Row or Column Prop",
-                        widget);
+                        "Flex can only be applied to a Row or Column Widget! Make sure the widget you applied Flex to has a Row or Column Prop");
                     throw new IncompatibleWidgetException(
                         "Tried to apply Flex to a widget without a Row or Column Prop");
                 }
@@ -78,7 +77,7 @@ namespace WForest.UI.Props.Grid.StretchingProps
 
         private static void IncreaseSpaceWithChildren(IWidget widgetNode)
         {
-            int w = 0, h = 0;
+            float w = 0, h = 0;
             foreach (var c in widgetNode.Children)
             {
                 var (x, y, _, _) = widgetNode.Space;
@@ -92,7 +91,7 @@ namespace WForest.UI.Props.Grid.StretchingProps
                     if (h > parentH) h -= ch;
                 }
 
-                WidgetsSpaceHelper.UpdateSpace(widgetNode, new Rectangle(x, y, w, h));
+                WidgetsSpaceHelper.UpdateSpace(widgetNode, new RectangleF(x, y, w, h));
             }
         }
     }

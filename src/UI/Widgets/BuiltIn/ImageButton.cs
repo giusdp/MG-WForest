@@ -1,8 +1,8 @@
 using System;
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Serilog;
 using WForest.UI.Props.Actions;
+using WForest.Utilities;
 
 namespace WForest.UI.Widgets.BuiltIn
 {
@@ -24,12 +24,12 @@ namespace WForest.UI.Widgets.BuiltIn
         /// </summary>
         public Texture2D? PressedButton { get; set; }
 
-        public ImageButton(Texture2D normalButton) : base(Rectangle.Empty)
+        public ImageButton(Texture2D normalButton) : base(RectangleF.Empty)
         {
             NormalButton = normalButton ??
                            throw new ArgumentNullException(nameof(normalButton));
             _imageToDraw = NormalButton;
-            Space = new Rectangle(0, 0, normalButton.Width, normalButton.Height);
+            Space = new RectangleF(0, 0, normalButton.Width, normalButton.Height);
             
             Props.AddProp(new OnEnter(StartedHovering));
             Props.AddProp(new OnEnter(StoppedHovering));

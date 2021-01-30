@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using WForest.Exceptions;
 using WForest.UI.Props.Grid.Utils;
 using WForest.UI.Props.Interfaces;
 using WForest.UI.Widgets.Interfaces;
@@ -28,6 +29,8 @@ namespace WForest.UI.Props.Grid
         /// <param name="widget"></param>
         public void ApplyOn(IWidget widget)
         {
+            if (widget.Props.Contains<Row>())
+                throw new IncompatibleWidgetException("Cannot add Column prop if widget is already a Row.");
             if (!widget.IsLeaf)
                 Columns = GridHelper.OrganizeWidgetsInColumns(widget);
             OnApplied();

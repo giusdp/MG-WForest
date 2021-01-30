@@ -1,23 +1,24 @@
 using Microsoft.Xna.Framework;
 using WForest.UI.Widgets.Interfaces;
+using WForest.Utilities;
 
 namespace WForest.UI.Utils
 {
     internal static class WidgetsSpaceHelper
     {
-        internal static void UpdateSpace(IWidget w, Rectangle newSpace)
+        internal static void UpdateSpace(IWidget w, RectangleF newSpace)
         {
-            var diff = new Point(newSpace.Location.X - w.Space.Location.X, newSpace.Location.Y - w.Space.Location.Y);
+            var diff = new Vector2(newSpace.X - w.Space.X, newSpace.Y - w.Space.Y);
             w.Space = newSpace;
             UpdateSubTreePosition(w, diff);
         }
 
-        private static void UpdateSubTreePosition(IWidget wt, Point diff)
+        private static void UpdateSubTreePosition(IWidget wt, Vector2 diff)
         {
             foreach (var c in wt.Children)
             {
                 var (dX, dY) = diff;
-                var cr = new Rectangle(new Point(c.Space.X + dX, c.Space.Y + dY), c.Space.Size);
+                var cr = new RectangleF(c.Space.X + dX, c.Space.Y + dY, c.Space.Width, c.Space.Height);
                 UpdateSpace(c, cr);
             }
         }

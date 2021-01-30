@@ -8,6 +8,7 @@ using WForest.UI.Props.Grid.Utils;
 using WForest.UI.Props.Interfaces;
 using WForest.UI.Utils;
 using WForest.UI.Widgets.Interfaces;
+using WForest.Utilities;
 
 namespace WForest.UI.Props.Grid.ItemProps
 {
@@ -20,9 +21,8 @@ namespace WForest.UI.Props.Grid.ItemProps
         /// <summary>
         /// Since it changes the layout for the other axis in a Row or Col, it should be applied after the layout
         /// for the main axis is applied.
-        /// Row/Col have priority of 1, the Justify properties have priority of 2, so this has priority of 3.
         /// </summary>
-        public int Priority { get; set; } = 3;
+        public int Priority { get; set; } = 4;
 
         /// <inherit/>
         public event EventHandler? Applied;
@@ -38,10 +38,10 @@ namespace WForest.UI.Props.Grid.ItemProps
                 {
                     var rowsAtBase =
                         PutAtBase(widget, l => l.Height, GridHelper.WidgetHeight,
-                            (y, c) => new Point(c.Space.X, y + c.Margins.Top));
+                            (y, c) => new Vector2(c.Space.X, y + c.Margins.Top));
                     var colsAtBase =
                         PutAtBase(widget, l => l.Width, GridHelper.WidgetWidth,
-                            (x, c) => new Point(x + c.Margins.Left, c.Space.Y));
+                            (x, c) => new Vector2(x + c.Margins.Left, c.Space.Y));
 
                     if (ApplyUtils.TryExtractRows(widget, out var rows))
                         rowsAtBase(rows);
@@ -62,8 +62,8 @@ namespace WForest.UI.Props.Grid.ItemProps
         private void OnApplied() => Applied?.Invoke(this, EventArgs.Empty);
 
         private static Action<List<WidgetsDataSubList>> PutAtBase(IWidget wTree,
-            Func<WidgetsDataSubList, int> listSize, Func<IWidget, int> wSize,
-            Func<int, IWidget, Point> updateLoc)
+            Func<WidgetsDataSubList, float> listSize, Func<IWidget, float> wSize,
+            Func<float, IWidget, Vector2> updateLoc)
         {
             return wLists =>
             {
@@ -75,7 +75,7 @@ namespace WForest.UI.Props.Grid.ItemProps
                     {
                         var child = wTree.Children.ElementAt(j);
                         var newCoord = acc - wSize(child);
-                        WidgetsSpaceHelper.UpdateSpace(child, new Rectangle(updateLoc(newCoord, child),
+                        WidgetsSpaceHelper.UpdateSpace(child, new RectangleF(updateLoc(newCoord, child),
                             child.Space.Size));
                     }
 

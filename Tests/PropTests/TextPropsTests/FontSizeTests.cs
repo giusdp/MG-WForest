@@ -55,13 +55,13 @@ namespace WForest.Tests.PropTests.TextPropsTests
             FontStore.DefaultFont = mockFont.Object;
 
             var testWidget = (Text) WidgetFactory.Text("Test string");
-            Assert.That(testWidget.Space.Size, Is.EqualTo(new Point(0, 0)));
+            Assert.That(testWidget.Space.Size, Is.EqualTo(new Vector2(0, 0)));
 
             mockFont.Setup(f => f.MeasureText(It.IsAny<string>(), It.IsAny<int>())).Returns((1, 1));
             FontStore.DefaultFont = mockFont.Object;
             var size = new FontSize(14);
             size.ApplyOn(testWidget);
-            Assert.That(testWidget.Space.Size, Is.EqualTo(new Point(1, 1)));
+            Assert.That(testWidget.Space.Size, Is.EqualTo(new Vector2(1, 1)));
         }
     }
 }

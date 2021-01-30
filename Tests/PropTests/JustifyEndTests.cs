@@ -4,6 +4,7 @@ using WForest.Exceptions;
 using WForest.Factories;
 using WForest.UI.Props.Grid.JustifyProps;
 using WForest.UI.Widgets.Interfaces;
+using WForest.Utilities;
 using static WForest.Tests.Utils.HelperMethods;
 
 namespace WForest.Tests.PropTests
@@ -18,7 +19,7 @@ namespace WForest.Tests.PropTests
         public void BeforeEach()
         {
             _justifyEnd = new JustifyEnd();
-            _root = WidgetFactory.Container(new Rectangle(0, 0, 1280, 720));
+            _root = WidgetFactory.Container(new RectangleF(0, 0, 1280, 720));
         }
 
         [Test]
@@ -30,7 +31,7 @@ namespace WForest.Tests.PropTests
         [Test]
         public void WidgetWithoutRowOrCol_ThrowsExc()
         {
-            var child = WidgetFactory.Container(new Rectangle(0, 0, 120, 120));
+            var child = WidgetFactory.Container(new RectangleF(0, 0, 120, 120));
             _root.AddChild(child);
             
             Assert.That(() => _justifyEnd.ApplyOn(_root), Throws.TypeOf<IncompatibleWidgetException>());
@@ -39,7 +40,7 @@ namespace WForest.Tests.PropTests
         [Test]
         public void OneChildInARow_PutsItAtTheEnd()
         {
-            var child = WidgetFactory.Container(new Rectangle(0, 0, 120, 220));
+            var child = WidgetFactory.Container(new RectangleF(0, 0, 120, 220));
             _root.AddChild(child);
             
             _root.WithProp(PropFactory.Row());
@@ -47,7 +48,7 @@ namespace WForest.Tests.PropTests
 
             _justifyEnd.ApplyOn(_root);
 
-            var expected = new Rectangle(1160, 0, 120, 220);
+            var expected = new RectangleF(1160, 0, 120, 220);
 
             Assert.That(child.Space, Is.EqualTo(expected));
         }
@@ -55,14 +56,14 @@ namespace WForest.Tests.PropTests
         [Test]
         public void OneChildInAColumn_PutsItOnTheBottom()
         {
-            var child = WidgetFactory.Container(new Rectangle(0, 0, 220, 120));
+            var child = WidgetFactory.Container(new RectangleF(0, 0, 220, 120));
             _root.AddChild(child);
 
             _root.WithProp(PropFactory.Column());
             _root.WithProp(_justifyEnd);
             ApplyProps(_root);
 
-            var expected = new Rectangle(0, 600, 220, 120);
+            var expected = new RectangleF(0, 600, 220, 120);
 
             Assert.That(child.Space, Is.EqualTo(expected));
         }
@@ -70,9 +71,9 @@ namespace WForest.Tests.PropTests
         [Test]
         public void ItemCenterRow_VerticallyCenteredAndAtTheRight()
         {
-            var expected = new Rectangle(1060, 300, 220, 120);
+            var expected = new RectangleF(1060, 300, 220, 120);
 
-            var child = WidgetFactory.Container(new Rectangle(0, 0, 220, 120));
+            var child = WidgetFactory.Container(new RectangleF(0, 0, 220, 120));
             _root.AddChild(child);
             
             _root.WithProp(PropFactory.Row());
@@ -86,15 +87,15 @@ namespace WForest.Tests.PropTests
         [Test]
         public void MultipleItemsInColumn_AtTheBottom()
         {
-            var e = new Rectangle(0, 40, 120, 120);
-            var e1 = new Rectangle(0, 160, 220, 120);
-            var e2 = new Rectangle(0, 280, 120, 320);
-            var e3 = new Rectangle(0, 600, 120, 120);
+            var e = new RectangleF(0, 40, 120, 120);
+            var e1 = new RectangleF(0, 160, 220, 120);
+            var e2 = new RectangleF(0, 280, 120, 320);
+            var e3 = new RectangleF(0, 600, 120, 120);
 
-            var c =  WidgetFactory.Container(new Rectangle(0, 0, 120, 120));
-            var c1 = WidgetFactory.Container(new Rectangle(0, 0, 220, 120));
-            var c2 = WidgetFactory.Container(new Rectangle(0, 0, 120, 320));
-            var c3 = WidgetFactory.Container(new Rectangle(0, 0, 120, 120));
+            var c =  WidgetFactory.Container(new RectangleF(0, 0, 120, 120));
+            var c1 = WidgetFactory.Container(new RectangleF(0, 0, 220, 120));
+            var c2 = WidgetFactory.Container(new RectangleF(0, 0, 120, 320));
+            var c3 = WidgetFactory.Container(new RectangleF(0, 0, 120, 120));
             _root.AddChild(c);
             _root.AddChild(c1);
             _root.AddChild(c2);

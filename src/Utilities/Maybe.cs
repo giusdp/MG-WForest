@@ -2,7 +2,6 @@ using System;
 
 namespace WForest.Utilities
 {
-    
     /// <summary>
     /// A container that may or may not contain some value.
     /// It can be two types: Some and None.
@@ -27,6 +26,7 @@ namespace WForest.Utilities
             /// </summary>
             /// <param name="value"></param>
             public Some(T value) => Value = value;
+
             /// <summary>
             /// The data contained in the Some case of Maybe.
             /// </summary>
@@ -83,7 +83,15 @@ namespace WForest.Utilities
             value = default(T)!;
             return false;
         }
+
+        public Maybe<TU> Bind<TU>(Func<T, Maybe<TU>> f)
+            => this switch
+            {
+                Some v => f(v.Value),
+                _ => Maybe.None
+            };
     }
+
 
     /// <summary>
     /// Static class to create Maybe objects.
@@ -93,7 +101,9 @@ namespace WForest.Utilities
         /// <summary>
         /// Represents the None case for Maybe.
         /// </summary>
-        public class MaybeNone{}
+        public class MaybeNone
+        {
+        }
 
         /// <summary>
         /// Creates a Maybe.None representing the absence of data.

@@ -26,6 +26,7 @@ namespace WForest.UI.Props.Grid.Utils
                 rows = res.Rows;
                 return true;
             }
+
             rows = new List<WidgetsDataSubList>();
             return false;
         }
@@ -33,7 +34,7 @@ namespace WForest.UI.Props.Grid.Utils
         internal static bool TryExtractColumns(IWidget widgetNode, out List<WidgetsDataSubList> columns)
         {
             var maybeCols = ExtractProp<Column>(widgetNode);
-            
+
             if (maybeCols.TryGetValue(out var res))
             {
                 columns = res.Columns;
@@ -50,10 +51,9 @@ namespace WForest.UI.Props.Grid.Utils
         internal static Maybe<Column> ExtractColumnProp(IWidget widgetNode)
             => ExtractProp<Column>(widgetNode);
 
-        private static Maybe<T> ExtractProp<T> (IWidget widgetNode) where T : IProp
+        private static Maybe<T> ExtractProp<T>(IPropHolder widgetNode) where T : IProp
         {
-            var prop = widgetNode.Props.FirstOrDefault(p => p is T);
-            return prop != null ? Maybe.Some((T) prop) : Maybe.None;
+            return widgetNode.Props.SafeGetByProp<T>().Bind(l => l.Any() ? Maybe.Some((T) l.First()) : Maybe.None);
         }
     }
 }

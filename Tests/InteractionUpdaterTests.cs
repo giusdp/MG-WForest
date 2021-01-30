@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using NUnit.Framework;
 using WForest.UI.Interactions;
 using WForest.UI.Widgets;
+using WForest.Utilities;
 
 namespace WForest.Tests
 {
@@ -15,7 +16,7 @@ namespace WForest.Tests
         public void BeforeEach()
         {
             _updater = new InteractionUpdater();
-            _widget = new Widget(Rectangle.Empty);
+            _widget = new Widget(RectangleF.Empty);
         }
 
         #region Untouched Case

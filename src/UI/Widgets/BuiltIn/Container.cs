@@ -1,4 +1,4 @@
-using Microsoft.Xna.Framework;
+using WForest.Utilities;
 
 namespace WForest.UI.Widgets.BuiltIn
 {
@@ -8,6 +8,6 @@ namespace WForest.UI.Widgets.BuiltIn
     /// </summary>
     public class Container : Widget
     {
-        public Container(Rectangle space) : base(space){}
+        public Container(RectangleF space) : base(space){}
     }
 }

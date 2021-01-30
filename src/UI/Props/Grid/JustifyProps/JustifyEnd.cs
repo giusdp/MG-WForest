@@ -8,6 +8,7 @@ using WForest.UI.Props.Grid.Utils;
 using WForest.UI.Props.Interfaces;
 using WForest.UI.Utils;
 using WForest.UI.Widgets.Interfaces;
+using WForest.Utilities;
 
 namespace WForest.UI.Props.Grid.JustifyProps
 {
@@ -18,9 +19,8 @@ namespace WForest.UI.Props.Grid.JustifyProps
     {
         /// <summary>
         /// Since it changes the layout internally in a Row or Col, it should be applied after them.
-        /// Row/Col have priority of 1 so this has priority of 2.
         /// </summary>
-        public int Priority { get; set; } = 2;
+        public int Priority { get; set; } = 3;
 
         /// <inherit/>
         public event EventHandler? Applied;
@@ -36,10 +36,10 @@ namespace WForest.UI.Props.Grid.JustifyProps
                 () =>
                 {
                     var rowsAtEnd =
-                        PutAtEnd(widget, GridHelper.WidgetWidth, (x, c) => new Point(x, c.Space.Y),
+                        PutAtEnd(widget, GridHelper.WidgetWidth, (x, c) => new Vector2(x, c.Space.Y),
                             c => c.Margins.Left);
                     var colsAtEnd =
-                        PutAtEnd(widget, GridHelper.WidgetHeight, (y, c) => new Point(c.Space.X, y),
+                        PutAtEnd(widget, GridHelper.WidgetHeight, (y, c) => new Vector2(c.Space.X, y),
                             c => c.Margins.Top);
 
                     if (ApplyUtils.TryExtractRows(widget, out var rows))
@@ -60,8 +60,8 @@ namespace WForest.UI.Props.Grid.JustifyProps
 
         private void OnApplied() => Applied?.Invoke(this, EventArgs.Empty);
 
-        private static Action<List<WidgetsDataSubList>> PutAtEnd(IWidget wTree, Func<IWidget, int> getSize,
-            Func<int, IWidget, Point> updateLoc, Func<IWidget, int> getMargin)
+        private static Action<List<WidgetsDataSubList>> PutAtEnd(IWidget wTree, Func<IWidget, float> getSize,
+            Func<float, IWidget, Vector2> updateLoc, Func<IWidget, float> getMargin)
         {
             return wLists =>
                 wLists.ForEach(r =>
@@ -71,7 +71,7 @@ namespace WForest.UI.Props.Grid.JustifyProps
                     {
                         var child = wTree.Children.ElementAt(i);
                         acc -= getSize(child) - getMargin(child);
-                        WidgetsSpaceHelper.UpdateSpace(child, new Rectangle(updateLoc(acc, child),
+                        WidgetsSpaceHelper.UpdateSpace(child, new RectangleF(updateLoc(acc, child),
                             child.Space.Size));
                         acc -= getMargin(child);
                     }

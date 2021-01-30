@@ -14,7 +14,7 @@ namespace WForest.UI.Widgets.Interfaces
         /// <summary>
         /// The Space used by the widget.
         /// </summary>
-        Rectangle Space { get; set; }
+        RectangleF Space { get; set; }
 
         /// <summary>
         /// The values for the left, right, top, bottom margins.
@@ -29,8 +29,8 @@ namespace WForest.UI.Widgets.Interfaces
         /// <summary>
         /// Get the total space occupied by the widget, that is it's space + margins.
         /// </summary>
-        public Rectangle TotalSpaceOccupied =>
-            new Rectangle(
+        public RectangleF TotalSpaceOccupied =>
+            new RectangleF(
                 Space.X - Margins.Left,
                 Space.Y - Margins.Top,
                 Space.Width + Margins.Left + Margins.Right,

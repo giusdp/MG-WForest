@@ -2,14 +2,14 @@ namespace WForest.UI.Props.Grid.Utils
 {
     internal class WidgetsDataSubList
     {
-        public int X { get; set; }
-        public int Y { get; set; }
-        public int Width { get; }
-        public int Height { get; }
+        public float X { get; set; }
+        public float Y { get; set; }
+        public float Width { get; }
+        public float Height { get; }
         public int FirstWidgetIndex { get; }
         public int LastWidgetIndex { get; }
 
-        public WidgetsDataSubList(int width, int height, int firstWidgetIndex, int lastWidgetIndex)
+        public WidgetsDataSubList(float width, float height, int firstWidgetIndex, int lastWidgetIndex)
         {
             Width = width;
             Height = height;

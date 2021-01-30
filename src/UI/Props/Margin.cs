@@ -36,7 +36,7 @@ namespace WForest.UI.Props
             var (x, y, w, h) = widget.Space;
             widget.Margins = AddMargin(widget);
 
-            var newSpace = new Rectangle(x + _marginValues.Left, y + _marginValues.Top, w, h);
+            var newSpace = new RectangleF(x + _marginValues.Left, y + _marginValues.Top, w, h);
             WidgetsSpaceHelper.UpdateSpace(widget, newSpace);
 
             // TreeVisitor.ApplyToTreeLevelByLevel(

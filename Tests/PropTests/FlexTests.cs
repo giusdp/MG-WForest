@@ -5,6 +5,7 @@ using WForest.Factories;
 using WForest.UI.Props.Grid;
 using WForest.UI.Props.Grid.StretchingProps;
 using WForest.UI.Widgets.Interfaces;
+using WForest.Utilities;
 using static WForest.Tests.Utils.HelperMethods;
 
 namespace WForest.Tests.PropTests
@@ -44,11 +45,11 @@ namespace WForest.Tests.PropTests
         [Test]
         public void FlexRowContainer_AsBigAsChild()
         {
-            _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 120, 120)));
+            _root.AddChild(WidgetFactory.Container(new RectangleF(0, 0, 120, 120)));
 
             ApplyRow();
 
-            var expected = new Rectangle(0, 0, 120, 120);
+            var expected = new RectangleF(0, 0, 120, 120);
 
             Assert.That(_root.Space, Is.EqualTo(expected));
         }
@@ -56,12 +57,12 @@ namespace WForest.Tests.PropTests
         [Test]
         public void FlexRowContainerWithTwoChildren_AsBigAsRow()
         {
-            _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 120, 120)));
-            _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 120, 120)));
+            _root.AddChild(WidgetFactory.Container(new RectangleF(0, 0, 120, 120)));
+            _root.AddChild(WidgetFactory.Container(new RectangleF(0, 0, 120, 120)));
 
             ApplyRow();
 
-            var expected = new Rectangle(0, 0, 240, 120);
+            var expected = new RectangleF(0, 0, 240, 120);
 
             Assert.That(_root.Space, Is.EqualTo(expected));
         }
@@ -69,12 +70,12 @@ namespace WForest.Tests.PropTests
         [Test]
         public void FlexColContainerWithTwoChildren_AsBigAsCol()
         {
-            _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 120, 120)));
-            _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 120, 120)));
+            _root.AddChild(WidgetFactory.Container(new RectangleF(0, 0, 120, 120)));
+            _root.AddChild(WidgetFactory.Container(new RectangleF(0, 0, 120, 120)));
 
             ApplyCol();
 
-            var expected = new Rectangle(0, 0, 120, 240);
+            var expected = new RectangleF(0, 0, 120, 240);
 
             Assert.That(_root.Space, Is.EqualTo(expected));
         }
@@ -83,13 +84,13 @@ namespace WForest.Tests.PropTests
         public void FlexContainerWithSize_IgnoresSizeAndStartsFromZero()
         {
             _root = WidgetFactory.Container(400, 300);
-            _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 120, 60)));
-            _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 120, 90)));
+            _root.AddChild(WidgetFactory.Container(new RectangleF(0, 0, 120, 60)));
+            _root.AddChild(WidgetFactory.Container(new RectangleF(0, 0, 120, 90)));
 
             _root.WithProp(PropFactory.Flex());
             ApplyRow();
 
-            var expected = new Rectangle(0, 0, 240, 90);
+            var expected = new RectangleF(0, 0, 240, 90);
 
             Assert.That(_root.Space, Is.EqualTo(expected));
         }

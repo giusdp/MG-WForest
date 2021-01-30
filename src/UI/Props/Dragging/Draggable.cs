@@ -6,13 +6,14 @@ using WForest.UI.Props.Actions;
 using WForest.UI.Props.Interfaces;
 using WForest.UI.Utils;
 using WForest.UI.Widgets.Interfaces;
+using WForest.Utilities;
 
 namespace WForest.UI.Props.Dragging
 {
     internal class DragCtx
     {
         public bool IsDragging { get; set; }
-        public int DevX, DevY;
+        public float DevX, DevY;
 
         public void Set(Point deviceLoc)
         {
@@ -77,7 +78,7 @@ namespace WForest.UI.Props.Dragging
                 {
                     var (devX, devY) = devLoc;
                     var (x, y, w, h) = widget.Space;
-                    if (dragCtx.DevX == devX && dragCtx.DevY == devY) return;
+                    if (Math.Abs(dragCtx.DevX - devX) < 0.01f && Math.Abs(dragCtx.DevY - devY) < 0.01f) return;
             
                     var nx = x;
                     var ny = y;
@@ -85,13 +86,13 @@ namespace WForest.UI.Props.Dragging
                     ny += isYFixed ? 0 : devY - dragCtx.DevY;
                     (nx, ny) = CheckBounds(widget, nx, ny, isXFixed, isYFixed);
             
-                    WidgetsSpaceHelper.UpdateSpace(widget, new Rectangle(nx, ny, w, h));
+                    WidgetsSpaceHelper.UpdateSpace(widget, new RectangleF(nx, ny, w, h));
                     dragCtx.Set(devLoc);
                 } 
         }
         private void OnApplied() => Applied?.Invoke(this, EventArgs.Empty);
 
-        private static (int, int) CheckBounds(IWidget wt, int x, int y, bool isXFixed, bool isYFixed)
+        private static (float, float) CheckBounds(IWidget wt, float x, float y, bool isXFixed, bool isYFixed)
         {
             var (_, _, w, h) = wt.Space;
             if (wt.Parent == null) return (x, y);

@@ -50,10 +50,10 @@ namespace WForest.Tests.PropTests.TextPropsTests
             
             var font = new FontFamily("mockF");
             var testWidget = (Text) WidgetFactory.Text("Test string");
-            Assert.That(testWidget.Space.Size, Is.EqualTo(new Point(0, 0)));
+            Assert.That(testWidget.Space.Size, Is.EqualTo(new Vector2(0, 0)));
 
             font.ApplyOn(testWidget);
-            Assert.That(testWidget.Space.Size, Is.EqualTo(new Point(1, 1)));
+            Assert.That(testWidget.Space.Size, Is.EqualTo(new Vector2(1, 1)));
         }
     }
 }

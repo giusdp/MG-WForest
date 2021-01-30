@@ -1,4 +1,3 @@
-using Microsoft.Xna.Framework;
 using Moq;
 using NUnit.Framework;
 using WForest.Factories;
@@ -6,6 +5,7 @@ using WForest.UI.Props.Interfaces;
 using WForest.UI.Widgets;
 using WForest.UI.Widgets.BuiltIn;
 using WForest.UI.Widgets.Interfaces;
+using WForest.Utilities;
 
 namespace WForest.Tests
 {
@@ -17,7 +17,7 @@ namespace WForest.Tests
         [SetUp]
         public void BeforeEach()
         {
-            _widget = new Widget(Rectangle.Empty);
+            _widget = new Widget(RectangleF.Empty);
         }
         [Test]
         public void WithProp_Null_Throws()
@@ -42,7 +42,7 @@ namespace WForest.Tests
         [Test]
         public void AddChild_ValidWidget_AddsToChildren()
         {
-            _widget.AddChild(new Widget(Rectangle.Empty));
+            _widget.AddChild(new Widget(RectangleF.Empty));
             Assert.That(_widget.Children, Is.Not.Empty);
         }
 
@@ -55,7 +55,7 @@ namespace WForest.Tests
         [Test]
         public void AddChild_ValidWidget_ChildHasThisParent()
         {
-            var w = new Widget(Rectangle.Empty);
+            var w = new Widget(RectangleF.Empty);
             _widget.AddChild(w);
             Assert.That(w.Parent, Is.EqualTo(_widget));
         }
@@ -64,7 +64,7 @@ namespace WForest.Tests
         public void SimpleContainer_StartsAtSizeZero()
         {
             var container = WidgetFactory.Container();
-            Assert.That(container.Space, Is.EqualTo(Rectangle.Empty));
+            Assert.That(container.Space, Is.EqualTo(RectangleF.Empty));
         }
 
         [Test]

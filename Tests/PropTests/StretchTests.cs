@@ -2,6 +2,8 @@ using Microsoft.Xna.Framework;
 using NUnit.Framework;
 using WForest.Factories;
 using WForest.UI.Props.Grid;
+using WForest.UI.Props.Grid.JustifyProps;
+using WForest.UI.Props.Grid.StretchingProps;
 using WForest.UI.Widgets.Interfaces;
 using WForest.Utilities;
 using static WForest.Tests.Utils.HelperMethods;
@@ -16,7 +18,7 @@ namespace WForest.Tests.PropTests
         [SetUp]
         public void BeforeEach()
         {
-            _root = WidgetFactory.Container(400, 401);
+            _root = WidgetFactory.Container(400, 402);
         }
 
 
@@ -25,7 +27,7 @@ namespace WForest.Tests.PropTests
         {
             _root!.WithProp(PropFactory.HorizontalStretch());
             ApplyProps(_root);
-            Assert.That(_root.Space, Is.EqualTo(new Rectangle(0, 0, 400, 401)));
+            Assert.That(_root.Space, Is.EqualTo(new RectangleF(0, 0, 400, 402)));
         }
 
         [Test]
@@ -35,7 +37,7 @@ namespace WForest.Tests.PropTests
             _root!.AddChild(c);
             c.WithProp(PropFactory.HorizontalStretch());
             ApplyProps(c);
-            Assert.That(c.Space, Is.EqualTo(new Rectangle(0, 0, 400, 120)));
+            Assert.That(c.Space, Is.EqualTo(new RectangleF(0, 0, 400, 120)));
         }
 
         [Test]
@@ -43,7 +45,7 @@ namespace WForest.Tests.PropTests
         {
             _root!.WithProp(PropFactory.VerticalStretch());
             ApplyProps(_root);
-            Assert.That(_root.Space, Is.EqualTo(new Rectangle(0, 0, 400, 401)));
+            Assert.That(_root.Space, Is.EqualTo(new RectangleF(0, 0, 400, 402)));
         }
 
         [Test]
@@ -53,7 +55,7 @@ namespace WForest.Tests.PropTests
             _root!.AddChild(c);
             c.WithProp(PropFactory.VerticalStretch());
             TreeVisitor.ApplyPropsOnTree(_root);
-            Assert.That(c.Space, Is.EqualTo(new Rectangle(0, 0, 100, 401)));
+            Assert.That(c.Space, Is.EqualTo(new RectangleF(0, 0, 100, 402)));
         }
 
         [Test]
@@ -61,11 +63,12 @@ namespace WForest.Tests.PropTests
         {
             IWidget c = WidgetFactory.Container();
             _root!.AddChild(c);
+            _root.WithProp(new Row());
             c.WithProp(PropFactory.HorizontalStretch());
-            IWidget c1 = WidgetFactory.Container(100, 0);
+            IWidget c1 = WidgetFactory.Container(100, 120);
             _root!.AddChild(c1);
             TreeVisitor.ApplyPropsOnTree(_root);
-            Assert.That(c.Space, Is.EqualTo(new Rectangle(0, 0, 300, 0)));
+            Assert.That(c.Space, Is.EqualTo(new RectangleF(0, 0, 300, 0)));
         }
 
         [Test]
@@ -78,7 +81,43 @@ namespace WForest.Tests.PropTests
             IWidget c1 = WidgetFactory.Container(100, 120);
             _root!.AddChild(c1);
             TreeVisitor.ApplyPropsOnTree(_root);
-            Assert.That(c.Space, Is.EqualTo(new Rectangle(0, 0, 0, 281)));
+            Assert.That(c.Space, Is.EqualTo(new RectangleF(0, 0, 0, 282)));
+        }
+
+
+        [Test]
+        public void VerticalStretch_OnBothChildrenAndParentCentered_DoesNotFuckUp()
+        {
+            _root!.WithProp(new Column());
+            IWidget c1 = WidgetFactory.Container();
+            IWidget c2 = WidgetFactory.Container();
+            _root!.AddChild(c1);
+            _root!.AddChild(c2);
+            c1.WithProp(new VerticalStretch());
+            c2.WithProp(new VerticalStretch());
+            _root.WithProp(new JustifyCenter());
+
+            TreeVisitor.ApplyPropsOnTree(_root);
+            Assert.That(c1.Space, Is.EqualTo(new RectangleF(0, 0, 0, 201)));
+            Assert.That(c2.Space, Is.EqualTo(new RectangleF(0, 201, 0, 201)));
+        }
+
+        [Test]
+        public void VerticalStretch_OnTwoMarginChildren_ParentCentered()
+        {
+            _root.Space = new RectangleF(10, 10, 380, 382);
+            _root!.WithProp(new Column());
+            IWidget c1 = WidgetFactory.Container();
+            IWidget c2 = WidgetFactory.Container();
+            _root!.AddChild(c1);
+            _root!.AddChild(c2);
+            c1.WithProp(new VerticalStretch());
+            c2.WithProp(new VerticalStretch());
+            _root.WithProp(new JustifyCenter());
+
+            TreeVisitor.ApplyPropsOnTree(_root);
+            Assert.That(c1.Space, Is.EqualTo(new RectangleF(10, 10, 0, 191)));
+            Assert.That(c2.Space, Is.EqualTo(new RectangleF(10, 201, 0, 191)));
         }
     }
 }

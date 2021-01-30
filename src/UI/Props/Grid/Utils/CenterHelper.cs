@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.Xna.Framework;
 using WForest.UI.Utils;
 using WForest.UI.Widgets.Interfaces;
+using WForest.Utilities;
 
 namespace WForest.UI.Props.Grid.Utils
 {
@@ -17,7 +17,7 @@ namespace WForest.UI.Props.Grid.Utils
             var totalHeight = wLists.Sum(l => l.Height);
             var startY = CenterCoord(widgetTree.Space.Y, widgetTree.Space.Height,
                 totalHeight);
-            var accY = widgetTree.Margins.Top/2;
+            var accY = widgetTree.Margins.Top / 2;
             wLists.ForEach(l =>
             {
                 l.Y = startY + accY;
@@ -30,10 +30,10 @@ namespace WForest.UI.Props.Grid.Utils
                     var ith = children.ElementAt(i);
                     var y = l.Y;
                     var (x, _, w, h) = ith.Space;
-                    if (ith.Space.Height != l.Height)
-                        y = CenterCoord(l.Y, l.Y + l.Height, h);
+                    if (Math.Abs(ith.Space.Height - l.Height) > 0.01f)
+                        y = CenterCoord(l.Y,l.Height, h);
 
-                    WidgetsSpaceHelper.UpdateSpace(ith, new Rectangle(x, y, w, h));
+                    WidgetsSpaceHelper.UpdateSpace(ith, new RectangleF(x, y, w, h));
                 }
             });
         }
@@ -43,7 +43,7 @@ namespace WForest.UI.Props.Grid.Utils
             var children = wTree.Children;
             var totalWidth = wLists.Sum(l => l.Width);
             var startX = CenterCoord(wTree.Space.X, wTree.Space.Width, totalWidth);
-            var accX = wTree.Margins.Left/2;
+            var accX = wTree.Margins.Left / 2;
             wLists.ForEach(l =>
             {
                 l.X = startX + accX;
@@ -56,10 +56,10 @@ namespace WForest.UI.Props.Grid.Utils
                     var ith = children.ElementAt(i);
                     var x = l.X;
                     var (_, y, w, h) = ith.Space;
-                    if (ith.Space.Width != l.Width)
-                        x = CenterCoord(l.X, l.X + l.Width, w);
+                    if (Math.Abs(ith.Space.Width - l.Width) > 0.01f)
+                        x = CenterCoord(l.X,  l.Width, w);
 
-                    WidgetsSpaceHelper.UpdateSpace(ith, new Rectangle(x, y, w, h));
+                    WidgetsSpaceHelper.UpdateSpace(ith, new RectangleF(x, y, w, h));
                 }
             });
         }
@@ -83,11 +83,11 @@ namespace WForest.UI.Props.Grid.Utils
         #region Backend
 
         private static void CenterByRow(IWidget wTree, List<WidgetsDataSubList> rows,
-            Action<WidgetsDataSubList, int> setPosition)
+            Action<WidgetsDataSubList, float> setPosition)
         {
             var maxWidth = rows.Max(r => r.Width);
             var x = CenterCoord(wTree.Space.X, wTree.Space.Width, maxWidth);
-            x += wTree.Margins.Left / 2;
+            x += wTree.Margins.Left / 2.0f;
             rows.ForEach(r => setPosition(r, x));
 
             OffsetBySize(rows, (r, i) => r.Y += i, w => w.Height);
@@ -95,25 +95,26 @@ namespace WForest.UI.Props.Grid.Utils
         }
 
         private static void CenterByColumn(IWidget wTree, List<WidgetsDataSubList> columns,
-            Action<WidgetsDataSubList, int> setPosition)
+            Action<WidgetsDataSubList, float> setPosition)
         {
             var maxHeight = columns.Max(r => r.Height);
             var y = CenterCoord(wTree.Space.Y, wTree.Space.Height, maxHeight);
-            y += wTree.Margins.Top/2;
+            y += wTree.Margins.Top / 2.0f;
             columns.ForEach(r => setPosition(r, y));
 
             OffsetBySize(columns, (r, i) => r.X += i, w => w.Width);
             CenterChildrenVertically(wTree, columns);
         }
 
-        private static int CenterCoord(int start, int end, int sizeToCenter) => (end + start) / 2 - sizeToCenter / 2;
+        private static float CenterCoord(float start, float end, float sizeToCenter) =>
+            start / 2 + (end + start) / 2 - sizeToCenter / 2;
 
-        private static void OffsetBySize(List<WidgetsDataSubList> lists, Action<WidgetsDataSubList, int> updatePos,
-            Func<WidgetsDataSubList, int> getSize)
+        private static void OffsetBySize(List<WidgetsDataSubList> lists, Action<WidgetsDataSubList, float> updatePos,
+            Func<WidgetsDataSubList, float> getSize)
         {
             if (lists.Count <= 1) return;
 
-            var acc = 0;
+            float acc = 0;
             foreach (var l in lists)
             {
                 updatePos(l, acc);
@@ -131,9 +132,9 @@ namespace WForest.UI.Props.Grid.Utils
                 {
                     var ith = children.ElementAt(i);
                     xRow += ith.Margins.Left;
-                    var wY = w.Y +ith.Margins.Top;
-                    WidgetsSpaceHelper.UpdateSpace(ith, new Rectangle(new Point(xRow, wY),
-                        ith.Space.Size));
+                    var wY = w.Y + ith.Margins.Top;
+                    WidgetsSpaceHelper.UpdateSpace(ith, new RectangleF(xRow, wY,
+                        ith.Space.Width, ith.Space.Height));
                     xRow += ith.Space.Width + ith.Margins.Right;
                 }
             });
@@ -150,8 +151,8 @@ namespace WForest.UI.Props.Grid.Utils
                     var ith = children.ElementAt(i);
                     var wX = w.X + ith.Margins.Left;
                     yAcc += ith.Margins.Top;
-                    WidgetsSpaceHelper.UpdateSpace(ith ,new Rectangle(new Point(wX, yAcc),
-                        ith.Space.Size));
+                    WidgetsSpaceHelper.UpdateSpace(ith, new RectangleF(wX, yAcc,
+                        ith.Space.Width, ith.Space.Height));
                     yAcc += ith.Space.Height + ith.Margins.Bottom;
                 }
             });

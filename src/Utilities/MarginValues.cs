@@ -12,7 +12,7 @@ namespace WForest.Utilities
         /// <param name="right"></param>
         /// <param name="top"></param>
         /// <param name="bottom"></param>
-       public MarginValues(int left, int right, int top, int bottom)
+       public MarginValues(float left, float right, float top, float bottom)
         {
             Left = left;
             Right = right;
@@ -23,6 +23,6 @@ namespace WForest.Utilities
         /// <summary>
         /// The margin values.
         /// </summary>
-        public readonly int Left, Right, Top, Bottom;
+        public readonly float Left, Right, Top, Bottom;
     }
 }

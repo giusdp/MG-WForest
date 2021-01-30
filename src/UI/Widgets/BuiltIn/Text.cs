@@ -3,6 +3,7 @@ using FontStashSharp;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using WForest.UI.Utils;
+using WForest.Utilities;
 using WForest.Utilities.Text;
 
 namespace WForest.UI.Widgets.BuiltIn
@@ -46,7 +47,7 @@ namespace WForest.UI.Widgets.BuiltIn
             }
         }
 
-        public Text(string text, int fontSize = 12) : base(Rectangle.Empty)
+        public Text(string text, int fontSize = 12) : base(RectangleF.Empty)
         {
             TextString = text ?? throw new ArgumentNullException();
             _font = FontStore.DefaultFont;
@@ -69,7 +70,7 @@ namespace WForest.UI.Widgets.BuiltIn
         {
             var (x, y, _, _) = Space;
             var (w, h) = Font.MeasureText(TextString, FontSize);
-            WidgetsSpaceHelper.UpdateSpace(this, new Rectangle(x, y, w, h));
+            WidgetsSpaceHelper.UpdateSpace(this, new RectangleF(x, y, w, h));
         }
     }
 }
