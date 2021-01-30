@@ -21,8 +21,8 @@ namespace WForest.Tests.PropTests
         public void BeforeEach()
         {
             _justifyCenter = new JustifyCenter();
-            _root = WidgetFactory.Container(new RectangleF(0, 0, 1280, 720));
-            child = WidgetFactory.Container(new RectangleF(0, 0, 120, 120));
+            _root = WidgetFactory.Container(0, 0, 1280, 720);
+            child = WidgetFactory.Container(0, 0, 120, 120);
         }
 
         private void ApplyRow()
@@ -80,7 +80,7 @@ namespace WForest.Tests.PropTests
         public void ApplyOn_TwoIdenticalWidgetsInColumn()
         {
             _root.AddChild(child);
-            var secondChild = WidgetFactory.Container(new RectangleF(0, 0, 120, 120));
+            var secondChild = WidgetFactory.Container(0, 0, 120, 120);
             _root.AddChild(secondChild);
 
             var firstChildExpectedLoc = new RectangleF(0, 240, 120, 120);
@@ -97,7 +97,7 @@ namespace WForest.Tests.PropTests
         public void ApplyOn_TwoIdenticalWidgetsInRow()
         {
             _root.AddChild(child);
-            var secondChild = WidgetFactory.Container(new RectangleF(0, 0, 120, 120));
+            var secondChild = WidgetFactory.Container(0, 0, 120, 120);
             _root.AddChild(secondChild);
             var firstChildExpectedLoc = new RectangleF(520, 0, 120, 120);
             var secondChildExpectedLoc = new RectangleF(640, 0, 120, 120);
@@ -114,7 +114,7 @@ namespace WForest.Tests.PropTests
         {
             child.Space = new RectangleF(0, 0, 220, 120);
             _root.AddChild(child);
-            var secondChild = WidgetFactory.Container(new RectangleF(0, 0, 120, 330));
+            var secondChild = WidgetFactory.Container(0, 0, 120, 330);
             _root.AddChild(secondChild);
             var firstChildExpectedLoc = new RectangleF(470, 0, 220, 120);
             var secondChildExpectedLoc = new RectangleF(690, 0, 120, 330);

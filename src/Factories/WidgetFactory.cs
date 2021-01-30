@@ -17,7 +17,7 @@ namespace WForest.Factories
         /// <param name="height"></param>
         /// <returns>Block Widget</returns>
         public static IWidget Block(int width, int height) => new Block(new RectangleF(0, 0, width, height));
-        
+
         /// <summary>
         /// Creates a <see cref="ImageButton"/> widget with a NormalButtonTexture.
         /// </summary>
@@ -30,11 +30,25 @@ namespace WForest.Factories
         /// </summary>
         /// <returns></returns>
         public static IWidget Container() => new Container(RectangleF.Empty);
-        
+
         /// <summary>
-        /// Creates a <see cref="Container()"/> widget with a defined space.
+        ///  Creates a <see cref="Container()"/> widget with a defined space.
         /// </summary>
-        /// <param name="space"></param>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="w"></param>
+        /// <param name="h"></param>
+        /// <returns></returns>
+        public static IWidget Container(float x, float y, float w, float h) =>
+            new Container(new RectangleF(x, y, w, h));
+
+        /// <summary>
+        ///  Creates a <see cref="Container()"/> widget with a defined space using a <see cref="RectangleF"/>.
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="w"></param>
+        /// <param name="h"></param>
         /// <returns></returns>
         public static IWidget Container(RectangleF space) => new Container(space);
 
@@ -44,7 +58,7 @@ namespace WForest.Factories
         /// <param name="width"></param>
         /// <param name="height"></param>
         /// <returns></returns>
-        public static IWidget Container(int width, int height) =>
+        public static IWidget Container(float width, float height) =>
             new Container(new RectangleF(0, 0, width, height));
 
         /// <summary>
