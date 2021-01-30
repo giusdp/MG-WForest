@@ -28,7 +28,7 @@ namespace WForest.UI.Props.Grid.StretchingProps
             if (widget.IsRoot) return;
             var (x, y, w, _) = widget.Space;
             var nh = widget.Parent!.Space.Height -
-                     widget.Parent!.Children.Where(w => w != widget).Sum(w => w.Space.Height);
+                     widget.Parent!.Children.Where(c => c != widget).Sum(c => c.Space.Height);
             WidgetsSpaceHelper.UpdateSpace(widget,
                 new Rectangle(x, y, w, nh));
             OnApplied();
