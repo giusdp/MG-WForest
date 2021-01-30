@@ -6,6 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ## [0.0.15]
 ### Changed
 - Constructors of Props and Widgets are now public
+- PropertyFactory in PropFactory
 
 ### Fixed
 - Vertical/Horizontal stretch now respect spaces of sibling and stretch as long as siblings have space

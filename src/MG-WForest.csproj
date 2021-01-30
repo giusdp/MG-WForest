@@ -7,11 +7,10 @@
         <Version>0.0.14</Version>
         <Description>Yet another GUI library for MonoGame. Inspired by React/Flutter frontend frameworks.</Description>
         <Authors>Giuseppe De Palma</Authors>
-        <Owners>Giuseppe De Palma</Owners>
         <Copyright>Copyright 2021</Copyright>
         <PackageTags>gamedev;monogame;gui;ui</PackageTags>
-        <RepositoryUrl>https://github.com/giusdp/MG-WForest</RepositoryUrl>
-        <PackageProjectUrl>https://github.com/giusdp/MG-WForest</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/giusdp/WForest</RepositoryUrl>
+        <PackageProjectUrl>https://github.com/giusdp/WForest</PackageProjectUrl>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
         <RepositoryType>git</RepositoryType>
