@@ -67,7 +67,7 @@ namespace WForest.UI.Props.Grid.StretchingProps
                         "Flex can only be applied to a Row or Column Widget! Make sure this {W} has a Row or Column Prop",
                         widget);
                     throw new IncompatibleWidgetException(
-                        "Tried to apply Flexto a widget without a Row or Column Prop");
+                        "Tried to apply Flex to a widget without a Row or Column Prop");
                 }
             }
 
