@@ -21,7 +21,7 @@ namespace WForest.Tests.PropTests
         [Test]
         public void HorizontalStretch_OnRoot_DoesNothing()
         {
-            _root!.WithProp(PropertyFactory.HorizontalStretch());
+            _root!.WithProp(PropFactory.HorizontalStretch());
             ApplyProps(_root);
             Assert.That(_root.Space, Is.EqualTo(new Rectangle(0, 0, 400, 401)));
         }
@@ -31,7 +31,7 @@ namespace WForest.Tests.PropTests
         {
             IWidget c = WidgetFactory.Container();
             _root!.AddChild(c);
-            c.WithProp(PropertyFactory.HorizontalStretch());
+            c.WithProp(PropFactory.HorizontalStretch());
             ApplyProps(c);
             Assert.That(c.Space, Is.EqualTo(new Rectangle(0, 0, 400, 0)));
         }
@@ -39,7 +39,7 @@ namespace WForest.Tests.PropTests
         [Test]
         public void VerticalStretch_OnRoot_DoesNothing()
         {
-            _root!.WithProp(PropertyFactory.VerticalStretch());
+            _root!.WithProp(PropFactory.VerticalStretch());
             ApplyProps(_root);
             Assert.That(_root.Space, Is.EqualTo(new Rectangle(0, 0, 400, 401)));
         }
@@ -49,7 +49,7 @@ namespace WForest.Tests.PropTests
         {
             IWidget c = WidgetFactory.Container();
             _root!.AddChild(c);
-            c.WithProp(PropertyFactory.VerticalStretch());
+            c.WithProp(PropFactory.VerticalStretch());
             ApplyProps(c);
             Assert.That(c.Space, Is.EqualTo(new Rectangle(0, 0, 0, 401)));
         }

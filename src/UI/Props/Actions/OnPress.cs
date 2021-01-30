@@ -12,7 +12,7 @@ namespace WForest.UI.Props.Actions
         /// <inherit/>
         public Action Action { get; set; }
 
-        internal OnPress(Action onPress)
+        public OnPress(Action onPress)
         {
             Action = onPress;
         }

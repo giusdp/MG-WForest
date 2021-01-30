@@ -28,22 +28,7 @@ namespace WForest.UI.Widgets
         {
             Space = space;
             Margins = new MarginValues();
-            Props = new PropCollection();
-            Children = new List<IWidget>();
-            CurrentInteraction = Interaction.Untouched;
-            PostDrawActions = new List<Action<SpriteBatch>>();
-        }
-
-        /// <summary>
-        /// Creates a Widget with a parent. The widget will be a node or a leaf.
-        /// </summary>
-        /// <param name="parent"></param>
-        /// <param name="space"></param>
-        public Widget(IWidget parent, Rectangle space)
-        {
-            Space = space;
-            Parent = parent;
-            Margins = new MarginValues();
+            Color = Color.White;
             Props = new PropCollection();
             Children = new List<IWidget>();
             CurrentInteraction = Interaction.Untouched;

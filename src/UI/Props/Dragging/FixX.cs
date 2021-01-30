@@ -8,6 +8,5 @@ namespace WForest.UI.Props.Dragging
     /// </summary>
     public class FixX : IProp
     {
-        internal FixX(){}
     }
 }

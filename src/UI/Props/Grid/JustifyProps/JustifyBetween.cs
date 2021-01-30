@@ -26,10 +26,6 @@ namespace WForest.UI.Props.Grid.JustifyProps
         /// <inherit/>
         public event EventHandler? Applied;
 
-        internal JustifyBetween()
-        {
-        }
-
         /// <summary>
         /// Move the widgets in a way to have them maximally separated between them.
         /// In a Row they are separated horizontally, in a Column vertically.

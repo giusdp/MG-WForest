@@ -16,7 +16,7 @@ namespace WForest.Factories
     /// <summary>
     /// Static class to create Properties.
     /// </summary>
-    public static class PropertyFactory
+    public static class PropFactory
     {
         #region Grid
 

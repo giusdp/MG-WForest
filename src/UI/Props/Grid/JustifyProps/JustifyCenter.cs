@@ -21,10 +21,6 @@ namespace WForest.UI.Props.Grid.JustifyProps
         /// <inherit/>
         public event EventHandler? Applied;
 
-        internal JustifyCenter()
-        {
-        }
-
         /// <summary>
         /// Move the widgets to the center of a Row (centered horizontally) or of a Column (centered vertically).
         /// </summary>

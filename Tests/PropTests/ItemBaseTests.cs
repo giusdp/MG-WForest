@@ -33,8 +33,8 @@ namespace WForest.Tests.PropTests
         [Test]
         public void OnRow_PutChildAtBottom()
         {
-            _root.WithProp(PropertyFactory.Row());
-            _root.WithProp(PropertyFactory.ItemBase());
+            _root.WithProp(PropFactory.Row());
+            _root.WithProp(PropFactory.ItemBase());
             ApplyProps(_root);
             Assert.That(child.Space, Is.EqualTo(new Rectangle(0, 700, 20, 20)));
         }
@@ -42,8 +42,8 @@ namespace WForest.Tests.PropTests
         [Test]
         public void OnCol_PutChildAtRight()
         {
-            _root.WithProp(PropertyFactory.Column());
-            _root.WithProp(PropertyFactory.ItemBase());
+            _root.WithProp(PropFactory.Column());
+            _root.WithProp(PropFactory.ItemBase());
             ApplyProps(_root);
             Assert.That(child.Space, Is.EqualTo(new Rectangle(1260, 0, 20, 20)));
         }
@@ -51,9 +51,9 @@ namespace WForest.Tests.PropTests
         [Test]
         public void OnRowWithJustifyEnd_PutsInLowerRightCorner()
         {
-            _root.WithProp(PropertyFactory.Row());
-            _root.WithProp(PropertyFactory.JustifyEnd());
-            _root.WithProp(PropertyFactory.ItemBase());
+            _root.WithProp(PropFactory.Row());
+            _root.WithProp(PropFactory.JustifyEnd());
+            _root.WithProp(PropFactory.ItemBase());
             ApplyProps(_root);
             Assert.That(child.Space, Is.EqualTo(new Rectangle(1260, 700, 20, 20)));
         }
@@ -61,9 +61,9 @@ namespace WForest.Tests.PropTests
         [Test]
         public void OnColWithJustifyEnd_PutsInLowerRightCorner()
         {
-            _root.WithProp(PropertyFactory.Column());
-            _root.WithProp(PropertyFactory.JustifyEnd());
-            _root.WithProp(PropertyFactory.ItemBase());
+            _root.WithProp(PropFactory.Column());
+            _root.WithProp(PropFactory.JustifyEnd());
+            _root.WithProp(PropFactory.ItemBase());
             ApplyProps(_root);
             Assert.That(child.Space, Is.EqualTo(new Rectangle(1260, 700, 20, 20)));
         }
@@ -73,9 +73,9 @@ namespace WForest.Tests.PropTests
         {
             var c1 = WidgetFactory.Container(30, 40);
             _root.AddChild(c1);
-            _root.WithProp(PropertyFactory.Row());
-            _root.WithProp(PropertyFactory.JustifyEnd());
-            _root.WithProp(PropertyFactory.ItemBase());
+            _root.WithProp(PropFactory.Row());
+            _root.WithProp(PropFactory.JustifyEnd());
+            _root.WithProp(PropFactory.ItemBase());
             ApplyProps(_root);
             Assert.That(child.Space, Is.EqualTo(new Rectangle(1230, 700, 20, 20)));
             Assert.That(c1.Space, Is.EqualTo(new Rectangle(1250, 680, 30, 40)));
@@ -91,9 +91,9 @@ namespace WForest.Tests.PropTests
             _root.AddChild(c);
             _root.AddChild(c1);
             _root.AddChild(c2);
-            _root.WithProp(PropertyFactory.Row());
-            _root.WithProp(PropertyFactory.JustifyEnd());
-            _root.WithProp(PropertyFactory.ItemBase());
+            _root.WithProp(PropFactory.Row());
+            _root.WithProp(PropFactory.JustifyEnd());
+            _root.WithProp(PropFactory.ItemBase());
             ApplyProps(_root);
             Assert.That(c.Space, Is.EqualTo(new Rectangle(180, 660, 800, 20)));
             Assert.That(c1.Space, Is.EqualTo(new Rectangle(980, 640, 300, 40)));

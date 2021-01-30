@@ -36,7 +36,7 @@ namespace WForest.UI.Props.Dragging
 
         private readonly IDevice _device;
 
-        internal Draggable(IDevice device)
+        public Draggable(IDevice device)
         {
             _device = device;
         }

@@ -22,7 +22,7 @@ namespace WForest.UI.Props
 
         private readonly MarginValues _marginValues;
 
-        internal Margin(int marginLeft, int marginRight, int marginTop, int marginBottom)
+        public Margin(int marginLeft, int marginRight, int marginTop, int marginBottom)
         {
             _marginValues = new MarginValues(marginLeft, marginRight, marginTop, marginBottom);
         }

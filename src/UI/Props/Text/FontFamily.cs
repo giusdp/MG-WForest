@@ -16,7 +16,7 @@ namespace WForest.UI.Props.Text
     {
         private readonly string _name;
 
-        internal FontFamily(string name)
+        public FontFamily(string name)
         {
             _name = name;
         }

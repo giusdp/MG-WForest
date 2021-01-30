@@ -99,7 +99,7 @@ namespace WForest.Tests.PropTests
             _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 120, 60)));
             _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 120, 90)));
 
-            _root.WithProp(PropertyFactory.Flex());
+            _root.WithProp(PropFactory.Flex());
             ApplyRow();
 
             var expected = new Rectangle(0, 0, 240, 90);

@@ -16,12 +16,12 @@ namespace WForest.UI.Props.Interfaces
         /// <summary>
         /// Event fired when this property finished applying on a widget.
         /// </summary>
-        public event EventHandler? Applied;
+        event EventHandler? Applied;
 
         /// <summary>
         /// Apply the prop on a widget.
         /// </summary>
         /// <param name="widget"></param>
-        public void ApplyOn(IWidget widget);
+        void ApplyOn(IWidget widget);
     }
 }

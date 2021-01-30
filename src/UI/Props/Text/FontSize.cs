@@ -15,7 +15,7 @@ namespace WForest.UI.Props.Text
     {
         private readonly int _size;
 
-        internal FontSize(int size)
+        public FontSize(int size)
         {
             _size = size;
         }

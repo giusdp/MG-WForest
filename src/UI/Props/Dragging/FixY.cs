@@ -8,8 +8,5 @@ namespace WForest.UI.Props.Dragging
     /// </summary>
     public class FixY : IProp
     {
-        internal FixY()
-        {
-        }
     }
 }

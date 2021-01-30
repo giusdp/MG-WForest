@@ -21,10 +21,6 @@ namespace WForest.UI.Props.Grid
 
         internal List<WidgetsDataSubList> Columns = new List<WidgetsDataSubList>();
 
-        internal Column()
-        {
-        }
-
         /// <summary>
         /// Organizes widgets in a vertical sequence. If the column exceeds the maximum height of the parent, it goes on
         /// a new column on the right.

@@ -26,10 +26,6 @@ namespace WForest.UI.Props.Grid.JustifyProps
         /// <inherit/>
         public event EventHandler? Applied;
 
-        internal JustifyAround()
-        {
-        }
-
         /// <summary>
         /// Move the widgets in a way to have them separated between them and the window border.
         /// In a Row they are separated horizontally, in a Column vertically.

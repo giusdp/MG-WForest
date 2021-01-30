@@ -16,13 +16,9 @@ namespace WForest.UI.Props.Grid.StretchingProps
     /// </summary>
     public class Flex : IApplicableProp
     {
-        internal Flex()
-        {
-        }
-
         /// <inheritdoc/>
         public int Priority { get; set; }
-        
+
         /// <inherit/>
         public event EventHandler? Applied;
 

@@ -24,7 +24,7 @@ namespace WForest.UI.Widgets.BuiltIn
         /// </summary>
         public Texture2D? PressedButton { get; set; }
 
-        internal ImageButton(Texture2D normalButton) : base(Rectangle.Empty)
+        public ImageButton(Texture2D normalButton) : base(Rectangle.Empty)
         {
             NormalButton = normalButton ??
                            throw new ArgumentNullException(nameof(normalButton));

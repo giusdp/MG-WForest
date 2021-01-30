@@ -23,10 +23,6 @@ namespace WForest.UI.Props.Grid.ItemProps
         /// <inherit/>
         public event EventHandler? Applied;
 
-        internal ItemCenter()
-        {
-        }
-
         /// <summary>
         /// Move the widgets to the vertical center of a Row or to the horizontal center of a Column.
         /// </summary>

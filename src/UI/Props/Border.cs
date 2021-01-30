@@ -21,7 +21,7 @@ namespace WForest.UI.Props
         internal Color Color { get; set; }
         internal int LineWidth { get; set; }
 
-        internal Border()
+        public Border()
         {
             LineWidth = 1;
             Color = Color.Black;

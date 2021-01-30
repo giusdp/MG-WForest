@@ -25,10 +25,6 @@ namespace WForest.UI.Props.Grid.JustifyProps
         /// <inherit/>
         public event EventHandler? Applied;
 
-        internal JustifyEnd()
-        {
-        }
-
         /// <summary>
         /// Move the widgets to the end of a Row (to the right) or of a Col (to the bottom).
         /// </summary>

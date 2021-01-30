@@ -18,7 +18,7 @@ namespace WForest.UI.Props
 
         private readonly Color _color;
 
-        internal ColorProp(Color color)
+        public ColorProp(Color color)
         {
             _color = color;
         }

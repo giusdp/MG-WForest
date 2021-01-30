@@ -11,7 +11,7 @@ namespace WForest.UI.Props.Shaders
         private int Radius { get; }
         private Effect Effect { get; }
 
-        internal Rounded(int radius)
+        public Rounded(int radius)
         {
             if (radius < 0) throw new InvalidRadiusException("Radius cannot be a negative number.");
             Radius = radius;

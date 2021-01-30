@@ -43,7 +43,7 @@ namespace WForest.Tests.PropTests
             var child = WidgetFactory.Container(new Rectangle(0, 0, 130, 120));
             _root.AddChild(child);
 
-            _root.WithProp(PropertyFactory.Row());
+            _root.WithProp(PropFactory.Row());
             _root.WithProp(_justifyBetween);
 
             ApplyProps(_root);
@@ -60,7 +60,7 @@ namespace WForest.Tests.PropTests
             _root.AddChild(child);
             _root.AddChild(child1);
 
-            _root.WithProp(PropertyFactory.Row());
+            _root.WithProp(PropFactory.Row());
             _root.WithProp(_justifyBetween);
 
             ApplyProps(_root);
@@ -82,7 +82,7 @@ namespace WForest.Tests.PropTests
             _root.AddChild(child1);
             _root.AddChild(child2);
 
-            _root.WithProp(PropertyFactory.Row());
+            _root.WithProp(PropFactory.Row());
             _root.WithProp(_justifyBetween);
 
             ApplyProps(_root);
@@ -111,7 +111,7 @@ namespace WForest.Tests.PropTests
             _root.AddChild(child3);
             _root.AddChild(child4);
 
-            _root.WithProp(PropertyFactory.Row());
+            _root.WithProp(PropFactory.Row());
             _root.WithProp(_justifyBetween);
 
             ApplyProps(_root);
@@ -141,7 +141,7 @@ namespace WForest.Tests.PropTests
             _root.AddChild(child1);
             _root.AddChild(child2);
             _root.AddChild(child3);
-            _root.WithProp(PropertyFactory.Row());
+            _root.WithProp(PropFactory.Row());
             _root.WithProp(_justifyBetween);
 
             ApplyProps(_root);

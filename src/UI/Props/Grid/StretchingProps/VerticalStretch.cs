@@ -12,9 +12,6 @@ namespace WForest.UI.Props.Grid.StretchingProps
     /// </summary>
     public class VerticalStretch : IApplicableProp
     {
-        internal VerticalStretch()
-        {
-        }
 
         /// <inheritdoc/>
         public int Priority { get; set; }

@@ -28,7 +28,7 @@ namespace WForest.Tests.PropTests
         [Test]
         public void ApplyOn_OneWidget_TotalSpaceOccupiedIsUpdatedWithMargin()
         {
-            IApplicableProp margin = (IApplicableProp) PropertyFactory.Margin(3);
+            IApplicableProp margin = (IApplicableProp) PropFactory.Margin(3);
 
             var expected = new Rectangle(0, 0, 126, 126);
             margin.ApplyOn(widget);
@@ -39,7 +39,7 @@ namespace WForest.Tests.PropTests
         [Test]
         public void ApplyOn_3MarginWidgetInRow_SpaceOf3FromBorders()
         {
-            var margin = PropertyFactory.Margin(3);
+            var margin = PropFactory.Margin(3);
 
             var expected = new Rectangle(3, 3, 120, 120);
             ((IApplicableProp)margin).ApplyOn(widget);
@@ -53,11 +53,11 @@ namespace WForest.Tests.PropTests
             var marginWidgetExpected = new Rectangle(10, 10, 120, 120);
             var secondWidgetExpected = new Rectangle(140, 0, 120, 120);
 
-            var margin = PropertyFactory.Margin(10);
+            var margin = PropFactory.Margin(10);
 
             ((IApplicableProp)margin).ApplyOn(widget);
 
-            ((IApplicableProp)PropertyFactory.Row()).ApplyOn(_root);
+            ((IApplicableProp)PropFactory.Row()).ApplyOn(_root);
             Assert.That(widget.Space, Is.EqualTo(marginWidgetExpected));
             Assert.That(secondWidget.Space, Is.EqualTo(secondWidgetExpected));
         }
@@ -68,10 +68,10 @@ namespace WForest.Tests.PropTests
             var marginWidgetExpected = new Rectangle(10, 10, 120, 120);
             var secondWidgetExpected = new Rectangle(130, 10, 120, 120);
 
-            var margin = PropertyFactory.Margin(10);
+            var margin = PropFactory.Margin(10);
 
             ((IApplicableProp)margin).ApplyOn(_root);
-            ((IApplicableProp)PropertyFactory.Row()).ApplyOn(_root);
+            ((IApplicableProp)PropFactory.Row()).ApplyOn(_root);
             Assert.That(widget.Space, Is.EqualTo(marginWidgetExpected));
             Assert.That(secondWidget.Space, Is.EqualTo(secondWidgetExpected));
         }
@@ -82,10 +82,10 @@ namespace WForest.Tests.PropTests
             var marginWidgetExpected = new Rectangle(10, 0, 120, 120);
             var secondWidgetExpected = new Rectangle(130, 0, 120, 120);
 
-            var margin = PropertyFactory.MarginLeft(10);
+            var margin = PropFactory.MarginLeft(10);
 
             ((IApplicableProp)margin).ApplyOn(widget);
-            ((IApplicableProp)PropertyFactory.Row()).ApplyOn(_root);
+            ((IApplicableProp)PropFactory.Row()).ApplyOn(_root);
             Assert.That(widget.Space, Is.EqualTo(marginWidgetExpected));
             Assert.That(secondWidget.Space, Is.EqualTo(secondWidgetExpected));
         }
@@ -96,10 +96,10 @@ namespace WForest.Tests.PropTests
             var marginWidgetExpected = new Rectangle(0, 0, 120, 120);
             var secondWidgetExpected = new Rectangle(130, 0, 120, 120);
 
-            var margin = PropertyFactory.MarginLeft(10);
+            var margin = PropFactory.MarginLeft(10);
 
             ((IApplicableProp)margin).ApplyOn(secondWidget);
-            ((IApplicableProp)PropertyFactory.Row()).ApplyOn(_root);
+            ((IApplicableProp)PropFactory.Row()).ApplyOn(_root);
             Assert.That(widget.Space, Is.EqualTo(marginWidgetExpected));
             Assert.That(secondWidget.Space, Is.EqualTo(secondWidgetExpected));
         }
@@ -110,10 +110,10 @@ namespace WForest.Tests.PropTests
             var marginWidgetExpected = new Rectangle(0, 0, 120, 120);
             var secondWidgetExpected = new Rectangle(130, 0, 120, 120);
 
-            var margin = PropertyFactory.MarginRight(10);
+            var margin = PropFactory.MarginRight(10);
 
             ((IApplicableProp)margin).ApplyOn(widget);
-            ((IApplicableProp)PropertyFactory.Row()).ApplyOn(_root);
+            ((IApplicableProp)PropFactory.Row()).ApplyOn(_root);
             Assert.That(widget.Space, Is.EqualTo(marginWidgetExpected));
             Assert.That(secondWidget.Space, Is.EqualTo(secondWidgetExpected));
         }
@@ -124,12 +124,12 @@ namespace WForest.Tests.PropTests
             var marginWidgetExpected = new Rectangle(0, 235, 120, 120);
             var secondWidgetExpected = new Rectangle(0, 365, 120, 120);
 
-            var margin = PropertyFactory.MarginBottom(10);
+            var margin = PropFactory.MarginBottom(10);
 
             ((IApplicableProp)margin).ApplyOn(widget);
 
-            _root.WithProp(PropertyFactory.Column());
-            _root.WithProp(PropertyFactory.JustifyCenter());
+            _root.WithProp(PropFactory.Column());
+            _root.WithProp(PropFactory.JustifyCenter());
 
             ApplyProps(_root);
 
@@ -143,12 +143,12 @@ namespace WForest.Tests.PropTests
             var marginWidgetExpected = new Rectangle(525, 0, 120, 120);
             var secondWidgetExpected = new Rectangle(645, 0, 120, 120);
 
-            var margin = PropertyFactory.MarginLeft(10);
+            var margin = PropFactory.MarginLeft(10);
 
             ((IApplicableProp)margin).ApplyOn(widget);
 
-            _root.WithProp(PropertyFactory.Row());
-            _root.WithProp(PropertyFactory.JustifyCenter());
+            _root.WithProp(PropFactory.Row());
+            _root.WithProp(PropFactory.JustifyCenter());
 
             ApplyProps(_root);
 
@@ -162,12 +162,12 @@ namespace WForest.Tests.PropTests
             var marginWidgetExpected = new Rectangle(515, 0, 120, 120);
             var secondWidgetExpected = new Rectangle(645, 0, 120, 120);
 
-            var margin = PropertyFactory.MarginLeft(10);
+            var margin = PropFactory.MarginLeft(10);
 
             ((IApplicableProp)margin).ApplyOn(secondWidget);
 
-            _root.WithProp(PropertyFactory.Row());
-            _root.WithProp(PropertyFactory.JustifyCenter());
+            _root.WithProp(PropFactory.Row());
+            _root.WithProp(PropFactory.JustifyCenter());
 
             ApplyProps(_root);
 
@@ -181,12 +181,12 @@ namespace WForest.Tests.PropTests
             var marginWidgetExpected = new Rectangle(0, 235, 120, 120);
             var secondWidgetExpected = new Rectangle(0, 365, 120, 120);
 
-            var margin = PropertyFactory.MarginTop(10);
+            var margin = PropFactory.MarginTop(10);
 
             ((IApplicableProp)margin).ApplyOn(secondWidget);
 
-            _root.WithProp(PropertyFactory.Column());
-            _root.WithProp(PropertyFactory.JustifyCenter());
+            _root.WithProp(PropFactory.Column());
+            _root.WithProp(PropFactory.JustifyCenter());
 
             ApplyProps(_root);
 
@@ -200,7 +200,7 @@ namespace WForest.Tests.PropTests
             var w2Expected = new Rectangle(40, 120, 220, 120);
             var w3Expected = new Rectangle(260, 120, 220, 120);
 
-            var margin = PropertyFactory.MarginLeft(10);
+            var margin = PropFactory.MarginLeft(10);
 
             _root = new Widget(new Rectangle(0, 0, 1280, 720));
             _root.AddChild(new Widget(new Rectangle(Point.Zero, new Point(1220, 120))));
@@ -212,8 +212,8 @@ namespace WForest.Tests.PropTests
 
             ((IApplicableProp)margin).ApplyOn(w2);
 
-            _root.WithProp(PropertyFactory.Row());
-            _root.WithProp(PropertyFactory.JustifyCenter());
+            _root.WithProp(PropFactory.Row());
+            _root.WithProp(PropFactory.JustifyCenter());
 
             ApplyProps(_root);
 
@@ -227,7 +227,7 @@ namespace WForest.Tests.PropTests
             var w2Expected = new Rectangle(40, 130, 220, 120);
             var w3Expected = new Rectangle(260, 120, 220, 120);
 
-            var margin = PropertyFactory.Margin(10, 0, 10, 0);
+            var margin = PropFactory.Margin(10, 0, 10, 0);
 
             _root = new Widget(new Rectangle(0, 0, 1280, 720));
             _root.AddChild(new Widget(new Rectangle(Point.Zero, new Point(1220, 120))));
@@ -239,8 +239,8 @@ namespace WForest.Tests.PropTests
 
             ((IApplicableProp)margin).ApplyOn(w2);
 
-            _root.WithProp(PropertyFactory.Row());
-            _root.WithProp(PropertyFactory.JustifyCenter());
+            _root.WithProp(PropFactory.Row());
+            _root.WithProp(PropFactory.JustifyCenter());
 
             ApplyProps(_root);
 
@@ -258,7 +258,7 @@ namespace WForest.Tests.PropTests
             IWidget w1 = new Widget(new Rectangle(Point.Zero, new Point(220, 120)));
             _root.AddChild(w1);
             
-            ((IApplicableProp)PropertyFactory.Margin(0, 10, 0, 10)).ApplyOn(w1);
+            ((IApplicableProp)PropFactory.Margin(0, 10, 0, 10)).ApplyOn(w1);
 
             IWidget w2 = new Widget(new Rectangle(Point.Zero, new Point(1000, 120)));
             _root.AddChild(w2);
@@ -267,8 +267,8 @@ namespace WForest.Tests.PropTests
             _root.AddChild(w3);
             _root.AddChild(WidgetFactory.Container(new Rectangle(Point.Zero, new Point(220, 120))));
 
-            _root.WithProp(PropertyFactory.Row());
-            _root.WithProp(PropertyFactory.JustifyCenter());
+            _root.WithProp(PropFactory.Row());
+            _root.WithProp(PropFactory.JustifyCenter());
 
             ApplyProps(_root);
 

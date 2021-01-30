@@ -10,7 +10,7 @@ namespace WForest.UI.Widgets.BuiltIn
     public class Block : Widget
     {
         private Texture2D? _texture;
-        internal Block(Rectangle space) : base(space) { }
+        public Block(Rectangle space) : base(space) { }
 
         /// <summary>
         /// Draws a colored rectangle (white if not set with the Color prop) to cover the Space of the widget.

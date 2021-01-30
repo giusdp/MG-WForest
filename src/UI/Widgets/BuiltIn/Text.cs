@@ -46,7 +46,7 @@ namespace WForest.UI.Widgets.BuiltIn
             }
         }
 
-        internal Text(string text, int fontSize = 12) : base(Rectangle.Empty)
+        public Text(string text, int fontSize = 12) : base(Rectangle.Empty)
         {
             TextString = text ?? throw new ArgumentNullException();
             _font = FontStore.DefaultFont;

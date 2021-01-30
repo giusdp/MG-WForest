@@ -492,7 +492,7 @@ namespace WForest.Tests.PropTests
             var innerChild = WidgetFactory.Container(100, 300);
             col.AddChild(innerChild);
 
-            col.WithProp(PropertyFactory.Column());
+            col.WithProp(PropFactory.Column());
             ApplyProps(col);
             ApplyRow();
             _justifyCenter.ApplyOn(_root);

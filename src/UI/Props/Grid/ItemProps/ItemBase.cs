@@ -17,10 +17,6 @@ namespace WForest.UI.Props.Grid.ItemProps
     /// </summary>
     public class ItemBase : IApplicableProp
     {
-        internal ItemBase()
-        {
-        }
-
         /// <summary>
         /// Since it changes the layout for the other axis in a Row or Col, it should be applied after the layout
         /// for the main axis is applied.

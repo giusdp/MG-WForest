@@ -43,7 +43,7 @@ namespace WForest.Tests.PropTests
         {
             var child = WidgetFactory.Container(new Rectangle(0, 0, 130, 120));
             _root.AddChild(child);
-            _root.WithProp(PropertyFactory.Row());
+            _root.WithProp(PropFactory.Row());
             _root.WithProp(_justifyAround);
 
             ApplyProps(_root);
@@ -57,7 +57,7 @@ namespace WForest.Tests.PropTests
         {
             var child = WidgetFactory.Container(new Rectangle(0, 0, 130, 120));
             _root.AddChild(child);
-            _root.WithProp(PropertyFactory.Column());
+            _root.WithProp(PropFactory.Column());
             _root.WithProp(_justifyAround);
 
             ApplyProps(_root);
@@ -74,7 +74,7 @@ namespace WForest.Tests.PropTests
             _root.AddChild(child);
             _root.AddChild(child1);
 
-            _root.WithProp(PropertyFactory.Row());
+            _root.WithProp(PropFactory.Row());
             _root.WithProp(_justifyAround);
 
             ApplyProps(_root);
