@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using WForest.UI.Props.Interfaces;
 using WForest.UI.Utils;
@@ -12,7 +13,6 @@ namespace WForest.UI.Props.Grid.StretchingProps
     /// </summary>
     public class HorizontalStretch : IApplicableProp
     {
-
         /// <inheritdoc/>
         public int Priority { get; set; }
 
@@ -27,8 +27,10 @@ namespace WForest.UI.Props.Grid.StretchingProps
         {
             if (widget.IsRoot) return;
             var (x, y, _, h) = widget.Space;
+            var nw = widget.Parent!.Space.Width -
+                     widget.Parent!.Children.Where(w => w != widget).Sum(w => w.Space.Width);
             WidgetsSpaceHelper.UpdateSpace(widget,
-                new Rectangle(x, y, widget.Parent!.Space.Width, h));
+                new Rectangle(x, y, nw, h));
             OnApplied();
         }
 

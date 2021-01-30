@@ -42,19 +42,6 @@ namespace WForest.Tests.PropTests
         }
 
         [Test]
-        public void ApplyOn_WidgetWithoutRowOrCol_NothingHappens()
-        {
-            var child = WidgetFactory.Container(new Rectangle(0, 0, 120, 120));
-
-            _root.AddChild(child);
-            ApplyRow();
-
-            var expected = new Rectangle(0, 0, 120, 120);
-
-            Assert.That(child.Space, Is.EqualTo(expected));
-        }
-
-        [Test]
         public void FlexRowContainer_AsBigAsChild()
         {
             _root.AddChild(WidgetFactory.Container(new Rectangle(0, 0, 120, 120)));
