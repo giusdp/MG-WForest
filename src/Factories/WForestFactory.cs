@@ -1,9 +1,9 @@
 using System;
-using Microsoft.Xna.Framework;
 using Serilog;
 using Serilog.Core;
 using Serilog.Events;
 using WForest.Exceptions;
+using WForest.Rendering;
 using WForest.UI;
 using WForest.UI.Widgets.Interfaces;
 
@@ -41,15 +41,16 @@ namespace WForest.Factories
         /// resizing, updating and drawing the widget tree. 
         /// </summary>
         /// <param name="wTree"></param>
+        /// <param name="renderer"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="WForestNotInitializedException"></exception>
-        public static WTreeManager CreateWTree(IWidget wTree)
+        public static WTreeManager CreateWTree(IWidget wTree, IRenderer renderer)
         {
             if (wTree == null) throw new ArgumentNullException(nameof(wTree));
             if (!_isInit)
                 throw new WForestNotInitializedException("Tried to create a widget tree without initializing WForest");
-            return new WTreeManager(wTree);
+            return new WTreeManager(wTree, renderer);
         }
 
         // /// <summary>

@@ -38,9 +38,9 @@ namespace WForest.Utilities.Text
             _fontSystem = fontSystem;
         }
 
-        internal virtual DynamicSpriteFont SpriteFont(int fontSize) => _fontSystem.GetFont(fontSize);
+        public virtual DynamicSpriteFont SpriteFont(int fontSize) => _fontSystem.GetFont(fontSize);
 
-        internal virtual (int, int) MeasureText(string text, int fontSize)
+        public virtual (int, int) MeasureText(string text, int fontSize)
         {
             var (w,h) = SpriteFont(fontSize).MeasureString(text);
             return ((int, int)) (w, h);

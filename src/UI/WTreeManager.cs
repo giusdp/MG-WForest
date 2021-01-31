@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Serilog;
 using WForest.Devices;
+using WForest.Rendering;
 using WForest.UI.Interactions;
 using WForest.UI.Widgets.Interfaces;
 using WForest.Utilities;
@@ -15,11 +16,12 @@ namespace WForest.UI
     {
         private readonly IWidget _root;
         private UserInteractionHandler _userInteractionHandler;
-
-        internal WTreeManager(IWidget widgetRoot)
+        private IRenderer _renderer;
+        internal WTreeManager(IWidget widgetRoot, IRenderer renderer)
         {
             _userInteractionHandler = new UserInteractionHandler(MouseDevice.Instance, new InteractionUpdater());
             _root = widgetRoot;
+            _renderer = renderer;
             TreeVisitor.ApplyPropsOnTree(_root);
 
             Log.Information(
@@ -56,14 +58,14 @@ namespace WForest.UI
         /// Draws the WidgetTree. It visits the entire tree calling the Draw methods of the widgets.
         /// </summary>
         /// <param name="spriteBatch"></param>
-        public void Draw(SpriteBatch spriteBatch) => DrawWidgetTree(spriteBatch);
+        public void Draw() => DrawWidgetTree(_renderer);
 
-        private void DrawWidgetTree(SpriteBatch spriteBatch)
+        private void DrawWidgetTree(IRenderer renderer)
         {
             TreeVisitor.ApplyToTreeLevelByLevel(_root, widgets => widgets.ForEach(w =>
             {
-                w.Draw(spriteBatch);
-                w.PostDrawActions.ForEach(postDraw => postDraw(spriteBatch));
+                w.Draw(renderer);
+                w.PostDrawActions.ForEach(postDraw => postDraw(renderer));
             }));
         }
     }

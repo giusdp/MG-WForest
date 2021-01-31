@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using WForest.Rendering;
 
 namespace WForest.Utilities
 {
@@ -17,7 +18,7 @@ namespace WForest.Utilities
         /// <param name="s">The spritebatch</param>
         /// <param name="color">The color to use with the create texture.</param>
         /// <returns>A blank colored 1x1 Texture2D</returns>
-        public static Texture2D CreateTexture(this SpriteBatch s, Color color)
+        public static Texture2D CreateTexture(this IRenderer s, Color color)
         {
             var blankTexture = new Texture2D(s.GraphicsDevice, 1, 1);
             blankTexture.SetData(new[] {color});
@@ -27,18 +28,18 @@ namespace WForest.Utilities
         /// <summary>
         /// Draw a colored rectangle border. 
         /// </summary>
-        /// <param name="spriteBatch">Spritebatch to use for drawing.</param>
+        /// <param name="renderer">Spritebatch to use for drawing.</param>
         /// <param name="rectangleF">The rectangle outline.</param>
         /// <param name="color">The color of the border.</param>
         /// <param name="lineWidth">The width of the border.</param>
-        public static void DrawBorder(SpriteBatch spriteBatch, Rectangle rectangleF, Color color, int lineWidth)
+        public static void DrawBorder(IRenderer renderer, Rectangle rectangleF, Color color, int lineWidth)
         {
-            _blankTexture ??= spriteBatch.CreateTexture(Color.White);
+            _blankTexture ??= renderer.CreateTexture(Color.White);
             var (x, y, width, height) = rectangleF;
-            spriteBatch.Draw(_blankTexture, new Rectangle(x, y, lineWidth, height + lineWidth), color);
-            spriteBatch.Draw(_blankTexture, new Rectangle(x, y, width + lineWidth, lineWidth), color);
-            spriteBatch.Draw(_blankTexture, new Rectangle(x + width, y, lineWidth, height + lineWidth), color);
-            spriteBatch.Draw(_blankTexture, new Rectangle(x, y + height, width + lineWidth, lineWidth), color);
+            renderer.Draw(_blankTexture, new Rectangle(x, y, lineWidth, height + lineWidth), color);
+            renderer.Draw(_blankTexture, new Rectangle(x, y, width + lineWidth, lineWidth), color);
+            renderer.Draw(_blankTexture, new Rectangle(x + width, y, lineWidth, height + lineWidth), color);
+            renderer.Draw(_blankTexture, new Rectangle(x, y + height, width + lineWidth, lineWidth), color);
         }
     }
 }

@@ -2,6 +2,7 @@ using System;
 using FontStashSharp;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using WForest.Rendering;
 using WForest.UI.Utils;
 using WForest.Utilities;
 using WForest.Utilities.Text;
@@ -60,10 +61,10 @@ namespace WForest.UI.Widgets.BuiltIn
         /// If no custom Font or FontSize was set,
         /// it uses the FontStore.DefaultFont font and a size of 12.
         /// </summary>
-        /// <param name="spriteBatch"></param>
-        public override void Draw(SpriteBatch spriteBatch)
+        /// <param name="renderer"></param>
+        public override void Draw(IRenderer renderer)
         {
-            spriteBatch.DrawString(Font.SpriteFont(FontSize), TextString, new Vector2(Space.X, Space.Y), Color);
+            renderer.DrawString(Font.SpriteFont(FontSize), TextString, new Vector2(Space.X, Space.Y), Color);
         }
 
         private void UpdateTextSize()

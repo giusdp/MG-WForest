@@ -1,6 +1,7 @@
 using System;
 using Microsoft.Xna.Framework.Graphics;
 using Serilog;
+using WForest.Rendering;
 using WForest.UI.Props.Actions;
 using WForest.Utilities;
 
@@ -40,10 +41,10 @@ namespace WForest.UI.Widgets.BuiltIn
         /// <summary>
         /// Draws the widget using based on the interaction state (if hovered or not, pressed or not)
         /// </summary>
-        /// <param name="spriteBatch"></param>
-        public override void Draw(SpriteBatch spriteBatch)
+        /// <param name="renderer"></param>
+        public override void Draw(IRenderer renderer)
         {
-            spriteBatch.Draw(_imageToDraw, Space, Color);
+            renderer.Draw(_imageToDraw, Space, Color);
         }
 
         #region Visualization Based On Interactions

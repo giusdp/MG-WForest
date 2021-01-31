@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+using WForest.Rendering;
 using WForest.UI.Interactions;
 using WForest.UI.Widgets.Interfaces;
 using WForest.Utilities;
@@ -32,22 +32,25 @@ namespace WForest.UI.Widgets
             Props = new PropCollection();
             Children = new List<IWidget>();
             CurrentInteraction = Interaction.Untouched;
-            PostDrawActions = new List<Action<SpriteBatch>>();
+            PostDrawActions = new List<Action<IRenderer>>();
         }
 
         #region Rendering
 
         ///<inheritdoc/> 
         public RectangleF Space { get; set; }
-        ///<inheritdoc/> 
-        public MarginValues Margins { get; set; }
-        ///<inheritdoc/> 
-        public Color Color { get; set; }
-        ///<inheritdoc/> 
-        public List<Action<SpriteBatch>> PostDrawActions { get; }
 
         ///<inheritdoc/> 
-        public virtual void Draw(SpriteBatch spriteBatch)
+        public MarginValues Margins { get; set; }
+
+        ///<inheritdoc/> 
+        public Color Color { get; set; }
+
+        ///<inheritdoc/> 
+        public List<Action<IRenderer>> PostDrawActions { get; }
+
+        ///<inheritdoc/> 
+        public virtual void Draw(IRenderer renderer)
         {
         }
 

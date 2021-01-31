@@ -1,4 +1,3 @@
-using Microsoft.Xna.Framework;
 using NUnit.Framework;
 using WForest.Factories;
 using WForest.UI.Props.Grid;
@@ -105,7 +104,7 @@ namespace WForest.Tests.PropTests
         [Test]
         public void VerticalStretch_OnTwoMarginChildren_ParentCentered()
         {
-            _root.Space = new RectangleF(10, 10, 380, 382);
+            _root!.Space = new RectangleF(10, 10, 380, 382);
             _root!.WithProp(new Column());
             IWidget c1 = WidgetFactory.Container();
             IWidget c2 = WidgetFactory.Container();

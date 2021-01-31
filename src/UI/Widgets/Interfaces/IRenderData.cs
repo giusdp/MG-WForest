@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using WForest.Rendering;
 using WForest.Utilities;
 
 namespace WForest.UI.Widgets.Interfaces
@@ -40,12 +41,8 @@ namespace WForest.UI.Widgets.Interfaces
         /// <summary>
         /// Actions that can be run after drawing. The border prop adds a post draw action that adds the border.
         /// </summary>
-        public List<Action<SpriteBatch>> PostDrawActions { get; }
+        public List<Action<IRenderer>> PostDrawActions { get; }
 
-        /// <summary>
-        /// Draw the widget with a SpriteBatch.
-        /// </summary>
-        /// <param name="spriteBatch"></param>
-        void Draw(SpriteBatch spriteBatch);
+       
     }
 }
