@@ -36,7 +36,6 @@ namespace WForest.Rendering
         public void Draw(Texture2D texture, Rectangle destinationRectangle, Rectangle? sourceRectangle, Color color,
             SpriteEffects effects)
         {
-            //todo
             _spriteBatch.Draw(texture, destinationRectangle, sourceRectangle, color, 0, Vector2.Zero, effects, 0);
         }
 
@@ -45,7 +44,7 @@ namespace WForest.Rendering
             SpriteEffects effects, float layerDepth, float skewTopX, float skewBottomX, float skewLeftY,
             float skewRightY)
         {
-            throw new System.NotImplementedException();
+            throw new System.NotImplementedException("SpriteBatch does not support this kind of Draw!");
         }
 
         public void Draw(Texture2D texture, Vector2 position, Rectangle? sourceRectangle, Color color)
@@ -72,7 +71,7 @@ namespace WForest.Rendering
             Vector2 scale, SpriteEffects effects, float layerDepth, float skewTopX, float skewBottomX, float skewLeftY,
             float skewRightY)
         {
-            throw new System.NotImplementedException();
+            throw new System.NotImplementedException("SpriteBatch does not support this kind of Draw!");
         }
 
         public void Draw(Texture2D texture, Rectangle destinationRectangle, Rectangle? sourceRectangle, Color color,

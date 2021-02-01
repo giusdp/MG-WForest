@@ -13,7 +13,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - PropertyFactory in PropFactory
 - Refactored Rectangle usage. The library now uses floats instead of ints through a custom RectangleF struct replacing the monogame int Rectangle
 - Draw method moved into Widget and now takes an IRenderer instead of a Spritebatch
-
+- WTreeManager gets the renderer in its draw method
 ### Fixed
 - Vertical/Horizontal stretch now respect spaces of sibling and stretch as long as siblings have space
 

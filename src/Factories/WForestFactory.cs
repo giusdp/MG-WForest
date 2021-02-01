@@ -45,12 +45,12 @@ namespace WForest.Factories
         /// <returns></returns>
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="WForestNotInitializedException"></exception>
-        public static WTreeManager CreateWTree(IWidget wTree, IRenderer renderer)
+        public static WTreeManager CreateWTree(IWidget wTree)
         {
             if (wTree == null) throw new ArgumentNullException(nameof(wTree));
             if (!_isInit)
                 throw new WForestNotInitializedException("Tried to create a widget tree without initializing WForest");
-            return new WTreeManager(wTree, renderer);
+            return new WTreeManager(wTree);
         }
 
         // /// <summary>

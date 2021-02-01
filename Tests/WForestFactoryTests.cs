@@ -12,7 +12,7 @@ namespace WForest.Tests
         [Test]
         public void CreateTree_NotInit_Throws()
         {
-            Assert.That(() => WForestFactory.CreateWTree(new Widget(RectangleF.Empty), null),
+            Assert.That(() => WForestFactory.CreateWTree(new Widget(RectangleF.Empty)),
                 Throws.TypeOf<WForestNotInitializedException>());
         }
     }
