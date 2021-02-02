@@ -16,8 +16,8 @@ namespace WForest.Devices
         /// <summary>
         /// Get the (X,Y) coordinates on the screen pointed by the device.
         /// </summary>
-        /// <returns>A Point that holds the pointed coordinates on the game window.</returns>
-        Point GetPointedLocation();
+        /// <returns>A Vector2 that holds the pointed coordinates on the game window.</returns>
+        Vector2 GetPointedLocation();
 
         /// <summary>
         /// Returns true if the device interact button was just pressed.
@@ -75,10 +75,11 @@ namespace WForest.Devices
         /// <summary>
         /// Get the (X,Y) coordinates of the mouse.
         /// </summary>
-        /// <returns>A Point that holds the cursor coordinates on the game window.</returns>
-        public Point GetPointedLocation()
+        /// <returns>A Vector2 that holds the cursor coordinates on the game window.</returns>
+        public Vector2 GetPointedLocation()
         {
-            return Mouse.GetState().Position;
+            var (x, y) = Mouse.GetState().Position;
+            return new Vector2(x, y);
         }
 
         /// <summary>

@@ -15,7 +15,7 @@ namespace WForest.UI.Props.Dragging
         public bool IsDragging { get; set; }
         public float DevX, DevY;
 
-        public void Set(Point deviceLoc)
+        public void Set(Vector2 deviceLoc)
         {
             (DevX, DevY) = deviceLoc;
         }

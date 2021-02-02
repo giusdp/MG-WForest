@@ -42,7 +42,7 @@ namespace WForest.UI.Interactions
             return ProcessInteractionChanges();
         }
 
-        private bool IsStillHoveringPreviousWidget(IWidget newWidget, Point pointedLoc) =>
+        private bool IsStillHoveringPreviousWidget(IWidget newWidget, Vector2 pointedLoc) =>
             _holder.CurrentHovered != null
             && IsMouseInsideWidgetSpace(_holder.CurrentHovered.Space, pointedLoc)
             && !IsMouseInsideWidgetSpace(newWidget.Space, pointedLoc);
@@ -124,7 +124,7 @@ namespace WForest.UI.Interactions
 
         #region Static Methods
 
-        internal static Maybe<IWidget> GetHoveredWidget(IWidget widget, Point mouseLoc)
+        internal static Maybe<IWidget> GetHoveredWidget(IWidget widget, Vector2 mouseLoc)
         {
             var m = TreeVisitor.GetLowestNodeThatHolds(widget,
                 w => w.Children.Reverse(),
@@ -136,7 +136,7 @@ namespace WForest.UI.Interactions
             };
         }
 
-        private static bool IsMouseInsideWidgetSpace(Rectangle space, Point mouseLoc)
+        private static bool IsMouseInsideWidgetSpace(Rectangle space, Vector2 mouseLoc)
         {
             var (x, y) = mouseLoc;
             var (widgetX, widgetY, widgetWidth, widgetHeight) = space;

@@ -32,14 +32,14 @@ namespace WForest.Tests
         public void GetHoveredWidget_LocationInside_ReturnsWidget()
         {
             var b = UserInteractionHandler.GetHoveredWidget(_widgetTree,
-                new Point(332, 43)) is Maybe<IWidget>.Some;
+                new Vector2(332, 43)) is Maybe<IWidget>.Some;
             Assert.That(b, Is.True);
         }
 
         [Test]
         public void GetHoveredWidget_NotInside_ReturnsNone()
         {
-            var b = UserInteractionHandler.GetHoveredWidget(_widgetTree, new Point(332, 678)) is Maybe<IWidget>.Some;
+            var b = UserInteractionHandler.GetHoveredWidget(_widgetTree, new Vector2(332, 678)) is Maybe<IWidget>.Some;
             Assert.That(b, Is.False);
         }
 
@@ -48,7 +48,7 @@ namespace WForest.Tests
         {
             var child = new Widget(new RectangleF(0, 0, 50, 60));
             _widgetTree.AddChild(child);
-            var hovered = UserInteractionHandler.GetHoveredWidget(_widgetTree, new Point(32, 8));
+            var hovered = UserInteractionHandler.GetHoveredWidget(_widgetTree, new Vector2(32, 8));
             var b = hovered.TryGetValue(out var value);
             Assert.That(b, Is.True);
             Assert.That(value, Is.EqualTo(child));
@@ -57,7 +57,7 @@ namespace WForest.Tests
         [Test]
         public void CurrentInteraction_OnStateChange_Changes()
         {
-            _device.Setup(de => de.GetPointedLocation()).Returns(new Point(1, 4));
+            _device.Setup(de => de.GetPointedLocation()).Returns(new Vector2(1, 4));
             _handler.Device = _device.Object;
             _handler.UpdateAndGenerateTransitions(_widgetTree);
             intRun.Verify(r => r.NextState(_widgetTree, Interaction.Entered), Times.Once);
@@ -88,7 +88,7 @@ namespace WForest.Tests
         [Test]
         public void EnterAnotherWidget_WithOldWidgetEntered_RunsExitOnOld()
         {
-            _device.Setup(d => d.GetPointedLocation()).Returns(Point.Zero);
+            _device.Setup(d => d.GetPointedLocation()).Returns(Vector2.Zero);
             _handler.Device = _device.Object;
 
             var w = WidgetFactory.Container(1, 1);
@@ -111,7 +111,7 @@ namespace WForest.Tests
         {
             var w = WidgetFactory.Container(20, 20);
             _handler.UpdateAndGenerateTransitions(w);
-            _device.Setup(d => d.GetPointedLocation()).Returns(new Point(-1, -1));
+            _device.Setup(d => d.GetPointedLocation()).Returns(new Vector2(-1, -1));
             _handler.UpdateAndGenerateTransitions(w);
 
             intRun.Verify(r => r.NextState(w, Interaction.Exited), Times.Once);
