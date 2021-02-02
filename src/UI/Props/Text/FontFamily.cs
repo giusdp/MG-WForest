@@ -27,6 +27,9 @@ namespace WForest.UI.Props.Text
         /// <inherit/>
         public event EventHandler? Applied;
 
+        /// <inheritdoc/>
+        public bool ApplicationDone { get; set; }
+
         /// <summary>
         /// Gets the font from the FontStore, with the name passed to FontFamily constructor and assigns it to the TextWidget.
         /// Then the new space required by the widget is calculated and updated.
@@ -35,6 +38,7 @@ namespace WForest.UI.Props.Text
         /// <exception cref="IncompatibleWidgetException"></exception>
         public void ApplyOn(IWidget widget)
         {
+            ApplicationDone = false;
             if (widget is Widgets.BuiltIn.Text text)
             {
                 text.Font = FontStore.GetFont(_name);
@@ -46,6 +50,7 @@ namespace WForest.UI.Props.Text
                 throw new IncompatibleWidgetException("Property only applicable to a Text Widget.");
             }
 
+            ApplicationDone = true;
             OnApplied();
         }
 

@@ -35,6 +35,9 @@ namespace WForest.UI.Props.Dragging
         /// <inheritdoc/>
         public event EventHandler? Applied;
 
+        /// <inheritdoc/>
+        public bool ApplicationDone { get; set; }
+
         private readonly IDevice _device;
 
         public Draggable(IDevice device)
@@ -48,48 +51,50 @@ namespace WForest.UI.Props.Dragging
         /// <param name="widget"></param>
         public void ApplyOn(IWidget widget)
         {
+            ApplicationDone = false;
             var dragCtx = new DragCtx();
 
             widget.Props.SafeGetByProp<FixX>().TryGetValue(out var fixX);
             widget.Props.SafeGetByProp<FixY>().TryGetValue(out var fixY);
-            
+
             OnPress onPress = new OnPress(() => DragAction(widget, fixX.Any(), fixY.Any(), dragCtx));
             OnRelease onRelease = new OnRelease(() => dragCtx.IsDragging = false);
             OnExit onExit = new OnExit(() => dragCtx.IsDragging = false);
-            
+
             widget.Props.AddProp(onPress);
             widget.Props.AddProp(onRelease);
             widget.Props.AddProp(onExit);
-            
+            ApplicationDone = true;
             OnApplied();
         }
 
         private void DragAction(IWidget widget, bool isXFixed, bool isYFixed, DragCtx dragCtx)
         {
-           if (isXFixed && isYFixed) return;
-            
-                var devLoc = _device.GetPointedLocation();
-                if (!dragCtx.IsDragging)
-                {
-                    dragCtx.IsDragging = true;
-                    dragCtx.Set(devLoc);
-                }
-                else
-                {
-                    var (devX, devY) = devLoc;
-                    var (x, y, w, h) = widget.Space;
-                    if (Math.Abs(dragCtx.DevX - devX) < 0.01f && Math.Abs(dragCtx.DevY - devY) < 0.01f) return;
-            
-                    var nx = x;
-                    var ny = y;
-                    nx += isXFixed ? 0 : devX - dragCtx.DevX;
-                    ny += isYFixed ? 0 : devY - dragCtx.DevY;
-                    (nx, ny) = CheckBounds(widget, nx, ny, isXFixed, isYFixed);
-            
-                    WidgetsSpaceHelper.UpdateSpace(widget, new RectangleF(nx, ny, w, h));
-                    dragCtx.Set(devLoc);
-                } 
+            if (isXFixed && isYFixed) return;
+
+            var devLoc = _device.GetPointedLocation();
+            if (!dragCtx.IsDragging)
+            {
+                dragCtx.IsDragging = true;
+                dragCtx.Set(devLoc);
+            }
+            else
+            {
+                var (devX, devY) = devLoc;
+                var (x, y, w, h) = widget.Space;
+                if (Math.Abs(dragCtx.DevX - devX) < 0.01f && Math.Abs(dragCtx.DevY - devY) < 0.01f) return;
+
+                var nx = x;
+                var ny = y;
+                nx += isXFixed ? 0 : devX - dragCtx.DevX;
+                ny += isYFixed ? 0 : devY - dragCtx.DevY;
+                (nx, ny) = CheckBounds(widget, nx, ny, isXFixed, isYFixed);
+
+                WidgetsSpaceHelper.UpdateSpace(widget, new RectangleF(nx, ny, w, h));
+                dragCtx.Set(devLoc);
+            }
         }
+
         private void OnApplied() => Applied?.Invoke(this, EventArgs.Empty);
 
         private static (float, float) CheckBounds(IWidget wt, float x, float y, bool isXFixed, bool isYFixed)

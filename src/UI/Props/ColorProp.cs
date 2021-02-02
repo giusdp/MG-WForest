@@ -16,6 +16,9 @@ namespace WForest.UI.Props
         /// <inheritdoc/>
         public event EventHandler? Applied;
 
+        /// <inheritdoc/>
+        public bool ApplicationDone { get; set; }
+
         private readonly Color _color;
 
         public ColorProp(Color color)
@@ -29,7 +32,9 @@ namespace WForest.UI.Props
         /// <param name="widget"></param>
         public void ApplyOn(IWidget widget)
         {
+            ApplicationDone = false;
             widget.Color = _color;
+            ApplicationDone = true;
             OnApplied();
         }
 

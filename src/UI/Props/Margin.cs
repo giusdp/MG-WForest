@@ -20,6 +20,9 @@ namespace WForest.UI.Props
         /// <inherit/>
         public event EventHandler? Applied;
 
+        /// <inheritdoc/>
+        public bool ApplicationDone { get; set; }
+
         private readonly MarginValues _marginValues;
 
         public Margin(int marginLeft, int marginRight, int marginTop, int marginBottom)
@@ -33,6 +36,8 @@ namespace WForest.UI.Props
         /// <param name="widget"></param>
         public void ApplyOn(IWidget widget)
         {
+            ApplicationDone = false;
+            
             var (x, y, w, h) = widget.Space;
             widget.Margins = AddMargin(widget);
 
@@ -43,6 +48,7 @@ namespace WForest.UI.Props
             //     widget,
             //     lvl => lvl.ForEach(node =>
             //         WidgetsSpaceHelper.UpdateSpace(node, new Rectangle(widget.Space.Location, node.Data.Space.Size))));
+            ApplicationDone = true;
             OnApplied();
         }
 

@@ -19,6 +19,11 @@ namespace WForest.UI.Props.Interfaces
         event EventHandler? Applied;
 
         /// <summary>
+        /// Boolean to easily check if the prop was applied to the widget.
+        /// </summary>
+        bool ApplicationDone { get; set; }
+
+        /// <summary>
         /// Apply the prop on a widget.
         /// </summary>
         /// <param name="widget"></param>

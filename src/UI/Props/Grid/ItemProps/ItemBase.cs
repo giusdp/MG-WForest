@@ -27,12 +27,16 @@ namespace WForest.UI.Props.Grid.ItemProps
         /// <inherit/>
         public event EventHandler? Applied;
 
+        /// <inheritdoc/>
+        public bool ApplicationDone { get; set; }
+
         /// <summary>
         /// Move the widgets to the bottom of a Row or right of a Column.
         /// </summary>
         /// <param name="widget"></param>
         public void ApplyOn(IWidget widget)
         {
+            ApplicationDone = false;
             ApplyUtils.ApplyIfThereAreChildren(widget, $"{widget} has no children to item-base.",
                 () =>
                 {
@@ -56,6 +60,7 @@ namespace WForest.UI.Props.Grid.ItemProps
                             "Tried to apply ItemBase to a widget without a Row or Column Prop");
                     }
                 });
+            ApplicationDone = true;
             OnApplied();
         }
 

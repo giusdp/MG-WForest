@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Microsoft.Xna.Framework.Media;
 using WForest.Exceptions;
 using WForest.UI.Props.Grid.Utils;
 using WForest.UI.Props.Interfaces;
@@ -20,6 +21,9 @@ namespace WForest.UI.Props.Grid
         /// <inheritdoc/>
         public event EventHandler? Applied;
 
+        /// <inheritdoc/>
+        public bool ApplicationDone { get; set; }
+
         internal List<WidgetsDataSubList> Columns = new List<WidgetsDataSubList>();
 
         /// <summary>
@@ -29,10 +33,12 @@ namespace WForest.UI.Props.Grid
         /// <param name="widget"></param>
         public void ApplyOn(IWidget widget)
         {
+            ApplicationDone = false;
             if (widget.Props.Contains<Row>())
                 throw new IncompatibleWidgetException("Cannot add Column prop if widget is already a Row.");
             if (!widget.IsLeaf)
                 Columns = GridHelper.OrganizeWidgetsInColumns(widget);
+            ApplicationDone = true;
             OnApplied();
         }
 

@@ -7,6 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Added
 - IRenderer interface to abstract over Spritebatch
 - DefaultRenderer that uses a Spritebatch to draw widgets
+- ApplicationDone boolean flag in IApplicableProps
 
 ### Changed
 - Constructors of Props and Widgets are now public
@@ -16,7 +17,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - WTreeManager gets the renderer in its draw method
 ### Fixed
 - Vertical/Horizontal stretch now respect spaces of sibling and stretch as long as siblings have space
-
+- Vertical/Horizontal stretch now use the applicationDone flag to check if siblings with the opposite stretch have calculated the size, if not they will use an event to get their correct size after application
+- ImageButton StoppedHovering action was added to OnEnter, now fixed to OnExit 
+- ImageButton execute StartedHovering after releasing click on widget so it swaps texture
 ## [0.0.14]
 
 ### Added

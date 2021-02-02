@@ -26,6 +26,9 @@ namespace WForest.UI.Props.Text
         /// <inherit/>
         public event EventHandler? Applied;
 
+        /// <inheritdoc/>
+        public bool ApplicationDone { get; set; }
+
         /// <summary>
         /// Applies font size change on Text Widget. It assigns the new size to the FontSize field of the widget and
         /// measures (and updates) the new space taken by the text.
@@ -34,6 +37,7 @@ namespace WForest.UI.Props.Text
         /// <exception cref="IncompatibleWidgetException"></exception>
         public void ApplyOn(IWidget widget)
         {
+            ApplicationDone = false;
             if (widget is Widgets.BuiltIn.Text text)
             {
                 if (text.FontSize == _size) return;
@@ -46,6 +50,7 @@ namespace WForest.UI.Props.Text
                 throw new IncompatibleWidgetException("Property only applicable to a Text Widget.");
             }
 
+            ApplicationDone = true;
             OnApplied();
         }
 

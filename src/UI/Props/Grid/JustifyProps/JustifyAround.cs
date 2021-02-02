@@ -26,6 +26,9 @@ namespace WForest.UI.Props.Grid.JustifyProps
         /// <inherit/>
         public event EventHandler? Applied;
 
+        /// <inheritdoc/>
+        public bool ApplicationDone { get; set; }
+
         /// <summary>
         /// Move the widgets in a way to have them separated between them and the window border.
         /// In a Row they are separated horizontally, in a Column vertically.
@@ -33,6 +36,7 @@ namespace WForest.UI.Props.Grid.JustifyProps
         /// <param name="widget"></param>
         public void ApplyOn(IWidget widget)
         {
+            ApplicationDone = false;
             ApplyUtils.ApplyIfThereAreChildren(widget,
                 $"{widget} has no children to justify space between.",
                 () =>
@@ -50,6 +54,7 @@ namespace WForest.UI.Props.Grid.JustifyProps
                             "Tried to apply JustifyAround to a widget without a Row or Column Prop");
                     }
                 });
+            ApplicationDone = true;
             OnApplied();
         }
 

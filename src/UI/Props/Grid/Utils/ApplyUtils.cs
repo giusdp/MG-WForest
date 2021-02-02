@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Serilog;
+using WForest.UI.Props.Grid.StretchingProps;
 using WForest.UI.Props.Interfaces;
 using WForest.UI.Widgets.Interfaces;
 using WForest.Utilities;
@@ -10,6 +11,14 @@ namespace WForest.UI.Props.Grid.Utils
 {
     internal static class ApplyUtils
     {
+        internal static (float, List<IWidget>) StretchedWidthUsingWidthSiblings(IWidget widget)
+            => GetStretchedSizeWithToBeProcessedSiblings<Row, HorizontalStretch, VerticalStretch>(widget,
+                GridHelper.WidgetWidth);
+
+        internal static (float, List<IWidget>) StretchedHeightUsingHeightSiblings(IWidget widget)
+            => GetStretchedSizeWithToBeProcessedSiblings<Column, VerticalStretch, HorizontalStretch>(widget,
+                GridHelper.WidgetHeight);
+
         internal static void ApplyIfThereAreChildren(IWidget wt, string noApplyMsq, Action logic)
         {
             if (wt.Children.Count == 0)
@@ -54,6 +63,38 @@ namespace WForest.UI.Props.Grid.Utils
         private static Maybe<T> ExtractProp<T>(IPropHolder widgetNode) where T : IProp
         {
             return widgetNode.Props.SafeGetByProp<T>().Bind(l => l.Any() ? Maybe.Some((T) l.First()) : Maybe.None);
+        }
+
+        private static (float, List<IWidget>) GetStretchedSizeWithToBeProcessedSiblings<T, TV, TH>(IWidget widget,
+            Func<IWidget, float> getSize) where T : IProp where TV : IProp where TH : IProp
+        {
+            List<IWidget> nonFinishedSiblingsWidth = new List<IWidget>();
+            var size = getSize(widget.Parent!);
+            if (!widget.Parent.Props.SafeGetByProp<T>().TryGetValue(out var grid))
+                return (size, nonFinishedSiblingsWidth);
+            if (grid!.FirstOrDefault() == null) return (size, nonFinishedSiblingsWidth);
+            var siblings = widget.Parent.Children.Where(w => w != widget);
+            var count = 1;
+            float nonStretchedSize = 0;
+
+            foreach (var sibling in siblings)
+            {
+                if (sibling.Props.Contains<TV>()) count++;
+                else
+                {
+                    if (!sibling.Props.Contains<TH>())
+                        nonStretchedSize += getSize(sibling);
+                    else if (sibling.Props.GetByProp<TH>().FirstOrDefault() is IApplicableProp hp)
+                    {
+                        if (hp.ApplicationDone) nonStretchedSize += getSize(sibling);
+                        else nonFinishedSiblingsWidth.Add(sibling);
+                    }
+                    else nonStretchedSize += getSize(sibling);
+                }
+            }
+
+            size -= nonStretchedSize;
+            return (size / count, nonFinishedSiblingsWidth);
         }
     }
 }

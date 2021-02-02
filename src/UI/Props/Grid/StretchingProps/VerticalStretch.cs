@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using WForest.UI.Props.Grid.Utils;
 using WForest.UI.Props.Interfaces;
 using WForest.UI.Utils;
 using WForest.UI.Widgets.Interfaces;
@@ -19,43 +20,36 @@ namespace WForest.UI.Props.Grid.StretchingProps
         /// <inherit/>
         public event EventHandler? Applied;
 
+        /// <inheritdoc/>
+        public bool ApplicationDone { get; set; }
+
         /// <summary>
         /// It gets the height of the parent (if it has one) and replaces the widget's height with it, then updates the spaces of its children.
         /// </summary>
         /// <param name="widget"></param>
         public void ApplyOn(IWidget widget)
         {
+            ApplicationDone = false;
             if (widget.IsRoot) return;
             var (x, y, w, _) = widget.Space;
-
-            var nh = CalculateStretchedHeight(widget);
-
             if (!widget.Props.Contains<HorizontalStretch>())
                 w = widget.Children.Any() ? widget.Children.Max(c => c.Space.Width) : w;
-
-            WidgetsSpaceHelper.UpdateSpace(widget,
-                new RectangleF(x, y, w, nh));
-            OnApplied();
-        }
-
-        private static float CalculateStretchedHeight(IWidget widget)
-        {
-            var nh = widget.Parent!.Space.Height;
-
-            if (!widget.Parent.Props.SafeGetByProp<Column>().TryGetValue(out var cols)) return nh;
-            if (cols!.FirstOrDefault() == null) return nh;
-
-            var siblings = widget.Parent.Children.Where(w => w != widget);
-            var count = 1;
-            float nonStretchedHeight = 0;
-            foreach (var sibling in siblings)
+            
+            var (nh, nonFinishedHorSiblings) = ApplyUtils.StretchedHeightUsingHeightSiblings(widget);
+            nonFinishedHorSiblings.ForEach(s =>
             {
-                if (sibling.Props.Contains<VerticalStretch>()) count++;
-                else nonStretchedHeight += sibling.Space.Height;
-            }
+                var hp = (IApplicableProp) s.Props.GetByProp<HorizontalStretch>().First();
+                hp.Applied += (sender, args) =>
+                {
+                    ApplicationDone = false;
+                    WidgetsSpaceHelper.UpdateSpace(widget, new RectangleF(x, y, w, nh - s.Space.Height));
+                    ApplicationDone = true;
+                };
+            });
 
-            nh -= nonStretchedHeight;
-            return nh / count;
+            WidgetsSpaceHelper.UpdateSpace(widget, new RectangleF(x, y, w, nh));
+            ApplicationDone = nonFinishedHorSiblings.Count == 0;
+            OnApplied();
         }
 
         private void OnApplied() => Applied?.Invoke(this, EventArgs.Empty);

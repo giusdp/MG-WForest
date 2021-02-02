@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using WForest.UI.Props.Grid.Utils;
 using WForest.UI.Props.Interfaces;
 using WForest.UI.Utils;
 using WForest.UI.Widgets.Interfaces;
@@ -19,42 +20,36 @@ namespace WForest.UI.Props.Grid.StretchingProps
         /// <inherit/>
         public event EventHandler? Applied;
 
+        /// <inheritdoc/>
+        public bool ApplicationDone { get; set; }
+
         /// <summary>
         /// It gets the width of the parent (if it has one) and replaces the widget's width with it, then updates the spaces of its children.
         /// </summary>
         /// <param name="widget"></param>
         public void ApplyOn(IWidget widget)
         {
+            ApplicationDone = false;
             if (widget.IsRoot) return;
             var (x, y, _, h) = widget.Space;
-            var nw = CalculateStretchedWidth(widget);
-
             if (!widget.Props.Contains<VerticalStretch>())
                 h = widget.Children.Any() ? widget.Children.Max(c => c.Space.Height) : h;
 
+            var (nw, nonFinishedHorSiblings) = ApplyUtils.StretchedWidthUsingWidthSiblings(widget);
+            nonFinishedHorSiblings.ForEach(s =>
+            {
+                var hp = (IApplicableProp) s.Props.GetByProp<HorizontalStretch>().First();
+                hp.Applied += (sender, args) =>
+                {
+                    ApplicationDone = false;
+                    WidgetsSpaceHelper.UpdateSpace(widget, new RectangleF(x, y, nw - s.Space.Width, h));
+                    ApplicationDone = true;
+                };
+            });
             WidgetsSpaceHelper.UpdateSpace(widget,
                 new RectangleF(x, y, nw, h));
+            ApplicationDone = true;
             OnApplied();
-        }
-
-        private static float CalculateStretchedWidth(IWidget widget)
-        {
-            var nw = widget.Parent!.Space.Width;
-
-            if (!widget.Parent.Props.SafeGetByProp<Row>().TryGetValue(out var rows)) return nw;
-            if (rows!.FirstOrDefault() == null) return nw;
-
-            var siblings = widget.Parent.Children.Where(w => w != widget);
-            var count = 1;
-            float nonStretchedWidth = 0;
-            foreach (var sibling in siblings)
-            {
-                if (sibling.Props.Contains<HorizontalStretch>()) count++;
-                else nonStretchedWidth += sibling.Space.Width;
-            }
-
-            nw -= nonStretchedWidth;
-            return nw / count;
         }
 
         private void OnApplied() => Applied?.Invoke(this, EventArgs.Empty);

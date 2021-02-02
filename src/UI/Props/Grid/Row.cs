@@ -20,6 +20,9 @@ namespace WForest.UI.Props.Grid
         /// <inheritdoc/>
         public event EventHandler? Applied;
 
+        /// <inheritdoc/>
+        public bool ApplicationDone { get; set; }
+
         internal List<WidgetsDataSubList> Rows = new List<WidgetsDataSubList>();
 
         /// <summary>
@@ -29,10 +32,12 @@ namespace WForest.UI.Props.Grid
         /// <param name="widget"></param>
         public void ApplyOn(IWidget widget)
         {
+            ApplicationDone = false;
             if (widget.Props.Contains<Column>())
                 throw new IncompatibleWidgetException("Cannot add Row prop if widget is already a Column.");
             if (!widget.IsLeaf)
                 Rows = GridHelper.OrganizeWidgetsInRows(widget);
+            ApplicationDone = true;
             OnApplied();
         }
 

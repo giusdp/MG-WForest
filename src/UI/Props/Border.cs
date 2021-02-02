@@ -18,8 +18,12 @@ namespace WForest.UI.Props
 
         /// <inheritdoc/>
         public event EventHandler? Applied;
+
         internal Color Color { get; set; }
         internal int LineWidth { get; set; }
+
+        /// <inheritdoc/>
+        public bool ApplicationDone { get; set; }
 
         public Border()
         {
@@ -33,7 +37,9 @@ namespace WForest.UI.Props
         /// <param name="widget"></param>
         public void ApplyOn(IWidget widget)
         {
+            ApplicationDone = false;
             widget.PostDrawActions.Add(sb => Primitives.DrawBorder(sb, widget.Space, Color, LineWidth));
+            ApplicationDone = true;
             OnApplied();
         }
 

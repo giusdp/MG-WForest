@@ -33,7 +33,7 @@ namespace WForest.UI.Widgets.BuiltIn
             Space = new RectangleF(0, 0, normalButton.Width, normalButton.Height);
             
             Props.AddProp(new OnEnter(StartedHovering));
-            Props.AddProp(new OnEnter(StoppedHovering));
+            Props.AddProp(new OnExit(StoppedHovering));
             Props.AddProp(new OnPress(PressedDown));
             Props.AddProp(new OnRelease(Released));
         }
@@ -90,7 +90,11 @@ namespace WForest.UI.Widgets.BuiltIn
             else _imageToDraw = PressedButton;
         }
 
-        private void Released() => _isPressed = false;
+        private void Released()
+        {
+            _isPressed = false;
+            StartedHovering();
+        }
 
         #endregion
     }

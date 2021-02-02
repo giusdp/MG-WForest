@@ -22,6 +22,9 @@ namespace WForest.UI.Props.Grid.StretchingProps
         /// <inherit/>
         public event EventHandler? Applied;
 
+        /// <inheritdoc/>
+        public bool ApplicationDone { get; set; }
+
         /// <summary>
         /// Gets the children of the widget and expands the space enough to accomodate them,
         /// depending on if the parent is Row or Column.
@@ -29,6 +32,7 @@ namespace WForest.UI.Props.Grid.StretchingProps
         /// <param name="widget"></param>
         public void ApplyOn(IWidget widget)
         {
+            ApplicationDone = false;
             IncreaseSpaceWithChildren(widget);
 
             var (x, y, _, _) = widget.Space;
@@ -70,6 +74,7 @@ namespace WForest.UI.Props.Grid.StretchingProps
                 }
             }
 
+            ApplicationDone = true;
             OnApplied();
         }
 

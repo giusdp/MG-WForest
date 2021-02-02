@@ -21,13 +21,15 @@ namespace WForest.UI.Props.Grid.ItemProps
 
         /// <inherit/>
         public event EventHandler? Applied;
-
+/// <inheritdoc/>
+        public bool ApplicationDone { get; set; }
         /// <summary>
         /// Move the widgets to the vertical center of a Row or to the horizontal center of a Column.
         /// </summary>
         /// <param name="widget"></param>
         public void ApplyOn(IWidget widget)
         {
+            ApplicationDone = false;
             ApplyUtils.ApplyIfThereAreChildren(widget,
                 $"{widget} has no children to item-center.",
                 () =>
@@ -45,6 +47,7 @@ namespace WForest.UI.Props.Grid.ItemProps
                             "Tried to apply ItemCenter to a widget without a Row or Column Prop");
                     }
                 });
+            ApplicationDone = false;
             OnApplied();
         }
 

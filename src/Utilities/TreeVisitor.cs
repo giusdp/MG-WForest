@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using System.Net;
 using WForest.UI.Props.Actions;
 using WForest.UI.Props.Interfaces;
 using WForest.UI.Widgets.Interfaces;
@@ -17,6 +16,13 @@ namespace WForest.Utilities
             {
                 foreach (var prop in w.Props.OfType<IApplicableProp>().OrderBy(p => p.Priority)) prop.ApplyOn(w);
             });
+        }
+
+        public static void ResetApplyProps(IWidget wTree)
+        {
+            foreach (var widget in wTree)
+            foreach (var app in widget.Props.OfType<IApplicableProp>())
+                app.ApplicationDone = false;
         }
 
         public static void UpdateTree(IWidget widget)

@@ -25,12 +25,16 @@ namespace WForest.UI.Props.Grid.JustifyProps
         /// <inherit/>
         public event EventHandler? Applied;
 
+        /// <inheritdoc/>
+        public bool ApplicationDone { get; set; }
+
         /// <summary>
         /// Move the widgets to the end of a Row (to the right) or of a Col (to the bottom).
         /// </summary>
         /// <param name="widget"></param>
         public void ApplyOn(IWidget widget)
         {
+            ApplicationDone = false;
             ApplyUtils.ApplyIfThereAreChildren(widget,
                 $"{widget} has no children to justify-end.",
                 () =>
@@ -55,6 +59,7 @@ namespace WForest.UI.Props.Grid.JustifyProps
                             "Tried to apply JustifyEnd to a widget without a Row or Column Prop");
                     }
                 });
+            ApplicationDone = true;
             OnApplied();
         }
 
