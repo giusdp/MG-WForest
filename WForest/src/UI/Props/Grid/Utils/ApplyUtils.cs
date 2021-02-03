@@ -70,7 +70,7 @@ namespace WForest.UI.Props.Grid.Utils
         {
             List<IWidget> nonFinishedSiblingsWidth = new List<IWidget>();
             var size = getSize(widget.Parent!);
-            if (!widget.Parent.Props.SafeGetByProp<T>().TryGetValue(out var grid))
+            if (!widget.Parent!.Props.SafeGetByProp<T>().TryGetValue(out var grid))
                 return (size, nonFinishedSiblingsWidth);
             if (grid!.FirstOrDefault() == null) return (size, nonFinishedSiblingsWidth);
             var siblings = widget.Parent.Children.Where(w => w != widget);
