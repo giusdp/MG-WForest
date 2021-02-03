@@ -8,7 +8,7 @@ using WForest.Utilities;
 
 namespace WForest.UI.Interactions
 {
-    internal class UserInteractionHandler
+    public class UserInteractionHandler
     {
         public IDevice Device { get; set; }
         public InteractionUpdater Updater { get; set; }
@@ -16,7 +16,7 @@ namespace WForest.UI.Interactions
         private WidgetIntHolder _holder;
         private bool _wasPressed;
 
-        internal UserInteractionHandler(IDevice device, InteractionUpdater updater)
+        public UserInteractionHandler(IDevice device, InteractionUpdater updater)
         {
             Device = device;
             Updater = updater;
@@ -27,7 +27,7 @@ namespace WForest.UI.Interactions
             };
         }
 
-        internal IEnumerable<ICommandProp> UpdateAndGenerateTransitions(IWidget widget)
+        public IEnumerable<ICommandProp> UpdateAndGenerateTransitions(IWidget widget)
         {
             Device.Update(); // Get new input 
             var pointedLocation = Device.GetPointedLocation();
@@ -124,7 +124,7 @@ namespace WForest.UI.Interactions
 
         #region Static Methods
 
-        internal static Maybe<IWidget> GetHoveredWidget(IWidget widget, Vector2 mouseLoc)
+        public static Maybe<IWidget> GetHoveredWidget(IWidget widget, Vector2 mouseLoc)
         {
             var m = TreeVisitor.GetLowestNodeThatHolds(widget,
                 w => w.Children.Reverse(),

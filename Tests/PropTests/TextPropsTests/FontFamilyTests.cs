@@ -7,7 +7,7 @@ using WForest.UI.Props.Text;
 using WForest.UI.Widgets.BuiltIn;
 using WForest.Utilities.Text;
 
-namespace WForest.Tests.PropTests.TextPropsTests
+namespace Tests.PropTests.TextPropsTests
 {
     [TestFixture]
     public class FontFamilyTests

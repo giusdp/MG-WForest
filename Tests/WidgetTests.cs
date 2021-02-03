@@ -7,7 +7,7 @@ using WForest.UI.Widgets.BuiltIn;
 using WForest.UI.Widgets.Interfaces;
 using WForest.Utilities;
 
-namespace WForest.Tests
+namespace Tests
 {
     [TestFixture]
     public class WidgetTests

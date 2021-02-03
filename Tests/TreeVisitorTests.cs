@@ -1,5 +1,4 @@
 using System.Linq;
-using Microsoft.Xna.Framework;
 using Moq;
 using NUnit.Framework;
 using WForest.UI.Props.Interfaces;
@@ -7,7 +6,7 @@ using WForest.UI.Widgets;
 using WForest.UI.Widgets.Interfaces;
 using WForest.Utilities;
 
-namespace WForest.Tests
+namespace Tests
 {
     [TestFixture]
     public class TreeVisitorTests

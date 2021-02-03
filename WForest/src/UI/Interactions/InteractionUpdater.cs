@@ -8,9 +8,9 @@ using WForest.Utilities.Collections;
 
 namespace WForest.UI.Interactions
 {
-    internal class InteractionUpdater
+    public class InteractionUpdater
     {
-        internal virtual IEnumerable<ICommandProp> NextState(IWidget interactedObj, Interaction interaction)
+        public virtual IEnumerable<ICommandProp> NextState(IWidget interactedObj, Interaction interaction)
         {
             var (nextInteraction, transitionInteraction) = GetNextAndTransitionInteraction(interactedObj, interaction);
             interactedObj.CurrentInteraction = nextInteraction;

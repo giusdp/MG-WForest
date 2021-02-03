@@ -1,7 +1,7 @@
 using NUnit.Framework;
 using WForest.UI.Props.Shaders;
 
-namespace WForest.Tests.PropTests
+namespace Tests.PropTests
 {
     [TestFixture]
     public class RoundedTests

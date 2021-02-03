@@ -4,7 +4,7 @@ using WForest.UI.Props;
 using WForest.UI.Props.Actions;
 using WForest.UI.Props.Grid.JustifyProps;
 
-namespace WForest.Tests
+namespace Tests
 {
     [TestFixture]
     public class PropertyFactoryTests

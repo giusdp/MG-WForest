@@ -1,10 +1,9 @@
-using Microsoft.Xna.Framework;
 using NUnit.Framework;
 using WForest.UI.Interactions;
 using WForest.UI.Widgets;
 using WForest.Utilities;
 
-namespace WForest.Tests
+namespace Tests
 {
     [TestFixture]
     public class InteractionUpdaterTests

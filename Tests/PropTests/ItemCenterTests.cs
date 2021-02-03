@@ -1,4 +1,3 @@
-using Microsoft.Xna.Framework;
 using NUnit.Framework;
 using WForest.Factories;
 using WForest.UI.Props.Grid;
@@ -7,9 +6,9 @@ using WForest.UI.Props.Grid.JustifyProps;
 using WForest.UI.Props.Interfaces;
 using WForest.UI.Widgets.Interfaces;
 using WForest.Utilities;
-using static WForest.Tests.Utils.HelperMethods;
+using static Tests.Utils.HelperMethods;
 
-namespace WForest.Tests.PropTests
+namespace Tests.PropTests
 {
     [TestFixture]
     public class ItemCenterTests

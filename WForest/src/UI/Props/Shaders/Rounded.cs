@@ -6,7 +6,7 @@ using WForest.Utilities.Collections;
 
 namespace WForest.UI.Props.Shaders
 {
-    internal class Rounded : IProp 
+    public class Rounded : IProp 
     {
         private int Radius { get; }
         private Effect Effect { get; }

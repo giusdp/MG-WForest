@@ -8,7 +8,7 @@ using WForest.UI.Widgets.Interfaces;
 
 namespace WForest.Utilities
 {
-    internal static class TreeVisitor
+    public static class TreeVisitor
     {
         public static void ApplyPropsOnTree(IWidget widgetTree)
         {

@@ -1,11 +1,10 @@
-using Microsoft.Xna.Framework;
 using NUnit.Framework;
 using WForest.Factories;
 using WForest.UI.Props.Grid;
 using WForest.UI.Widgets.Interfaces;
 using WForest.Utilities;
 
-namespace WForest.Tests.PropTests
+namespace Tests.PropTests
 {
     [TestFixture]
     public class RowPropertyTests

@@ -11,7 +11,7 @@ using WForest.Utilities.Text;
 
 [assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]
 
-namespace WForest.Tests.PropTests.TextPropsTests
+namespace Tests.PropTests.TextPropsTests
 {
     [TestFixture]
     public class FontSizeTests

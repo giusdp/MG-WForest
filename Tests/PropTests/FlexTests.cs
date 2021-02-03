@@ -1,4 +1,3 @@
-using Microsoft.Xna.Framework;
 using NUnit.Framework;
 using WForest.Exceptions;
 using WForest.Factories;
@@ -6,9 +5,9 @@ using WForest.UI.Props.Grid;
 using WForest.UI.Props.Grid.StretchingProps;
 using WForest.UI.Widgets.Interfaces;
 using WForest.Utilities;
-using static WForest.Tests.Utils.HelperMethods;
+using static Tests.Utils.HelperMethods;
 
-namespace WForest.Tests.PropTests
+namespace Tests.PropTests
 {
     [TestFixture]
     public class FlexTests

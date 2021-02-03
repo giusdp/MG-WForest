@@ -5,9 +5,9 @@ using WForest.UI.Props.Grid.JustifyProps;
 using WForest.UI.Props.Grid.StretchingProps;
 using WForest.UI.Widgets.Interfaces;
 using WForest.Utilities;
-using static WForest.Tests.Utils.HelperMethods;
+using static Tests.Utils.HelperMethods;
 
-namespace WForest.Tests.PropTests
+namespace Tests.PropTests
 {
     [TestFixture]
     public class StretchTests

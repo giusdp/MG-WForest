@@ -15,6 +15,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Refactored Rectangle usage. The library now uses floats instead of ints through a custom RectangleF struct replacing the monogame int Rectangle
 - Draw method moved into Widget and now takes an IRenderer instead of a Spritebatch
 - WTreeManager gets the renderer in its draw method
+- Structure of the project. Separated the tests into another project in same solution and added FontStashSharp from source as another project instead of nuget.
 ### Fixed
 - Vertical/Horizontal stretch now respect spaces of sibling and stretch as long as siblings have space
 - Vertical/Horizontal stretch now use the applicationDone flag to check if siblings with the opposite stretch have calculated the size, if not they will use an event to get their correct size after application
