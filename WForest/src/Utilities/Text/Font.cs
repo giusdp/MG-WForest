@@ -42,8 +42,8 @@ namespace WForest.Utilities.Text
 
         public virtual (int, int) MeasureText(string text, int fontSize)
         {
-            var (w,h) = SpriteFont(fontSize).MeasureString(text);
-            return ((int, int)) (w, h);
+            var p = SpriteFont(fontSize).MeasureString(text);
+            return ((int, int)) (p.X, p.Y);
         }
     }
 }

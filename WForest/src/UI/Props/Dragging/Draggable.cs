@@ -17,7 +17,8 @@ namespace WForest.UI.Props.Dragging
 
         public void Set(Vector2 deviceLoc)
         {
-            (DevX, DevY) = deviceLoc;
+            DevX = deviceLoc.X;
+            DevY = deviceLoc.Y;
         }
     }
 
@@ -80,7 +81,8 @@ namespace WForest.UI.Props.Dragging
             }
             else
             {
-                var (devX, devY) = devLoc;
+                var devX = devLoc.X;
+                var devY = devLoc.Y;
                 var (x, y, w, h) = widget.Space;
                 if (Math.Abs(dragCtx.DevX - devX) < 0.01f && Math.Abs(dragCtx.DevY - devY) < 0.01f) return;
 

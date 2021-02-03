@@ -17,7 +17,8 @@ namespace WForest.UI.Utils
         {
             foreach (var c in wt.Children)
             {
-                var (dX, dY) = diff;
+                var dX = diff.X;
+                var dY = diff.Y;
                 var cr = new RectangleF(c.Space.X + dX, c.Space.Y + dY, c.Space.Width, c.Space.Height);
                 UpdateSpace(c, cr);
             }

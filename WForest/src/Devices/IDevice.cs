@@ -78,8 +78,7 @@ namespace WForest.Devices
         /// <returns>A Vector2 that holds the cursor coordinates on the game window.</returns>
         public Vector2 GetPointedLocation()
         {
-            var (x, y) = Mouse.GetState().Position;
-            return new Vector2(x, y);
+            return new Vector2(Mouse.GetState().X, Mouse.GetState().Y);
         }
 
         /// <summary>

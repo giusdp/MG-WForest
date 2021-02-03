@@ -136,9 +136,10 @@ namespace WForest.UI.Interactions
             };
         }
 
-        private static bool IsMouseInsideWidgetSpace(Rectangle space, Vector2 mouseLoc)
+        private static bool IsMouseInsideWidgetSpace(RectangleF space, Vector2 mouseLoc)
         {
-            var (x, y) = mouseLoc;
+            var x = mouseLoc.X;
+            var y = mouseLoc.Y;
             var (widgetX, widgetY, widgetWidth, widgetHeight) = space;
             var isInsideHorizontally = x >= widgetX && x <= widgetX + widgetWidth - 1;
             var isInsideVertically = y >= widgetY && y <= widgetY + widgetHeight - 1;
