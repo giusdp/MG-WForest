@@ -81,5 +81,10 @@ namespace WForest.Utilities
             width = this.Width;
             height = this.Height;
         }
+
+        public override string ToString()
+        {
+            return $"RectangleF coords ({X},{Y}) and size ({Width},{Height})";
+        }
     }
 }

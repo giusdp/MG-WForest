@@ -2,8 +2,8 @@ using System;
 using Serilog;
 using Serilog.Core;
 using Serilog.Events;
+using WForest.Devices;
 using WForest.Exceptions;
-using WForest.Rendering;
 using WForest.UI;
 using WForest.UI.Widgets.Interfaces;
 
@@ -38,10 +38,10 @@ namespace WForest.Factories
 
         /// <summary>
         /// Creates a <see cref="WTreeManager"/> that covers the area defined by the space of the root widget and handles
-        /// resizing, updating and drawing the widget tree. 
+        /// resizing, updating and drawing the widget tree. By default it's given a MouseDevice.Instance to check for
+        /// interactions with the widgets.
         /// </summary>
         /// <param name="wTree"></param>
-        /// <param name="renderer"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="WForestNotInitializedException"></exception>
@@ -50,9 +50,25 @@ namespace WForest.Factories
             if (wTree == null) throw new ArgumentNullException(nameof(wTree));
             if (!_isInit)
                 throw new WForestNotInitializedException("Tried to create a widget tree without initializing WForest");
-            return new WTreeManager(wTree);
+            return new WTreeManager(wTree, MouseDevice.Instance);
         }
 
+        /// <summary>
+        /// Creates a <see cref="WTreeManager"/> that covers the area defined by the space of the root widget and handles
+        /// resizing, updating and drawing the widget tree. The IDevice in input is used to check for interactions with the widgets.
+        /// </summary>
+        /// <param name="wTree"></param>
+        /// <param name="device"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="WForestNotInitializedException"></exception>
+        public static WTreeManager CreateWTree(IWidget wTree, IDevice device)
+        {
+            if (wTree == null) throw new ArgumentNullException(nameof(wTree));
+            if (!_isInit)
+                throw new WForestNotInitializedException("Tried to create a widget tree without initializing WForest");
+            return new WTreeManager(wTree, device);
+        }
         // /// <summary>
         // /// Creates a <see cref="WTreeManager"/> that covers the area passed as input and handles the given
         // /// <see cref="WidgetTree"/>.

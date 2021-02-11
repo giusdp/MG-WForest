@@ -31,7 +31,6 @@ namespace WForest.UI.Interactions
         {
             Device.Update(); // Get new input 
             var pointedLocation = Device.GetPointedLocation();
-
             // check if mouse is still on the last hovered widget, in this case we can skip traversing the tree
             Maybe<IWidget> hovered = IsStillHoveringPreviousWidget(widget, pointedLocation)
                 ? Maybe.Some(_holder.CurrentHovered!)

@@ -45,10 +45,7 @@ namespace WForest.Factories
         /// <summary>
         ///  Creates a <see cref="Container()"/> widget with a defined space using a <see cref="RectangleF"/>.
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="w"></param>
-        /// <param name="h"></param>
+        /// <param name="space"></param>
         /// <returns></returns>
         public static IWidget Container(RectangleF space) => new Container(space);
 

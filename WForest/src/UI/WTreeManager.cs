@@ -15,9 +15,9 @@ namespace WForest.UI
         public readonly IWidget Root;
         private UserInteractionHandler _userInteractionHandler;
 
-        internal WTreeManager(IWidget widgetRoot)
+        internal WTreeManager(IWidget widgetRoot, IDevice device)
         {
-            _userInteractionHandler = new UserInteractionHandler(MouseDevice.Instance, new InteractionUpdater());
+            _userInteractionHandler = new UserInteractionHandler(device, new InteractionUpdater());
             Root = widgetRoot;
             TreeVisitor.ApplyPropsOnTree(Root);
 
