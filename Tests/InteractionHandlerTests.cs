@@ -8,7 +8,7 @@ using WForest.UI.Widgets;
 using WForest.UI.Widgets.Interfaces;
 using WForest.Utilities;
 
-namespace Tests.Tests
+namespace Tests
 {
     [TestFixture]
     public class InteractionHandlerTests

@@ -29,12 +29,13 @@ namespace WForest.Utilities.Text
         /// <param name="fontFiles"></param>
         /// <param name="textureWidth"></param>
         /// <param name="textureHeight"></param>
-        public Font(GraphicsDevice graphicsDevice, List<string> fontFiles,
+        public Font(GraphicsDevice graphicsDevice, IEnumerable<string> fontFiles,
             int textureWidth = 1024,
             int textureHeight = 1024)
         {
             var fontSystem = FontSystemFactory.Create(graphicsDevice, textureWidth, textureHeight);
-            fontFiles.ForEach(f => fontSystem.AddFont(File.ReadAllBytes(f)));
+            foreach (var f in fontFiles) 
+                fontSystem.AddFont(File.ReadAllBytes(f));
             _fontSystem = fontSystem;
         }
 
