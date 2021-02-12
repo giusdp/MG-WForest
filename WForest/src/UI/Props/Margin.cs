@@ -44,10 +44,6 @@ namespace WForest.UI.Props
             var newSpace = new RectangleF(x + _marginValues.Left, y + _marginValues.Top, w, h);
             WidgetsSpaceHelper.UpdateSpace(widget, newSpace);
 
-            // TreeVisitor.ApplyToTreeLevelByLevel(
-            //     widget,
-            //     lvl => lvl.ForEach(node =>
-            //         WidgetsSpaceHelper.UpdateSpace(node, new Rectangle(widget.Space.Location, node.Data.Space.Size))));
             ApplicationDone = true;
             OnApplied();
         }

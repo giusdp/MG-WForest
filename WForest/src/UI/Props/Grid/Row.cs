@@ -34,7 +34,7 @@ namespace WForest.UI.Props.Grid
         {
             ApplicationDone = false;
             if (widget.Props.Contains<Column>())
-                throw new IncompatibleWidgetException("Cannot add Row prop if widget is already a Column.");
+                throw new IncompatibleWidgetException("Cannot add Row prop if widget is already a Column");
             if (!widget.IsLeaf)
                 Rows = GridHelper.OrganizeWidgetsInRows(widget);
             ApplicationDone = true;

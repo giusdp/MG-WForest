@@ -46,7 +46,7 @@ namespace WForest.UI.Props.Text
             else
             {
                 Log.Error("FontSize property is only applicable to a Text Widget. Instead it has received a {W}",
-                    widget);
+                    widget.ToString());
                 throw new IncompatibleWidgetException("Property only applicable to a Text Widget.");
             }
 

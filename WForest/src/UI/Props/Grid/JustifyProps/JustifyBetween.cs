@@ -50,7 +50,7 @@ namespace WForest.UI.Props.Grid.JustifyProps
                     {
                         Log.Error(
                             "JustifyBetween can only be applied to a Row or Column Widget! Make sure this {W} has a Row or Column Prop",
-                            widget);
+                            widget.ToString());
                         throw new IncompatibleWidgetException(
                             "Tried to apply JustifyBetween to a widget without a Row or Column Prop");
                     }

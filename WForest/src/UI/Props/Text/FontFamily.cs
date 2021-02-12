@@ -45,9 +45,9 @@ namespace WForest.UI.Props.Text
             }
             else
             {
-                Log.Error("FontFamily property is only applicable to a Text Widget. Instead it has received a {W}",
-                    widget);
-                throw new IncompatibleWidgetException("Property only applicable to a Text Widget.");
+                Log.Error("FontFamily property is only applicable to a Text Widget, it was instead applied to: {W}",
+                    widget.ToString());
+                throw new IncompatibleWidgetException("Property only applicable to a Text Widget");
             }
 
             ApplicationDone = true;
