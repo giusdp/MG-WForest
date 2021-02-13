@@ -9,8 +9,8 @@ namespace Tests.PropTests
     [TestFixture]
     public class ColumnPropertyTests
     {
-        private Column _column;
-        private IWidget _root;
+        private Column _column = new Column();
+        private IWidget _root = WidgetFactory.Container(new RectangleF(0, 0, 1280, 720));
 
         [SetUp]
         public void BeforeEach()
@@ -56,9 +56,9 @@ namespace Tests.PropTests
         {
             var acts = new[]
             {
-               WidgetFactory.Container(new RectangleF(0, 0, 640, 640)),
-               WidgetFactory.Container(new RectangleF(0, 0, 120, 70)),
-               WidgetFactory.Container(new RectangleF(0, 0, 160, 120)),
+                WidgetFactory.Container(new RectangleF(0, 0, 640, 640)),
+                WidgetFactory.Container(new RectangleF(0, 0, 120, 70)),
+                WidgetFactory.Container(new RectangleF(0, 0, 160, 120)),
             };
 
             var expects = new[]
@@ -98,7 +98,7 @@ namespace Tests.PropTests
                 new RectangleF(240, 0, 120, 330),
                 new RectangleF(240, 330, 120, 330),
             };
-            
+
             foreach (var widget in acts) _root.AddChild(widget);
 
             _column.ApplyOn(_root);

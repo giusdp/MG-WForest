@@ -12,8 +12,8 @@ namespace Tests.PropTests
     [TestFixture]
     public class FlexTests
     {
-        private Flex _flex;
-        private IWidget _root;
+        private Flex _flex = new Flex();
+        private IWidget _root = WidgetFactory.Container();
 
         [SetUp]
         public void BeforeEach()

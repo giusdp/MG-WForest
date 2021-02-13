@@ -14,6 +14,12 @@ namespace Tests.PropTests
         private JustifyEnd _justifyEnd;
         private IWidget _root;
 
+        public JustifyEndTests()
+        {
+            _justifyEnd = new JustifyEnd();
+            _root = WidgetFactory.Container(new RectangleF(0, 0, 1280, 720));
+        }
+
         [SetUp]
         public void BeforeEach()
         {

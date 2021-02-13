@@ -16,6 +16,12 @@ namespace Tests.PropTests
         private ItemCenter _itemCenter;
         private IWidget _root;
 
+        public ItemCenterTests()
+        {
+            _itemCenter = new ItemCenter();
+            _root = WidgetFactory.Container(new RectangleF(0, 0, 1280, 720));
+        }
+
         [SetUp]
         public void BeforeEach()
         {

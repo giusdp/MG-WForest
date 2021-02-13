@@ -7,23 +7,36 @@ on:
     branches: [ master ]
 
 jobs:
-  build:
-    env:
-      DOTNET_NOLOGO: true
-      DOTNET_CLI_TELEMETRY_OPTOUT: true
-
-    runs-on: windows-latest
-
-    steps:
-      - uses: actions/checkout@v2
-      - name: Setup .NET Core
-        uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: 3.1.301
-      - name: Install dependencies
-        run: dotnet restore
-      - name: Test
-        run: dotnet test --no-restore
-      - name: Build
-        run: dotnet build --configuration Release --no-restore
+  test:
+   name: Test on ${{ matrix.os }}
+   runs-on: ${{ matrix.os }}
+   strategy:
+     matrix:
+       os: [ubuntu-latest, windows-latest, macOS-latest]
+   steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.x
+    - name: Checkout submodules
+      uses: Mushus/checkout-submodule@v1
+      with:
+        submodulePath: ./FontStashSharp
+    - name: Clean
+      run: dotnet clean ./WForest.sln --configuration Release && dotnet nuget locals all --clear
+    - name: Install dependencies
+      run: dotnet restore
+    - name: Test
+      run: |
+         if [ "$RUNNER_OS" == 'Linux' ] || [ "$RUNNER_OS" == 'macOS' ]; then
+             find Tests/ -type f -name "*.csproj" -exec dotnet test {} \;
+         elif [ "$RUNNER_OS" == 'Windows' ]; then
+             dotnet test --no-restore
+         else
+             echo "$RUNNER_OS not supported"
+             exit 1
+         fi
+      shell: bash
+  
       

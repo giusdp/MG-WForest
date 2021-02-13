@@ -14,6 +14,12 @@ namespace Tests.PropTests
         private JustifyBetween _justifyBetween;
         private IWidget _root;
 
+        public SpaceBetweenTests()
+        {
+            _justifyBetween = new JustifyBetween();
+            _root = WidgetFactory.Container(new RectangleF(0, 0, 1280, 720));
+        }
+
         [SetUp]
         public void BeforeEach()
         {

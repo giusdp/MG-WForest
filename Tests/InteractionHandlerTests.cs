@@ -17,15 +17,23 @@ namespace Tests
         private UserInteractionHandler _handler;
         private Mock<IDevice> _device;
 
-        private Mock<InteractionUpdater> intRun;
+        private Mock<InteractionUpdater> _intRun;
+
+        public InteractionHandlerTests()
+        {
+            _widgetTree = new Widget(new RectangleF(0, 0, 540, 260));
+            _device = new Mock<IDevice>();
+            _intRun = new Mock<InteractionUpdater>();
+            _handler = new UserInteractionHandler(_device.Object, _intRun.Object);
+        }
 
         [SetUp]
         public void BeforeEach()
         {
             _widgetTree = new Widget(new RectangleF(0, 0, 540, 260));
             _device = new Mock<IDevice>();
-            intRun = new Mock<InteractionUpdater>();
-            _handler = new UserInteractionHandler(_device.Object, intRun.Object);
+            _intRun = new Mock<InteractionUpdater>();
+            _handler = new UserInteractionHandler(_device.Object, _intRun.Object);
         }
 
         [Test]
@@ -53,14 +61,14 @@ namespace Tests
             Assert.That(b, Is.True);
             Assert.That(value, Is.EqualTo(child));
         }
-        
+
         [Test]
         public void CurrentInteraction_OnStateChange_Changes()
         {
             _device.Setup(de => de.GetPointedLocation()).Returns(new Vector2(1, 4));
             _handler.Device = _device.Object;
             _handler.UpdateAndGenerateTransitions(_widgetTree);
-            intRun.Verify(r => r.NextState(_widgetTree, Interaction.Entered), Times.Once);
+            _intRun.Verify(r => r.NextState(_widgetTree, Interaction.Entered), Times.Once);
         }
 
 
@@ -68,7 +76,7 @@ namespace Tests
         public void Enter_WidgetFirstTime_RunsEnteredInteraction()
         {
             _handler.UpdateAndGenerateTransitions(_widgetTree);
-            intRun.Verify(r => r.NextState(_widgetTree, Interaction.Entered), Times.Once);
+            _intRun.Verify(r => r.NextState(_widgetTree, Interaction.Entered), Times.Once);
         }
 
         [Test]
@@ -77,7 +85,7 @@ namespace Tests
             _handler.UpdateAndGenerateTransitions(WidgetFactory.Container(1, 1));
 
             _handler.UpdateAndGenerateTransitions(_widgetTree);
-            intRun.Verify(r => r.NextState(_widgetTree, Interaction.Entered), Times.Once);
+            _intRun.Verify(r => r.NextState(_widgetTree, Interaction.Entered), Times.Once);
         }
 
 //         var watch = System.Diagnostics.Stopwatch.StartNew();
@@ -95,7 +103,7 @@ namespace Tests
             _handler.UpdateAndGenerateTransitions(w);
             _handler.UpdateAndGenerateTransitions(WidgetFactory.Container(1, 1));
 
-            intRun.Verify(r => r.NextState(w, Interaction.Exited), Times.Once);
+            _intRun.Verify(r => r.NextState(w, Interaction.Exited), Times.Once);
         }
 
         [Test]
@@ -114,7 +122,7 @@ namespace Tests
             _device.Setup(d => d.GetPointedLocation()).Returns(new Vector2(-1, -1));
             _handler.UpdateAndGenerateTransitions(w);
 
-            intRun.Verify(r => r.NextState(w, Interaction.Exited), Times.Once);
+            _intRun.Verify(r => r.NextState(w, Interaction.Exited), Times.Once);
         }
 
         [Test]
@@ -128,7 +136,7 @@ namespace Tests
             // Update to press widget
             _handler.UpdateAndGenerateTransitions(_widgetTree);
 
-            intRun.Verify(r => r.NextState(_widgetTree, Interaction.Pressed), Times.Once);
+            _intRun.Verify(r => r.NextState(_widgetTree, Interaction.Pressed), Times.Once);
         }
 
         [Test]
@@ -140,7 +148,7 @@ namespace Tests
             // Update to press widget
             _handler.UpdateAndGenerateTransitions(_widgetTree);
 
-            intRun.Verify(r => r.NextState(_widgetTree, Interaction.Pressed), Times.Once);
+            _intRun.Verify(r => r.NextState(_widgetTree, Interaction.Pressed), Times.Once);
         }
 
         [Test]
@@ -158,7 +166,7 @@ namespace Tests
             _device.Setup(device => device.IsReleased()).Returns(true);
             _handler.UpdateAndGenerateTransitions(_widgetTree);
 
-            intRun.Verify(r => r.NextState(_widgetTree, Interaction.Released), Times.Once);
+            _intRun.Verify(r => r.NextState(_widgetTree, Interaction.Released), Times.Once);
         }
 
         [Test]
@@ -177,7 +185,7 @@ namespace Tests
             // Move while pressing to another widget
             _handler.UpdateAndGenerateTransitions(WidgetFactory.Container());
 
-            intRun.Verify(r => r.NextState(_widgetTree, Interaction.Released), Times.Never);
+            _intRun.Verify(r => r.NextState(_widgetTree, Interaction.Released), Times.Never);
         }
 
         #region Integration with InteractionUpdater
@@ -220,14 +228,14 @@ namespace Tests
             _handler.Updater = new InteractionUpdater();
             // Press widget
             _handler.UpdateAndGenerateTransitions(_widgetTree);
-        
+
             _device.Setup(device => device.IsPressed()).Returns(false);
             _device.Setup(device => device.IsHeld()).Returns(true);
             _handler.Device = _device.Object;
-        
+
             // Move while pressing to another widget
             var l = _handler.UpdateAndGenerateTransitions(WidgetFactory.Container());
-            
+
             Assert.That(l, Is.Empty);
         }
 
@@ -247,29 +255,29 @@ namespace Tests
 
             Assert.That(w.CurrentInteraction, Is.Not.EqualTo(Interaction.Pressed));
         }
-        
+
         [Test]
         public void PressOnWidget_ThenEnterAnotherAndRelease_NoReleaseCommandsAreGenerated()
         {
-            var thenEntered = WidgetFactory.Container(30,30);
-        
-        
+            var thenEntered = WidgetFactory.Container(30, 30);
+
+
             _device.Setup(device => device.IsPressed()).Returns(true);
             _handler.Device = _device.Object;
             _handler.Updater = new InteractionUpdater();
-        
+
             // Press firstPressed
             _handler.UpdateAndGenerateTransitions(_widgetTree);
-        
+
             // Move to thenEntered while pressing
             _handler.UpdateAndGenerateTransitions(thenEntered);
-        
+
             _device.Setup(device => device.IsPressed()).Returns(false);
             _device.Setup(d => d.IsReleased()).Returns(true);
             _handler.Device = _device.Object;
-        
+
             var l = _handler.UpdateAndGenerateTransitions(thenEntered);
-            
+
             Assert.That(l, Is.Empty);
         }
 

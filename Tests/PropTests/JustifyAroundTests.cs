@@ -14,6 +14,12 @@ namespace Tests.PropTests
         private JustifyAround _justifyAround;
         private IWidget _root;
 
+        public JustifyAroundTests()
+        {
+            _justifyAround = new JustifyAround();
+            _root = WidgetFactory.Container(new RectangleF(0, 0, 1280, 720));
+        }
+
         [SetUp]
         public void BeforeEach()
         {

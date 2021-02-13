@@ -12,7 +12,7 @@ namespace Tests
     [TestFixture]
     public class WidgetTests
     {
-        private IWidget _widget;
+        private IWidget _widget = new Widget(RectangleF.Empty);
 
         [SetUp]
         public void BeforeEach()
@@ -22,7 +22,7 @@ namespace Tests
         [Test]
         public void WithProp_Null_Throws()
         {
-            Assert.That(()=>_widget.WithProp(null), Throws.ArgumentNullException);
+            Assert.That(()=>_widget.WithProp(null!), Throws.ArgumentNullException);
             
         }
 
@@ -36,7 +36,7 @@ namespace Tests
         [Test]
         public void AddChild_Null_Throws()
         {
-            Assert.That(() => _widget.AddChild(null), Throws.ArgumentNullException);
+            Assert.That(() => _widget.AddChild(null!), Throws.ArgumentNullException);
         }
 
         [Test]
@@ -70,13 +70,13 @@ namespace Tests
         [Test]
         public void SpriteButton_NullSprite_ThrowsError()
         {
-            Assert.That(() => new ImageButton(null), Throws.ArgumentNullException);
+            Assert.That(() => new ImageButton(null!), Throws.ArgumentNullException);
         }
 
         [Test]
         public void Text_NullString_Throws()
         {
-            Assert.That(() => new Text(null), Throws.ArgumentNullException);
+            Assert.That(() => new Text(null!), Throws.ArgumentNullException);
         }
     }
 }

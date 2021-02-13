@@ -11,6 +11,12 @@ namespace Tests
         private InteractionUpdater _updater;
         private Widget _widget;
 
+        public InteractionUpdaterTests()
+        {
+            _updater = new InteractionUpdater();
+            _widget = new Widget(RectangleF.Empty);
+        }
+
         [SetUp]
         public void BeforeEach()
         {

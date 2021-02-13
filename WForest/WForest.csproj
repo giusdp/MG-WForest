@@ -6,7 +6,15 @@
         <GenerateProgramFile>false</GenerateProgramFile>
         <RootNamespace>WForest</RootNamespace>
         <Title>WForest</Title>
+        <Description>Yet another GUI library for MonoGame. Inspired by React/Flutter frontend frameworks.</Description>
         <Authors>Giuseppe De Palma</Authors>
+        <Copyright>Copyright 2021</Copyright>
+        <Version>0.0.15</Version>
+        <PackageTags>gamedev;monogame;fna;gui;ui</PackageTags>
+        <RepositoryUrl>https://github.com/giusdp/WForest</RepositoryUrl>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+        <RepositoryType>git</RepositoryType>
         <OutputType>Library</OutputType>
         <Nullable>enable</Nullable>
     </PropertyGroup>

@@ -12,6 +12,13 @@ namespace Tests.PropTests
         private Row _row;
         private IWidget _root;
 
+
+        public RowPropertyTests()
+        {
+            _row = new Row();
+            _root = WidgetFactory.Container(new RectangleF(0, 0, 1280, 720));
+        }
+
         [SetUp]
         public void BeforeEach()
         {
