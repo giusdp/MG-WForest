@@ -1,16 +1,21 @@
-using Microsoft.Xna.Framework;
 using NUnit.Framework;
 using WForest.UI.Interactions;
 using WForest.UI.Widgets;
 using WForest.Utilities;
 
-namespace WForest.Tests
+namespace Tests
 {
     [TestFixture]
     public class InteractionUpdaterTests
     {
         private InteractionUpdater _updater;
         private Widget _widget;
+
+        public InteractionUpdaterTests()
+        {
+            _updater = new InteractionUpdater();
+            _widget = new Widget(RectangleF.Empty);
+        }
 
         [SetUp]
         public void BeforeEach()

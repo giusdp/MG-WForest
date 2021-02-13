@@ -1,17 +1,23 @@
-using Microsoft.Xna.Framework;
 using NUnit.Framework;
 using WForest.Factories;
 using WForest.UI.Props.Grid;
 using WForest.UI.Widgets.Interfaces;
 using WForest.Utilities;
 
-namespace WForest.Tests.PropTests
+namespace Tests.PropTests
 {
     [TestFixture]
     public class RowPropertyTests
     {
         private Row _row;
         private IWidget _root;
+
+
+        public RowPropertyTests()
+        {
+            _row = new Row();
+            _root = WidgetFactory.Container(new RectangleF(0, 0, 1280, 720));
+        }
 
         [SetUp]
         public void BeforeEach()

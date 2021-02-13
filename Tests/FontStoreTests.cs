@@ -1,10 +1,9 @@
 using Moq;
 using NUnit.Framework;
 using WForest.Exceptions;
-using WForest.Tests.Utils;
 using WForest.Utilities.Text;
 
-namespace WForest.Tests
+namespace Tests
 {
 
     [TestFixture]

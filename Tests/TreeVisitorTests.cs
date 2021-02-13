@@ -1,5 +1,4 @@
 using System.Linq;
-using Microsoft.Xna.Framework;
 using Moq;
 using NUnit.Framework;
 using WForest.UI.Props.Interfaces;
@@ -7,12 +6,12 @@ using WForest.UI.Widgets;
 using WForest.UI.Widgets.Interfaces;
 using WForest.Utilities;
 
-namespace WForest.Tests
+namespace Tests
 {
     [TestFixture]
     public class TreeVisitorTests
     {
-        private IWidget _tree;
+        private IWidget _tree = new Widget(RectangleF.Empty);
 
         [SetUp]
         public void SetUpBeforeEach()
@@ -38,7 +37,7 @@ namespace WForest.Tests
         [Test]
         public void ApplyProps_Null_Throws()
         {
-            Assert.That(() => TreeVisitor.ApplyPropsOnTree(null), Throws.ArgumentNullException);
+            Assert.That(() => TreeVisitor.ApplyPropsOnTree(null!), Throws.ArgumentNullException);
         }
 
         [Test]
@@ -110,12 +109,12 @@ namespace WForest.Tests
         [Test]
         public void ApplyToTreeLevelByLevel_NullArgs_ThrowsError()
         {
-            Assert.That(() => TreeVisitor.ApplyToTreeLevelByLevel(null, tree => { }),
+            Assert.That(() => TreeVisitor.ApplyToTreeLevelByLevel(null!, tree => { }),
                 Throws.ArgumentNullException);
-            Assert.That(() => TreeVisitor.ApplyToTreeLevelByLevel(new Widget(RectangleF.Empty), null),
+            Assert.That(() => TreeVisitor.ApplyToTreeLevelByLevel(new Widget(RectangleF.Empty), null!),
                 Throws.ArgumentNullException);
         }
-        
+
         [Test]
         public void ApplyToTreLevelByLevel_TakesAnAction_AppliesItToAllNodes()
         {
@@ -154,11 +153,11 @@ namespace WForest.Tests
         [Test]
         public void GetLowestNodeThatHolds_Null_Throws()
         {
-            Assert.That(() => TreeVisitor.GetLowestNodeThatHolds(null, w => w.Children, tree => true),
+            Assert.That(() => TreeVisitor.GetLowestNodeThatHolds(null!, w => w.Children, tree => true),
                 Throws.ArgumentNullException);
-            Assert.That(() => TreeVisitor.GetLowestNodeThatHolds(_tree, null, _tree => true),
+            Assert.That(() => TreeVisitor.GetLowestNodeThatHolds(_tree, null!, tree => true),
                 Throws.ArgumentNullException);
-            Assert.That(() => TreeVisitor.GetLowestNodeThatHolds(_tree, w => w.Children, null),
+            Assert.That(() => TreeVisitor.GetLowestNodeThatHolds(_tree, w => w.Children, null!),
                 Throws.ArgumentNullException);
         }
     }

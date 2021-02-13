@@ -1,0 +1,41 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30907.101
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WForest", "WForest\WForest.csproj", "{E4D5A6F0-462C-4F70-8C53-4352A4016D4D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FontStashSharp.MonoGame", "FontStashSharp\src\XNA\FontStashSharp.MonoGame.csproj", "{CBDFA8FD-8CD8-4C22-B9B7-A7BCFC57D841}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{8DC45DE4-9141-46A8-87FF-F78E61E30ADB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{67F734E4-F669-4832-8BF5-23D89CD2D366}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67F734E4-F669-4832-8BF5-23D89CD2D366}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67F734E4-F669-4832-8BF5-23D89CD2D366}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67F734E4-F669-4832-8BF5-23D89CD2D366}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E4D5A6F0-462C-4F70-8C53-4352A4016D4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E4D5A6F0-462C-4F70-8C53-4352A4016D4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E4D5A6F0-462C-4F70-8C53-4352A4016D4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E4D5A6F0-462C-4F70-8C53-4352A4016D4D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CBDFA8FD-8CD8-4C22-B9B7-A7BCFC57D841}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBDFA8FD-8CD8-4C22-B9B7-A7BCFC57D841}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBDFA8FD-8CD8-4C22-B9B7-A7BCFC57D841}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CBDFA8FD-8CD8-4C22-B9B7-A7BCFC57D841}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8DC45DE4-9141-46A8-87FF-F78E61E30ADB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8DC45DE4-9141-46A8-87FF-F78E61E30ADB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8DC45DE4-9141-46A8-87FF-F78E61E30ADB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8DC45DE4-9141-46A8-87FF-F78E61E30ADB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {146F35A7-2FE4-4744-BD30-196A68093579}
+	EndGlobalSection
+EndGlobal

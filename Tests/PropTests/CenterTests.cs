@@ -1,4 +1,3 @@
-using Microsoft.Xna.Framework;
 using NUnit.Framework;
 using WForest.Exceptions;
 using WForest.Factories;
@@ -6,23 +5,30 @@ using WForest.UI.Props.Grid;
 using WForest.UI.Props.Grid.JustifyProps;
 using WForest.UI.Widgets.Interfaces;
 using WForest.Utilities;
-using static WForest.Tests.Utils.HelperMethods;
+using static Tests.Utils.HelperMethods;
 
-namespace WForest.Tests.PropTests
+namespace Tests.PropTests
 {
     [TestFixture]
     public class CenterPropertyTests
     {
         private JustifyCenter _justifyCenter;
         private IWidget _root;
-        private IWidget child;
+        private IWidget _child;
+
+        public CenterPropertyTests()
+        {
+            _justifyCenter = new JustifyCenter();
+            _root = WidgetFactory.Container(0, 0, 1280, 720);
+            _child = WidgetFactory.Container(0, 0, 120, 120);
+        }
 
         [SetUp]
         public void BeforeEach()
         {
             _justifyCenter = new JustifyCenter();
             _root = WidgetFactory.Container(0, 0, 1280, 720);
-            child = WidgetFactory.Container(0, 0, 120, 120);
+            _child = WidgetFactory.Container(0, 0, 120, 120);
         }
 
         private void ApplyRow()
@@ -46,40 +52,40 @@ namespace WForest.Tests.PropTests
         [Test]
         public void ApplyOn_WidgetWithoutRowOrCol_Throws()
         {
-            _root.AddChild(child);
+            _root.AddChild(_child);
             Assert.That(() => _justifyCenter.ApplyOn(_root), Throws.TypeOf<IncompatibleWidgetException>());
         }
 
         [Test]
         public void ApplyOn_OneChildInARow_PutsItInCenter()
         {
-            _root.AddChild(child);
+            _root.AddChild(_child);
             ApplyRow();
 
             _justifyCenter.ApplyOn(_root);
 
             var expected = new RectangleF(580, 0, 120, 120);
 
-            Assert.That(child.Space, Is.EqualTo(expected));
+            Assert.That(_child.Space, Is.EqualTo(expected));
         }
 
         [Test]
         public void ApplyOn_OneChildInAColumn_PutsItInCenter()
         {
-            _root.AddChild(child);
+            _root.AddChild(_child);
             ApplyCol();
 
             _justifyCenter.ApplyOn(_root);
 
             var expected = new RectangleF(0, 300, 120, 120);
 
-            Assert.That(child.Space, Is.EqualTo(expected));
+            Assert.That(_child.Space, Is.EqualTo(expected));
         }
 
         [Test]
         public void ApplyOn_TwoIdenticalWidgetsInColumn()
         {
-            _root.AddChild(child);
+            _root.AddChild(_child);
             var secondChild = WidgetFactory.Container(0, 0, 120, 120);
             _root.AddChild(secondChild);
 
@@ -89,14 +95,14 @@ namespace WForest.Tests.PropTests
             ApplyCol();
             _justifyCenter.ApplyOn(_root);
 
-            Assert.That(child.Space, Is.EqualTo(firstChildExpectedLoc));
+            Assert.That(_child.Space, Is.EqualTo(firstChildExpectedLoc));
             Assert.That(secondChild.Space, Is.EqualTo(secondChildExpectedLoc));
         }
 
         [Test]
         public void ApplyOn_TwoIdenticalWidgetsInRow()
         {
-            _root.AddChild(child);
+            _root.AddChild(_child);
             var secondChild = WidgetFactory.Container(0, 0, 120, 120);
             _root.AddChild(secondChild);
             var firstChildExpectedLoc = new RectangleF(520, 0, 120, 120);
@@ -105,15 +111,15 @@ namespace WForest.Tests.PropTests
             ApplyRow();
             _justifyCenter.ApplyOn(_root);
 
-            Assert.That(child.Space, Is.EqualTo(firstChildExpectedLoc));
+            Assert.That(_child.Space, Is.EqualTo(firstChildExpectedLoc));
             Assert.That(secondChild.Space, Is.EqualTo(secondChildExpectedLoc));
         }
 
         [Test]
         public void ApplyOn_RowWithTwoSizesWidgets_CentersOnlyRowsNotInternally()
         {
-            child.Space = new RectangleF(0, 0, 220, 120);
-            _root.AddChild(child);
+            _child.Space = new RectangleF(0, 0, 220, 120);
+            _root.AddChild(_child);
             var secondChild = WidgetFactory.Container(0, 0, 120, 330);
             _root.AddChild(secondChild);
             var firstChildExpectedLoc = new RectangleF(470, 0, 220, 120);
@@ -121,14 +127,14 @@ namespace WForest.Tests.PropTests
 
             ApplyRow();
             _justifyCenter.ApplyOn(_root);
-            Assert.That(child.Space, Is.EqualTo(firstChildExpectedLoc));
+            Assert.That(_child.Space, Is.EqualTo(firstChildExpectedLoc));
             Assert.That(secondChild.Space, Is.EqualTo(secondChildExpectedLoc));
         }
 
         [Test]
         public void ApplyOn_ColumnWithTwoSizesWidgets_CentersOnlyColumnsNotInternally()
         {
-            _root.AddChild(child);
+            _root.AddChild(_child);
             var secondChild = WidgetFactory.Container(new RectangleF(0, 0, 220, 330));
             _root.AddChild(secondChild);
             var firstChildExpectedLoc = new RectangleF(0, 135, 120, 120);
@@ -136,7 +142,7 @@ namespace WForest.Tests.PropTests
 
             ApplyCol();
             _justifyCenter.ApplyOn(_root);
-            Assert.That(child.Space, Is.EqualTo(firstChildExpectedLoc));
+            Assert.That(_child.Space, Is.EqualTo(firstChildExpectedLoc));
             Assert.That(secondChild.Space, Is.EqualTo(secondChildExpectedLoc));
         }
 

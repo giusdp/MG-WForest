@@ -4,7 +4,7 @@ using WForest.UI.Props;
 using WForest.UI.Props.Actions;
 using WForest.UI.Props.Grid.JustifyProps;
 
-namespace WForest.Tests
+namespace Tests
 {
     [TestFixture]
     public class PropertyFactoryTests
@@ -19,7 +19,7 @@ namespace WForest.Tests
         [Test]
         public void CreateOnPressProperty_ThrowsOnNull()
         {
-            Assert.That(() => PropFactory.OnPress(null), Throws.ArgumentNullException);
+            Assert.That(() => PropFactory.OnPress(null!), Throws.ArgumentNullException);
         }
 
         [Test]
@@ -32,7 +32,7 @@ namespace WForest.Tests
         [Test]
         public void CreateOnReleaseProperty_ThrowsOnNull()
         {
-            Assert.That(() => PropFactory.OnRelease(null), Throws.ArgumentNullException);
+            Assert.That(() => PropFactory.OnRelease(null!), Throws.ArgumentNullException);
         }
 
         [Test]
@@ -45,7 +45,7 @@ namespace WForest.Tests
         [Test]
         public void CreateOnEnterPressProperty_ThrowsOnNull()
         {
-            Assert.That(() => PropFactory.OnEnter(null), Throws.ArgumentNullException);
+            Assert.That(() => PropFactory.OnEnter(null!), Throws.ArgumentNullException);
         }
         
         [Test]
@@ -58,7 +58,7 @@ namespace WForest.Tests
         [Test]
         public void CreateOnExitProperty_ThrowsOnNull()
         {
-            Assert.That(() => PropFactory.OnExit(null), Throws.ArgumentNullException);
+            Assert.That(() => PropFactory.OnExit(null!), Throws.ArgumentNullException);
         }
         
         [Test]

@@ -4,7 +4,7 @@ using WForest.Factories;
 using WForest.UI.Widgets;
 using WForest.Utilities;
 
-namespace WForest.Tests
+namespace Tests
 {
     [TestFixture]
     public class WForestFactoryTests

@@ -1,4 +1,3 @@
-using Microsoft.Xna.Framework;
 using NUnit.Framework;
 using WForest.Factories;
 using WForest.UI.Props.Grid;
@@ -6,9 +5,9 @@ using WForest.UI.Props.Grid.JustifyProps;
 using WForest.UI.Props.Grid.StretchingProps;
 using WForest.UI.Widgets.Interfaces;
 using WForest.Utilities;
-using static WForest.Tests.Utils.HelperMethods;
+using static Tests.Utils.HelperMethods;
 
-namespace WForest.Tests.PropTests
+namespace Tests.PropTests
 {
     [TestFixture]
     public class StretchTests
@@ -105,7 +104,7 @@ namespace WForest.Tests.PropTests
         [Test]
         public void VerticalStretch_OnTwoMarginChildren_ParentCentered()
         {
-            _root.Space = new RectangleF(10, 10, 380, 382);
+            _root!.Space = new RectangleF(10, 10, 380, 382);
             _root!.WithProp(new Column());
             IWidget c1 = WidgetFactory.Container();
             IWidget c2 = WidgetFactory.Container();
@@ -118,6 +117,57 @@ namespace WForest.Tests.PropTests
             TreeVisitor.ApplyPropsOnTree(_root);
             Assert.That(c1.Space, Is.EqualTo(new RectangleF(10, 10, 0, 191)));
             Assert.That(c2.Space, Is.EqualTo(new RectangleF(10, 201, 0, 191)));
+        }
+
+        [Test]
+        public void SingleChildWithBothTypeStretch_ShouldGetParentSize()
+        {
+            _root!.Space = new RectangleF(10, 10, 380, 382);
+            _root!.WithProp(new Row());
+            IWidget c1 = WidgetFactory.Container();
+
+            _root!.AddChild(c1);
+            c1.WithProp(new VerticalStretch());
+            c1.WithProp(new HorizontalStretch());
+
+            TreeVisitor.ApplyPropsOnTree(_root);
+            Assert.That(c1.Space, Is.EqualTo(new RectangleF(10, 10, 380, 382)));
+        }
+
+        [Test]
+        public void ChildWithBothStretchAndFixedSibling_ShouldTakeAsMuchSpaceWhileRespecting()
+        {
+            _root!.Space = new RectangleF(10, 10, 380, 382);
+            _root!.WithProp(new Column());
+            IWidget c1 = WidgetFactory.Container();
+            IWidget c2 = WidgetFactory.Container(15, 82);
+            _root!.AddChild(c1);
+            _root!.AddChild(c2);
+            c1.WithProp(new VerticalStretch());
+            c1.WithProp(new HorizontalStretch());
+
+            TreeVisitor.ApplyPropsOnTree(_root);
+            Assert.That(c1.Space, Is.EqualTo(new RectangleF(10, 10, 380, 300)));
+            Assert.That(c2.Space, Is.EqualTo(new RectangleF(10, 310, 15, 82)));
+        }
+
+        [Test]
+        public void TwoChildrenWithBothStretch_ShouldDivideSpaceEqually()
+        {
+            _root!.Space = new RectangleF(10, 10, 380, 382);
+            _root!.WithProp(new Row());
+            IWidget c1 = WidgetFactory.Container();
+            IWidget c2 = WidgetFactory.Container(15, 82);
+            _root!.AddChild(c1);
+            _root!.AddChild(c2);
+            c1.WithProp(new VerticalStretch());
+            c1.WithProp(new HorizontalStretch());
+            c2.WithProp(new VerticalStretch());
+            c2.WithProp(new HorizontalStretch());
+
+            TreeVisitor.ApplyPropsOnTree(_root);
+            Assert.That(c1.Space, Is.EqualTo(new RectangleF(10, 10, 190, 382)));
+            Assert.That(c2.Space, Is.EqualTo(new RectangleF(200, 10, 190, 382)));
         }
     }
 }
