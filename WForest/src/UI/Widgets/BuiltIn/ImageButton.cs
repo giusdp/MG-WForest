@@ -10,28 +10,20 @@ namespace WForest.UI.Widgets.BuiltIn
     /// <summary>
     /// Widget that displays Texture2Ds based on hovering and pressed states which can be used as a button.
     /// </summary>
-    public class ImageButton : Widget
+    public class ImageButton : TexturedWidget
     {
         private Texture2D _imageToDraw;
-        private Texture2D NormalButton { get; }
 
-        /// <summary>
-        /// Texture2D to use when the widget is hovered. If not set it fallbacks to the normal button texture.
-        /// </summary>
-        public Texture2D? HoverButton { get; set; }
-
-        /// <summary>
-        /// Texture to use when the widget is pressed. If not set it fallbacks to the normal button texture.
-        /// </summary>
-        public Texture2D? PressedButton { get; set; }
-
-        public ImageButton(Texture2D normalButton) : base(RectangleF.Empty)
+        public ImageButton(Texture2D normalButton, Texture2D? hoverButton = null, Texture2D? pressButton = null) : 
+            base(new RectangleF(0, 0, normalButton.Width, normalButton.Height))
         {
-            NormalButton = normalButton ??
-                           throw new ArgumentNullException(nameof(normalButton));
-            _imageToDraw = NormalButton;
-            Space = new RectangleF(0, 0, normalButton.Width, normalButton.Height);
-            
+            NormalTexture = normalButton ??
+                            throw new ArgumentNullException(nameof(normalButton));
+            HoverTexture = hoverButton;
+            PressTexture = pressButton;
+
+            _imageToDraw = NormalTexture;
+
             Props.AddProp(new OnEnter(StartedHovering));
             Props.AddProp(new OnExit(StoppedHovering));
             Props.AddProp(new OnPress(PressedDown));
@@ -58,20 +50,20 @@ namespace WForest.UI.Widgets.BuiltIn
 
             _isHovering = true;
 
-            if (HoverButton == null)
+            if (HoverTexture == null)
             {
                 Log.Warning("ImageButton Widget: HoverButton texture missing, fallback to NormalButton");
-                _imageToDraw = NormalButton;
+                _imageToDraw = NormalTexture;
             }
             else
-                _imageToDraw = HoverButton;
+                _imageToDraw = HoverTexture;
         }
 
         private void StoppedHovering()
         {
             _isHovering = false;
             _isPressed = false;
-            _imageToDraw = NormalButton;
+            _imageToDraw = NormalTexture;
         }
 
         private void PressedDown()
@@ -83,12 +75,12 @@ namespace WForest.UI.Widgets.BuiltIn
             }
             else return;
 
-            if (PressedButton == null)
+            if (PressTexture == null)
             {
                 Log.Warning("ImageButton Widget: PressedButton texture missing, fallback to NormalButton");
-                _imageToDraw = NormalButton;
+                _imageToDraw = NormalTexture;
             }
-            else _imageToDraw = PressedButton;
+            else _imageToDraw = PressTexture;
         }
 
         private void Released()

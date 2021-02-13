@@ -15,12 +15,12 @@ namespace WForest.Utilities
         /// Spritebatch extension method to create a colored 1x1 Texture2D, which can be used
         /// to draw shapes or borders. 
         /// </summary>
-        /// <param name="s">The spritebatch</param>
+        /// <param name="r">The spritebatch</param>
         /// <param name="color">The color to use with the create texture.</param>
         /// <returns>A blank colored 1x1 Texture2D</returns>
-        public static Texture2D CreateTexture(this IRenderer s, Color color)
+        public static Texture2D CreateTexture(this IRenderer r, Color color)
         {
-            var blankTexture = new Texture2D(s.GraphicsDevice, 1, 1);
+            var blankTexture = new Texture2D(r.GraphicsDevice, 1, 1);
             blankTexture.SetData(new[] {color});
             return blankTexture;
         }

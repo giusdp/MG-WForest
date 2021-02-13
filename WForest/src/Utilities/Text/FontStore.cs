@@ -22,10 +22,8 @@ namespace WForest.Utilities.Text
         {
             get
             {
-                if (_defaultFont == null)
-                    throw new FontStoreNotInitializedException(
-                        "No DefaultFont set, was FontManager.Initialize() invoked?");
-                return _defaultFont;
+                CheckIfInit();
+                return _defaultFont!;
             }
             set
             {
@@ -71,7 +69,7 @@ namespace WForest.Utilities.Text
         {
             if (_defaultFont == null)
                 throw new FontStoreNotInitializedException(
-                    "No default font found, did you forget to call FontManager.Initialize() ?");
+                    "No default font found, assign one first to FontStore.DefaultFont");
         }
     }
 }

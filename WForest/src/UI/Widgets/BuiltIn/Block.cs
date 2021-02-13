@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using WForest.Rendering;
+using WForest.UI.Widgets.Interfaces;
 using WForest.Utilities;
 
 namespace WForest.UI.Widgets.BuiltIn
@@ -8,9 +9,8 @@ namespace WForest.UI.Widgets.BuiltIn
     /// <summary>
     /// Basic UI block, it's just a customizable colored rectangle.
     /// </summary>
-    public class Block : Widget
+    public class Block : TexturedWidget
     {
-        private Texture2D? _texture;
         public Block(RectangleF space) : base(space) { }
 
         /// <summary>
@@ -19,8 +19,8 @@ namespace WForest.UI.Widgets.BuiltIn
         /// <param name="renderer"></param>
         public override void Draw(IRenderer renderer)
         {
-            _texture ??= renderer.CreateTexture(Color);
-            renderer.Draw(_texture, Space, Color.White);
+            NormalTexture ??= renderer.CreateTexture(Color);
+            renderer.Draw(NormalTexture, Space, Color.White);
             base.Draw(renderer);
         }
     }

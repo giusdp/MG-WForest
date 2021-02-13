@@ -3,6 +3,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [0.0.16]
+### Added
+- TexturedWidget: subclass of Widget that holds Normal,Hover,Pressed textures to easily add them to new widgets
+### Fixed
+- Error message when using FontStore without the default font was referencing a removed Initialize method
+
 ## [0.0.15]
 ### Added
 - IRenderer interface to abstract over Spritebatch
