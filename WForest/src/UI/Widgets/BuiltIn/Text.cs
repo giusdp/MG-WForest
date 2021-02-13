@@ -1,7 +1,5 @@
 using System;
-using FontStashSharp;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using WForest.Rendering;
 using WForest.UI.Utils;
 using WForest.Utilities;
@@ -65,6 +63,7 @@ namespace WForest.UI.Widgets.BuiltIn
         public override void Draw(IRenderer renderer)
         {
             renderer.DrawString(Font.SpriteFont(FontSize), TextString, new Vector2(Space.X, Space.Y), Color);
+            base.Draw(renderer);
         }
 
         private void UpdateTextSize()

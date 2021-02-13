@@ -45,6 +45,7 @@ namespace WForest.UI.Widgets.BuiltIn
         public override void Draw(IRenderer renderer)
         {
             renderer.Draw(_imageToDraw, Space, Color);
+            base.Draw(renderer);
         }
 
         #region Visualization Based On Interactions

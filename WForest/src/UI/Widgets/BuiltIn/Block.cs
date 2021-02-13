@@ -21,6 +21,7 @@ namespace WForest.UI.Widgets.BuiltIn
         {
             _texture ??= renderer.CreateTexture(Color);
             renderer.Draw(_texture, Space, Color.White);
+            base.Draw(renderer);
         }
     }
 }

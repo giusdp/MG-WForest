@@ -47,11 +47,13 @@ namespace WForest.UI.Widgets
         public Color Color { get; set; }
 
         ///<inheritdoc/> 
-        public List<Action<IRenderer>> PostDrawActions { get; }
+        public ICollection<Action<IRenderer>> PostDrawActions { get; }
 
         ///<inheritdoc/> 
         public virtual void Draw(IRenderer renderer)
         {
+            foreach (var c in Children) c.Draw(renderer);
+            foreach (var postDraw in PostDrawActions) postDraw(renderer);
         }
 
         #endregion

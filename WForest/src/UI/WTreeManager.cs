@@ -56,13 +56,6 @@ namespace WForest.UI
         /// Draws the WidgetTree. It visits the entire tree calling the Draw methods of the widgets.
         /// </summary>
         /// <param name="renderer"></param>
-        public void Draw(IRenderer renderer)
-        {
-            TreeVisitor.ApplyToTreeLevelByLevel(Root, widgets => widgets.ForEach(w =>
-            {
-                w.Draw(renderer);
-                w.PostDrawActions.ForEach(postDraw => postDraw(renderer));
-            }));
-        }
+        public void Draw(IRenderer renderer) => Root.Draw(renderer);
     }
 }

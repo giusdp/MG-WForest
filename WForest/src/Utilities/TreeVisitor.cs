@@ -12,10 +12,7 @@ namespace WForest.Utilities
     {
         public static void ApplyPropsOnTree(IWidget widgetTree)
         {
-            ApplyToTreeFromLeaves(widgetTree, w =>
-            {
-                foreach (var prop in w.Props.OfType<IApplicableProp>().OrderBy(p => p.Priority)) prop.ApplyOn(w);
-            });
+            ApplyToTreeFromLeaves(widgetTree, w => w.ApplyProps());
         }
 
         public static void ResetApplyProps(IWidget wTree)

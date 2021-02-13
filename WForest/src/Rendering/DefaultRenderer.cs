@@ -7,12 +7,13 @@ namespace WForest.Rendering
     public class DefaultRenderer : IRenderer
     {
         private readonly SpriteBatch _spriteBatch;
+
         public GraphicsDevice GraphicsDevice { get; }
 
-        public DefaultRenderer(SpriteBatch spriteBatch, GraphicsDevice graphicsDevice)
+        public DefaultRenderer(SpriteBatch spriteBatch)
         {
             _spriteBatch = spriteBatch;
-            GraphicsDevice = graphicsDevice;
+            GraphicsDevice = spriteBatch.GraphicsDevice;
         }
 
         public void Draw(Texture2D texture, Vector2 position) => _spriteBatch.Draw(texture, position, Color.White);

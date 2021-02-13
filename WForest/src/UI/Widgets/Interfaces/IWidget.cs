@@ -2,9 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.Xna.Framework;
 using WForest.Rendering;
 using WForest.UI.Interactions;
+using WForest.UI.Props.Interfaces;
 using WForest.UI.Utils;
 using WForest.Utilities;
 
@@ -33,6 +33,12 @@ namespace WForest.UI.Widgets.Interfaces
         /// <param name="renderer"></param>
         void Draw(IRenderer renderer);
 
+        void ApplyProps()
+        {
+            foreach (var prop in Props.OfType<IApplicableProp>().OrderBy(p => p.Priority))
+                prop.ApplyOn(this);
+        }
+
         #region Widget Tree
 
         /// <summary>
@@ -50,16 +56,18 @@ namespace WForest.UI.Widgets.Interfaces
         /// and the child's parent is set to this widget.
         /// </summary>
         /// <param name="widget"></param>
+        /// <returns>The added child.</returns>
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="ArgumentException"></exception>
-        void AddChild(IWidget widget)
+        IWidget AddChild(IWidget widget)
         {
             if (widget == null) throw new ArgumentNullException(nameof(widget));
-            if (widget == this) throw new ArgumentException("Widgets cannot add themselves as their children");
+            if (widget == this) throw new ArgumentException("Widgets cannot add themselves as their own children");
             WidgetsSpaceHelper.UpdateSpace(widget,
                 new RectangleF(Space.X, Space.Y, widget.Space.Width, widget.Space.Height));
             widget.Parent = this;
             Children.Add(widget);
+            return widget;
         }
 
         /// <summary>

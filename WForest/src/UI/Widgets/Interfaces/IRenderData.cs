@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using WForest.Rendering;
 using WForest.Utilities;
 
@@ -41,7 +40,7 @@ namespace WForest.UI.Widgets.Interfaces
         /// <summary>
         /// Actions that can be run after drawing. The border prop adds a post draw action that adds the border.
         /// </summary>
-        public List<Action<IRenderer>> PostDrawActions { get; }
+        public ICollection<Action<IRenderer>> PostDrawActions { get; }
 
        
     }
