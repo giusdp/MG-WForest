@@ -126,7 +126,7 @@ namespace WForest.UI.Interactions
         public static Maybe<IWidget> GetHoveredWidget(IWidget widget, Vector2 mouseLoc)
         {
             var m = TreeVisitor.GetLowestNodeThatHolds(widget,
-                w => w.Children.Reverse(),
+                w => w.Children,
                 w => IsMouseInsideWidgetSpace(w.Space, mouseLoc));
             return m switch
             {

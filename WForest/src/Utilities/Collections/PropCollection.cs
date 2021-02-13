@@ -17,6 +17,12 @@ namespace WForest.Utilities.Collections
         /// <param name="prop"></param>
         public void AddProp(IProp prop) => Add(prop);
 
+        public void RemoveSingleProp(IProp prop)
+        {
+            Data.TryGetValue(prop.GetType(), out var list);
+            list?.Remove(prop);
+        }
+        
         public bool Contains<TP>() where TP : IProp => Data.ContainsKey(typeof(TP));
 
         /// <summary>

@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using Microsoft.Xna.Framework;
 using WForest.Devices;
 using WForest.UI.Props.Actions;
@@ -40,6 +39,7 @@ namespace WForest.UI.Props.Dragging
         public bool ApplicationDone { get; set; }
 
         private readonly IDevice _device;
+        private OnUpdate? _onUpdateDrag;
 
         public Draggable(IDevice device)
         {
@@ -55,46 +55,57 @@ namespace WForest.UI.Props.Dragging
             ApplicationDone = false;
             var dragCtx = new DragCtx();
 
-            widget.Props.SafeGetByProp<FixX>().TryGetValue(out var fixX);
-            widget.Props.SafeGetByProp<FixY>().TryGetValue(out var fixY);
+            var foundFixX = widget.Props.SafeGetByProp<FixX>().TryGetValue(out var fixX);
+            var foundFixY = widget.Props.SafeGetByProp<FixY>().TryGetValue(out var fixY);
 
-            OnPress onPress = new OnPress(() => DragAction(widget, fixX.Any(), fixY.Any(), dragCtx));
-            OnRelease onRelease = new OnRelease(() => dragCtx.IsDragging = false);
-            OnExit onExit = new OnExit(() => dragCtx.IsDragging = false);
+            bool isXFixed = foundFixX && fixX.Count > 0;
+            bool isYFixed = foundFixY && fixY.Count > 0;
+            OnPress onPress = new OnPress(() => StartDrag(widget, isXFixed, isYFixed, dragCtx));
+            OnRelease onRelease = new OnRelease(() => StopDrag(widget, dragCtx));
+            OnExit onExit = new OnExit(() => StopDrag(widget, dragCtx));
 
-            widget.Props.AddProp(onPress);
-            widget.Props.AddProp(onRelease);
-            widget.Props.AddProp(onExit);
+            widget.WithProp(onPress);
+            widget.WithProp(onRelease);
+            widget.WithProp(onExit);
+            
+            _onUpdateDrag = new OnUpdate(() => Dragging(widget, isXFixed, isYFixed, dragCtx));
+            
             ApplicationDone = true;
             OnApplied();
         }
 
-        private void DragAction(IWidget widget, bool isXFixed, bool isYFixed, DragCtx dragCtx)
+        private void Dragging(IWidget widget, bool isXFixed, bool isYFixed, DragCtx dragCtx)
+        {
+            var devLoc = _device.GetPointedLocation();
+            var devX = devLoc.X;
+            var devY = devLoc.Y;
+            var (x, y, w, h) = widget.Space;
+            if (Math.Abs(dragCtx.DevX - devX) < 0.01f && Math.Abs(dragCtx.DevY - devY) < 0.01f) return;
+
+            var nx = x + (isXFixed ? 0 : devX - dragCtx.DevX);
+            var ny = y + (isYFixed ? 0 : devY - dragCtx.DevY);
+            (nx, ny) = CheckBounds(widget, nx, ny, isXFixed, isYFixed);
+
+            WidgetsSpaceHelper.UpdateSpace(widget, new RectangleF(nx, ny, w, h));
+            dragCtx.Set(devLoc);
+        }
+
+        private void StartDrag(IPropHolder widget, bool isXFixed, bool isYFixed, DragCtx dragCtx)
         {
             if (isXFixed && isYFixed) return;
 
             var devLoc = _device.GetPointedLocation();
-            if (!dragCtx.IsDragging)
-            {
-                dragCtx.IsDragging = true;
-                dragCtx.Set(devLoc);
-            }
-            else
-            {
-                var devX = devLoc.X;
-                var devY = devLoc.Y;
-                var (x, y, w, h) = widget.Space;
-                if (Math.Abs(dragCtx.DevX - devX) < 0.01f && Math.Abs(dragCtx.DevY - devY) < 0.01f) return;
+            if (dragCtx.IsDragging) return;
+            dragCtx.IsDragging = true;
+            dragCtx.Set(devLoc);
+            widget.WithProp(_onUpdateDrag!);
+        }
 
-                var nx = x;
-                var ny = y;
-                nx += isXFixed ? 0 : devX - dragCtx.DevX;
-                ny += isYFixed ? 0 : devY - dragCtx.DevY;
-                (nx, ny) = CheckBounds(widget, nx, ny, isXFixed, isYFixed);
-
-                WidgetsSpaceHelper.UpdateSpace(widget, new RectangleF(nx, ny, w, h));
-                dragCtx.Set(devLoc);
-            }
+        private void StopDrag(IPropHolder widget, DragCtx ctx)
+        {
+            if (!ctx.IsDragging) return;
+            ctx.IsDragging = false;
+            widget.Props.RemoveSingleProp(_onUpdateDrag!);
         }
 
         private void OnApplied() => Applied?.Invoke(this, EventArgs.Empty);
