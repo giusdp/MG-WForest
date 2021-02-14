@@ -14,7 +14,7 @@ namespace WForest.UI.Widgets.Interfaces
     /// Base interface for Widgets. It contains the main functionality for having trees of widgets
     /// and implements the functionalities to use props and to draw. 
     /// </summary>
-    public interface IWidget : IEnumerable<IWidget>, IRenderData, IPropHolder
+    public interface IWidget : IEnumerable<IWidget>, IDrawable, IPropHolder
     {
         /// <summary>
         /// The current interaction of this widget with the input device.
@@ -27,11 +27,7 @@ namespace WForest.UI.Widgets.Interfaces
         /// </summary>
         public Interaction CurrentInteraction { get; set; }
 
-        /// <summary>
-        /// Draw the widget with a SpriteBatch.
-        /// </summary>
-        /// <param name="renderer"></param>
-        void Draw(IRenderer renderer);
+       
 
         void ApplyProps()
         {

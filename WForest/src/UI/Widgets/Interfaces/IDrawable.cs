@@ -7,9 +7,9 @@ using WForest.Utilities;
 namespace WForest.UI.Widgets.Interfaces
 {
     /// <summary>
-    /// 
+    /// Interface for basic drawing.
     /// </summary>
-    public interface IRenderData
+    public interface IDrawable
     {
         /// <summary>
         /// The Space used by the widget.
@@ -19,7 +19,7 @@ namespace WForest.UI.Widgets.Interfaces
         /// <summary>
         /// The values for the left, right, top, bottom margins.
         /// </summary>
-        public MarginValues Margins { get; set; }
+        MarginValues Margins { get; set; }
 
         /// <summary>
         /// The widget color.
@@ -29,7 +29,7 @@ namespace WForest.UI.Widgets.Interfaces
         /// <summary>
         /// Get the total space occupied by the widget, that is it's space + margins.
         /// </summary>
-        public RectangleF TotalSpaceOccupied =>
+        RectangleF TotalSpaceOccupied =>
             new RectangleF(
                 Space.X - Margins.Left,
                 Space.Y - Margins.Top,
@@ -40,8 +40,12 @@ namespace WForest.UI.Widgets.Interfaces
         /// <summary>
         /// Actions that can be run after drawing. The border prop adds a post draw action that adds the border.
         /// </summary>
-        public ICollection<Action<IRenderer>> PostDrawActions { get; }
+        ICollection<Action<IRenderer>> PostDrawActions { get; }
 
-       
+        /// <summary>
+        /// Draw the widget.
+        /// </summary>
+        /// <param name="renderer"></param>
+        void Draw(IRenderer renderer);
     }
 }

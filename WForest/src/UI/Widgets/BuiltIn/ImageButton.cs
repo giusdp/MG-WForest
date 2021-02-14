@@ -17,8 +17,7 @@ namespace WForest.UI.Widgets.BuiltIn
         public ImageButton(Texture2D normalButton, Texture2D? hoverButton = null, Texture2D? pressButton = null) : 
             base(new RectangleF(0, 0, normalButton.Width, normalButton.Height))
         {
-            NormalTexture = normalButton ??
-                            throw new ArgumentNullException(nameof(normalButton));
+            NormalTexture = normalButton ?? throw new ArgumentNullException(nameof(normalButton));
             HoverTexture = hoverButton;
             PressTexture = pressButton;
 
@@ -53,7 +52,7 @@ namespace WForest.UI.Widgets.BuiltIn
             if (HoverTexture == null)
             {
                 Log.Warning("ImageButton Widget: HoverButton texture missing, fallback to NormalButton");
-                _imageToDraw = NormalTexture;
+                _imageToDraw = NormalTexture!;
             }
             else
                 _imageToDraw = HoverTexture;
@@ -63,7 +62,7 @@ namespace WForest.UI.Widgets.BuiltIn
         {
             _isHovering = false;
             _isPressed = false;
-            _imageToDraw = NormalTexture;
+            _imageToDraw = NormalTexture!;
         }
 
         private void PressedDown()
@@ -78,7 +77,7 @@ namespace WForest.UI.Widgets.BuiltIn
             if (PressTexture == null)
             {
                 Log.Warning("ImageButton Widget: PressedButton texture missing, fallback to NormalButton");
-                _imageToDraw = NormalTexture;
+                _imageToDraw = NormalTexture!;
             }
             else _imageToDraw = PressTexture;
         }
