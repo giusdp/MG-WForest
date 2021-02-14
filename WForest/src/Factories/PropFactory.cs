@@ -177,6 +177,12 @@ namespace WForest.Factories
         public static IProp Color(Color color) => new ColorProp(color);
 
         /// <summary>
+        /// Creates a Draggable property to make a widget draggable with the built-in MouseDevice.
+        /// </summary>
+        /// <returns></returns>
+        public static IProp Draggable() => new Draggable(MouseDevice.Instance);
+
+        /// <summary>
         /// Creates a Draggable property used to make a widget draggable with the given input device.
         /// </summary>
         /// <param name="device"></param>

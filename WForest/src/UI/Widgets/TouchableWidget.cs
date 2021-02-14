@@ -1,33 +1,37 @@
-using System;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework.Graphics;
 using Serilog;
 using WForest.Rendering;
 using WForest.UI.Props.Actions;
 using WForest.Utilities;
 
-namespace WForest.UI.Widgets.BuiltIn
+namespace WForest.UI.Widgets
 {
     /// <summary>
-    /// Widget that displays Texture2Ds based on hovering and pressed states which can be used as a button.
+    /// A TouchableWidget provides a neutral state, hover state and pressed state textures and handles the texture to
+    /// draw swap based on the interaction. TODO find a better name cause all widgets are already touchable
     /// </summary>
-    public class ImageButton : TexturedWidget
+    public abstract class TouchableWidget : Widget
     {
         private Texture2D _imageToDraw;
+        private bool _isHovering, _isPressed;
+        public Texture2D NormalTexture { get; set; }
+        public Texture2D? HoverTexture { get; set; }
+        public Texture2D? PressTexture { get; set; }
 
-        public ImageButton(Texture2D normalButton, Texture2D? hoverButton = null, Texture2D? pressButton = null) : 
-            base(new RectangleF(0, 0, normalButton.Width, normalButton.Height))
+        protected TouchableWidget(Texture2D normal, Texture2D? hover = null, Texture2D? press = null)
+            : base(new RectangleF(0,0,normal.Width,normal.Height))
         {
-            NormalTexture = normalButton ?? throw new ArgumentNullException(nameof(normalButton));
-            HoverTexture = hoverButton;
-            PressTexture = pressButton;
-
-            _imageToDraw = NormalTexture;
+            NormalTexture = normal;
+            _imageToDraw = normal;
+            HoverTexture = hover;
+            PressTexture = press;
 
             Props.AddProp(new OnEnter(StartedHovering));
             Props.AddProp(new OnExit(StoppedHovering));
             Props.AddProp(new OnPress(PressedDown));
             Props.AddProp(new OnRelease(Released));
         }
+
 
         /// <summary>
         /// Draws the widget using based on the interaction state (if hovered or not, pressed or not)
@@ -40,8 +44,6 @@ namespace WForest.UI.Widgets.BuiltIn
         }
 
         #region Visualization Based On Interactions
-
-        private bool _isHovering, _isPressed;
 
         private void StartedHovering()
         {

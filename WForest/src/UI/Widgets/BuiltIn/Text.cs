@@ -48,7 +48,7 @@ namespace WForest.UI.Widgets.BuiltIn
 
         public Text(string text, int fontSize = 12) : base(RectangleF.Empty)
         {
-            TextString = text ?? throw new ArgumentNullException();
+            TextString = text;
             _font = FontStore.DefaultFont;
             _size = fontSize;
             UpdateTextSize();

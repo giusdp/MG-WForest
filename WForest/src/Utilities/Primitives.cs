@@ -12,7 +12,7 @@ namespace WForest.Utilities
         private static Texture2D? _blankTexture;
 
         /// <summary>
-        /// Spritebatch extension method to create a colored 1x1 Texture2D, which can be used
+        /// Renderer extension method to create a colored 1x1 Texture2D, which can be used
         /// to draw shapes or borders. 
         /// </summary>
         /// <param name="r">The spritebatch</param>

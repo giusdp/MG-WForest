@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using WForest.Rendering;
 using WForest.UI.Interactions;
 using WForest.UI.Props.Interfaces;
 using WForest.UI.Utils;
@@ -26,8 +25,6 @@ namespace WForest.UI.Widgets.Interfaces
         /// - Released
         /// </summary>
         public Interaction CurrentInteraction { get; set; }
-
-       
 
         void ApplyProps()
         {
