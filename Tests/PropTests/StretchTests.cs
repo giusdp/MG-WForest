@@ -1,10 +1,11 @@
 using NUnit.Framework;
 using WForest.Factories;
+using WForest.Props.Grid;
+using WForest.Props.Grid.JustifyProps;
+using WForest.Props.Grid.StretchingProps;
 using WForest.UI.Props.Grid;
-using WForest.UI.Props.Grid.JustifyProps;
-using WForest.UI.Props.Grid.StretchingProps;
-using WForest.UI.Widgets.Interfaces;
 using WForest.Utilities;
+using WForest.Widgets.Interfaces;
 using static Tests.Utils.HelperMethods;
 
 namespace Tests.PropTests

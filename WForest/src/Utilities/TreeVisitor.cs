@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using WForest.UI.Props.Actions;
-using WForest.UI.Props.Interfaces;
-using WForest.UI.Widgets.Interfaces;
+using WForest.Props.Actions;
+using WForest.Props.Interfaces;
+using WForest.Widgets.Interfaces;
 
 namespace WForest.Utilities
 {
@@ -15,7 +15,7 @@ namespace WForest.Utilities
             ApplyToTreeFromLeaves(widgetTree, w => w.ApplyProps());
         }
 
-        public static void ResetApplyProps(IWidget wTree)
+        public static void ResetApplicationDoneFlags(IWidget wTree)
         {
             foreach (var widget in wTree)
             foreach (var app in widget.Props.OfType<IApplicableProp>())

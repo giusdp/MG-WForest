@@ -4,8 +4,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [0.0.16]
+
 ### Added
-- TexturedWidget: subclass of Widget that holds Normal,Hover,Pressed textures to easily add them to new widgets
+- TouchableWidget: subclass of Widget that holds Normal,Hover,Pressed textures to easily add them to new widgets
+- Drawable object abstraction over Texture2D so that widgets that use textures deal with a Drawable object which can be a normal Texture, NinePatch etc.
+- Image drawable that represents a normal Texture2D
+- NinePatch drawable for stretchable textures
+
+### Changed
+- Primitive utils class renamed into RendererExt
+- Project folder structure: UI code was moved up to src folder and the Utils folder in UI was merged in Utilities
+- WTreeManager renamed into WTree
+- WForestFactory renamed into WTreeFactory
+- Image button now just inherits TouchableWidget and passing to it Image drawables
+
+### Removed
+- FontStoreNotInitializeException, instead FontNotFoundException is used when DefaultFont is not set
 ### Fixed
 - Error message when using FontStore without the default font was referencing a removed Initialize method
 

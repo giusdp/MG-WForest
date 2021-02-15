@@ -17,6 +17,7 @@
         <RepositoryType>git</RepositoryType>
         <OutputType>Library</OutputType>
         <Nullable>enable</Nullable>
+        <LangVersion>9</LangVersion>
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.0.1641" />

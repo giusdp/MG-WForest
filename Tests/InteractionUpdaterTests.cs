@@ -1,7 +1,7 @@
 using NUnit.Framework;
-using WForest.UI.Interactions;
-using WForest.UI.Widgets;
+using WForest.Interactions;
 using WForest.Utilities;
+using WForest.Widgets;
 
 namespace Tests
 {

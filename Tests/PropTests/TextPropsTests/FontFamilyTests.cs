@@ -3,9 +3,9 @@ using Moq;
 using NUnit.Framework;
 using WForest.Exceptions;
 using WForest.Factories;
-using WForest.UI.Props.Text;
-using WForest.UI.Widgets.BuiltIn;
+using WForest.Props.Text;
 using WForest.Utilities.Text;
+using WForest.Widgets.BuiltIn;
 
 namespace Tests.PropTests.TextPropsTests
 {

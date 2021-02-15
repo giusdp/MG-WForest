@@ -1,8 +1,9 @@
 using NUnit.Framework;
 using WForest.Factories;
+using WForest.Props;
+using WForest.Props.Actions;
+using WForest.Props.Grid.JustifyProps;
 using WForest.UI.Props;
-using WForest.UI.Props.Actions;
-using WForest.UI.Props.Grid.JustifyProps;
 
 namespace Tests
 {

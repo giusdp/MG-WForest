@@ -67,7 +67,7 @@ namespace WForest.Utilities
         public static RectangleF Empty => new RectangleF();
 
         public static implicit operator Rectangle(RectangleF r) =>
-            new Rectangle((int) r.X, (int) r.Y, (int) r.Width, (int) r.Height);
+            new((int) r.X, (int) r.Y, (int) r.Width, (int) r.Height);
 
         public bool Equals(RectangleF other)
         {
@@ -76,10 +76,10 @@ namespace WForest.Utilities
 
         public void Deconstruct(out float x, out float y, out float width, out float height)
         {
-            x = this.X;
-            y = this.Y;
-            width = this.Width;
-            height = this.Height;
+            x = X;
+            y = Y;
+            width = Width;
+            height = Height;
         }
 
         public override string ToString()

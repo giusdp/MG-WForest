@@ -1,10 +1,10 @@
 using System.Linq;
 using Moq;
 using NUnit.Framework;
-using WForest.UI.Props.Interfaces;
-using WForest.UI.Widgets;
-using WForest.UI.Widgets.Interfaces;
+using WForest.Props.Interfaces;
 using WForest.Utilities;
+using WForest.Widgets;
+using WForest.Widgets.Interfaces;
 
 namespace Tests
 {

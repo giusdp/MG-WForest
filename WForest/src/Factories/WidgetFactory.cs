@@ -1,7 +1,7 @@
 using Microsoft.Xna.Framework.Graphics;
-using WForest.UI.Widgets.BuiltIn;
-using WForest.UI.Widgets.Interfaces;
 using WForest.Utilities;
+using WForest.Widgets.BuiltIn;
+using WForest.Widgets.Interfaces;
 
 namespace WForest.Factories
 {
@@ -19,14 +19,14 @@ namespace WForest.Factories
         public static IWidget Block(int width, int height) => new Block(new RectangleF(0, 0, width, height));
 
         /// <summary>
-        /// Creates a <see cref="TextureButton"/> widget with a NormalButtonTexture.
+        /// Creates a <see cref="ImageButton"/> widget with a NormalButtonTexture.
         /// </summary>
         /// <param name="neutralState"></param>
         /// <param name="hoverState"></param>
         /// <param name="pressState"></param>
         /// <returns></returns>
-        public static IWidget TextureButton(Texture2D neutralState, Texture2D? hoverState = null, Texture2D? pressState = null) =>
-            new TextureButton(neutralState, hoverState, pressState);
+        public static IWidget ImageButton(Texture2D neutralState, Texture2D? hoverState = null, Texture2D? pressState = null) =>
+            new ImageButton(neutralState, hoverState, pressState);
 
         /// <summary>
         /// Creates a <see cref="Container()"/> widget with position and size of (0,0).

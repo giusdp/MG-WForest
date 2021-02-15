@@ -1,8 +1,9 @@
 using NUnit.Framework;
 using WForest.Factories;
+using WForest.Props.Grid;
 using WForest.UI.Props.Grid;
-using WForest.UI.Widgets.Interfaces;
 using WForest.Utilities;
+using WForest.Widgets.Interfaces;
 
 namespace Tests.PropTests
 {

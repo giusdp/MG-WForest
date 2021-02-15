@@ -1,5 +1,5 @@
 using NUnit.Framework;
-using WForest.UI.Props.Shaders;
+using WForest.Props.Shaders;
 
 namespace Tests.PropTests
 {
