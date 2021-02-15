@@ -18,8 +18,9 @@ namespace WForest.Widgets
         public Drawable? HoverTexture { get; set; }
         public Drawable? PressTexture { get; set; }
 
-        protected TouchableWidget(Drawable normal, Drawable? hover = null, Drawable? press = null)
-            : base(new RectangleF(0, 0, normal.Width, normal.Height))
+
+        protected TouchableWidget(RectangleF space, Drawable normal, Drawable? hover = null, Drawable? press = null)
+            : base(space)
         {
             NormalTexture = normal;
             _objToDraw = NormalTexture;
@@ -32,6 +33,10 @@ namespace WForest.Widgets
             Props.AddProp(new OnRelease(Released));
         }
 
+        protected TouchableWidget(Drawable normal, Drawable? hover = null, Drawable? press = null)
+            : this(new RectangleF(0, 0, normal.Width, normal.Height), normal, hover, press)
+        {
+        }
 
         /// <summary>
         /// Draws the widget using based on the interaction state (if hovered or not, pressed or not)
@@ -53,7 +58,7 @@ namespace WForest.Widgets
 
             if (HoverTexture == null)
             {
-                Log.Warning("ImageButton Widget: HoverButton texture missing, fallback to NormalButton");
+                Log.Warning("TouchableWidget: HoverButton drawable missing, fallback to NormalButton");
                 _objToDraw = NormalTexture!;
             }
             else
@@ -78,7 +83,7 @@ namespace WForest.Widgets
 
             if (PressTexture == null)
             {
-                Log.Warning("ImageButton Widget: PressedButton texture missing, fallback to NormalButton");
+                Log.Warning("TouchableWidget: PressedButton drawable missing, fallback to NormalButton");
                 _objToDraw = NormalTexture!;
             }
             else _objToDraw = PressTexture;
