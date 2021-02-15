@@ -1,6 +1,6 @@
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using WForest.Rendering;
+using WForest.Rendering.DrawableAdapters;
 using WForest.Utilities;
 
 namespace WForest.UI.Widgets.BuiltIn
@@ -10,7 +10,7 @@ namespace WForest.UI.Widgets.BuiltIn
     /// </summary>
     public class Block : Widget
     {
-        private Texture2D? _texture;
+        private Drawable? _block;
         public Block( RectangleF space) : base(space) { }
 
         /// <summary>
@@ -19,8 +19,8 @@ namespace WForest.UI.Widgets.BuiltIn
         /// <param name="renderer"></param>
         public override void Draw(IRenderer renderer)
         {
-            _texture ??= renderer.CreateTexture(Color);
-            renderer.Draw(_texture, Space, Color.White);
+            _block ??= new Image(renderer.CreateTexture(Color));
+            renderer.Draw(_block, Space, Color.White);
             base.Draw(renderer);
         }
     }

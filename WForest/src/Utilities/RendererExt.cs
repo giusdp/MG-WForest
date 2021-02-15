@@ -1,15 +1,16 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using WForest.Rendering;
+using WForest.Rendering.DrawableAdapters;
 
 namespace WForest.Utilities
 {
     /// <summary>
     /// Static class with helper methods to create texture and draw borders.
     /// </summary>
-    public static class Primitives
+    public static class RendererExt
     {
-        private static Texture2D? _blankTexture;
+        private static Drawable? _blankTexture;
 
         /// <summary>
         /// Renderer extension method to create a colored 1x1 Texture2D, which can be used
@@ -32,9 +33,9 @@ namespace WForest.Utilities
         /// <param name="rect">The rectangle outline.</param>
         /// <param name="color">The color of the border.</param>
         /// <param name="lineWidth">The width of the border.</param>
-        public static void DrawBorder(IRenderer renderer, Rectangle rect, Color color, int lineWidth)
+        public static void DrawBorder(this IRenderer renderer, Rectangle rect, Color color, int lineWidth)
         {
-            _blankTexture ??= renderer.CreateTexture(Color.White);
+            _blankTexture ??= new Image(renderer.CreateTexture(Color.White));
             var x = rect.X;
             var y = rect.Y;
             var width = rect.Width;
