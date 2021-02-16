@@ -22,7 +22,8 @@ namespace WForest.Rendering.DrawableAdapters
         private readonly Func<Vector2, RectangleF[]> _generatePatches;
 
         public NinePatch(Texture2D texture, float leftPatchesWidth,
-            float rightPatchesWidth, float topPatchesHeight, float bottomPatchesHeight) : base(texture)
+            float rightPatchesWidth, float topPatchesHeight, float bottomPatchesHeight, Color? tintColor = null) : base(
+            texture, tintColor)
         {
             _generatePatches = size =>
                 GetNinePatches(size, leftPatchesWidth, rightPatchesWidth, topPatchesHeight, bottomPatchesHeight);
@@ -34,11 +35,10 @@ namespace WForest.Rendering.DrawableAdapters
 
         public override void Draw(IRenderer renderer, RectangleF space, Color color)
         {
-            if (Math.Abs(_imageSize.Y - space.Height) > .001f ||
-                Math.Abs(_imageSize.X - space.Width) > .001f)
+            if (TintColor is not null) color = MultiplyColor(color, TintColor.Value);
+            if (Math.Abs(_imageSize.Y - space.Height) > .001f || Math.Abs(_imageSize.X - space.Width) > .001f)
             {
-                _imageSize.X = space.Width;
-                _imageSize.Y = space.Height;
+                _imageSize = space.Size;
                 _destRects = _generatePatches(_imageSize);
             }
 
