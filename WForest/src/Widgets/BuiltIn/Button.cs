@@ -1,4 +1,3 @@
-using Microsoft.Xna.Framework.Graphics;
 using WForest.Rendering.DrawableAdapters;
 
 namespace WForest.Widgets.BuiltIn

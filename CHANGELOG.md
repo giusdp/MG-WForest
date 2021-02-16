@@ -9,7 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - TouchableWidget: subclass of Widget that holds Normal,Hover,Pressed textures to easily add them to new widgets
 - Drawable object abstraction over Texture2D so that widgets that use textures deal with a Drawable object which can be a normal Texture, NinePatch etc.
 - Image drawable that represents a normal Texture2D
-- StretchableImage drawable for stretchable textures
+- NinePatch drawable for stretchable textures
 
 ### Changed
 - Primitive utils class renamed into RendererExt

@@ -12,6 +12,8 @@ namespace WForest.Rendering.DrawableAdapters
         protected Texture2D Texture;
         public int Width { get; }
         public int Height { get; }
+        
+        public Color TintColor { get; set; }
 
         protected Drawable(Texture2D texture)
         {
