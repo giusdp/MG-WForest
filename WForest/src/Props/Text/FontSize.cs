@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Serilog;
 using WForest.Exceptions;
 using WForest.Props.Interfaces;
@@ -36,17 +38,13 @@ namespace WForest.Props.Text
         public void ApplyOn(IWidget widget)
         {
             ApplicationDone = false;
-            if (widget is Widgets.BuiltIn.Text text)
-            {
-                if (text.FontSize == _size) return;
-                text.FontSize = _size >= 0 ? _size : throw new ArgumentException("FontSize cannot be negative.");
-            }
+            if (_size < 0) throw new ArgumentException("FontSize cannot be negative.");
+
+            var ts = widget.OfType<Widgets.BuiltIn.Text>().ToList();
+            if (ts.Count > 0) foreach (var t in ts) t.FontSize = _size;
             else
-            {
-                Log.Error("FontSize property is only applicable to a Text Widget. Instead it has received a {W}",
-                    widget.ToString());
-                throw new IncompatibleWidgetException("Property only applicable to a Text Widget.");
-            }
+                Log.Warning(
+                    "FontSize was applied to a widget that is not a Text nor has any Text in its sub-tree");
 
             ApplicationDone = true;
             OnApplied();

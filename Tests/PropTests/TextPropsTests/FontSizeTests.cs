@@ -3,9 +3,9 @@ using System.Runtime.CompilerServices;
 using Microsoft.Xna.Framework;
 using Moq;
 using NUnit.Framework;
-using WForest.Exceptions;
 using WForest.Factories;
 using WForest.Props.Text;
+using WForest.Utilities;
 using WForest.Utilities.Text;
 using WForest.Widgets.BuiltIn;
 
@@ -20,14 +20,6 @@ namespace Tests.PropTests.TextPropsTests
         public void BeforeEach()
         {
             FontStore.DefaultFont = new Mock<Font>(null).Object;
-        }
-
-        [Test]
-        public void ApplyOn_NotTextWidget_ThrowsException()
-        {
-            var size = new FontSize(5);
-            var tree = WidgetFactory.Container(0, 0);
-            Assert.That(() => size.ApplyOn(tree), Throws.TypeOf<IncompatibleWidgetException>());
         }
 
         [Test]
@@ -63,5 +55,22 @@ namespace Tests.PropTests.TextPropsTests
             size.ApplyOn(testWidget);
             Assert.That(testWidget.Space.Size, Is.EqualTo(new Vector2(1, 1)));
         }
+
+        [Test]
+        public void ApplyOn_NotTextWidget_CascadesToChildren()
+        {
+            // arrange
+            var root = WidgetFactory.Container();
+            var testWidget = (Text) WidgetFactory.Text("Test string");
+            root.AddChild(testWidget);
+            var size = 14;
+            // act
+            root.WithProp(new FontSize(size));
+            TreeVisitor.ApplyPropsOnTree(root);
+
+            // assert
+            Assert.That(testWidget.FontSize, Is.EqualTo(size));
+        }
+
     }
 }

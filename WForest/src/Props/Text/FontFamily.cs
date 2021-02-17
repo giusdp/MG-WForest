@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Serilog;
 using WForest.Exceptions;
 using WForest.Props.Interfaces;
@@ -37,16 +38,12 @@ namespace WForest.Props.Text
         public void ApplyOn(IWidget widget)
         {
             ApplicationDone = false;
-            if (widget is Widgets.BuiltIn.Text text)
-            {
-                text.Font = FontStore.GetFont(_name);
-            }
+
+            var ts = widget.OfType<Widgets.BuiltIn.Text>().ToList();
+            if (ts.Count > 0) foreach (var t in ts) t.Font = FontStore.GetFont(_name);
             else
-            {
-                Log.Error("FontFamily property is only applicable to a Text Widget, it was instead applied to: {W}",
-                    widget.ToString());
-                throw new IncompatibleWidgetException("Property only applicable to a Text Widget");
-            }
+                Log.Warning(
+                    "FontFamily was applied to a widget that is not a Text nor has any Text in its sub-tree");
 
             ApplicationDone = true;
             OnApplied();

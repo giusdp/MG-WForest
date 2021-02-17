@@ -24,7 +24,7 @@ namespace WForest.Props.Grid
         /// <inheritdoc/>
         public bool ApplicationDone { get; set; }
 
-        internal List<WidgetsDataSubList> Rows = new List<WidgetsDataSubList>();
+        internal List<WidgetsDataSubList> Rows = new();
 
         /// <summary>
         /// Organizes widgets in a horizontal sequence. If the row exceeds the maximum width of the parent, it goes on

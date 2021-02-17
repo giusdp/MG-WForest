@@ -23,7 +23,7 @@ namespace WForest.Props.Grid
         /// <inheritdoc/>
         public bool ApplicationDone { get; set; }
 
-        internal List<WidgetsDataSubList> Columns = new List<WidgetsDataSubList>();
+        internal List<WidgetsDataSubList> Columns = new();
 
         /// <summary>
         /// Organizes widgets in a vertical sequence. If the column exceeds the maximum height of the parent, it goes on
