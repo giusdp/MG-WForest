@@ -48,8 +48,7 @@ namespace WForest.Utilities.WidgetUtils
         /// <inheritdoc/>
         public IPropHolder WithProp(IProp prop) => _widget.WithProp(prop);
 
-        /// <inheritdoc/>
-        public void ApplyProps() => _widget.ApplyProps();
+        internal void ApplyProps() => _widget.ApplyProps();
 
         /// <inheritdoc/>
         public Interaction CurrentInteraction

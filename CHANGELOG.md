@@ -23,6 +23,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - FontStoreNotInitializeException, instead FontNotFoundException is used when DefaultFont is not set
 ### Fixed
 - Error message when using FontStore without the default font was referencing a removed Initialize method
+- Stretch props now take in consideration the margins their widgets
 
 ## [0.0.15]
 ### Added

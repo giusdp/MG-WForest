@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using WForest.Interactions;
 using WForest.Props.Interfaces;
 using WForest.Utilities;
@@ -26,7 +27,7 @@ namespace WForest.Widgets.Interfaces
         /// </summary>
         public Interaction CurrentInteraction { get; set; }
 
-        void ApplyProps()
+        internal void ApplyProps()
         {
             foreach (var prop in Props.OfType<IApplicableProp>().OrderBy(p => p.Priority))
                 prop.ApplyOn(this);
