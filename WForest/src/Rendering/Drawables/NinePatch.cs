@@ -63,11 +63,11 @@ namespace WForest.Rendering.Drawables
             var centerWidth = size.X - leftPatchesWidth - rightPatchesWidth;
             var centerHeight = size.Y - topPatchesHeight - bottomPatchesHeight;
 
-            var leftX = 0;
+            const int leftX = 0;
             var middleX = leftPatchesWidth;
             var rightX = middleX + centerWidth;
 
-            var topY = 0;
+            const int topY = 0;
             var middleY = topPatchesHeight;
             var bottomY = middleY + centerHeight;
 

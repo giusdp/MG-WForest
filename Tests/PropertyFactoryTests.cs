@@ -3,7 +3,6 @@ using WForest.Factories;
 using WForest.Props;
 using WForest.Props.Actions;
 using WForest.Props.Grid.JustifyProps;
-using WForest.UI.Props;
 
 namespace Tests
 {

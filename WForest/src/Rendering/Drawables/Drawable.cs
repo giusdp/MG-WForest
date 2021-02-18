@@ -12,7 +12,7 @@ namespace WForest.Rendering.Drawables
         protected Texture2D Texture;
         public int Width { get; }
         public int Height { get; }
-        
+
         public Color? TintColor { get; set; }
 
         protected Drawable(Texture2D texture, Color? tintColor = null)
@@ -26,15 +26,15 @@ namespace WForest.Rendering.Drawables
         public abstract void Draw(IRenderer renderer, RectangleF space, Color color);
 
         public static implicit operator Texture2D(Drawable da) => da.Texture;
-        
+
         protected static Color MultiplyColor(Color first, Color second)
         {
             return new()
             {
-                R = (byte)(first.R * second.R / 255),
-                G = (byte)(first.G * second.G / 255),
-                B = (byte)(first.B * second.B / 255),
-                A = (byte)(first.A * second.A / 255)
+                R = (byte) (first.R * second.R / 255),
+                G = (byte) (first.G * second.G / 255),
+                B = (byte) (first.B * second.B / 255),
+                A = (byte) (first.A * second.A / 255)
             };
         }
     }

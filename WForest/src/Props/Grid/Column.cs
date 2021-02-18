@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using WForest.Exceptions;
+using WForest.Props.Grid.Utils;
 using WForest.Props.Interfaces;
-using WForest.UI.Props.Grid.Utils;
 using WForest.Widgets.Interfaces;
 
 namespace WForest.Props.Grid

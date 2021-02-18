@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
+using WForest.Props.Grid.Utils;
 using WForest.Props.Interfaces;
-using WForest.UI.Props.Grid.Utils;
 using WForest.Utilities;
 using WForest.Utilities.WidgetUtils;
 using WForest.Widgets.Interfaces;

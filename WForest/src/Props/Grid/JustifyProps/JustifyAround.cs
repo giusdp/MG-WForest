@@ -4,12 +4,12 @@ using System.Linq;
 using Microsoft.Xna.Framework;
 using Serilog;
 using WForest.Exceptions;
+using WForest.Props.Grid.Utils;
 using WForest.Props.Interfaces;
-using WForest.UI.Props.Grid.Utils;
 using WForest.Utilities;
 using WForest.Utilities.WidgetUtils;
 using WForest.Widgets.Interfaces;
-using static WForest.UI.Props.Grid.Utils.GridHelper;
+using static WForest.Props.Grid.Utils.GridHelper;
 
 namespace WForest.Props.Grid.JustifyProps
 {

@@ -4,7 +4,6 @@ using Serilog.Core;
 using Serilog.Events;
 using WForest.Devices;
 using WForest.Exceptions;
-using WForest.UI;
 using WForest.Widgets.Interfaces;
 
 namespace WForest.Factories

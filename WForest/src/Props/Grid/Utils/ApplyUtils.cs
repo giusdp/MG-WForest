@@ -2,13 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Serilog;
-using WForest.Props.Grid;
 using WForest.Props.Grid.StretchingProps;
 using WForest.Props.Interfaces;
 using WForest.Utilities;
 using WForest.Widgets.Interfaces;
 
-namespace WForest.UI.Props.Grid.Utils
+namespace WForest.Props.Grid.Utils
 {
     internal static class ApplyUtils
     {
@@ -69,7 +68,7 @@ namespace WForest.UI.Props.Grid.Utils
         private static (float, List<IWidget>) GetStretchedSizeWithToBeProcessedSiblings<T, TV, TH>(IWidget widget,
             Func<IWidget, float> getSize) where T : IProp where TV : IProp where TH : IProp
         {
-            List<IWidget> nonFinishedSiblingsWidth = new List<IWidget>();
+            List<IWidget> nonFinishedSiblingsWidth = new();
             var size = getSize(widget.Parent!);
             if (!widget.Parent!.Props.SafeGetByProp<T>().TryGetValue(out var grid))
                 return (size, nonFinishedSiblingsWidth);

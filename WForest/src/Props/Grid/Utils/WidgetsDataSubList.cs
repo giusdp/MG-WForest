@@ -1,4 +1,4 @@
-namespace WForest.UI.Props.Grid.Utils
+namespace WForest.Props.Grid.Utils
 {
     internal class WidgetsDataSubList
     {

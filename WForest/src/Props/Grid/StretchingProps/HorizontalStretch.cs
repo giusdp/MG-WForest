@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
+using WForest.Props.Grid.Utils;
 using WForest.Props.Interfaces;
-using WForest.UI.Props.Grid.Utils;
 using WForest.Utilities;
 using WForest.Utilities.WidgetUtils;
 using WForest.Widgets.Interfaces;
@@ -31,9 +31,9 @@ namespace WForest.Props.Grid.StretchingProps
         {
             ApplicationDone = false;
             if (widget.IsRoot) return;
-            var (x, y, _, h) = widget.Space;
-            if (!widget.Props.Contains<VerticalStretch>())
-                h = widget.Children.Any() ? widget.Children.Max(c => c.Space.Height) : h;
+            var (x, y, _, h) = widget.TotalSpaceOccupied;
+            if (!widget.Props.Contains<VerticalStretch>() && widget.Children.Any())
+                h = widget.Children.Max(c => c.TotalSpaceOccupied.Height);
 
             var (nw, nonFinishedHorSiblings) = ApplyUtils.StretchedWidthUsingWidthSiblings(widget);
             nonFinishedHorSiblings.ForEach(s =>

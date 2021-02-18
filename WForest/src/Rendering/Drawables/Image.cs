@@ -10,11 +10,10 @@ namespace WForest.Rendering.Drawables
         {
         }
 
-
         public override void Draw(IRenderer renderer, RectangleF space, Color color)
         {
             if (TintColor is not null) color = MultiplyColor(color, TintColor.Value);
-           renderer.Draw(this, space, color); 
+            renderer.Draw(this, space, color);
         }
     }
 }

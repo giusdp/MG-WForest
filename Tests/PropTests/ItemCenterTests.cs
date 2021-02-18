@@ -4,7 +4,6 @@ using WForest.Props.Grid;
 using WForest.Props.Grid.ItemProps;
 using WForest.Props.Grid.JustifyProps;
 using WForest.Props.Interfaces;
-using WForest.UI.Props.Grid;
 using WForest.Utilities;
 using WForest.Widgets.Interfaces;
 using static Tests.Utils.HelperMethods;
