@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using NUnit.Framework;
-using WForest.Rendering.DrawableAdapters;
+using WForest.Rendering.Drawables;
 using WForest.Utilities;
 
 

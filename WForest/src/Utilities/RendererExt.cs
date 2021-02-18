@@ -1,7 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using WForest.Rendering;
-using WForest.Rendering.DrawableAdapters;
+using WForest.Rendering.Drawables;
 
 namespace WForest.Utilities
 {

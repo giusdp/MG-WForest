@@ -1,12 +1,12 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using RectangleF = WForest.Utilities.RectangleF;
-using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("Tests")]
 
-namespace WForest.Rendering.DrawableAdapters
+namespace WForest.Rendering.Drawables
 {
     /// <summary>
     /// Nine patch drawable: keeps an array of 9 rectangles (patches) that cover the underlying texture

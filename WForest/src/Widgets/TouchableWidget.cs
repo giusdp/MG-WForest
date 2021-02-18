@@ -1,7 +1,7 @@
 ﻿using Serilog;
 using WForest.Props.Actions;
 using WForest.Rendering;
-using WForest.Rendering.DrawableAdapters;
+using WForest.Rendering.Drawables;
 using WForest.Utilities;
 
 namespace WForest.Widgets

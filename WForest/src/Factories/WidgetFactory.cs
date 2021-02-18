@@ -1,5 +1,5 @@
 using Microsoft.Xna.Framework.Graphics;
-using WForest.Rendering.DrawableAdapters;
+using WForest.Rendering.Drawables;
 using WForest.Utilities;
 using WForest.Widgets.BuiltIn;
 using WForest.Widgets.Interfaces;

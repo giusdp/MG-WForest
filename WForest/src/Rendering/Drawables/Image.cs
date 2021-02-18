@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using RectangleF = WForest.Utilities.RectangleF;
 
-namespace WForest.Rendering.DrawableAdapters
+namespace WForest.Rendering.Drawables
 {
     public class Image : Drawable
     {

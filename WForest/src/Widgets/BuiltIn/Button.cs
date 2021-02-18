@@ -1,4 +1,4 @@
-using WForest.Rendering.DrawableAdapters;
+using WForest.Rendering.Drawables;
 
 namespace WForest.Widgets.BuiltIn
 {

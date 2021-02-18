@@ -1,6 +1,6 @@
 using Microsoft.Xna.Framework;
 using WForest.Rendering;
-using WForest.Rendering.DrawableAdapters;
+using WForest.Rendering.Drawables;
 using WForest.Utilities;
 
 namespace WForest.Widgets.BuiltIn
