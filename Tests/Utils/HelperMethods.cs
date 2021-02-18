@@ -1,5 +1,5 @@
-using WForest.UI.Widgets.Interfaces;
 using WForest.Utilities;
+using WForest.Widgets.Interfaces;
 
 namespace Tests.Utils
 {

@@ -1,15 +1,15 @@
 using System;
 using Microsoft.Xna.Framework;
 using WForest.Devices;
-using WForest.UI.Props;
-using WForest.UI.Props.Actions;
-using WForest.UI.Props.Dragging;
-using WForest.UI.Props.Grid;
-using WForest.UI.Props.Grid.ItemProps;
-using WForest.UI.Props.Grid.JustifyProps;
-using WForest.UI.Props.Grid.StretchingProps;
-using WForest.UI.Props.Interfaces;
-using WForest.UI.Props.Text;
+using WForest.Props;
+using WForest.Props.Actions;
+using WForest.Props.Dragging;
+using WForest.Props.Grid;
+using WForest.Props.Grid.ItemProps;
+using WForest.Props.Grid.JustifyProps;
+using WForest.Props.Grid.StretchingProps;
+using WForest.Props.Interfaces;
+using WForest.Props.Text;
 
 namespace WForest.Factories
 {
@@ -175,6 +175,12 @@ namespace WForest.Factories
         /// <param name="color"></param>
         /// <returns></returns>
         public static IProp Color(Color color) => new ColorProp(color);
+
+        /// <summary>
+        /// Creates a Draggable property to make a widget draggable with the built-in MouseDevice.
+        /// </summary>
+        /// <returns></returns>
+        public static IProp Draggable() => new Draggable(MouseDevice.Instance);
 
         /// <summary>
         /// Creates a Draggable property used to make a widget draggable with the given input device.

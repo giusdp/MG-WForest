@@ -17,15 +17,12 @@ namespace WForest.Utilities.Text
         /// Get or set the DefaultFont. Set the default font before using the FontStore.
         /// It will be used whenever text is used and a custom font is not required.
         /// </summary>
-        /// <exception cref="FontStoreNotInitializedException"></exception>
         public static Font DefaultFont
         {
             get
             {
-                if (_defaultFont == null)
-                    throw new FontStoreNotInitializedException(
-                        "No DefaultFont set, was FontManager.Initialize() invoked?");
-                return _defaultFont;
+                CheckIfInit();
+                return _defaultFont!;
             }
             set
             {
@@ -70,8 +67,8 @@ namespace WForest.Utilities.Text
         private static void CheckIfInit()
         {
             if (_defaultFont == null)
-                throw new FontStoreNotInitializedException(
-                    "No default font found, did you forget to call FontManager.Initialize() ?");
+                throw new FontNotFoundException(
+                    "No default font found, assign one first to FontStore.DefaultFont");
         }
     }
 }

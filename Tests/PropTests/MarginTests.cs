@@ -1,10 +1,10 @@
 using Microsoft.Xna.Framework;
 using NUnit.Framework;
 using WForest.Factories;
-using WForest.UI.Props.Interfaces;
-using WForest.UI.Widgets;
-using WForest.UI.Widgets.Interfaces;
+using WForest.Props.Interfaces;
 using WForest.Utilities;
+using WForest.Widgets;
+using WForest.Widgets.Interfaces;
 using static Tests.Utils.HelperMethods;
 
 namespace Tests.PropTests

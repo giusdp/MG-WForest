@@ -26,13 +26,13 @@ namespace Tests
         public void UseFontManager_NotInitialized_ThrowsException()
         {
             Assert.That(() => FontStore.RegisterFont("test", new Mock<Font>(null).Object),
-                Throws.TypeOf<FontStoreNotInitializedException>());
+                Throws.TypeOf<FontNotFoundException>());
         }
 
         [Test]
         public void AccessDefaultFont_NotInitialized_ThrowsException()
         {
-           Assert.That(() => FontStore.DefaultFont,Throws.TypeOf<FontStoreNotInitializedException>()); 
+           Assert.That(() => FontStore.DefaultFont,Throws.TypeOf<FontNotFoundException>()); 
         }
     }
 }

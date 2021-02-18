@@ -1,11 +1,10 @@
 using Moq;
 using NUnit.Framework;
 using WForest.Factories;
-using WForest.UI.Props.Interfaces;
-using WForest.UI.Widgets;
-using WForest.UI.Widgets.BuiltIn;
-using WForest.UI.Widgets.Interfaces;
+using WForest.Props.Interfaces;
 using WForest.Utilities;
+using WForest.Widgets;
+using WForest.Widgets.Interfaces;
 
 namespace Tests
 {
@@ -19,24 +18,12 @@ namespace Tests
         {
             _widget = new Widget(RectangleF.Empty);
         }
-        [Test]
-        public void WithProp_Null_Throws()
-        {
-            Assert.That(()=>_widget.WithProp(null!), Throws.ArgumentNullException);
-            
-        }
 
         [Test]
         public void WithProp_Prop_AddsToPropList()
         {
             _widget.WithProp(Mock.Of<IProp>());
             Assert.That(_widget.Props, Is.Not.Empty);
-        }
-
-        [Test]
-        public void AddChild_Null_Throws()
-        {
-            Assert.That(() => _widget.AddChild(null!), Throws.ArgumentNullException);
         }
 
         [Test]
@@ -65,18 +52,6 @@ namespace Tests
         {
             var container = WidgetFactory.Container();
             Assert.That(container.Space, Is.EqualTo(RectangleF.Empty));
-        }
-
-        [Test]
-        public void SpriteButton_NullSprite_ThrowsError()
-        {
-            Assert.That(() => new ImageButton(null!), Throws.ArgumentNullException);
-        }
-
-        [Test]
-        public void Text_NullString_Throws()
-        {
-            Assert.That(() => new Text(null!), Throws.ArgumentNullException);
         }
     }
 }

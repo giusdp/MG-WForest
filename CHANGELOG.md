@@ -3,6 +3,28 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [0.0.16]
+
+### Added
+- TouchableWidget: subclass of Widget that holds Normal,Hover,Pressed textures to easily add them to new widgets
+- Drawable object abstraction over Texture2D so that widgets that use textures deal with a Drawable object which can be a normal Texture, NinePatch etc.
+- Image drawable that represents a normal Texture2D
+- NinePatch drawable for stretchable textures
+
+### Changed
+- Primitive utils class renamed into RendererExt
+- Project folder structure: UI code was moved up to src folder and the Utils folder in UI was merged in Utilities
+- WTreeManager renamed into WTree
+- WForestFactory renamed into WTreeFactory
+- ImageButton now is just Button, inherits TouchableWidget and uses Drawables
+- FontSize and FontFamily props now can be used with non text widgets, they are applied to all text widgets in subtree
+
+### Removed
+- FontStoreNotInitializeException, instead FontNotFoundException is used when DefaultFont is not set
+### Fixed
+- Error message when using FontStore without the default font was referencing a removed Initialize method
+- Stretch props now take in consideration the margins their widgets
+
 ## [0.0.15]
 ### Added
 - IRenderer interface to abstract over Spritebatch

@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using WForest.UI.Props.Interfaces;
+using WForest.Props.Interfaces;
 
 namespace WForest.Utilities.Collections
 {

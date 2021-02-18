@@ -3,10 +3,10 @@ using Moq;
 using NUnit.Framework;
 using WForest.Devices;
 using WForest.Factories;
-using WForest.UI.Interactions;
-using WForest.UI.Widgets;
-using WForest.UI.Widgets.Interfaces;
+using WForest.Interactions;
 using WForest.Utilities;
+using WForest.Widgets;
+using WForest.Widgets.Interfaces;
 
 namespace Tests
 {
