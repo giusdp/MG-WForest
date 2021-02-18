@@ -72,5 +72,25 @@ namespace Tests.PropTests.TextPropsTests
             Assert.That(testWidget.FontSize, Is.EqualTo(size));
         }
 
+        [Test]
+        public void ApplyOn_WidgetWithTextChildren_DoesNotOverrideTextChildWithFontFamilyProp()
+        {
+            // arrange
+            var root = WidgetFactory.Text("Root string");
+            var testWidget = WidgetFactory.Text("Test string");
+            root.AddChild(testWidget);
+
+            var childSize = 15;
+            var fontsize = new FontSize(14);
+            var fontSizeChild = new FontSize(childSize);
+
+            // act
+            root.WithProp(fontsize);
+            testWidget.WithProp(fontSizeChild);
+            TreeVisitor.ApplyPropsOnTree(root);
+
+            // assert
+            Assert.That(((Text) testWidget).FontSize, Is.EqualTo(childSize));
+        }
     }
 }

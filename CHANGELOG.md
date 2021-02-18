@@ -17,6 +17,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - WTreeManager renamed into WTree
 - WForestFactory renamed into WTreeFactory
 - ImageButton now is just Button, inherits TouchableWidget and uses Drawables
+- FontSize and FontFamily props now can be used with non text widgets, they are applied to all text widgets in subtree
 
 ### Removed
 - FontStoreNotInitializeException, instead FontNotFoundException is used when DefaultFont is not set

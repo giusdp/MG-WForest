@@ -1,7 +1,6 @@
 using Microsoft.Xna.Framework;
 using Moq;
 using NUnit.Framework;
-using WForest.Exceptions;
 using WForest.Factories;
 using WForest.Props.Text;
 using WForest.Utilities;
@@ -59,13 +58,37 @@ namespace Tests.PropTests.TextPropsTests
             var mockedFont = new Mock<Font>(null);
             FontStore.RegisterFont("mockF2", mockedFont.Object);
             var font = new FontFamily("mockF2");
-            
+
             // act
             root.WithProp(font);
             TreeVisitor.ApplyPropsOnTree(root);
-            
+
             // assert
             Assert.That(testWidget.Font, Is.EqualTo(mockedFont.Object));
+        }
+
+        [Test]
+        public void ApplyOn_WidgetWithTextChildren_DoesNotOverrideTextChildWithFontFamilyProp()
+        {
+            // arrange
+            var root = WidgetFactory.Container();
+            var testWidget = WidgetFactory.Text("Test string");
+            root.AddChild(testWidget);
+            
+            FontStore.RegisterFont("mockF3", new Mock<Font>(null).Object);
+            var font = new FontFamily("mockF3");
+            
+            var mockedFont = new Mock<Font>(null);
+            FontStore.RegisterFont("mockF4", mockedFont.Object);
+            var fontChild = new FontFamily("mockF4");
+            
+            // act
+            root.WithProp(font);
+            testWidget.WithProp(fontChild);
+            TreeVisitor.ApplyPropsOnTree(root);
+
+            // assert
+            Assert.That(((Text)testWidget).Font, Is.EqualTo(mockedFont.Object));
         }
     }
 }
