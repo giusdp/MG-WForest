@@ -18,7 +18,8 @@ namespace WForest.Utilities.WidgetUtils
             {
                 var dX = diff.X;
                 var dY = diff.Y;
-                var cr = new RectangleF(c.Space.X + dX, c.Space.Y + dY, c.Space.Width, c.Space.Height);
+                var (x, y, w, h) = c.TotalSpaceOccupied;
+                var cr = new RectangleF(x + dX, y + dY, w, h);
                 UpdateSpace(c, cr);
             }
         }

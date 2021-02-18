@@ -32,9 +32,10 @@ namespace WForest.Props.Grid.StretchingProps
             ApplicationDone = false;
             if (widget.IsRoot) return;
             var (x, y, w, _) = widget.Space;
-            if (!widget.Props.Contains<HorizontalStretch>())
-                w = widget.Children.Any() ? widget.Children.Max(c => c.Space.Width) : w;
-            
+
+            if (!widget.Props.Contains<HorizontalStretch>() && widget.Children.Any())
+                w = widget.Children.Max(c => c.Space.Width);
+
             var (nh, nonFinishedHorSiblings) = ApplyUtils.StretchedHeightUsingHeightSiblings(widget);
             nonFinishedHorSiblings.ForEach(s =>
             {
@@ -47,7 +48,8 @@ namespace WForest.Props.Grid.StretchingProps
                 };
             });
 
-            WidgetsSpaceHelper.UpdateSpace(widget, new RectangleF(x, y, w, nh));
+            WidgetsSpaceHelper.UpdateSpace(widget,
+                new RectangleF(x, y, w, nh - widget.Margins.Top - widget.Margins.Bottom));
             ApplicationDone = nonFinishedHorSiblings.Count == 0;
             OnApplied();
         }
