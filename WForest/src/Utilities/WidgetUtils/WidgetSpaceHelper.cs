@@ -11,19 +11,20 @@ namespace WForest.Utilities.WidgetUtils
     {
         internal static void UpdateSpace(IWidget w, RectangleF newSpace)
         {
-            var diff = new Vector2(newSpace.X - w.Space.X, newSpace.Y - w.Space.Y);
+            var diffPos = new Vector2(newSpace.X - w.Space.X, newSpace.Y - w.Space.Y);
+            var hasChangedSize = w.Space.Size != newSpace.Size;
             w.Space = newSpace;
-            UpdateSubTreePosition(w, diff);
-            ResetStretching(GetChildrenWithStretchProps(w));
+            UpdateSubTree(w, diffPos);
+            if (hasChangedSize) ResetStretching(GetChildrenWithStretchProps(w));
         }
 
-        private static void UpdateSubTreePosition(IWidget wt, Vector2 diff)
+        private static void UpdateSubTree(IWidget wt, Vector2 diff)
         {
             foreach (var c in wt.Children)
             {
                 var dX = diff.X;
                 var dY = diff.Y;
-                var (x, y, w, h) = c.TotalSpaceOccupied;
+                var (x, y, w, h) = c.Space;
                 var cr = new RectangleF(x + dX, y + dY, w, h);
                 UpdateSpace(c, cr);
             }
