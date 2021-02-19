@@ -308,5 +308,37 @@ namespace Tests.PropTests
             // assert
             Assert.That(container.Space, Is.EqualTo(new RectangleF(0, 0, rootNewWidth, rootNewHeight)));
         }
+
+        [Test]
+        public void HorizontalStretchWithFixedHeight_ShouldKeepHeight_WhenItHasSmallerChild()
+        {
+            // arrange 
+            var container = WidgetFactory.Container(0, 200);
+            container.WithProp(PropFactory.HorizontalStretch());
+            _root!.AddChild(container);
+            container.AddChild(WidgetFactory.Container(120, 60));
+
+            // act
+            TreeVisitor.ApplyPropsOnTree(_root);
+
+            // assert
+            Assert.That(container.Space, Is.EqualTo(new RectangleF(0, 0, 400, 200)));
+        }
+
+        [Test]
+        public void VerticalStretchWithFixedWidth_ShouldKeepWidth_WhenItHasSmallerChild()
+        {
+            // arrange 
+            var container = WidgetFactory.Container(200, 0);
+            container.WithProp(PropFactory.VerticalStretch());
+            _root!.AddChild(container);
+            container.AddChild(WidgetFactory.Container(120, 60));
+
+            // act
+            TreeVisitor.ApplyPropsOnTree(_root);
+
+            // assert
+            Assert.That(container.Space, Is.EqualTo(new RectangleF(0, 0, 200, 402)));
+        }
     }
 }

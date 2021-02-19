@@ -34,7 +34,10 @@ namespace WForest.Props.Grid.StretchingProps
             var (x, y, _, h) = widget.Space;
 
             if (!widget.Props.Contains<VerticalStretch>() && widget.Children.Any())
-                h = widget.Children.Max(c => c.TotalSpaceOccupied.Height);
+            {
+                var childMaxHeight = widget.Children.Max(c => c.TotalSpaceOccupied.Height);
+                if (childMaxHeight > h) h = childMaxHeight;
+            }
 
             var (nw, nonFinishedHorSiblings) = ApplyUtils.StretchedWidthUsingWidthSiblings(widget);
             nonFinishedHorSiblings.ForEach(s =>
