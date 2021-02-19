@@ -4,7 +4,6 @@ using WForest.Factories;
 using WForest.Props.Grid.ItemProps;
 using WForest.Utilities;
 using WForest.Widgets.Interfaces;
-using static Tests.Utils.HelperMethods;
 
 namespace Tests.PropTests
 {
@@ -42,7 +41,7 @@ namespace Tests.PropTests
         {
             _root.WithProp(PropFactory.Row());
             _root.WithProp(PropFactory.ItemBase());
-            ApplyProps(_root);
+            TreeVisitor.ApplyPropsOnTree(_root);
             Assert.That(_child.Space, Is.EqualTo(new RectangleF(0, 700, 20, 20)));
         }
 
@@ -51,7 +50,7 @@ namespace Tests.PropTests
         {
             _root.WithProp(PropFactory.Column());
             _root.WithProp(PropFactory.ItemBase());
-            ApplyProps(_root);
+            TreeVisitor.ApplyPropsOnTree(_root);
             Assert.That(_child.Space, Is.EqualTo(new RectangleF(1260, 0, 20, 20)));
         }
 
@@ -61,7 +60,7 @@ namespace Tests.PropTests
             _root.WithProp(PropFactory.Row());
             _root.WithProp(PropFactory.JustifyEnd());
             _root.WithProp(PropFactory.ItemBase());
-            ApplyProps(_root);
+            TreeVisitor.ApplyPropsOnTree(_root);
             Assert.That(_child.Space, Is.EqualTo(new RectangleF(1260, 700, 20, 20)));
         }
 
@@ -71,7 +70,7 @@ namespace Tests.PropTests
             _root.WithProp(PropFactory.Column());
             _root.WithProp(PropFactory.JustifyEnd());
             _root.WithProp(PropFactory.ItemBase());
-            ApplyProps(_root);
+            TreeVisitor.ApplyPropsOnTree(_root);
             Assert.That(_child.Space, Is.EqualTo(new RectangleF(1260, 700, 20, 20)));
         }
 
@@ -83,7 +82,7 @@ namespace Tests.PropTests
             _root.WithProp(PropFactory.Row());
             _root.WithProp(PropFactory.JustifyEnd());
             _root.WithProp(PropFactory.ItemBase());
-            ApplyProps(_root);
+            TreeVisitor.ApplyPropsOnTree(_root);
             Assert.That(_child.Space, Is.EqualTo(new RectangleF(1230, 700, 20, 20)));
             Assert.That(c1.Space, Is.EqualTo(new RectangleF(1250, 680, 30, 40)));
         }
@@ -101,7 +100,7 @@ namespace Tests.PropTests
             _root.WithProp(PropFactory.Row());
             _root.WithProp(PropFactory.JustifyEnd());
             _root.WithProp(PropFactory.ItemBase());
-            ApplyProps(_root);
+            TreeVisitor.ApplyPropsOnTree(_root);
             Assert.That(c.Space, Is.EqualTo(new RectangleF(180, 660, 800, 20)));
             Assert.That(c1.Space, Is.EqualTo(new RectangleF(980, 640, 300, 40)));
             Assert.That(c2.Space, Is.EqualTo(new RectangleF(980, 680, 300, 40)));

@@ -6,7 +6,6 @@ using WForest.Props.Grid.JustifyProps;
 using WForest.Props.Interfaces;
 using WForest.Utilities;
 using WForest.Widgets.Interfaces;
-using static Tests.Utils.HelperMethods;
 
 namespace Tests.PropTests
 {
@@ -32,13 +31,13 @@ namespace Tests.PropTests
         private void ApplyRow()
         {
             _root.WithProp(new Row());
-            ApplyProps(_root);
+            TreeVisitor.ApplyPropsOnTree(_root);
         }
 
         private void ApplyCol()
         {
             _root.WithProp(new Column());
-            ApplyProps(_root);
+            TreeVisitor.ApplyPropsOnTree(_root);
         }
 
         [Test]

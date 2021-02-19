@@ -4,7 +4,6 @@ using WForest.Factories;
 using WForest.Props.Grid.JustifyProps;
 using WForest.Utilities;
 using WForest.Widgets.Interfaces;
-using static Tests.Utils.HelperMethods;
 
 namespace Tests.PropTests
 {
@@ -49,7 +48,7 @@ namespace Tests.PropTests
             _root.AddChild(child);
             
             _root.WithProp(PropFactory.Row());
-            ApplyProps(_root);
+            TreeVisitor.ApplyPropsOnTree(_root);
 
             _justifyEnd.ApplyOn(_root);
 
@@ -66,7 +65,7 @@ namespace Tests.PropTests
 
             _root.WithProp(PropFactory.Column());
             _root.WithProp(_justifyEnd);
-            ApplyProps(_root);
+            TreeVisitor.ApplyPropsOnTree(_root);
 
             var expected = new RectangleF(0, 600, 220, 120);
 
@@ -85,7 +84,7 @@ namespace Tests.PropTests
             _root.WithProp(PropFactory.ItemCenter());
             _root.WithProp(_justifyEnd);
 
-            ApplyProps(_root);
+            TreeVisitor.ApplyPropsOnTree(_root);
             Assert.That(child.Space, Is.EqualTo(expected));
         }
 
@@ -108,7 +107,7 @@ namespace Tests.PropTests
             _root.WithProp(PropFactory.Column());
             _root.WithProp(_justifyEnd);
 
-            ApplyProps(_root);
+            TreeVisitor.ApplyPropsOnTree(_root);
             Assert.That(c.Space, Is.EqualTo(e));
             Assert.That(c1.Space, Is.EqualTo(e1));
             Assert.That(c2.Space, Is.EqualTo(e2));

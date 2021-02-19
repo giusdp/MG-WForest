@@ -5,7 +5,6 @@ using WForest.Props.Interfaces;
 using WForest.Utilities;
 using WForest.Widgets;
 using WForest.Widgets.Interfaces;
-using static Tests.Utils.HelperMethods;
 
 namespace Tests.PropTests
 {
@@ -139,7 +138,7 @@ namespace Tests.PropTests
             _root.WithProp(PropFactory.Column());
             _root.WithProp(PropFactory.JustifyCenter());
 
-            ApplyProps(_root);
+            TreeVisitor.ApplyPropsOnTree(_root);
 
             Assert.That(_widget.Space, Is.EqualTo(marginWidgetExpected));
             Assert.That(_secondWidget.Space, Is.EqualTo(secondWidgetExpected));
@@ -158,7 +157,7 @@ namespace Tests.PropTests
             _root.WithProp(PropFactory.Row());
             _root.WithProp(PropFactory.JustifyCenter());
 
-            ApplyProps(_root);
+            TreeVisitor.ApplyPropsOnTree(_root);
 
             Assert.That(_widget.Space, Is.EqualTo(marginWidgetExpected));
             Assert.That(_secondWidget.Space, Is.EqualTo(secondWidgetExpected));
@@ -177,7 +176,7 @@ namespace Tests.PropTests
             _root.WithProp(PropFactory.Row());
             _root.WithProp(PropFactory.JustifyCenter());
 
-            ApplyProps(_root);
+            TreeVisitor.ApplyPropsOnTree(_root);
 
             Assert.That(_widget.Space, Is.EqualTo(marginWidgetExpected));
             Assert.That(_secondWidget.Space, Is.EqualTo(secondWidgetExpected));
@@ -196,7 +195,7 @@ namespace Tests.PropTests
             _root.WithProp(PropFactory.Column());
             _root.WithProp(PropFactory.JustifyCenter());
 
-            ApplyProps(_root);
+            TreeVisitor.ApplyPropsOnTree(_root);
 
             Assert.That(_widget.Space, Is.EqualTo(marginWidgetExpected));
             Assert.That(_secondWidget.Space, Is.EqualTo(secondWidgetExpected));
@@ -223,7 +222,7 @@ namespace Tests.PropTests
             _root.WithProp(PropFactory.Row());
             _root.WithProp(PropFactory.JustifyCenter());
 
-            ApplyProps(_root);
+            TreeVisitor.ApplyPropsOnTree(_root);
 
             Assert.That(w2.Space, Is.EqualTo(w2Expected));
             Assert.That(w3.Space, Is.EqualTo(w3Expected));
@@ -250,7 +249,7 @@ namespace Tests.PropTests
             _root.WithProp(PropFactory.Row());
             _root.WithProp(PropFactory.JustifyCenter());
 
-            ApplyProps(_root);
+            TreeVisitor.ApplyPropsOnTree(_root);
 
             Assert.That(w2.Space, Is.EqualTo(w2Expected));
             Assert.That(w3.Space, Is.EqualTo(w3Expected));
@@ -278,7 +277,7 @@ namespace Tests.PropTests
             _root.WithProp(PropFactory.Row());
             _root.WithProp(PropFactory.JustifyCenter());
 
-            ApplyProps(_root);
+            TreeVisitor.ApplyPropsOnTree(_root);
 
             Assert.That(w2.Space, Is.EqualTo(w2Expected));
             Assert.That(w3.Space, Is.EqualTo(w3Expected));

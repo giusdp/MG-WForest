@@ -6,7 +6,6 @@ using WForest.Props.Grid.StretchingProps;
 using WForest.Utilities;
 using WForest.Utilities.WidgetUtils;
 using WForest.Widgets.Interfaces;
-using static Tests.Utils.HelperMethods;
 
 namespace Tests.PropTests
 {
@@ -26,7 +25,7 @@ namespace Tests.PropTests
         public void HorizontalStretch_OnRoot_DoesNothing()
         {
             _root!.WithProp(PropFactory.HorizontalStretch());
-            ApplyProps(_root);
+            TreeVisitor.ApplyPropsOnTree(_root);
             Assert.That(_root.Space, Is.EqualTo(new RectangleF(0, 0, 400, 402)));
         }
 
@@ -36,7 +35,7 @@ namespace Tests.PropTests
             IWidget c = WidgetFactory.Container(100, 120);
             _root!.AddChild(c);
             c.WithProp(PropFactory.HorizontalStretch());
-            ApplyProps(c);
+            TreeVisitor.ApplyPropsOnTree(c);
             Assert.That(c.Space, Is.EqualTo(new RectangleF(0, 0, 400, 120)));
         }
 
@@ -44,7 +43,7 @@ namespace Tests.PropTests
         public void VerticalStretch_OnRoot_DoesNothing()
         {
             _root!.WithProp(PropFactory.VerticalStretch());
-            ApplyProps(_root);
+            TreeVisitor.ApplyPropsOnTree(_root);
             Assert.That(_root.Space, Is.EqualTo(new RectangleF(0, 0, 400, 402)));
         }
 

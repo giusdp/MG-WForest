@@ -4,7 +4,6 @@ using WForest.Factories;
 using WForest.Props.Grid.JustifyProps;
 using WForest.Utilities;
 using WForest.Widgets.Interfaces;
-using static Tests.Utils.HelperMethods;
 
 namespace Tests.PropTests
 {
@@ -52,7 +51,7 @@ namespace Tests.PropTests
             _root.WithProp(PropFactory.Row());
             _root.WithProp(_justifyBetween);
 
-            ApplyProps(_root);
+            TreeVisitor.ApplyPropsOnTree(_root);
             var expected = new RectangleF(0, 0, 130, 120);
 
             Assert.That(child.Space, Is.EqualTo(expected));
@@ -69,7 +68,7 @@ namespace Tests.PropTests
             _root.WithProp(PropFactory.Row());
             _root.WithProp(_justifyBetween);
 
-            ApplyProps(_root);
+            TreeVisitor.ApplyPropsOnTree(_root);
 
             var exp = new RectangleF(0, 0, 130, 120);
             var exp1 = new RectangleF(1160, 0, 120, 110);
@@ -91,7 +90,7 @@ namespace Tests.PropTests
             _root.WithProp(PropFactory.Row());
             _root.WithProp(_justifyBetween);
 
-            ApplyProps(_root);
+            TreeVisitor.ApplyPropsOnTree(_root);
 
             var exp = new RectangleF(0, 0, 130, 120);
             var exp1 = new RectangleF(575, 0, 120, 110);
@@ -120,7 +119,7 @@ namespace Tests.PropTests
             _root.WithProp(PropFactory.Row());
             _root.WithProp(_justifyBetween);
 
-            ApplyProps(_root);
+            TreeVisitor.ApplyPropsOnTree(_root);
 
             var exp = new RectangleF(0, 0, 130, 120);
             var exp1 = new RectangleF(305, 0, 120, 110);
@@ -150,7 +149,7 @@ namespace Tests.PropTests
             _root.WithProp(PropFactory.Row());
             _root.WithProp(_justifyBetween);
 
-            ApplyProps(_root);
+            TreeVisitor.ApplyPropsOnTree(_root);
 
             var exp = new RectangleF(0, 0, 130, 120);
             var exp1 = new RectangleF(377, 0, 120, 110);
