@@ -36,7 +36,7 @@ namespace WForest.Props.Dragging
         public event EventHandler? Applied;
 
         /// <inheritdoc/>
-        public bool ApplicationDone { get; set; }
+        public bool IsApplied { get; set; }
 
         private readonly IDevice _device;
         private OnUpdate? _onUpdateDrag;
@@ -52,7 +52,7 @@ namespace WForest.Props.Dragging
         /// <param name="widget"></param>
         public void ApplyOn(IWidget widget)
         {
-            ApplicationDone = false;
+            IsApplied = false;
             var dragCtx = new DragCtx();
 
             var foundFixX = widget.Props.SafeGetByProp<FixX>().TryGetValue(out var fixX);
@@ -70,7 +70,7 @@ namespace WForest.Props.Dragging
             
             _onUpdateDrag = new OnUpdate(() => Dragging(widget, isXFixed, isYFixed, dragCtx));
             
-            ApplicationDone = true;
+            IsApplied = true;
             OnApplied();
         }
 
@@ -86,7 +86,7 @@ namespace WForest.Props.Dragging
             var ny = y + (isYFixed ? 0 : devY - dragCtx.DevY);
             (nx, ny) = CheckBounds(widget, nx, ny, isXFixed, isYFixed);
 
-            WidgetsSpaceHelper.UpdateSpace(widget, new RectangleF(nx, ny, w, h));
+            WidgetSpaceHelper.UpdateSpace(widget, new RectangleF(nx, ny, w, h));
             dragCtx.Set(devLoc);
         }
 

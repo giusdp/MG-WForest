@@ -86,7 +86,7 @@ namespace WForest.Props.Grid.Utils
                         nonStretchedSize += getSize(sibling);
                     else if (sibling.Props.GetByProp<TH>().FirstOrDefault() is IApplicableProp hp)
                     {
-                        if (hp.ApplicationDone) nonStretchedSize += getSize(sibling);
+                        if (hp.IsApplied) nonStretchedSize += getSize(sibling);
                         else nonFinishedSiblingsWidth.Add(sibling);
                     }
                     else nonStretchedSize += getSize(sibling);

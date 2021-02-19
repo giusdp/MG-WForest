@@ -33,7 +33,7 @@ namespace WForest.Props.Grid.Utils
                     if (Math.Abs(ith.Space.Height - l.Height) > 0.01f)
                         y = CenterCoord(l.Y, l.Height, h);
 
-                    WidgetsSpaceHelper.UpdateSpace(ith, new RectangleF(x, y, w, h));
+                    WidgetSpaceHelper.UpdateSpace(ith, new RectangleF(x, y, w, h));
                 }
             });
         }
@@ -59,7 +59,7 @@ namespace WForest.Props.Grid.Utils
                     if (Math.Abs(ith.Space.Width - l.Width) > 0.01f)
                         x = CenterCoord(l.X, l.Width, w);
 
-                    WidgetsSpaceHelper.UpdateSpace(ith, new RectangleF(x, y, w, h));
+                    WidgetSpaceHelper.UpdateSpace(ith, new RectangleF(x, y, w, h));
                 }
             });
         }
@@ -133,7 +133,7 @@ namespace WForest.Props.Grid.Utils
                     var ith = children.ElementAt(i);
                     xRow += ith.Margins.Left;
                     var wY = w.Y + ith.Margins.Top;
-                    WidgetsSpaceHelper.UpdateSpace(ith, new RectangleF(xRow, wY,
+                    WidgetSpaceHelper.UpdateSpace(ith, new RectangleF(xRow, wY,
                         ith.Space.Width, ith.Space.Height));
                     xRow += ith.Space.Width + ith.Margins.Right;
                 }
@@ -151,7 +151,7 @@ namespace WForest.Props.Grid.Utils
                     var ith = children.ElementAt(i);
                     var wX = w.X + ith.Margins.Left;
                     yAcc += ith.Margins.Top;
-                    WidgetsSpaceHelper.UpdateSpace(ith, new RectangleF(wX, yAcc,
+                    WidgetSpaceHelper.UpdateSpace(ith, new RectangleF(wX, yAcc,
                         ith.Space.Width, ith.Space.Height));
                     yAcc += ith.Space.Height + ith.Margins.Bottom;
                 }

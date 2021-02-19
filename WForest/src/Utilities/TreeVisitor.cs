@@ -19,7 +19,7 @@ namespace WForest.Utilities
         {
             foreach (var widget in wTree)
             foreach (var app in widget.Props.OfType<IApplicableProp>())
-                app.ApplicationDone = false;
+                app.IsApplied = false;
         }
 
         public static void UpdateTree(IWidget widget)

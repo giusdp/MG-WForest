@@ -20,14 +20,14 @@ namespace WForest.Props.Grid.JustifyProps
         /// <inherit/>
         public event EventHandler? Applied;
 /// <inheritdoc/>
-        public bool ApplicationDone { get; set; }
+        public bool IsApplied { get; set; }
         /// <summary>
         /// Move the widgets to the center of a Row (centered horizontally) or of a Column (centered vertically).
         /// </summary>
         /// <param name="widget"></param>
         public void ApplyOn(IWidget widget)
         {
-            ApplicationDone = false;
+            IsApplied = false;
             ApplyUtils.ApplyIfThereAreChildren(widget,
                 $"{widget} has no children to center.",
                 () =>
@@ -46,7 +46,7 @@ namespace WForest.Props.Grid.JustifyProps
                     }
                 }
             );
-            ApplicationDone = true;
+            IsApplied = true;
             OnApplied();
         }
 

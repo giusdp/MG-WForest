@@ -35,7 +35,7 @@ namespace Tests
                 new RectangleF(588, 108, 12, 12),
             };
             // act
-            ar = NinePatch.GetNinePatches(size, left, right, top, bottom);
+            ar = NinePatch.BuildNinePatches(size, left, right, top, bottom);
 
             // assert
             for (var i = 0; i < ar.Length; i++)
@@ -68,7 +68,7 @@ namespace Tests
                 new RectangleF(32, 6, 32, 6),
             };
             // act
-            ar = NinePatch.GetNinePatches(size, left, right, top, bottom);
+            ar = NinePatch.BuildNinePatches(size, left, right, top, bottom);
 
             // assert
             for (var i = 0; i < ar.Length; i++)

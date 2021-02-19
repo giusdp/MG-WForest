@@ -26,7 +26,7 @@ namespace WForest.Props.Text
         public event EventHandler? Applied;
 
         /// <inheritdoc/>
-        public bool ApplicationDone { get; set; }
+        public bool IsApplied { get; set; }
 
         /// <summary>
         /// Applies font size change on Text Widget. It assigns the new size to the FontSize field of the widget and
@@ -36,7 +36,7 @@ namespace WForest.Props.Text
         /// <exception cref="IncompatibleWidgetException"></exception>
         public void ApplyOn(IWidget widget)
         {
-            ApplicationDone = false;
+            IsApplied = false;
             if (_size < 0) throw new ArgumentException("FontSize cannot be negative.");
             
             var tail = widget.Skip(1).OfType<Widgets.BuiltIn.Text>().ToList();
@@ -54,7 +54,7 @@ namespace WForest.Props.Text
                 Log.Warning(
                     "FontSize was applied to a widget that is not a Text nor has any Text in its sub-tree");
 
-            ApplicationDone = true;
+            IsApplied = true;
             OnApplied();
         }
 

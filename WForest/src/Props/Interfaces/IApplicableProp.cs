@@ -21,7 +21,7 @@ namespace WForest.Props.Interfaces
         /// <summary>
         /// Boolean to easily check if the prop was applied to the widget.
         /// </summary>
-        bool ApplicationDone { get; set; }
+        bool IsApplied { get; set; }
 
         /// <summary>
         /// Apply the prop on a widget.

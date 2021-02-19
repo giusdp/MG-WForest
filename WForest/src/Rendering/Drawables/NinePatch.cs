@@ -26,7 +26,7 @@ namespace WForest.Rendering.Drawables
             texture, tintColor)
         {
             _generatePatches = size =>
-                GetNinePatches(size, leftPatchesWidth, rightPatchesWidth, topPatchesHeight, bottomPatchesHeight);
+                BuildNinePatches(size, leftPatchesWidth, rightPatchesWidth, topPatchesHeight, bottomPatchesHeight);
 
             _ninePatchRects = _generatePatches(new Vector2(Width, Height));
             _destRects = _ninePatchRects;
@@ -55,7 +55,7 @@ namespace WForest.Rendering.Drawables
         }
 
 
-        internal static RectangleF[] GetNinePatches(Vector2 size, float leftPatchesWidth,
+        internal static RectangleF[] BuildNinePatches(Vector2 size, float leftPatchesWidth,
             float rightPatchesWidth, float topPatchesHeight, float bottomPatchesHeight)
         {
             RectangleF[] ninePatchesArray = new RectangleF[9];

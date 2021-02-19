@@ -27,7 +27,7 @@ namespace WForest.Props.Grid.JustifyProps
         public event EventHandler? Applied;
 
         /// <inheritdoc/>
-        public bool ApplicationDone { get; set; }
+        public bool IsApplied { get; set; }
 
         /// <summary>
         /// Move the widgets in a way to have them maximally separated between them.
@@ -36,7 +36,7 @@ namespace WForest.Props.Grid.JustifyProps
         /// <param name="widget"></param>
         public void ApplyOn(IWidget widget)
         {
-            ApplicationDone = false;
+            IsApplied = false;
             ApplyUtils.ApplyIfThereAreChildren(widget,
                 $"{widget} has no children to justify space between.",
                 () =>
@@ -55,7 +55,7 @@ namespace WForest.Props.Grid.JustifyProps
                             "Tried to apply JustifyBetween to a widget without a Row or Column Prop");
                     }
                 });
-            ApplicationDone = true;
+            IsApplied = true;
             OnApplied();
         }
 
@@ -96,7 +96,7 @@ namespace WForest.Props.Grid.JustifyProps
 
             widgets.ForEach(w =>
             {
-                WidgetsSpaceHelper.UpdateSpace(w, new RectangleF(updateLoc(w, start), w.Space.Size));
+                WidgetSpaceHelper.UpdateSpace(w, new RectangleF(updateLoc(w, start), w.Space.Size));
                 startPoint += getSize(w) + spaceBetween;
                 start = (int) Math.Round(startPoint);
             });

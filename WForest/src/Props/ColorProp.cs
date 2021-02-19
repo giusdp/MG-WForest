@@ -17,7 +17,7 @@ namespace WForest.Props
         public event EventHandler? Applied;
 
         /// <inheritdoc/>
-        public bool ApplicationDone { get; set; }
+        public bool IsApplied { get; set; }
 
         private readonly Color _color;
 
@@ -32,9 +32,9 @@ namespace WForest.Props
         /// <param name="widget"></param>
         public void ApplyOn(IWidget widget)
         {
-            ApplicationDone = false;
+            IsApplied = false;
             widget.Color = _color;
-            ApplicationDone = true;
+            IsApplied = true;
             OnApplied();
         }
 

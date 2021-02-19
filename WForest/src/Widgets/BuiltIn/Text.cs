@@ -69,7 +69,7 @@ namespace WForest.Widgets.BuiltIn
         {
             var (x, y, _, _) = Space;
             var (w, h) = Font.MeasureText(TextString, FontSize);
-            WidgetsSpaceHelper.UpdateSpace(this, new RectangleF(x, y, w, h));
+            WidgetSpaceHelper.UpdateSpace(this, new RectangleF(x, y, w, h));
         }
     }
 }

@@ -21,7 +21,7 @@ namespace WForest.Props.Grid.StretchingProps
         public event EventHandler? Applied;
 
         /// <inheritdoc/>
-        public bool ApplicationDone { get; set; }
+        public bool IsApplied { get; set; }
 
         /// <summary>
         /// It gets the width of the parent (if it has one) and replaces the widget's width with it, then updates the spaces of its children.
@@ -29,7 +29,7 @@ namespace WForest.Props.Grid.StretchingProps
         /// <param name="widget"></param>
         public void ApplyOn(IWidget widget)
         {
-            ApplicationDone = false;
+            IsApplied = false;
             if (widget.IsRoot) return;
             var (x, y, _, h) = widget.Space;
 
@@ -42,14 +42,14 @@ namespace WForest.Props.Grid.StretchingProps
                 var hp = (IApplicableProp) s.Props.GetByProp<HorizontalStretch>().First();
                 hp.Applied += (_, _) =>
                 {
-                    ApplicationDone = false;
-                    WidgetsSpaceHelper.UpdateSpace(widget, new RectangleF(x, y, nw - s.Space.Width, h));
-                    ApplicationDone = true;
+                    IsApplied = false;
+                    WidgetSpaceHelper.UpdateSpace(widget, new RectangleF(x, y, nw - s.Space.Width, h));
+                    IsApplied = true;
                 };
             });
-            WidgetsSpaceHelper.UpdateSpace(widget,
+            WidgetSpaceHelper.UpdateSpace(widget,
                 new RectangleF(x, y, nw - widget.Margins.Left - widget.Margins.Right, h));
-            ApplicationDone = true;
+            IsApplied = true;
             OnApplied();
         }
 

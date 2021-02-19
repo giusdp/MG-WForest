@@ -23,7 +23,7 @@ namespace WForest.Props
         internal int LineWidth { get; set; }
 
         /// <inheritdoc/>
-        public bool ApplicationDone { get; set; }
+        public bool IsApplied { get; set; }
 
         public Border()
         {
@@ -37,9 +37,9 @@ namespace WForest.Props
         /// <param name="widget"></param>
         public void ApplyOn(IWidget widget)
         {
-            ApplicationDone = false;
+            IsApplied = false;
             widget.PostDrawActions.Add(r => r.DrawBorder(widget.Space, Color, LineWidth));
-            ApplicationDone = true;
+            IsApplied = true;
             OnApplied();
         }
 

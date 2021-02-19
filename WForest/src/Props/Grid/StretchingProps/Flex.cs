@@ -23,7 +23,7 @@ namespace WForest.Props.Grid.StretchingProps
         public event EventHandler? Applied;
 
         /// <inheritdoc/>
-        public bool ApplicationDone { get; set; }
+        public bool IsApplied { get; set; }
 
         /// <summary>
         /// Gets the children of the widget and expands the space enough to accomodate them,
@@ -32,7 +32,7 @@ namespace WForest.Props.Grid.StretchingProps
         /// <param name="widget"></param>
         public void ApplyOn(IWidget widget)
         {
-            ApplicationDone = false;
+            IsApplied = false;
             IncreaseSpaceWithChildren(widget);
 
             var (x, y, _, _) = widget.Space;
@@ -42,7 +42,7 @@ namespace WForest.Props.Grid.StretchingProps
             {
                 row.Applied += (sender, args) =>
                 {
-                    WidgetsSpaceHelper.UpdateSpace(widget,
+                    WidgetSpaceHelper.UpdateSpace(widget,
                         new RectangleF(
                             x,
                             y,
@@ -57,7 +57,7 @@ namespace WForest.Props.Grid.StretchingProps
                 {
                     col.Applied += (sender, args) =>
                     {
-                        WidgetsSpaceHelper.UpdateSpace(widget,
+                        WidgetSpaceHelper.UpdateSpace(widget,
                             new RectangleF(
                                 x,
                                 y,
@@ -74,7 +74,7 @@ namespace WForest.Props.Grid.StretchingProps
                 }
             }
 
-            ApplicationDone = true;
+            IsApplied = true;
             OnApplied();
         }
 
@@ -96,7 +96,7 @@ namespace WForest.Props.Grid.StretchingProps
                     if (h > parentH) h -= ch;
                 }
 
-                WidgetsSpaceHelper.UpdateSpace(widgetNode, new RectangleF(x, y, w, h));
+                WidgetSpaceHelper.UpdateSpace(widgetNode, new RectangleF(x, y, w, h));
             }
         }
     }

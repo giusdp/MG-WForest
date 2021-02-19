@@ -30,7 +30,8 @@ namespace WForest.Widgets.Interfaces
         internal void ApplyProps()
         {
             foreach (var prop in Props.OfType<IApplicableProp>().OrderBy(p => p.Priority))
-                prop.ApplyOn(this);
+                if (!prop.IsApplied)
+                    prop.ApplyOn(this);
         }
 
         #region Widget Tree
@@ -57,7 +58,7 @@ namespace WForest.Widgets.Interfaces
         {
             if (widget == null) throw new ArgumentNullException(nameof(widget));
             if (widget == this) throw new ArgumentException("Widgets cannot add themselves as their own children");
-            WidgetsSpaceHelper.UpdateSpace(widget,
+            WidgetSpaceHelper.UpdateSpace(widget,
                 new RectangleF(Space.X, Space.Y, widget.Space.Width, widget.Space.Height));
             widget.Parent = this;
             Children.Add(widget);

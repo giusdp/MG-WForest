@@ -20,7 +20,7 @@ namespace WForest.Props
         public event EventHandler? Applied;
 
         /// <inheritdoc/>
-        public bool ApplicationDone { get; set; }
+        public bool IsApplied { get; set; }
 
         private readonly MarginValues _marginValues;
 
@@ -35,15 +35,15 @@ namespace WForest.Props
         /// <param name="widget"></param>
         public void ApplyOn(IWidget widget)
         {
-            ApplicationDone = false;
+            IsApplied = false;
             
             var (x, y, w, h) = widget.Space;
             widget.Margins = AddMargin(widget);
 
             var newSpace = new RectangleF(x + _marginValues.Left, y + _marginValues.Top, w, h);
-            WidgetsSpaceHelper.UpdateSpace(widget, newSpace);
+            WidgetSpaceHelper.UpdateSpace(widget, newSpace);
 
-            ApplicationDone = true;
+            IsApplied = true;
             OnApplied();
         }
 

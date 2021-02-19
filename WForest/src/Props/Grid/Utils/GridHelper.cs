@@ -91,7 +91,7 @@ namespace WForest.Props.Grid.Utils
                 for (var i = l.FirstWidgetIndex; i < l.LastWidgetIndex; i++)
                 {
                     var widgetSpace = widgets.ElementAt(i).Space;
-                    WidgetsSpaceHelper.UpdateSpace(widgets.ElementAt(i), updateRect(widgetSpace, acc));
+                    WidgetSpaceHelper.UpdateSpace(widgets.ElementAt(i), updateRect(widgetSpace, acc));
                     acc += getSize(widgets.ElementAt(i));
                 }
             });

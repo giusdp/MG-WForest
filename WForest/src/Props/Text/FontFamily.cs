@@ -27,7 +27,7 @@ namespace WForest.Props.Text
         public event EventHandler? Applied;
 
         /// <inheritdoc/>
-        public bool ApplicationDone { get; set; }
+        public bool IsApplied { get; set; }
 
         /// <summary>
         /// Gets the font from the FontStore, with the name passed to FontFamily constructor and assigns it to the TextWidget.
@@ -37,7 +37,7 @@ namespace WForest.Props.Text
         /// <exception cref="IncompatibleWidgetException"></exception>
         public void ApplyOn(IWidget widget)
         {
-            ApplicationDone = false;
+            IsApplied = false;
 
             var tail = widget.Skip(1).OfType<Widgets.BuiltIn.Text>().ToList();
             if (widget is Widgets.BuiltIn.Text text) text.Font = FontStore.GetFont(_name);
@@ -53,7 +53,7 @@ namespace WForest.Props.Text
                 Log.Warning(
                     "FontFamily was applied to a widget that is not a Text nor has any Text in its sub-tree");
 
-            ApplicationDone = true;
+            IsApplied = true;
             OnApplied();
         }
 
