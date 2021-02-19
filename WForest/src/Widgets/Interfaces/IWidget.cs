@@ -54,16 +54,7 @@ namespace WForest.Widgets.Interfaces
         /// <returns>The added child.</returns>
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="ArgumentException"></exception>
-        IWidget AddChild(IWidget widget)
-        {
-            if (widget == null) throw new ArgumentNullException(nameof(widget));
-            if (widget == this) throw new ArgumentException("Widgets cannot add themselves as their own children");
-            WidgetSpaceHelper.UpdateSpace(widget,
-                new RectangleF(Space.X, Space.Y, widget.Space.Width, widget.Space.Height));
-            widget.Parent = this;
-            Children.Add(widget);
-            return widget;
-        }
+        IWidget AddChild(IWidget widget);
 
         /// <summary>
         /// Check if it's root by checking if Parent is null.
