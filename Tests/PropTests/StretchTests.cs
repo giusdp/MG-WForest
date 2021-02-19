@@ -4,6 +4,7 @@ using WForest.Props.Grid;
 using WForest.Props.Grid.JustifyProps;
 using WForest.Props.Grid.StretchingProps;
 using WForest.Utilities;
+using WForest.Utilities.WidgetUtils;
 using WForest.Widgets.Interfaces;
 using static Tests.Utils.HelperMethods;
 
@@ -171,7 +172,7 @@ namespace Tests.PropTests
         }
 
         [Test]
-        public void HorizontalStretch_WithLeftRightMargin_ItJustWorks()
+        public void HorizontalStretch_ShouldNotStretchAllWidth_WhenThereIsLeftOrRightMargin()
         {
             // arrange 
             var container = WidgetFactory.Container(100, 100);
@@ -191,7 +192,7 @@ namespace Tests.PropTests
         }
 
         [Test]
-        public void VerticalStretch_WithTopBottomMargin_ItJustWorks()
+        public void VerticalStretch_ShouldNotStretchAllHeight_WhenThereISTopOrBottomMargin()
         {
             // arrange 
             var container = WidgetFactory.Container(100, 100);
@@ -211,7 +212,7 @@ namespace Tests.PropTests
         }
 
         [Test]
-        public void VerticalAndHorizontalStretch_WithMargins_ItWorks()
+        public void VerticalAndHorizontalStretch_ShouldNotStretchToMax_WhenThereIsMargin()
         {
             // arrange 
             var container = WidgetFactory.Container(100, 100);
@@ -233,7 +234,7 @@ namespace Tests.PropTests
         }
 
         [Test]
-        public void VerticalAndHorizontal_WithMarginsAndChildren_YepItWorks()
+        public void VerticalAndHorizontal_ShouldNotStretchTilMax_WhenThereAreMarginsAndSiblings()
         {
             _root!.Space = new RectangleF(0, 0, 380, 382);
             _root!.WithProp(new Row());
@@ -241,15 +242,71 @@ namespace Tests.PropTests
             IWidget c2 = WidgetFactory.Container(15, 82);
             _root!.AddChild(c1);
             _root!.AddChild(c2);
-            c1.WithProp(new VerticalStretch()).WithProp(PropFactory.Margin(0,0,10,20));
+            c1.WithProp(new VerticalStretch()).WithProp(PropFactory.Margin(0, 0, 10, 20));
             c1.WithProp(new HorizontalStretch());
             c2.WithProp(new VerticalStretch()).WithProp(PropFactory.Margin(10, 15, 0, 0));
             c2.WithProp(new HorizontalStretch());
 
             TreeVisitor.ApplyPropsOnTree(_root);
-            
+
             Assert.That(c1.Space, Is.EqualTo(new RectangleF(0, 10, 190, 352)));
             Assert.That(c2.Space, Is.EqualTo(new RectangleF(200, 0, 165, 382)));
+        }
+
+        [Test]
+        public void HorizontalStretch_ShouldBeReapplied_WhenParentSizeIsUpdated()
+        {
+            // arrange 
+            var container = WidgetFactory.Container(100, 100);
+            const int rootNewWidth = 200;
+            var (x, y, _, h) = _root!.Space;
+            container.WithProp(PropFactory.HorizontalStretch());
+            _root!.AddChild(container);
+
+            // act
+            TreeVisitor.ApplyPropsOnTree(_root);
+            WidgetSpaceHelper.UpdateSpace(_root, new RectangleF(x, y, rootNewWidth, h));
+
+            // assert
+            Assert.That(container.Space, Is.EqualTo(new RectangleF(0, 0, rootNewWidth, 100)));
+        }
+
+        [Test]
+        public void VerticalStretch_ShouldBeReapplied_WhenParentSizeIsUpdated()
+        {
+            // arrange 
+            var container = WidgetFactory.Container(100, 100);
+            const int rootNewHeight = 150;
+            var (x, y, w, _) = _root!.Space;
+            container.WithProp(PropFactory.VerticalStretch());
+            _root!.AddChild(container);
+
+            // act
+            TreeVisitor.ApplyPropsOnTree(_root);
+            WidgetSpaceHelper.UpdateSpace(_root, new RectangleF(x, y, w, rootNewHeight));
+
+            // assert
+            Assert.That(container.Space, Is.EqualTo(new RectangleF(0, 0, 100, rootNewHeight)));
+        }
+
+        [Test]
+        public void VerticalAndHorizontalStretch_ShouldBeReapplied_WhenParentSizeIsUpdated()
+        {
+            // arrange 
+            var container = WidgetFactory.Container(100, 100);
+            const int rootNewWidth = 200;
+            const int rootNewHeight = 150;
+            var (x, y, _, _) = _root!.Space;
+            container.WithProp(PropFactory.VerticalStretch());
+            container.WithProp(PropFactory.HorizontalStretch());
+            _root!.AddChild(container);
+
+            // act
+            TreeVisitor.ApplyPropsOnTree(_root);
+            WidgetSpaceHelper.UpdateSpace(_root, new RectangleF(x, y, rootNewWidth, rootNewHeight));
+
+            // assert
+            Assert.That(container.Space, Is.EqualTo(new RectangleF(0, 0, rootNewWidth, rootNewHeight)));
         }
     }
 }
