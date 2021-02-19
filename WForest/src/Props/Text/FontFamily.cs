@@ -40,7 +40,13 @@ namespace WForest.Props.Text
             IsApplied = false;
 
             var tail = widget.Skip(1).OfType<Widgets.BuiltIn.Text>().ToList();
-            if (widget is Widgets.BuiltIn.Text text) text.Font = FontStore.GetFont(_name);
+            var appliedToTexts = false;
+            if (widget is Widgets.BuiltIn.Text text)
+            {
+                text.Font = FontStore.GetFont(_name);
+                appliedToTexts = true;
+            }
+
             if (tail.Count > 0)
             {
                 foreach (var t in tail)
@@ -48,8 +54,11 @@ namespace WForest.Props.Text
                     var alreadyHasFontFamilyProp = t.Props.SafeGetByProp<FontFamily>().TryGetValue(out var l);
                     if (!alreadyHasFontFamilyProp || l.Count == 0) t.Font = FontStore.GetFont(_name);
                 }
+
+                appliedToTexts = true;
             }
-            else
+
+            if (!appliedToTexts)
                 Log.Warning(
                     "FontFamily was applied to a widget that is not a Text nor has any Text in its sub-tree");
 
