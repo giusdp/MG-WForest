@@ -13,6 +13,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Stretched widgets were not updated after resizing parent
 - Font props warning was always triggered when there were no children
 
+### Removed
+- Flex prop removed, rows and cols are now flexible by default when their size is smaller than their children sizes together
 ## [0.0.16]
 
 ### Added

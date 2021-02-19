@@ -1,8 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using WForest.Exceptions;
 using WForest.Props.Grid.Utils;
 using WForest.Props.Interfaces;
+using WForest.Utilities;
+using WForest.Utilities.WidgetUtils;
 using WForest.Widgets.Interfaces;
 
 namespace WForest.Props.Grid
@@ -36,11 +39,29 @@ namespace WForest.Props.Grid
             if (widget.Props.Contains<Row>())
                 throw new IncompatibleWidgetException("Cannot add Column prop if widget is already a Row");
             if (!widget.IsLeaf)
+            {
                 Columns = GridHelper.OrganizeWidgetsInColumns(widget);
+                UpdateSizeAfterBuildingColumns(widget);
+            }
+
             IsApplied = true;
             OnApplied();
         }
 
         private void OnApplied() => Applied?.Invoke(this, EventArgs.Empty);
+
+        private void UpdateSizeAfterBuildingColumns(IWidget widget)
+        {
+            var nw = Columns.Sum(r => r.Width);
+            var nh = Columns.Max(r => r.Height);
+            var widthChanged = widget.Space.Width < nw;
+            var heightChanged = widget.Space.Height < nh;
+
+            if (!widthChanged && !heightChanged) return;
+
+            nw = widthChanged ? nw : widget.Space.Width;
+            nh = heightChanged ? nh : widget.Space.Height;
+            WidgetSpaceHelper.UpdateSpace(widget, new RectangleF(widget.Space.X, widget.Space.Y, nw, nh));
+        }
     }
 }

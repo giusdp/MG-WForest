@@ -33,12 +33,6 @@ namespace WForest.Factories
         public static IProp Column() => new Column();
 
         /// <summary>
-        /// Creates a Flex property. Flex makes the space of the widget as small as possible. It increases based on the children space.
-        /// </summary>
-        /// <returns></returns>
-        public static IProp Flex() => new Flex();
-
-        /// <summary>
         /// Creates a HorizontalStretch property. HorizontalStretch makes the widget width as big as its parent's width.
         /// </summary>
         /// <returns></returns>

@@ -26,6 +26,19 @@ namespace Tests.PropTests
         }
 
         [Test]
+        public void ApplyOn_ShouldIncreaseRowSize_WhenRowIsSmallerThanChildren()
+        {
+            _root = WidgetFactory.Container();
+            _root.WithProp(_column);
+            _root.AddChild(WidgetFactory.Container(new RectangleF(0, 0, 120, 120)));
+
+            var expected = new RectangleF(0, 0, 120, 120);
+
+            TreeVisitor.ApplyPropsOnTree(_root);
+            Assert.That(_root.Space, Is.EqualTo(expected));
+        }
+
+        [Test]
         public void ApplyOn_OneWidget_PositionIsUnchanged()
         {
             var child = WidgetFactory.Container(new RectangleF(0, 0, 120, 120));
