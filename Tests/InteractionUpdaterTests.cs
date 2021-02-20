@@ -2,26 +2,27 @@ using NUnit.Framework;
 using WForest.Interactions;
 using WForest.Utilities;
 using WForest.Widgets;
+using WForest.Widgets.BuiltIn;
 
 namespace Tests
 {
     [TestFixture]
     public class InteractionUpdaterTests
     {
-        private InteractionUpdater _updater;
+        private DefaultInteractionUpdater _updater;
         private Widget _widget;
 
         public InteractionUpdaterTests()
         {
-            _updater = new InteractionUpdater();
-            _widget = new Widget(RectangleF.Empty);
+            _updater = new DefaultInteractionUpdater();
+            _widget = new Container(RectangleF.Empty);
         }
 
         [SetUp]
         public void BeforeEach()
         {
-            _updater = new InteractionUpdater();
-            _widget = new Widget(RectangleF.Empty);
+            _updater = new DefaultInteractionUpdater();
+            _widget = new Container(RectangleF.Empty);
         }
 
         #region Untouched Case

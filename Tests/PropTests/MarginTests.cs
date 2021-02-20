@@ -3,7 +3,7 @@ using NUnit.Framework;
 using WForest.Factories;
 using WForest.Props.Interfaces;
 using WForest.Utilities;
-using WForest.Widgets;
+using WForest.Widgets.BuiltIn;
 using WForest.Widgets.Interfaces;
 
 namespace Tests.PropTests
@@ -17,17 +17,17 @@ namespace Tests.PropTests
 
         public MarginPropertyTests()
         {
-            _root = new Widget(new RectangleF(0, 0, 1280, 720));
-            _widget = new Widget(new RectangleF(Vector2.Zero, new Vector2(120, 120)));
-            _secondWidget = new Widget(new RectangleF(Vector2.Zero, new Vector2(120, 120)));
+            _root = new Container(new RectangleF(0, 0, 1280, 720));
+            _widget = new Container(new RectangleF(Vector2.Zero, new Vector2(120, 120)));
+            _secondWidget = new Container(new RectangleF(Vector2.Zero, new Vector2(120, 120)));
         }
 
         [SetUp]
         public void BeforeEach()
         {
-            _root = new Widget(new RectangleF(0, 0, 1280, 720));
-            _widget = new Widget(new RectangleF(Vector2.Zero, new Vector2(120, 120)));
-            _secondWidget = new Widget(new RectangleF(Vector2.Zero, new Vector2(120, 120)));
+            _root = new Container(new RectangleF(0, 0, 1280, 720));
+            _widget = new Container(new RectangleF(Vector2.Zero, new Vector2(120, 120)));
+            _secondWidget = new Container(new RectangleF(Vector2.Zero, new Vector2(120, 120)));
             _root.AddChild(_widget);
             _root.AddChild(_secondWidget);
         }
@@ -209,11 +209,11 @@ namespace Tests.PropTests
 
             var margin = PropFactory.MarginLeft(10);
 
-            _root = new Widget(new RectangleF(0, 0, 1280, 720));
-            _root.AddChild(new Widget(new RectangleF(Vector2.Zero, new Vector2(1220, 120))));
+            _root = new Container(new RectangleF(0, 0, 1280, 720));
+            _root.AddChild(new Container(new RectangleF(Vector2.Zero, new Vector2(1220, 120))));
 
-            IWidget w2 = new Widget(new RectangleF(Vector2.Zero, new Vector2(220, 120)));
-            var w3 = new Widget(new RectangleF(Vector2.Zero, new Vector2(220, 120)));
+            IWidget w2 = new Container(new RectangleF(Vector2.Zero, new Vector2(220, 120)));
+            var w3 = new Container(new RectangleF(Vector2.Zero, new Vector2(220, 120)));
             _root.AddChild(w2);
             _root.AddChild(w3);
 
@@ -236,11 +236,11 @@ namespace Tests.PropTests
 
             var margin = PropFactory.Margin(10, 0, 10, 0);
 
-            _root = new Widget(new RectangleF(0, 0, 1280, 720));
-            _root.AddChild(new Widget(new RectangleF(Vector2.Zero, new Vector2(1220, 120))));
+            _root = new Container(new RectangleF(0, 0, 1280, 720));
+            _root.AddChild(new Container(new RectangleF(Vector2.Zero, new Vector2(1220, 120))));
 
-            IWidget w2 = new Widget(new RectangleF(Vector2.Zero, new Vector2(220, 120)));
-            var w3 = new Widget(new RectangleF(Vector2.Zero, new Vector2(220, 120)));
+            IWidget w2 = new Container(new RectangleF(Vector2.Zero, new Vector2(220, 120)));
+            var w3 = new Container(new RectangleF(Vector2.Zero, new Vector2(220, 120)));
             _root.AddChild(w2);
             _root.AddChild(w3);
 
@@ -261,16 +261,16 @@ namespace Tests.PropTests
             var w2Expected = new RectangleF(255, 0, 1000, 120);
             var w3Expected = new RectangleF(25, 130, 220, 120);
 
-            _root = new Widget(new RectangleF(0, 0, 1280, 720));
-            IWidget w1 = new Widget(new RectangleF(Vector2.Zero, new Vector2(220, 120)));
+            _root = new Container(new RectangleF(0, 0, 1280, 720));
+            IWidget w1 = new Container(new RectangleF(Vector2.Zero, new Vector2(220, 120)));
             _root.AddChild(w1);
 
             ((IApplicableProp) PropFactory.Margin(0, 10, 0, 10)).ApplyOn(w1);
 
-            IWidget w2 = new Widget(new RectangleF(Vector2.Zero, new Vector2(1000, 120)));
+            IWidget w2 = new Container(new RectangleF(Vector2.Zero, new Vector2(1000, 120)));
             _root.AddChild(w2);
 
-            IWidget w3 = new Widget(new RectangleF(Vector2.Zero, new Vector2(220, 120)));
+            IWidget w3 = new Container(new RectangleF(Vector2.Zero, new Vector2(220, 120)));
             _root.AddChild(w3);
             _root.AddChild(WidgetFactory.Container(new RectangleF(Vector2.Zero, new Vector2(220, 120))));
 

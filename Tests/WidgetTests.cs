@@ -3,7 +3,7 @@ using NUnit.Framework;
 using WForest.Factories;
 using WForest.Props.Interfaces;
 using WForest.Utilities;
-using WForest.Widgets;
+using WForest.Widgets.BuiltIn;
 using WForest.Widgets.Interfaces;
 
 namespace Tests
@@ -11,12 +11,12 @@ namespace Tests
     [TestFixture]
     public class WidgetTests
     {
-        private IWidget _widget = new Widget(RectangleF.Empty);
+        private IWidget _widget = new Container(RectangleF.Empty);
 
         [SetUp]
         public void BeforeEach()
         {
-            _widget = new Widget(RectangleF.Empty);
+            _widget = new Container(RectangleF.Empty);
         }
 
         [Test]
@@ -29,7 +29,7 @@ namespace Tests
         [Test]
         public void AddChild_ValidWidget_AddsToChildren()
         {
-            _widget.AddChild(new Widget(RectangleF.Empty));
+            _widget.AddChild(new Container(RectangleF.Empty));
             Assert.That(_widget.Children, Is.Not.Empty);
         }
 
@@ -42,7 +42,7 @@ namespace Tests
         [Test]
         public void AddChild_ValidWidget_ChildHasThisParent()
         {
-            var w = new Widget(RectangleF.Empty);
+            var w = new Container(RectangleF.Empty);
             _widget.AddChild(w);
             Assert.That(w.Parent, Is.EqualTo(_widget));
         }

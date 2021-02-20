@@ -5,7 +5,7 @@ using WForest.Devices;
 using WForest.Factories;
 using WForest.Interactions;
 using WForest.Utilities;
-using WForest.Widgets;
+using WForest.Widgets.BuiltIn;
 using WForest.Widgets.Interfaces;
 
 namespace Tests
@@ -17,22 +17,22 @@ namespace Tests
         private UserInteractionHandler _handler;
         private Mock<IDevice> _device;
 
-        private Mock<InteractionUpdater> _intRun;
+        private Mock<IInteractionUpdater> _intRun;
 
         public InteractionHandlerTests()
         {
-            _widgetTree = new Widget(new RectangleF(0, 0, 540, 260));
+            _widgetTree = new Container(new RectangleF(0, 0, 540, 260));
             _device = new Mock<IDevice>();
-            _intRun = new Mock<InteractionUpdater>();
+            _intRun = new Mock<IInteractionUpdater>();
             _handler = new UserInteractionHandler(_device.Object, _intRun.Object);
         }
 
         [SetUp]
         public void BeforeEach()
         {
-            _widgetTree = new Widget(new RectangleF(0, 0, 540, 260));
+            _widgetTree = new Container(new RectangleF(0, 0, 540, 260));
             _device = new Mock<IDevice>();
-            _intRun = new Mock<InteractionUpdater>();
+            _intRun = new Mock<IInteractionUpdater>();
             _handler = new UserInteractionHandler(_device.Object, _intRun.Object);
         }
 
@@ -54,7 +54,7 @@ namespace Tests
         [Test]
         public void GetHoveredWidget_HoverChildInWidget_ReturnsChild()
         {
-            var child = new Widget(new RectangleF(0, 0, 50, 60));
+            var child = new Container(new RectangleF(0, 0, 50, 60));
             _widgetTree.AddChild(child);
             var hovered = UserInteractionHandler.GetHoveredWidget(_widgetTree, new Vector2(32, 8));
             var b = hovered.TryGetValue(out var value);
@@ -87,11 +87,6 @@ namespace Tests
             _handler.UpdateAndGenerateTransitions(_widgetTree);
             _intRun.Verify(r => r.NextState(_widgetTree, Interaction.Entered), Times.Once);
         }
-
-//         var watch = System.Diagnostics.Stopwatch.StartNew();
-// // the code that you want to measure comes here
-// watch.Stop();
-// var elapsedMs = watch.ElapsedMilliseconds;
 
         [Test]
         public void EnterAnotherWidget_WithOldWidgetEntered_RunsExitOnOld()
@@ -204,7 +199,7 @@ namespace Tests
             // Press the interaction button
             _device.Setup(device => device.IsPressed()).Returns(true);
             _handler.Device = _device.Object;
-            _handler.Updater = new InteractionUpdater();
+            _handler.Updater = new DefaultInteractionUpdater();
 
             // Press widget
             _handler.UpdateAndGenerateTransitions(_widgetTree);
@@ -225,7 +220,7 @@ namespace Tests
             // Press the interaction button
             _device.Setup(device => device.IsPressed()).Returns(true);
             _handler.Device = _device.Object;
-            _handler.Updater = new InteractionUpdater();
+            _handler.Updater = new DefaultInteractionUpdater();
             // Press widget
             _handler.UpdateAndGenerateTransitions(_widgetTree);
 
@@ -245,7 +240,7 @@ namespace Tests
             // Press the interaction button
             _device.Setup(device => device.IsPressed()).Returns(true);
             _handler.Device = _device.Object;
-            _handler.Updater = new InteractionUpdater();
+            _handler.Updater = new DefaultInteractionUpdater();
             // Press widget
             _handler.UpdateAndGenerateTransitions(_widgetTree);
 
@@ -264,7 +259,7 @@ namespace Tests
 
             _device.Setup(device => device.IsPressed()).Returns(true);
             _handler.Device = _device.Object;
-            _handler.Updater = new InteractionUpdater();
+            _handler.Updater = new DefaultInteractionUpdater();
 
             // Press firstPressed
             _handler.UpdateAndGenerateTransitions(_widgetTree);

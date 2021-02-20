@@ -13,7 +13,7 @@ namespace WForest.Widgets
     /// <summary>
     /// Concrete base class for the IWidget interface.
     /// </summary>
-    public class Widget : IWidget
+    public abstract class Widget : IWidget
     {
         ///<inheritdoc/> 
         public Interaction CurrentInteraction { get; set; }

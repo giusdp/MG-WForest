@@ -10,12 +10,13 @@ namespace WForest.Interactions
     public class UserInteractionHandler
     {
         public IDevice Device { get; set; }
-        public InteractionUpdater Updater { get; set; }
+        internal IInteractionUpdater Updater { get; set; }
 
         private WidgetIntHolder _holder;
         private bool _wasPressed;
 
-        public UserInteractionHandler(IDevice device, InteractionUpdater updater)
+        public UserInteractionHandler(IDevice device): this(device, new DefaultInteractionUpdater()){}
+        public UserInteractionHandler(IDevice device, IInteractionUpdater updater)
         {
             Device = device;
             Updater = updater;

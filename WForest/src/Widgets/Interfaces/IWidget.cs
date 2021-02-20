@@ -2,11 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using WForest.Interactions;
 using WForest.Props.Interfaces;
-using WForest.Utilities;
-using WForest.Utilities.WidgetUtils;
 
 namespace WForest.Widgets.Interfaces
 {
@@ -14,19 +10,8 @@ namespace WForest.Widgets.Interfaces
     /// Base interface for Widgets. It contains the main functionality for having trees of widgets
     /// and implements the functionalities to use props and to draw. 
     /// </summary>
-    public interface IWidget : IEnumerable<IWidget>, IDrawable, IPropHolder
+    public interface IWidget : IEnumerable<IWidget>, IDrawable, IPropHolder, IInteractive
     {
-        /// <summary>
-        /// The current interaction of this widget with the input device.
-        /// It can be:
-        /// - Untouched
-        /// - Entered
-        /// - Exited
-        /// - Pressed
-        /// - Released
-        /// </summary>
-        public Interaction CurrentInteraction { get; set; }
-
         internal void ApplyProps()
         {
             foreach (var prop in Props.OfType<IApplicableProp>().OrderBy(p => p.Priority))

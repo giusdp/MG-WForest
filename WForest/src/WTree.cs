@@ -14,11 +14,21 @@ namespace WForest
         public readonly IWidget Root;
         private readonly UserInteractionHandler _userInteractionHandler;
 
-        internal WTree(IWidget widgetRoot, IDevice device)
+        public WTree(IWidget widgetRoot, UserInteractionHandler interactionHandler)
         {
-            _userInteractionHandler = new UserInteractionHandler(device, new InteractionUpdater());
+            _userInteractionHandler = interactionHandler;
             Root = widgetRoot;
             TreeVisitor.ApplyPropsOnTree(Root);
+        }
+
+        public WTree(IWidget widgetRoot, IDevice device, IInteractionUpdater interactionUpdater) :
+            this(widgetRoot, new UserInteractionHandler(device, interactionUpdater))
+        {
+        }
+
+        public WTree(IWidget widgetRoot, IDevice device) : this(widgetRoot,
+            new UserInteractionHandler(device, new DefaultInteractionUpdater()))
+        {
         }
 
         /// <summary>

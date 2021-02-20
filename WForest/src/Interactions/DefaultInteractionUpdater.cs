@@ -8,9 +8,9 @@ using WForest.Widgets.Interfaces;
 
 namespace WForest.Interactions
 {
-    public class InteractionUpdater
+    public class DefaultInteractionUpdater : IInteractionUpdater
     {
-        public virtual IEnumerable<ICommandProp> NextState(IWidget interactedObj, Interaction interaction)
+        public IEnumerable<ICommandProp> NextState(IWidget interactedObj, Interaction interaction)
         {
             var (nextInteraction, transitionInteraction) = GetNextAndTransitionInteraction(interactedObj, interaction);
             interactedObj.CurrentInteraction = nextInteraction;
@@ -77,40 +77,5 @@ namespace WForest.Interactions
                 _ => new List<ICommandProp>()
             };
         }
-
-        //
-        // private void PressOrExit(Interaction interaction)
-        // {
-        //     switch (interaction)
-        //     {
-        //         case Interaction.Exited:
-        //             ExecAndUpdateCurrent(OnExit, Interaction.Untouched);
-        //             break;
-        //         case Interaction.Pressed:
-        //             ExecAndUpdateCurrent(OnPress, interaction);
-        //             break;
-        //     }
-        // }
-        //
-        // private void ReleasedOrExited(Interaction interaction)
-        // {
-        //     switch (interaction)
-        //     {
-        //         case Interaction.Released:
-        //             ExecAndUpdateCurrent(OnRelease, Interaction.Entered);
-        //             break;
-        //         case Interaction.Exited:
-        //             ExecAndUpdateCurrent(OnExit, Interaction.Untouched);
-        //             break;
-        //     }
-        // }
-        //
-        // private void ExecAndUpdateCurrent(List<Action> actions, Interaction i)
-        // {
-        //     Exec(actions);
-        //     CurrentInteraction = i;
-        // }
-        //
-        // #endregion
     }
 }

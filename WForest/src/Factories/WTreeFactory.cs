@@ -1,5 +1,6 @@
 using System;
 using WForest.Devices;
+using WForest.Interactions;
 using WForest.Widgets.Interfaces;
 
 namespace WForest.Factories
@@ -12,8 +13,8 @@ namespace WForest.Factories
     {
         /// <summary>
         /// Creates a <see cref="WTree"/> that covers the area defined by the space of the root widget and handles
-        /// resizing, updating and drawing the widget tree. By default it's given a MouseDevice.Instance to check for
-        /// interactions with the widgets.
+        /// resizing, updating and drawing the widget tree. It uses a DefaultInteractionUpdater with a build-in
+        /// MouseDevice to check for interactions with the widgets.
         /// </summary>
         /// <param name="wTree"></param>
         /// <returns></returns>
@@ -21,7 +22,7 @@ namespace WForest.Factories
         public static WTree CreateWTree(IWidget wTree)
         {
             if (wTree == null) throw new ArgumentNullException(nameof(wTree));
-            return new WTree(wTree, MouseDevice.Instance);
+            return new WTree(wTree, new UserInteractionHandler(MouseDevice.Instance, new DefaultInteractionUpdater()));
         }
 
         /// <summary>
@@ -35,7 +36,9 @@ namespace WForest.Factories
         public static WTree CreateWTree(IWidget wTree, IDevice device)
         {
             if (wTree == null) throw new ArgumentNullException(nameof(wTree));
-            return new WTree(wTree, device);
+            return new WTree(wTree, new UserInteractionHandler(device));
         }
+        
+        // public static WTree CreateWTree(IWidget wTree, IDevice device, )
     }
 }
