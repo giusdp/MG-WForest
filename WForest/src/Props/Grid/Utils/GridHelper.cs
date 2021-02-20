@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Serilog;
 using WForest.Utilities;
 using WForest.Utilities.WidgetUtils;
 using WForest.Widgets.Interfaces;
@@ -126,7 +125,7 @@ namespace WForest.Props.Grid.Utils
                 subList.Add(sl);
                 previousIndex = firstIndexOnList;
                 done = firstIndexOnList == -1;
-                if (!done) Log.Warning("Widget violated its size limit and was broken up in 2 or more parts");
+                if (!done) System.Diagnostics.Debug.WriteLine("Widget violated its size limit and was broken up in 2 or more parts", "WARNING");
             }
 
             return subList;

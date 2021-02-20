@@ -1,5 +1,4 @@
-﻿using Serilog;
-using WForest.Props.Actions;
+﻿using WForest.Props.Actions;
 using WForest.Rendering;
 using WForest.Rendering.Drawables;
 using WForest.Utilities;
@@ -58,7 +57,8 @@ namespace WForest.Widgets
 
             if (HoverTexture == null)
             {
-                Log.Warning("TouchableWidget: HoverButton drawable missing, fallback to NormalButton");
+                System.Diagnostics.Debug.WriteLine(
+                    "TouchableWidget: HoverButton drawable missing, fallback to NormalButton", "WARNING");
                 _objToDraw = NormalTexture!;
             }
             else
@@ -83,7 +83,8 @@ namespace WForest.Widgets
 
             if (PressTexture == null)
             {
-                Log.Warning("TouchableWidget: PressedButton drawable missing, fallback to NormalButton");
+                System.Diagnostics.Debug.WriteLine(
+                    "WARNING: TouchableWidget: PressedButton drawable missing, fallback to NormalButton");
                 _objToDraw = NormalTexture!;
             }
             else _objToDraw = PressTexture;

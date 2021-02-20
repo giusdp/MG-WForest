@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Serilog;
 using WForest.Exceptions;
 
 namespace WForest.Utilities.Text
@@ -27,7 +26,7 @@ namespace WForest.Utilities.Text
             set
             {
                 _defaultFont = value;
-                Log.Information("FontStore Default Font has been set");
+                System.Diagnostics.Debug.WriteLine("FontStore Default Font has been set", "INFO");
             }
         }
 
@@ -42,7 +41,7 @@ namespace WForest.Utilities.Text
         {
             CheckIfInit();
             Fonts.Add(name, font);
-            Log.Information("New font registered in the Font Store");
+            System.Diagnostics.Debug.WriteLine("INFO: New font registered in the Font Store");
         }
 
         /// <summary>
@@ -59,8 +58,8 @@ namespace WForest.Utilities.Text
                 return font;
             }
 
-            Log.Error(
-                $"Could not retrieve font {name}, it was not found in the FontStore. Have you added it with the RegisterFont method?");
+            System.Diagnostics.Debug.WriteLine(
+                $"ERROR: Could not retrieve font {name}, it was not found in the FontStore. Have you added it with the RegisterFont method?");
             throw new FontNotFoundException($"The font {name} was not found. Did you register it?");
         }
 

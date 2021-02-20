@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
-using Serilog;
 using WForest.Exceptions;
 using WForest.Props.Grid.Utils;
 using WForest.Props.Interfaces;
@@ -52,9 +51,9 @@ namespace WForest.Props.Grid.JustifyProps
                         colsAtEnd(cols);
                     else
                     {
-                        Log.Error(
-                            "JustifyEnd can only be applied to a Row or Column Widget! Make sure this {W} has a Row or Column Prop",
-                            widget.ToString());
+                        System.Diagnostics.Debug.WriteLine(
+                            $"JustifyEnd can only be applied to a Row or Column Widget! Make sure this {widget} has a Row or Column Prop",
+                            "ERROR");
                         throw new IncompatibleWidgetException(
                             "Tried to apply JustifyEnd to a widget without a Row or Column Prop");
                     }

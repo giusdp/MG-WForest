@@ -1,6 +1,5 @@
 using System;
 using System.Linq;
-using Serilog;
 using WForest.Exceptions;
 using WForest.Props.Interfaces;
 using WForest.Utilities.Text;
@@ -59,8 +58,8 @@ namespace WForest.Props.Text
             }
 
             if (!appliedToTexts)
-                Log.Warning(
-                    "FontFamily was applied to a widget that is not a Text nor has any Text in its sub-tree");
+                System.Diagnostics.Debug.WriteLine(
+                    "FontFamily was applied to a widget that is not a Text nor has any Text in its sub-tree", "WARNING");
 
             IsApplied = true;
             OnApplied();

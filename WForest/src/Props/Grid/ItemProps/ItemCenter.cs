@@ -1,5 +1,4 @@
 using System;
-using Serilog;
 using WForest.Exceptions;
 using WForest.Props.Grid.Utils;
 using WForest.Props.Interfaces;
@@ -21,8 +20,10 @@ namespace WForest.Props.Grid.ItemProps
 
         /// <inherit/>
         public event EventHandler? Applied;
-/// <inheritdoc/>
+
+        /// <inheritdoc/>
         public bool IsApplied { get; set; }
+
         /// <summary>
         /// Move the widgets to the vertical center of a Row or to the horizontal center of a Column.
         /// </summary>
@@ -40,9 +41,9 @@ namespace WForest.Props.Grid.ItemProps
                         CenterHelper.ItemCenterHorizontal(widget, cols);
                     else
                     {
-                        Log.Error(
-                            "ItemCenter can only be applied to a Row or Column Widget! Make sure this {W} has a Row or Column Prop",
-                            widget.ToString());
+                        System.Diagnostics.Debug.WriteLine(
+                            $"ItemCenter can only be applied to a Row or Column Widget! Make sure this {widget} has a Row or Column Prop",
+                            "ERROR");
                         throw new IncompatibleWidgetException(
                             "Tried to apply ItemCenter to a widget without a Row or Column Prop");
                     }

@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
-using Serilog;
 using WForest.Exceptions;
 using WForest.Props.Grid.Utils;
 using WForest.Props.Interfaces;
@@ -53,9 +52,9 @@ namespace WForest.Props.Grid.ItemProps
                         colsAtBase(cols);
                     else
                     {
-                        Log.Error(
-                            "ItemBase can only be applied to a Row or Column Widget! Make sure this {W} has a Row or Column Prop",
-                            widget.ToString());
+                        System.Diagnostics.Debug.WriteLine(
+                            $"ItemBase can only be applied to a Row or Column Widget! Make sure this {widget.ToString()} has a Row or Column Prop",
+                            "ERROR");
                         throw new IncompatibleWidgetException(
                             "Tried to apply ItemBase to a widget without a Row or Column Prop");
                     }

@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
-using Serilog;
 using WForest.Exceptions;
 using WForest.Props.Grid.Utils;
 using WForest.Props.Interfaces;
@@ -48,9 +47,9 @@ namespace WForest.Props.Grid.JustifyProps
                         SpaceBetweenVertically(widget, cols);
                     else
                     {
-                        Log.Error(
-                            "JustifyBetween can only be applied to a Row or Column Widget! Make sure this {W} has a Row or Column Prop",
-                            widget.ToString());
+                        System.Diagnostics.Debug.WriteLine(
+                            $"JustifyBetween can only be applied to a Row or Column Widget! Make sure this {widget} has a Row or Column Prop",
+                            "ERROR");
                         throw new IncompatibleWidgetException(
                             "Tried to apply JustifyBetween to a widget without a Row or Column Prop");
                     }

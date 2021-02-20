@@ -1,4 +1,3 @@
-using Serilog;
 using WForest.Devices;
 using WForest.Interactions;
 using WForest.Rendering;
@@ -20,12 +19,6 @@ namespace WForest
             _userInteractionHandler = new UserInteractionHandler(device, new InteractionUpdater());
             Root = widgetRoot;
             TreeVisitor.ApplyPropsOnTree(Root);
-
-            TreeVisitor.ResetApplicationDoneFlags(Root);
-            Log.Information(
-                "Created new WTreeManager with root starting at ({X},{Y}) for ({W},{H}) of space",
-                Root.Space.X, Root.Space.Y, Root.Space.Width, Root.Space.Height
-            );
         }
 
         /// <summary>

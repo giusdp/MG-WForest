@@ -15,6 +15,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Removed
 - Flex prop removed, rows and cols are now flexible by default when their size is smaller than their children sizes together
+- Serilog dependency, replaced logs with System.Diagnostic.Debug
+
 ## [0.0.16]
 
 ### Added

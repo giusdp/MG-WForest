@@ -1,7 +1,6 @@
 using System;
 using System.IO;
 using Microsoft.Xna.Framework.Graphics;
-using Serilog;
 
 namespace WForest.Utilities.Collections
 {
@@ -24,7 +23,7 @@ namespace WForest.Utilities.Collections
         internal static byte[] ReadShaderFromFile(string effectName)
         {
             var path = Path.Combine(Directory.GetCurrentDirectory(), $@"Content/Shaders/{effectName}.fx");
-            Log.Debug($"Reading shader {effectName} at location {path}");
+            System.Diagnostics.Debug.WriteLine($"Reading shader {effectName} at location {path}", "INFO");
             if (!File.Exists(path)) throw new FileNotFoundException($"Shader {effectName} not found.");
             return File.ReadAllBytes(path);
         }

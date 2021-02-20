@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Serilog;
 using WForest.Props.Grid.StretchingProps;
 using WForest.Props.Interfaces;
 using WForest.Utilities;
@@ -22,7 +21,7 @@ namespace WForest.Props.Grid.Utils
         internal static void ApplyIfThereAreChildren(IWidget wt, string noApplyMsq, Action logic)
         {
             if (wt.Children.Count == 0)
-                Log.Warning("{WarnMessage}", noApplyMsq);
+                System.Diagnostics.Debug.WriteLine($"{noApplyMsq}", "WARNING");
             else
                 logic();
         }
