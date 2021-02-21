@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
-using WForest.Props.Grid.StretchingProps;
 using WForest.Props.Interfaces;
+using WForest.Props.Props.Grid.StretchingProps;
 using WForest.Widgets.Interfaces;
 
 namespace WForest.Utilities.WidgetUtils
@@ -37,13 +37,13 @@ namespace WForest.Utilities.WidgetUtils
             foreach (var c in widget.Children)
             {
                 var l = new List<IApplicableProp>();
-                var hb = c.Props.SafeGetByProp<HorizontalStretch>().TryGetValue(out var hl);
+                var hb = c.Props.SafeGet<HorizontalStretch>().TryGetValue(out var hl);
                 if (hb)
-                    l.AddRange(hl.Cast<IApplicableProp>());
+                    l.AddRange(hl);
 
-                var vb = c.Props.SafeGetByProp<VerticalStretch>().TryGetValue(out var vl);
+                var vb = c.Props.SafeGet<VerticalStretch>().TryGetValue(out var vl);
                 if (vb)
-                    l.AddRange(vl.Cast<IApplicableProp>());
+                    l.AddRange(vl);
 
                 childWithStretch.Add((c, l));
             }

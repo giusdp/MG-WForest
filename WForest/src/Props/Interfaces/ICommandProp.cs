@@ -15,6 +15,6 @@ namespace WForest.Props.Interfaces
         /// <summary>
         /// Execute the command.
         /// </summary>
-        void Execute() => Action();
+        void Execute();
     }
 }

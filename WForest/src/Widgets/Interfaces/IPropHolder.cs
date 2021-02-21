@@ -1,5 +1,5 @@
+using WForest.Props.Collections;
 using WForest.Props.Interfaces;
-using WForest.Utilities.Collections;
 
 namespace WForest.Widgets.Interfaces
 {
@@ -11,7 +11,7 @@ namespace WForest.Widgets.Interfaces
         /// <summary>
         /// Dictionary of props.
         /// </summary>
-        PropCollection Props { get; }
+        IPropCollection Props { get; }
 
         /// <summary>
         /// Add a prop to the holder and return the updated holder so this method can be chained.
@@ -20,7 +20,7 @@ namespace WForest.Widgets.Interfaces
         /// <returns></returns>
         IPropHolder WithProp(IProp prop)
         {
-            Props.AddProp(prop);
+            Props.Add(prop);
             return this;
         }
     }

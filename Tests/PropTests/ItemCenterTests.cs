@@ -1,9 +1,9 @@
 using NUnit.Framework;
 using WForest.Factories;
-using WForest.Props.Grid;
-using WForest.Props.Grid.ItemProps;
-using WForest.Props.Grid.JustifyProps;
 using WForest.Props.Interfaces;
+using WForest.Props.Props.Grid;
+using WForest.Props.Props.Grid.ItemProps;
+using WForest.Props.Props.Grid.JustifyProps;
 using WForest.Utilities;
 using WForest.Widgets.Interfaces;
 

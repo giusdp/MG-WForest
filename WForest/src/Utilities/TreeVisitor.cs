@@ -2,8 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using WForest.Props.Actions;
 using WForest.Props.Interfaces;
+using WForest.Props.Props.Actions;
 using WForest.Widgets.Interfaces;
 
 namespace WForest.Utilities
@@ -26,11 +26,11 @@ namespace WForest.Utilities
         {
             foreach (var w in widget)
             {
-                var maybe = w.Props.SafeGetByProp<OnUpdate>();
+                var maybe = w.Props.SafeGet<OnUpdate>();
                 switch (maybe)
                 {
-                    case Maybe<List<IProp>>.Some s:
-                        foreach (var command in s.Value.Cast<ICommandProp>()) command.Execute();
+                    case Maybe<IEnumerable<OnUpdate>>.Some s:
+                        foreach (var command in s.Value) command.Execute();
                         break;
                     default:
                         continue;

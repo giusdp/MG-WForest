@@ -2,14 +2,15 @@ using System;
 using Microsoft.Xna.Framework;
 using WForest.Devices;
 using WForest.Props;
-using WForest.Props.Actions;
-using WForest.Props.Dragging;
-using WForest.Props.Grid;
-using WForest.Props.Grid.ItemProps;
-using WForest.Props.Grid.JustifyProps;
-using WForest.Props.Grid.StretchingProps;
 using WForest.Props.Interfaces;
-using WForest.Props.Text;
+using WForest.Props.Props;
+using WForest.Props.Props.Actions;
+using WForest.Props.Props.Dragging;
+using WForest.Props.Props.Grid;
+using WForest.Props.Props.Grid.ItemProps;
+using WForest.Props.Props.Grid.JustifyProps;
+using WForest.Props.Props.Grid.StretchingProps;
+using WForest.Props.Props.Text;
 
 namespace WForest.Factories
 {

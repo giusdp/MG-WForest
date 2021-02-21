@@ -1,9 +1,8 @@
 using System.Collections.Generic;
-using System.Linq;
-using WForest.Props.Actions;
+using WForest.Props.Collections;
 using WForest.Props.Interfaces;
+using WForest.Props.Props.Actions;
 using WForest.Utilities;
-using WForest.Utilities.Collections;
 using WForest.Widgets.Interfaces;
 
 namespace WForest.Interactions
@@ -61,19 +60,19 @@ namespace WForest.Interactions
         }
 
 
-        private static IEnumerable<ICommandProp> GetPropsOfInteraction(PropCollection props, Interaction interaction)
+        private static IEnumerable<ICommandProp> GetPropsOfInteraction(IPropCollection props, Interaction interaction)
         {
-            var maybeProps = interaction switch
+            Maybe<IEnumerable<ICommandProp>> maybeProps = interaction switch
             {
-                Interaction.Entered => props.SafeGetByProp<OnEnter>(),
-                Interaction.Exited => props.SafeGetByProp<OnExit>(),
-                Interaction.Pressed => props.SafeGetByProp<OnPress>(),
-                Interaction.Released => props.SafeGetByProp<OnRelease>(),
+                Interaction.Entered => props.SafeGet<OnEnter>().Bind(Maybe.Some<IEnumerable<ICommandProp>>),
+                Interaction.Exited => props.SafeGet<OnExit>().Bind(Maybe.Some<IEnumerable<ICommandProp>>),
+                Interaction.Pressed => props.SafeGet<OnPress>().Bind(Maybe.Some<IEnumerable<ICommandProp>>),
+                Interaction.Released => props.SafeGet<OnRelease>().Bind(Maybe.Some<IEnumerable<ICommandProp>>),
                 _ => Maybe.None
             };
             return maybeProps switch
             {
-                Maybe<List<IProp>>.Some l => l.Value.Cast<ICommandProp>(),
+                Maybe<IEnumerable<ICommandProp>>.Some l => l.Value,
                 _ => new List<ICommandProp>()
             };
         }

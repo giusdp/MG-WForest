@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 using Moq;
 using NUnit.Framework;
 using WForest.Factories;
-using WForest.Props.Text;
+using WForest.Props.Props.Text;
 using WForest.Utilities;
 using WForest.Utilities.Text;
 using WForest.Widgets.BuiltIn;

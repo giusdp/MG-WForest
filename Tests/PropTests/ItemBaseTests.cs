@@ -1,7 +1,7 @@
 using NUnit.Framework;
 using WForest.Exceptions;
 using WForest.Factories;
-using WForest.Props.Grid.ItemProps;
+using WForest.Props.Props.Grid.ItemProps;
 using WForest.Utilities;
 using WForest.Widgets.Interfaces;
 

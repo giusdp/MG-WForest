@@ -2,7 +2,7 @@ using Microsoft.Xna.Framework;
 using Moq;
 using NUnit.Framework;
 using WForest.Factories;
-using WForest.Props.Text;
+using WForest.Props.Props.Text;
 using WForest.Utilities;
 using WForest.Utilities.Text;
 using WForest.Widgets.BuiltIn;
@@ -16,16 +16,15 @@ namespace Tests.PropTests.TextPropsTests
         public void Before()
         {
             FontStore.DefaultFont = new Mock<Font>(null).Object;
-            FontStore.RegisterFont("ff", new Mock<Font>(null).Object);
         }
 
         [Test]
         public void ApplyOn_TextWidget_ChangesSizeOfFont()
         {
             var anotherFont = new Mock<Font>(null).Object;
-            FontStore.RegisterFont("ff1", anotherFont);
+            FontStore.RegisterFont("ff", anotherFont);
 
-            var font = new FontFamily("ff1");
+            var font = new FontFamily("ff");
             var testWidget = (Text) WidgetFactory.Text("Test string");
 
             font.ApplyOn(testWidget);
@@ -68,7 +67,7 @@ namespace Tests.PropTests.TextPropsTests
         }
 
         [Test]
-        public void ApplyOn_WidgetWithTextChildren_DoesNotOverrideTextChildWithFontFamilyProp()
+        public void ApplyOn_ShouldNotOverrideTextChildWithOwnFontFamily_WhenWidgetHasTextChildren()
         {
             // arrange
             var root = WidgetFactory.Container();

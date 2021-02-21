@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using WForest.Interactions;
+using WForest.Props.Collections;
 using WForest.Rendering;
 using WForest.Utilities;
-using WForest.Utilities.Collections;
 using WForest.Utilities.WidgetUtils;
 using WForest.Widgets.Interfaces;
 
@@ -19,7 +19,7 @@ namespace WForest.Widgets
         public Interaction CurrentInteraction { get; set; }
 
         ///<inheritdoc/> 
-        public PropCollection Props { get; }
+        public IPropCollection Props { get; }
 
         /// <summary>
         /// Creates a Widget without a parent. The widget will be a root of a new tree.

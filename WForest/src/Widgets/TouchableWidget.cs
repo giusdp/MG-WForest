@@ -1,4 +1,4 @@
-﻿using WForest.Props.Actions;
+﻿using WForest.Props.Props.Actions;
 using WForest.Rendering;
 using WForest.Rendering.Drawables;
 using WForest.Utilities;
@@ -26,10 +26,10 @@ namespace WForest.Widgets
             HoverTexture = hover;
             PressTexture = press;
 
-            Props.AddProp(new OnEnter(StartedHovering));
-            Props.AddProp(new OnExit(StoppedHovering));
-            Props.AddProp(new OnPress(PressedDown));
-            Props.AddProp(new OnRelease(Released));
+            Props.Add(new OnEnter(StartedHovering));
+            Props.Add(new OnExit(StoppedHovering));
+            Props.Add(new OnPress(PressedDown));
+            Props.Add(new OnRelease(Released));
         }
 
         protected TouchableWidget(Drawable normal, Drawable? hover = null, Drawable? press = null)

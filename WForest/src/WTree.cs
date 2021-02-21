@@ -7,7 +7,7 @@ using WForest.Widgets.Interfaces;
 namespace WForest
 {
     /// <summary>
-    /// Class to handle Widget Trees. It holds an IWidget on which it can update, resize and draw.
+    /// Class to handle Widget Trees. It holds an IWidget and it can update, resize and draw it.
     /// </summary>
     public class WTree
     {

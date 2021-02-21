@@ -5,9 +5,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [0.0.17]
 
+### Added
+- IInteractionUpdater interface to abstract over the interaction updater
+- IPropCollection to abstract over prop handling
+
 ### Changed
 - ApplicationDone flag renamed to IsApplied
 - Stretch props don't take children max width/height if the container is already bigger
+- Widgets deal with the IPropCollection instead of directly to a concrete class
 
 ### Fixed
 - Stretched widgets were not updated after resizing parent

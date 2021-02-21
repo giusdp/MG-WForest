@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using WForest.Interactions;
+using WForest.Props.Collections;
 using WForest.Props.Interfaces;
 using WForest.Rendering;
-using WForest.Utilities.Collections;
 using WForest.Widgets.Interfaces;
 
 namespace WForest.Utilities.WidgetUtils
@@ -43,7 +43,7 @@ namespace WForest.Utilities.WidgetUtils
         public ICollection<Action<IRenderer>> PostDrawActions => _widget.PostDrawActions;
 
         /// <inheritdoc/>
-        public PropCollection Props => _widget.Props;
+        public IPropCollection Props => _widget.Props;
 
         /// <inheritdoc/>
         public IPropHolder WithProp(IProp prop) => _widget.WithProp(prop);
